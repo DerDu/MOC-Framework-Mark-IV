@@ -1,4 +1,4 @@
 MOC-Framework-Mark-IV
 =====================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/33310b34-b44b-48db-bbf7-ba9c87f101e9/big.png)](https://insight.sensiolabs.com/projects/33310b34-b44b-48db-bbf7-ba9c87f101e9)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/708afcd6-5202-4d62-8a8b-99d68cae5d9b/big.png)](https://insight.sensiolabs.com/projects/708afcd6-5202-4d62-8a8b-99d68cae5d9b)
