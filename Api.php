@@ -2,10 +2,10 @@
 namespace MOC\IV;
 
 interface IApi {
-	public static function getCore();
-	public static function getModule();
-	public static function getExtension();
-	public static function getPlugin();
+	public static function useCore();
+	public static function useModule();
+	public static function useExtension();
+	public static function usePlugin();
 }
 
 class Api implements IApi {
@@ -29,22 +29,22 @@ class Api implements IApi {
 		spl_autoload_register( array(__CLASS__,'loadClass') );
 	}
 
-	public static function getCore(){
+	public static function useCore(){
 		self::registerLoader();
 		return new Api\Core();
 	}
 
-	public static function getModule(){
+	public static function useModule(){
 		self::registerLoader();
 		return new Api\Module();
 	}
 
-	public static function getExtension(){
+	public static function useExtension(){
 		self::registerLoader();
 		return new Api\Extension();
 	}
 
-	public static function getPlugin(){
+	public static function usePlugin(){
 		self::registerLoader();
 		return new Api\Plugin();
 	}

@@ -1,10 +1,16 @@
 <?php
 namespace MOC\IV\Api;
 
-interface ICore {
+use MOC\IV\Core\Session;
 
+interface ICore {
+	public function getSession();
 }
 
 class Core implements ICore {
+
+	public function getSession(){
+		return new Session();
+	}
 
 }
