@@ -27,6 +27,10 @@ class Api implements IApi {
 
 	private static function registerLoader() {
 		spl_autoload_register( array(__CLASS__,'loadClass') );
+
+		self::useCore()->useError()->doRegister( self::useCore()->useError()->getType()->useError() );
+		self::useCore()->useError()->doRegister( self::useCore()->useError()->getType()->useException() );
+		self::useCore()->useError()->doRegister( self::useCore()->useError()->getType()->useShutdown() );
 	}
 
 	public static function useCore(){
