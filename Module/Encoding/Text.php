@@ -2,23 +2,29 @@
 namespace MOC\IV\Module\Encoding;
 
 interface IText {
-	public function convertToLatin1( $Value );
-	public function convertToUtf8( $Value );
+	public function getTextConvertedToLatin1();
+	public function getTextConvertedToUtf8();
 }
 
 class Text implements IText {
 
-	public function convertToLatin1( $Value ) {
-		$this->buildDictionary();
-		foreach( (array)self::$DictionaryUtf8ToLatin1 as $Char => $Code ) {
-			$Value = str_replace( $Char, $Code, $Value );
-		}
-		return $Value;
+	private $Text = '';
+
+	function __construct( $Text ) {
+		$this->Text = $Text;
 	}
 
-	public function convertToUtf8( $Value ) {
+	public function getTextConvertedToLatin1() {
 		$this->buildDictionary();
-		return utf8_encode( $this->convertToLatin1( $Value ) );
+		foreach( (array)self::$DictionaryUtf8ToLatin1 as $Char => $Value ) {
+			$this->Text = str_replace( $Char, $Value, $this->Text );
+		}
+		return $this->Text;
+	}
+
+	public function getTextConvertedToUtf8() {
+		$this->buildDictionary();
+		return utf8_encode( $this->getTextConvertedToLatin1() );
 	}
 
 	private static $DictionaryLatin1ToUtf8 = null;
