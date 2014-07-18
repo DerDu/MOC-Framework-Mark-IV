@@ -26,7 +26,7 @@ class Api implements IApi {
 		spl_autoload_register( array(__CLASS__,'loadClass') );
 
 		if( function_exists( 'xdebug_disable' ) ) { xdebug_disable(); }
-		error_reporting(-1);
+		error_reporting(0);
 
 		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useError() );
 		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useException() );

@@ -4,6 +4,7 @@ namespace MOC\IV\Core\Error\Type\Template;
 abstract class Generic {
 
 	private $HtmlTemplate;
+	private $HtmlStyle;
 
 	private $Title = 'Error';
 	private $Message = '-NA-';
@@ -24,13 +25,22 @@ abstract class Generic {
 		$this->Information = $Information;
 
 		$this->HtmlTemplate =
-		'<div style="color: #F00; border: 1px dotted #F00; padding: 15px; margin-top: 1px; font-family: monospace; background-color: #FFEEAA;">'.
-		'<div style="margin: 5px; margin-left: 0;">{Title}</div>'.
-		'<div style="margin: 5px; margin-left: 0; font-size: 12px; font-weight: bold;">{Message}</div>'.
-		'<div style="margin: 5px;">{Trace}</div>'.
-		'<div style="margin: 5px; margin-left: 0;">Code {Code} in {File} at line {Line}</div>'.
-		'<div style="margin: 5px; margin-left: 0;">{Information}</div>'.
+		'<div class="MOC-Error-Reporting-Container" style="background-color: #FEA;">'.
+			'<div class="MOC-Error-Reporting-Element">{Title}</div>'.
+			'<div class="MOC-Error-Reporting-Element" style="font-weight: bold;">{Message}</div>'.
+			'<div class="MOC-Error-Reporting-Element">
+				<div class="MOC-Error-Reporting-Trace">{Trace}</div>
+			</div>'.
+			'<div class="MOC-Error-Reporting-Element">Code {Code} in {File} at line {Line}</div>'.
+			'<div class="MOC-Error-Reporting-Element">{Information}</div>'.
 		'</div>';
+
+		$this->HtmlStyle =
+		'<style type="text/css">'.
+		'.MOC-Error-Reporting-Container { color: #F00; border: 1px dotted #F00; margin: 1px; padding: 10px; font-family: monospace; }'.
+		'.MOC-Error-Reporting-Element { margin: 5px 0 5px 0; font-size: 10px; }'.
+		'.MOC-Error-Reporting-Trace { padding: 5px; font-size: 9px; border: 1px dotted #F00;" }'.
+		'</style>';
 	}
 
 	protected function setTemplate( $Html ) {
@@ -39,7 +49,7 @@ abstract class Generic {
 	}
 
 	private function getOutput() {
-		return str_replace(
+		return $this->HtmlStyle.str_replace(
 			array( '{Title}', '{Message}', '{Code}', '{File}', '{Line}', '{Trace}', '{Information}' ),
 			array( $this->Title, nl2br( $this->Message ), $this->Code, $this->File, $this->Line, nl2br( $this->Trace ), $this->Information ),
 			$this->HtmlTemplate

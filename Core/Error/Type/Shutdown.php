@@ -15,7 +15,10 @@ class Shutdown extends Generic {
 
 	public function handleType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
 		if( ( $Error = error_get_last() ) !== null ) {
-			print new Template\Shutdown( 'Shutdown', $Error['message'], $Error['type'], $Error['file'], $Error['line'], '', 'Fatal - Execution has been stopped!' );
+			if( empty( $Trace ) || strlen( $Trace ) < 10 ) {
+				$Trace = $this->generateCallTrace();
+			}
+			print new Template\Shutdown( 'Shutdown', $Error['message'], $Error['type'], $Error['file'], $Error['line'], $Trace, 'Fatal - Execution has been stopped!' );
 		}
 	}
 

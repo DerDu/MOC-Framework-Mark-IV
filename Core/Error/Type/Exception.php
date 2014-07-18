@@ -17,11 +17,9 @@ class Exception extends Generic {
 	}
 
 	public function handleType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
+		if( empty( $Trace ) || strlen( $Trace ) < 10 ) {
+			$Trace = $this->generateCallTrace();
+		}
 		print new Template\Exception( $Title, $Message, $Code, $File, $Line, $Trace, $Information );
 	}
-
-	public function triggerType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
-		throw new \Exception( $Message, $Code );
-	}
-
 }

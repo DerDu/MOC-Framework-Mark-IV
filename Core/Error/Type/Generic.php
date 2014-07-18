@@ -3,7 +3,6 @@ namespace MOC\IV\Core\Error\Type;
 
 interface IGeneric {
 	public function registerType();
-	public function triggerType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' );
 	public function handleType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' );
 }
 
@@ -16,22 +15,19 @@ abstract class Generic implements IGeneric {
 		print new Template\Error( $Title, $Message, $Code, $File, $Line, $Trace, $Information );
 	}
 
-	public function triggerType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
-		$this->handleType(  $Title, $Message, $Code, $File, $Line, $Trace, $Information );
-	}
-
-	private function generateCallTrace() {
+	protected function generateCallTrace() {
 
 		$Exception = new \Exception();
 		$Trace = explode("\n", $Exception->getTraceAsString());
 
-		array_shift( $Trace ); // remove call to this method
+//		array_shift( $Trace );
+//		array_shift( $Trace );
 		$Length = count( $Trace );
 		$Result = array();
 
 		for( $Run = 0; $Run < $Length; $Run++ ) {
-			$Result[] = '#'.$Run.' '.substr( $Trace[$Run], strpos($Trace[$Run], ' ') );
+			$Result[] = substr( $Trace[$Run], strpos($Trace[$Run], ' ') );
 		}
-		return "\t" . implode("\n\t", $Result);
+		return '<ul style="padding: 0; margin: 0;"><li style="padding: 5px;">'.implode( '</li><li style="padding: 5px; border-top: 1px dotted #F00;">', $Result) .'</li><ul>';
 	}
 }
