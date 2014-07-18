@@ -3,27 +3,20 @@ namespace MOC\IV\Core\Error\Type;
 
 class Shutdown extends Generic {
 
-	public function registerError(){
+	public function registerType(){
 
 		register_shutdown_function(
 			create_function('',
-				'\MOC\IV\Api::useCore()->getError()->getType()->useError()->handleError();'
+				'\MOC\IV\Api::useCore()->useError()->getType()->useShutdown()->handleType( "Shutdown", "","-1","","" );'
 			)
 		);
 
 	}
 
-	public function handleError( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
+	public function handleType( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
 		if( ( $Error = error_get_last() ) !== null ) {
-			parent::handleError( 'Shutdown', $Error['message'], $Error['type'], $Error['file'], $Error['line'], '', 'Fatal - Execution has been stopped!' );
-			exit( $Error['type'] );
+			print new Template\Shutdown( 'Shutdown', $Error['message'], $Error['type'], $Error['file'], $Error['line'], '', 'Fatal - Execution has been stopped!' );
 		}
 	}
 
-	public function triggerError( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
-		if( ( $Error = error_get_last() ) !== null ) {
-			parent::triggerError( 'Shutdown', $Error['message'], $Error['type'], $Error['file'], $Error['line'], '', '' );
-			exit( $Error['type'] );
-		}
-	}
 }

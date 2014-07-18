@@ -1,2 +1,4 @@
-/.idea
-/.project
+.idea/
+.git/
+.project
+Workbench.php

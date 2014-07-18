@@ -1,10 +1,8 @@
 <?php
 namespace MOC\IV\Core;
 
-use MOC\IV\Core\Error\Type\Generic;
-
 interface IError {
-	public function doRegister( Generic $Type );
+	public function registerType( Error\Type\Generic $Type );
 }
 
 class Error implements IError {
@@ -13,8 +11,8 @@ class Error implements IError {
 		return new Error\Type();
 	}
 
-	public function doRegister( Generic $Type ) {
-		$Type->registerError();
+	public function registerType( Error\Type\Generic $Type ) {
+		$Type->registerType();
 	}
 
 }

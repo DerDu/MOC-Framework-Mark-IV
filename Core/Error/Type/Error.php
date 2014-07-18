@@ -3,11 +3,12 @@ namespace MOC\IV\Core\Error\Type;
 
 class Error extends Generic {
 
-	public function registerError() {
+	public function registerType() {
 
 		set_error_handler(
 			create_function('$Code, $Message, $File, $Line',
-				'\MOC\IV\Api::useCore()->getError()->getType()->useError()->handleError( "Runtime", $Message, $Code, $File, $Line, "", "Unexpected - Execution has been continued!" );'
+				'\MOC\IV\Api::useCore()->useError()->getType()->useError()'.
+				'->handleType( "Runtime Error", $Message, $Code, $File, $Line, "", "Execution has been continued..." );'
 			)
 		);
 

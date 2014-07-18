@@ -11,12 +11,9 @@ interface IApi {
 class Api implements IApi {
 
 	private static function loadClass( $Class ) {
-		// Cut Root-Namespace
-		$Class = preg_replace( '!^'.__NAMESPACE__.'!', '', $Class );
-		// Correct & Trim DIRECTORY_SEPARATOR
-		$Class = preg_replace( '![\\\/]+!', DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
+		$Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
+		$Class = str_replace( array('\\','/'), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
 		if( false === ( $Class = realpath( $Class ) ) ) {
-			// File not found
 			return false;
 		} else {
 			/** @noinspection PhpIncludeInspection */
@@ -25,31 +22,32 @@ class Api implements IApi {
 		}
 	}
 
-	private static function registerLoader() {
+	public static function registerLoader() {
 		spl_autoload_register( array(__CLASS__,'loadClass') );
 
-		self::useCore()->useError()->doRegister( self::useCore()->useError()->getType()->useError() );
-		self::useCore()->useError()->doRegister( self::useCore()->useError()->getType()->useException() );
-		self::useCore()->useError()->doRegister( self::useCore()->useError()->getType()->useShutdown() );
+		if( function_exists( 'xdebug_disable' ) ) { xdebug_disable(); }
+		error_reporting(-1);
+
+		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useError() );
+		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useException() );
+		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useShutdown() );
 	}
 
 	public static function useCore(){
-		self::registerLoader();
 		return new Api\Core();
 	}
 
 	public static function useModule(){
-		self::registerLoader();
 		return new Api\Module();
 	}
 
 	public static function useExtension(){
-		self::registerLoader();
 		return new Api\Extension();
 	}
 
 	public static function usePlugin(){
-		self::registerLoader();
 		return new Api\Plugin();
 	}
 }
+
+Api::registerLoader();
