@@ -6,7 +6,7 @@ class Exception extends Generic {
 	function __construct( $Title, $Message, $Code, $File, $Line, $Trace, $Information ) {
 		parent::__construct( $Title, $Message, $Code, $File, $Line, $Trace, $Information );
 		$this->setTemplate(
-			'<div class="MOC-Error-Reporting-Container" style="background-color: #FD8;">'.
+			'<div class="MOC-Error-Reporting-Container" style="background-color: #FA8;">'.
 				'<div class="MOC-Error-Reporting-Element">{Title}</div>'.
 				'<div class="MOC-Error-Reporting-Element" style="font-weight: bold;">{Message}</div>'.
 				'<div class="MOC-Error-Reporting-Element">

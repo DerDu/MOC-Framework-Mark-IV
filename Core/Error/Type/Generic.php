@@ -20,8 +20,6 @@ abstract class Generic implements IGeneric {
 		$Exception = new \Exception();
 		$Trace = explode("\n", $Exception->getTraceAsString());
 
-//		array_shift( $Trace );
-//		array_shift( $Trace );
 		$Length = count( $Trace );
 		$Result = array();
 
