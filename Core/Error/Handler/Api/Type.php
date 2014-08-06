@@ -10,22 +10,22 @@ use MOC\IV\Core\Error\Handler\Source\Type\Shutdown;
  *
  * @package MOC\IV\Core\Error\Handler\Api
  */
-interface IType {
+interface ITypeInterface {
 
 	/**
 	 * @return Error
 	 */
-	public function Error();
+	public function createError();
 
 	/**
 	 * @return Exception
 	 */
-	public function Exception();
+	public function createException();
 
 	/**
 	 * @return Shutdown
 	 */
-	public function Shutdown();
+	public function createShutdown();
 }
 
 /**
@@ -33,12 +33,12 @@ interface IType {
  *
  * @package MOC\IV\Core\Error\Handler\Api
  */
-class Type implements IType {
+class Type implements ITypeInterface {
 
 	/**
 	 * @return Error
 	 */
-	public function Error() {
+	public function createError() {
 
 		return new Error();
 	}
@@ -46,7 +46,7 @@ class Type implements IType {
 	/**
 	 * @return Exception
 	 */
-	public function Exception() {
+	public function createException() {
 
 		return new Exception();
 	}
@@ -54,7 +54,7 @@ class Type implements IType {
 	/**
 	 * @return Shutdown
 	 */
-	public function Shutdown() {
+	public function createShutdown() {
 
 		return new Shutdown();
 	}

@@ -1,10 +1,10 @@
 <?php
 namespace MOC\IV\Core\Drive\File;
 
-interface IApi {
+interface IApiInterface {
 
 }
 
-class Api implements IApi {
+class Api implements IApiInterface {
 
 }

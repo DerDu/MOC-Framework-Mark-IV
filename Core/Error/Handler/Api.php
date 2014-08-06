@@ -9,14 +9,14 @@ use MOC\IV\Core\Error\Handler\Source\Type\Generic;
  *
  * @package MOC\IV\Core\Error\Handler
  */
-interface IApi {
+interface IApiInterface {
 
 	/**
 	 * @param Generic $Type
 	 *
 	 * @return Api
 	 */
-	public function Register( Generic $Type );
+	public function registerType( Generic $Type );
 }
 
 /**
@@ -24,12 +24,12 @@ interface IApi {
  *
  * @package MOC\IV\Core\Error\Handler
  */
-class Api implements IApi {
+class Api implements IApiInterface {
 
 	/**
 	 * @return Type
 	 */
-	public function Type() {
+	public function apiType() {
 
 		return new Type();
 	}
@@ -39,9 +39,9 @@ class Api implements IApi {
 	 *
 	 * @return Api
 	 */
-	public function Register( Generic $Type ) {
+	public function registerType( Generic $Type ) {
 
-		$Type->Register();
+		$Type->registerType();
 
 		return $this;
 	}

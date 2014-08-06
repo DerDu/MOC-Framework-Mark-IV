@@ -6,7 +6,7 @@ namespace MOC\IV\Core\Drive\Directory;
  *
  * @package MOC\IV\Core\Drive\Directory
  */
-interface IApi {
+interface IApiInterface {
 
 }
 
@@ -15,6 +15,6 @@ interface IApi {
  *
  * @package MOC\IV\Core\Drive\Directory
  */
-class Api implements IApi {
+class Api implements IApiInterface {
 
 }

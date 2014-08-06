@@ -82,9 +82,9 @@ class Api implements IApi {
 	 */
 	final public static function loadInterface( $File ) {
 
-		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)$!s';
+		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)Interface(.*?)$$!s';
 		if( preg_match( $Pattern, $File, $Match ) ) {
-			if( false === ( $File = realpath( $Match[1].$Match[2] ) ) ) {
+			if( false === ( $File = realpath( $Match[1].$Match[2].$Match[3] ) ) ) {
 				return false;
 			} else {
 				/** @noinspection PhpIncludeInspection */
@@ -112,9 +112,9 @@ class Api implements IApi {
 		}
 		error_reporting( 0 );
 
-		self::Core()->Error()->Handler()->Register( self::Core()->Error()->Handler()->Type()->Error() );
-		self::Core()->Error()->Handler()->Register( self::Core()->Error()->Handler()->Type()->Exception() );
-		self::Core()->Error()->Handler()->Register( self::Core()->Error()->Handler()->Type()->Shutdown() );
+		self::Core()->unitError()->apiHandler()->registerType( self::Core()->unitError()->apiHandler()->apiType()->createError() );
+		self::Core()->unitError()->apiHandler()->registerType( self::Core()->unitError()->apiHandler()->apiType()->createException() );
+		self::Core()->unitError()->apiHandler()->registerType( self::Core()->unitError()->apiHandler()->apiType()->createShutdown() );
 	}
 
 	/**

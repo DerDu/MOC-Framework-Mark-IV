@@ -6,9 +6,9 @@ namespace MOC\IV\Core;
  *
  * @package MOC\IV\Core
  */
-interface IDrive {
-	public function Directory( $Location );
-	public function File( $Location );
+interface IDriveInterface {
+	public function apiDirectory( $Location );
+	public function apiFile( $Location );
 }
 
 /**
@@ -16,13 +16,13 @@ interface IDrive {
  *
  * @package MOC\IV\Core
  */
-class Drive implements IDrive {
+class Drive implements IDriveInterface {
 
-	public function Directory( $Location ) {
+	public function apiDirectory( $Location ) {
 
 	}
 
-	public function File( $Location ) {
+	public function apiFile( $Location ) {
 
 	}
 

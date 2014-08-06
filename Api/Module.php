@@ -8,12 +8,12 @@ use MOC\IV\Module\Encoding;
  *
  * @package MOC\IV\Api
  */
-interface IModule {
+interface IModuleInterface {
 
 	/**
 	 * @return Encoding
 	 */
-	public function Encoding();
+	public function unitEncoding();
 }
 
 /**
@@ -21,12 +21,12 @@ interface IModule {
  *
  * @package MOC\IV\Api
  */
-class Module implements IModule {
+class Module implements IModuleInterface {
 
 	/**
 	 * @return Encoding
 	 */
-	public function Encoding() {
+	public function unitEncoding() {
 
 		return new Encoding();
 	}

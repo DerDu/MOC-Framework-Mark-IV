@@ -6,7 +6,7 @@ namespace MOC\IV\Core\Session\Handler\Source;
  *
  * @package MOC\IV\Core\Session\Handler\Source
  */
-interface IStore {
+interface IStoreInterface {
 
 	/**
 	 * @param null|string $Key
@@ -29,7 +29,7 @@ interface IStore {
  *
  * @package MOC\IV\Core\Session\Handler\Source
  */
-class Store implements IStore {
+class Store implements IStoreInterface {
 
 	/** @var null|Session $Session */
 	private $Session = null;

@@ -6,7 +6,7 @@ namespace MOC\IV\Api;
  *
  * @package MOC\IV\Api
  */
-interface IExtension {
+interface IExtensionInterface {
 
 }
 
@@ -15,6 +15,6 @@ interface IExtension {
  *
  * @package MOC\IV\Api
  */
-class Extension implements IExtension {
+class Extension implements IExtensionInterface {
 
 }

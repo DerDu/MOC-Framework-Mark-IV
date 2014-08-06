@@ -6,14 +6,14 @@ namespace MOC\IV\Module;
  *
  * @package MOC\IV\Module
  */
-interface IEncoding {
+interface IEncodingInterface {
 
 	/**
 	 * @param string $Text
 	 *
 	 * @return Encoding\Text\Api
 	 */
-	public function Text( $Text );
+	public function apiText( $Text );
 }
 
 /**
@@ -21,14 +21,14 @@ interface IEncoding {
  *
  * @package MOC\IV\Module
  */
-class Encoding implements IEncoding {
+class Encoding implements IEncodingInterface {
 
 	/**
 	 * @param string $Text
 	 *
 	 * @return Encoding\Text\Api
 	 */
-	public function Text( $Text ) {
+	public function apiText( $Text ) {
 
 		return new Encoding\Text\Api( $Text );
 	}

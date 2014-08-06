@@ -6,12 +6,12 @@ namespace MOC\IV\Core;
  *
  * @package MOC\IV\Core
  */
-interface ISession {
+interface ISessionInterface {
 
 	/**
 	 * @return Session\Handler\Api
 	 */
-	public function Handler();
+	public function apiHandler();
 }
 
 /**
@@ -19,12 +19,12 @@ interface ISession {
  *
  * @package MOC\IV\Core
  */
-class Session implements ISession {
+class Session implements ISessionInterface {
 
 	/**
 	 * @return Session\Handler\Api
 	 */
-	public function Handler() {
+	public function apiHandler() {
 
 		return new Session\Handler\Api();
 	}

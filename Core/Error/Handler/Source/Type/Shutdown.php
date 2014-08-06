@@ -13,11 +13,11 @@ class Shutdown extends Generic {
 	/**
 	 * @return void
 	 */
-	public function Register() {
+	public function registerType() {
 
 		register_shutdown_function(
 			create_function( '',
-				'\MOC\IV\Api::Core()->Error()->Handler()->Type()->Shutdown()->Trigger( "Shutdown", "","-1","","" );'
+				'\MOC\IV\Api::Core()->unitError()->apiHandler()->apiType()->createShutdown()->setData( "Shutdown", "","-1","","" );'
 			)
 		);
 	}
@@ -33,7 +33,7 @@ class Shutdown extends Generic {
 	 *
 	 * @return void
 	 */
-	public function Trigger( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
+	public function setData( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
 
 		if( ( $Error = error_get_last() ) !== null ) {
 			if( empty( $Trace ) || strlen( $Trace ) < 10 ) {

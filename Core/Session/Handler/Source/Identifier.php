@@ -6,7 +6,7 @@ namespace MOC\IV\Core\Session\Handler\Source;
  *
  * @package MOC\IV\Core\Session\Handler\Source
  */
-interface IIdentifier {
+interface IIdentifierInterface {
 
 	/**
 	 * @param string $Identifier
@@ -31,7 +31,7 @@ interface IIdentifier {
  *
  * @package MOC\IV\Core\Session\Handler\Source
  */
-class Identifier implements IIdentifier {
+class Identifier implements IIdentifierInterface {
 
 	/**
 	 * @param string $Identifier

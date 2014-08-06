@@ -10,22 +10,22 @@ use MOC\IV\Core\Session;
  *
  * @package MOC\IV\Api
  */
-interface ICore {
+interface ICoreInterface {
 
 	/**
 	 * @return Error
 	 */
-	public function Error();
+	public function unitError();
 
 	/**
 	 * @return Session
 	 */
-	public function Session();
+	public function unitSession();
 
 	/**
 	 * @return Drive
 	 */
-	public function Drive();
+	public function unitDrive();
 }
 
 /**
@@ -33,12 +33,12 @@ interface ICore {
  *
  * @package MOC\IV\Api
  */
-class Core implements ICore {
+class Core implements ICoreInterface {
 
 	/**
 	 * @return Drive
 	 */
-	public function Drive() {
+	public function unitDrive() {
 
 		return new Drive();
 	}
@@ -46,7 +46,7 @@ class Core implements ICore {
 	/**
 	 * @return Error
 	 */
-	public function Error() {
+	public function unitError() {
 
 		return new Error();
 	}
@@ -54,7 +54,7 @@ class Core implements ICore {
 	/**
 	 * @return Session
 	 */
-	public function Session() {
+	public function unitSession() {
 
 		return new Session();
 	}

@@ -6,7 +6,7 @@ namespace MOC\IV\Core\Session\Handler\Source;
  *
  * @package MOC\IV\Core\Session\Handler\Source
  */
-interface ISession {
+interface ISessionInterface {
 
 	/**
 	 * @return void
@@ -30,7 +30,7 @@ interface ISession {
  *
  * @package MOC\IV\Core\Session\Handler\Source
  */
-class Session implements ISession {
+class Session implements ISessionInterface {
 
 	/** @var string $Identifier */
 	private static $Identifier = __CLASS__;

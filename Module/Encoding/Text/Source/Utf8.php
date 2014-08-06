@@ -6,7 +6,7 @@ namespace MOC\IV\Module\Encoding\Text\Source;
  *
  * @package MOC\IV\Module\Encoding\Text\Source
  */
-class Utf8 implements IMap {
+class Utf8 implements IMapInterface {
 
 	/** @var string $Text */
 	private $Text = '';

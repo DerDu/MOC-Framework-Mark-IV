@@ -13,11 +13,11 @@ class Exception extends Generic {
 	/**
 	 * @return void
 	 */
-	public function Register() {
+	public function registerType() {
 
 		set_exception_handler(
 			create_function( '$Exception',
-				'\MOC\IV\Api::Core()->Error()->Handler()->Type()->Exception()->Trigger('
+				'\MOC\IV\Api::Core()->unitError()->apiHandler()->apiType()->createException()->setData('
 				.'"Exception", $Exception->getMessage(), $Exception->getCode(),'
 				.'$Exception->getFile(), $Exception->getLine(), $Exception->getTraceAsString(), "Execution has been stopped!" '
 				.');'
@@ -36,7 +36,7 @@ class Exception extends Generic {
 	 *
 	 * @return void
 	 */
-	public function Trigger( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
+	public function setData( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
 
 		if( empty( $Trace ) || strlen( $Trace ) < 10 ) {
 			$Trace = $this->getTrace();

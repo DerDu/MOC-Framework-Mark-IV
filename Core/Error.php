@@ -6,12 +6,12 @@ namespace MOC\IV\Core;
  *
  * @package MOC\IV\Core
  */
-interface IError {
+interface IErrorInterface {
 
 	/**
 	 * @return Error\Handler\Api
 	 */
-	public function Handler();
+	public function apiHandler();
 }
 
 /**
@@ -19,12 +19,12 @@ interface IError {
  *
  * @package MOC\IV\Core
  */
-class Error implements IError {
+class Error implements IErrorInterface {
 
 	/**
 	 * @return Error\Handler\Api
 	 */
-	public function Handler() {
+	public function apiHandler() {
 
 		return new Error\Handler\Api();
 	}

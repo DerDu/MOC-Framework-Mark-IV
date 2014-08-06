@@ -8,9 +8,9 @@ use MOC\IV\Core\Error\Handler\Source\Template\Error as ErrorTemplate;
  *
  * @package MOC\IV\Core\Error\Handler\Source\Type
  */
-interface IGeneric {
+interface IGenericInterface {
 
-	public function Register();
+	public function registerType();
 
 	/**
 	 * @param string $Title
@@ -23,7 +23,7 @@ interface IGeneric {
 	 *
 	 * @return void
 	 */
-	public function Trigger( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' );
+	public function setData( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' );
 }
 
 /**
@@ -31,7 +31,7 @@ interface IGeneric {
  *
  * @package MOC\IV\Core\Error\Handler\Source\Type
  */
-abstract class Generic implements IGeneric {
+abstract class Generic implements IGenericInterface {
 
 	/**
 	 * @param string $Title
@@ -44,7 +44,7 @@ abstract class Generic implements IGeneric {
 	 *
 	 * @return void
 	 */
-	public function Trigger( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
+	public function setData( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
 
 		if( empty( $Trace ) ) {
 			$Trace = $this->getTrace();

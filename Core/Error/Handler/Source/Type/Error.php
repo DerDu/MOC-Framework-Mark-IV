@@ -11,12 +11,12 @@ class Error extends Generic {
 	/**
 	 * @return void
 	 */
-	public function Register() {
+	public function registerType() {
 
 		set_error_handler(
 			create_function( '$Code, $Message, $File, $Line',
-				'\MOC\IV\Api::Core()->Error()->Handler()->Type()->Error()'.
-				'->Trigger( "Runtime Error", $Message, $Code, $File, $Line, "", "Execution has been continued..." );'
+				'\MOC\IV\Api::Core()->unitError()->apiHandler()->apiType()->createError()'.
+				'->setData( "Runtime Error", $Message, $Code, $File, $Line, "", "Execution has been continued..." );'
 			)
 		);
 	}

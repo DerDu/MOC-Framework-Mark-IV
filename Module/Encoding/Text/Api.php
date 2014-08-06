@@ -6,7 +6,7 @@ namespace MOC\IV\Module\Encoding\Text;
  *
  * @package MOC\IV\Module\Encoding\Text
  */
-interface IApi {
+interface IApiInterface {
 
 	/**
 	 * @return string
@@ -24,7 +24,7 @@ interface IApi {
  *
  * @package MOC\IV\Module\Encoding\Text
  */
-class Api implements IApi {
+class Api implements IApiInterface {
 
 	/** @var string $Text */
 	private $Text = '';

@@ -6,7 +6,7 @@ namespace MOC\IV\Api;
  *
  * @package MOC\IV\Api
  */
-interface IPlugin {
+interface IPluginInterface {
 
 }
 
@@ -15,6 +15,6 @@ interface IPlugin {
  *
  * @package MOC\IV\Api
  */
-class Plugin implements IPlugin {
+class Plugin implements IPluginInterface {
 
 }

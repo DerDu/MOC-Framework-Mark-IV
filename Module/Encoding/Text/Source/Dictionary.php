@@ -6,7 +6,7 @@ namespace MOC\IV\Module\Encoding\Text\Source;
  *
  * @package MOC\IV\Module\Encoding\Text\Source
  */
-interface IMap {
+interface IMapInterface {
 
 	/**
 	 * @return string
@@ -19,7 +19,7 @@ interface IMap {
  *
  * @package MOC\IV\Module\Encoding\Text\Source
  */
-interface IDictionary {
+interface IDictionaryInterface {
 
 	/**
 	 * @return array
@@ -37,7 +37,7 @@ interface IDictionary {
  *
  * @package MOC\IV\Module\Encoding\Text\Source
  */
-class Dictionary implements IDictionary {
+class Dictionary implements IDictionaryInterface {
 
 	/** @var null|array $DictionaryLatin1ToUtf8 */
 	private static $DictionaryLatin1ToUtf8 = null;
