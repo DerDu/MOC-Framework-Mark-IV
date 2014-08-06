@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Api.php" colors="true">
+
+	<testsuites>
+		<testsuite name="TravisCI">
+			<directory>./PhpUnit/</directory>
+		</testsuite>
+	</testsuites>
+
+	<filter>
+		<whitelist>
+			<directory>./</directory>
+			<exclude>
+				<directory>./PhpUnit</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+</phpunit>

@@ -1,19 +1,29 @@
 <?php
 namespace MOC\IV\Core;
 
+/**
+ * Interface IDrive
+ *
+ * @package MOC\IV\Core
+ */
 interface IDrive {
-	public function useDirectory( $Location );
-	public function useFile( $Location );
+	public function Directory( $Location );
+	public function File( $Location );
 }
 
+/**
+ * Class Drive
+ *
+ * @package MOC\IV\Core
+ */
 class Drive implements IDrive {
 
-	public function useDirectory( $Location ) {
-		return new Drive\Directory( $Location );
+	public function Directory( $Location ) {
+
 	}
 
-	public function useFile( $Location ) {
-		return new Drive\File( $Location );
+	public function File( $Location ) {
+
 	}
 
 	public function optimizePathSyntax( $Path ) {

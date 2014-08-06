@@ -1,18 +1,31 @@
 <?php
 namespace MOC\IV\Core;
 
+/**
+ * Interface IError
+ *
+ * @package MOC\IV\Core
+ */
 interface IError {
-	public function registerType( Error\Type\Generic $Type );
+
+	/**
+	 * @return Error\Handler\Api
+	 */
+	public function Handler();
 }
 
+/**
+ * Class Error
+ *
+ * @package MOC\IV\Core
+ */
 class Error implements IError {
 
-	public function getType() {
-		return new Error\Type();
-	}
+	/**
+	 * @return Error\Handler\Api
+	 */
+	public function Handler() {
 
-	public function registerType( Error\Type\Generic $Type ) {
-		$Type->registerType();
+		return new Error\Handler\Api();
 	}
-
 }

@@ -1,56 +1,156 @@
 <?php
 namespace MOC\IV;
 
+/**
+ * Interface IApi
+ *
+ * @package MOC\IV
+ */
 interface IApi {
-	public static function useCore();
-	public static function useModule();
-	public static function useExtension();
-	public static function usePlugin();
 
+	/**
+	 * @return Api\Core
+	 */
+	public static function Core();
+
+	/**
+	 * @return Api\Module
+	 */
+	public static function Module();
+
+	/**
+	 * @return Api\Extension
+	 */
+	public static function Extension();
+
+	/**
+	 * @return Api\Plugin
+	 */
+	public static function Plugin();
+
+	/**
+	 * @param string $Class
+	 *
+	 * @return bool
+	 */
 	public static function loadClass( $Class );
-	public static function registerAutoClassLoader();
+
+	/**
+	 * @param string $File
+	 *
+	 * @return bool
+	 */
+	public static function loadInterface( $File );
+
+	/**
+	 * @return void
+	 */
+	public static function Bootstrap();
 }
 
+/**
+ * Class Api
+ *
+ * @package MOC\IV
+ */
 class Api implements IApi {
 
+	/**
+	 * @param string $Class
+	 *
+	 * @return bool
+	 */
 	final public static function loadClass( $Class ) {
+
 		$Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
-		$Class = str_replace( array('\\','/'), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
-		if( false === ( $Class = realpath( $Class ) ) ) {
-			return false;
+		$Class = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
+		if( false === ( $File = realpath( $Class ) ) ) {
+			/** Detect possible Interface-Definition in Class-File **/
+			return self::loadInterface( $Class );
 		} else {
 			/** @noinspection PhpIncludeInspection */
-			require( $Class );
+			require( $File );
+
 			return true;
 		}
 	}
 
-	final public static function registerAutoClassLoader() {
-		spl_autoload_register( function($Class){ Api::loadClass($Class); } );
+	/**
+	 * @param string $File
+	 *
+	 * @return bool
+	 */
+	final public static function loadInterface( $File ) {
 
-		if( function_exists( 'xdebug_disable' ) ) { xdebug_disable(); }
-		error_reporting(0);
+		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)$!s';
+		if( preg_match( $Pattern, $File, $Match ) ) {
+			if( false === ( $File = realpath( $Match[1].$Match[2] ) ) ) {
+				return false;
+			} else {
+				/** @noinspection PhpIncludeInspection */
+				require( $File );
 
-		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useError() );
-		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useException() );
-		self::useCore()->useError()->registerType( self::useCore()->useError()->getType()->useShutdown() );
+				return true;
+			}
+		}
+
+		return false;
 	}
 
-	final public static function useCore(){
+	/**
+	 *
+	 */
+	final public static function Bootstrap() {
+
+		spl_autoload_register( function ( $Class ) {
+
+			Api::loadClass( $Class );
+		} );
+
+		if( function_exists( 'xdebug_disable' ) ) {
+			xdebug_disable();
+		}
+		error_reporting( 0 );
+
+		self::Core()->Error()->Handler()->Register( self::Core()->Error()->Handler()->Type()->Error() );
+		self::Core()->Error()->Handler()->Register( self::Core()->Error()->Handler()->Type()->Exception() );
+		self::Core()->Error()->Handler()->Register( self::Core()->Error()->Handler()->Type()->Shutdown() );
+	}
+
+	/**
+	 * @return Api\Core
+	 */
+	final public static function Core() {
+
 		return new Api\Core();
 	}
 
-	final public static function useModule(){
+	/**
+	 * @return Api\Module
+	 */
+	final public static function Module() {
+
 		return new Api\Module();
 	}
 
-	final public static function useExtension(){
+	/**
+	 * @return Api\Extension
+	 */
+	final public static function Extension() {
+
 		return new Api\Extension();
 	}
 
-	final public static function usePlugin(){
+	/**
+	 * @return Api\Plugin
+	 */
+	final public static function Plugin() {
+
 		return new Api\Plugin();
 	}
 }
 
-Api::registerAutoClassLoader();
+/**
+ * Bootstrap
+ */
+Api::Bootstrap();

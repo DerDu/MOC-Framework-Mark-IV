@@ -34,5 +34,5 @@ Usage
 3. Put the pedal to the metal.
 
 	```php
-	print Api::useModule()->useEncoding()->useText('Latin-Chars öäüß')->getTextConvertedToUtf8();
+	print Api::Module()->useEncoding()->useText('Latin-Chars öäüß')->getTextConvertedToUtf8();
 	```

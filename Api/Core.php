@@ -5,23 +5,57 @@ use MOC\IV\Core\Drive;
 use MOC\IV\Core\Error;
 use MOC\IV\Core\Session;
 
+/**
+ * Interface ICore
+ *
+ * @package MOC\IV\Api
+ */
 interface ICore {
-	public function useError();
-	public function useSession();
-	public function useDrive();
+
+	/**
+	 * @return Error
+	 */
+	public function Error();
+
+	/**
+	 * @return Session
+	 */
+	public function Session();
+
+	/**
+	 * @return Drive
+	 */
+	public function Drive();
 }
 
+/**
+ * Class Core
+ *
+ * @package MOC\IV\Api
+ */
 class Core implements ICore {
 
-	public function useDrive() {
+	/**
+	 * @return Drive
+	 */
+	public function Drive() {
+
 		return new Drive();
 	}
 
-	public function useError() {
+	/**
+	 * @return Error
+	 */
+	public function Error() {
+
 		return new Error();
 	}
 
-	public function useSession(){
+	/**
+	 * @return Session
+	 */
+	public function Session() {
+
 		return new Session();
 	}
 
