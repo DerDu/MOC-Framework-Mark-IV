@@ -16,10 +16,10 @@ Situation:
 
     Directory: Api > Type
     Instance: {Type}.php (Interface & Class)
-    Interface: Define Category
+    Interface: Define Unit
 
 - Interface used by
 	- Type
 - Instance used by
 	- Api
-	- ```Api::{Type}()->{Category:Instance}```
+	- ```Api::api{Type}()->unit{Unit:Instance}```

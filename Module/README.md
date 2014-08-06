@@ -17,13 +17,13 @@ Situation:
 ## Structure
 ------------
 
-    Directory: Module > Category > Name > ..
+    Directory: Module > Unit > Name > ..
     Instance: Api.php (Interface & Class)
     Interface: Define Api
 
     Class-Location
-    Api: Module > Category > Name > Api > ..
-    Worker: Module > Category > Name > Source > .. (Type: Bundled)
+    Api: Module > Unit > Name > Api > ..
+    Worker: Module > Unit > Name > Source > .. (Type: Bundled)
 
 - Interface used by
 	- Module
@@ -31,24 +31,24 @@ Situation:
 	- Plugin
 - Instance used by
 	- Module Api
-	- ```Api::Module()->{Category}()->{Name:Instance}()->{Method}```
+	- ```Api::groupModule()->unit{Unit}()->api{Name:Instance}()->{Method}```
 
 ## Api
 ------
 
-Location: ```Module > Category > Name > Api > ..```
+Location: ```Module > Unit > Name > Api > ..```
 
 ## Worker
 ---------
 
 ### Module (Bundled)
 
-Location: ```Module > Category > Name > Source > ..```
+Location: ```Module > Unit > Name > Source > ..```
 
 ### Extension (Repository)
 
-Location: ```Extension > Category > Name > Source > ..```
+Location: ```Extension > Unit > Name > Source > ..```
 
 ### Plugin (Repository)
 
-Location: ```Plugin > Category > Name > Source > ..```
+Location: ```Plugin > Unit > Name > Source > ..```

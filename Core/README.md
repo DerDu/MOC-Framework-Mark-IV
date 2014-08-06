@@ -15,13 +15,13 @@ Situation:
 ## Structure
 ------------
 
-    Directory: Core > Category > Name > ..
+    Directory: Core > Unit > Name > ..
     Instance: Api.php (Interface & Class)
     Interface: Define Api
 
     Class-Location
-    Api: Core > Category > Name > Api > ..
-    Worker: Core > Category > Name > Source > .. (Type: Bundled)
+    Api: Core > Unit > Name > Api > ..
+    Worker: Core > Unit > Name > Source > .. (Type: Bundled)
 
 - Interface used by
 	- Core
@@ -30,15 +30,15 @@ Situation:
 	- Plugin
 - Instance used by
 	- Core Api
-	- ```Api::Core()->{Category}()->{Name:Instance}()->{Method}```
+	- ```Api::groupCore()->unit{Unit}()->api{Name:Instance}()->{Method}```
 
 ## Api
 ------
 
-Location: ```Core > Category > Name > Api > ..```
+Location: ```Core > Unit > Name > Api > ..```
 
 ## Worker
 ---------
 
-Location: ```Core > Category > Name > Source > ..```
+Location: ```Core > Unit > Name > Source > ..```
 

@@ -9,7 +9,7 @@ Mind the task - forget the obstacles...
 
 ------------------------------------------------------------------------------------------------------------------------
 
-Please take into account that current versions of MOC-Framework and plugins could contain serious bugs.
+Please take into account that current versions of MOC-Framework IV could contain serious bugs.
 Don't use them in production environments.
 
 Be also aware that current interfaces may change rapidly
@@ -34,5 +34,5 @@ Usage
 3. Put the pedal to the metal.
 
 	```php
-	print Api::Module()->useEncoding()->useText('Latin-Chars öäüß')->getTextConvertedToUtf8();
+	print Api::groupModule()->unitEncoding()->apiText('Latin-Chars öäüß')->getUtf8();
 	```

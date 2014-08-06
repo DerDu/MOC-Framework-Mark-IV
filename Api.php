@@ -6,27 +6,27 @@ namespace MOC\IV;
  *
  * @package MOC\IV
  */
-interface IApi {
+interface IApiInterface {
 
 	/**
 	 * @return Api\Core
 	 */
-	public static function Core();
+	public static function groupCore();
 
 	/**
 	 * @return Api\Module
 	 */
-	public static function Module();
+	public static function groupModule();
 
 	/**
 	 * @return Api\Extension
 	 */
-	public static function Extension();
+	public static function groupExtension();
 
 	/**
 	 * @return Api\Plugin
 	 */
-	public static function Plugin();
+	public static function groupPlugin();
 
 	/**
 	 * @param string $Class
@@ -45,7 +45,7 @@ interface IApi {
 	/**
 	 * @return void
 	 */
-	public static function Bootstrap();
+	public static function doBootstrap();
 }
 
 /**
@@ -53,7 +53,7 @@ interface IApi {
  *
  * @package MOC\IV
  */
-class Api implements IApi {
+class Api implements IApiInterface {
 
 	/**
 	 * @param string $Class
@@ -100,7 +100,7 @@ class Api implements IApi {
 	/**
 	 *
 	 */
-	final public static function Bootstrap() {
+	final public static function doBootstrap() {
 
 		spl_autoload_register( function ( $Class ) {
 
@@ -112,15 +112,15 @@ class Api implements IApi {
 		}
 		error_reporting( 0 );
 
-		self::Core()->unitError()->apiHandler()->registerType( self::Core()->unitError()->apiHandler()->apiType()->createError() );
-		self::Core()->unitError()->apiHandler()->registerType( self::Core()->unitError()->apiHandler()->apiType()->createException() );
-		self::Core()->unitError()->apiHandler()->registerType( self::Core()->unitError()->apiHandler()->apiType()->createShutdown() );
+		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createError() );
+		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createException() );
+		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createShutdown() );
 	}
 
 	/**
 	 * @return Api\Core
 	 */
-	final public static function Core() {
+	final public static function groupCore() {
 
 		return new Api\Core();
 	}
@@ -128,7 +128,7 @@ class Api implements IApi {
 	/**
 	 * @return Api\Module
 	 */
-	final public static function Module() {
+	final public static function groupModule() {
 
 		return new Api\Module();
 	}
@@ -136,7 +136,7 @@ class Api implements IApi {
 	/**
 	 * @return Api\Extension
 	 */
-	final public static function Extension() {
+	final public static function groupExtension() {
 
 		return new Api\Extension();
 	}
@@ -144,7 +144,7 @@ class Api implements IApi {
 	/**
 	 * @return Api\Plugin
 	 */
-	final public static function Plugin() {
+	final public static function groupPlugin() {
 
 		return new Api\Plugin();
 	}
@@ -153,4 +153,4 @@ class Api implements IApi {
 /**
  * Bootstrap
  */
-Api::Bootstrap();
+Api::doBootstrap();

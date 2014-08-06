@@ -17,7 +17,7 @@ class Shutdown extends Generic {
 
 		register_shutdown_function(
 			create_function( '',
-				'\MOC\IV\Api::Core()->unitError()->apiHandler()->apiType()->createShutdown()->setData( "Shutdown", "","-1","","" );'
+				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->createShutdown()->setData( "Shutdown", "","-1","","" );'
 			)
 		);
 	}
