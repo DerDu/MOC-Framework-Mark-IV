@@ -2,19 +2,6 @@
 namespace MOC\IV\Module\Encoding\Text\Source;
 
 /**
- * Interface IMap
- *
- * @package MOC\IV\Module\Encoding\Text\Source
- */
-interface IMapInterface {
-
-	/**
-	 * @return string
-	 */
-	public function getText();
-}
-
-/**
  * Interface IDictionary
  *
  * @package MOC\IV\Module\Encoding\Text\Source

@@ -92,6 +92,17 @@ class Api implements IApiInterface {
 	}
 
 	/**
+	 * @return Api
+	 */
+	public function destroySession() {
+
+		$Session = new Session();
+		$Session->destroySession();
+
+		return $this;
+	}
+
+	/**
 	 * @param null|string $Key
 	 *
 	 * @return mixed

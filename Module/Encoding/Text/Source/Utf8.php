@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Module\Encoding\Text\Source;
 
+use MOC\IV\Module\Encoding\Text\IMapInterface;
+
 /**
  * Class Utf8
  *

@@ -23,6 +23,10 @@ interface ISessionInterface {
 	 */
 	public function closeSession();
 
+	/**
+	 * @return void
+	 */
+	public function destroySession();
 }
 
 /**
@@ -71,6 +75,14 @@ class Session implements ISessionInterface {
 	public function closeSession() {
 
 		session_write_close();
+	}
+
+	/**
+	 * @return void
+	 */
+	public function destroySession() {
+
+		session_destroy();
 	}
 
 	/**
