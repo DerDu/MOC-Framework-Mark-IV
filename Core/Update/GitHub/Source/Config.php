@@ -25,25 +25,47 @@ class Config {
 	private $Network = null;
 
 	function __construct( $Location ) {
-
 		$this->Location = $Location;
-
-		$ValueList = Ini::readFile( $Location );
-
-		$this->VersionMajor = $ValueList['Version']['CurrentMajor'];
-		$this->VersionMinor = $ValueList['Version']['CurrentMinor'];
-		$this->VersionPatch = $ValueList['Version']['CurrentPatch'];
-		$this->VersionBuild = $ValueList['Version']['CurrentBuild'];
-
-		$this->ChannelRelease = $ValueList['Channel']['UseRelease'];
-		$this->ChannelDraft = $ValueList['Channel']['UseDraft'];
-		$this->ChannelNightly = $ValueList['Channel']['UseNightly'];
-
-		$this->ProxyHost = $ValueList['Network']['ProxyHost'];
-		$this->ProxyPort = $ValueList['Network']['ProxyPort'];
-		$this->ProxyUser = $ValueList['Network']['ProxyUser'];
-		$this->ProxyPass = $ValueList['Network']['ProxyPass'];
-
+		$ValueList = Ini::readFile( $this->Location );
+		if( isset( $ValueList['Version'] ) ) {
+			if( isset( $ValueList['Version']['CurrentMajor'] ) ) {
+				$this->VersionMajor = $ValueList['Version']['CurrentMajor'];
+			}
+			if( isset( $ValueList['Version']['CurrentMinor'] ) ) {
+				$this->VersionMinor = $ValueList['Version']['CurrentMinor'];
+			}
+			if( isset( $ValueList['Version']['CurrentPatch'] ) ) {
+				$this->VersionPatch = $ValueList['Version']['CurrentPatch'];
+			}
+			if( isset( $ValueList['Version']['CurrentBuild'] ) ) {
+				$this->VersionBuild = $ValueList['Version']['CurrentBuild'];
+			}
+		}
+		if( isset( $ValueList['Channel'] ) ) {
+			if( isset( $ValueList['Channel']['UseRelease'] ) ) {
+				$this->ChannelRelease = $ValueList['Channel']['UseRelease'];
+			}
+			if( isset( $ValueList['Channel']['UseDraft'] ) ) {
+				$this->ChannelDraft = $ValueList['Channel']['UseDraft'];
+			}
+			if( isset( $ValueList['Channel']['UseNightly'] ) ) {
+				$this->ChannelNightly = $ValueList['Channel']['UseNightly'];
+			}
+		}
+		if( isset( $ValueList['Network'] ) ) {
+			if( isset( $ValueList['Network']['ProxyHost'] ) ) {
+				$this->ProxyHost = $ValueList['Network']['ProxyHost'];
+			}
+			if( isset( $ValueList['Network']['ProxyPort'] ) ) {
+				$this->ProxyPort = $ValueList['Network']['ProxyPort'];
+			}
+			if( isset( $ValueList['Network']['ProxyUser'] ) ) {
+				$this->ProxyUser = $ValueList['Network']['ProxyUser'];
+			}
+			if( isset( $ValueList['Network']['ProxyPass'] ) ) {
+				$this->ProxyPass = $ValueList['Network']['ProxyPass'];
+			}
+		}
 		if( null !== $this->ProxyHost && null !== $this->ProxyUser ) {
 			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->createBasic(
 				Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->createServer( $this->ProxyHost, $this->ProxyPort ),

@@ -91,7 +91,7 @@ class Gzip {
 		$datacrc = sprintf( '%u', $datacrc[1] & 0xFFFFFFFF );
 		$isize = unpack( "V", substr( $data, -4 ) );
 		$isize = $isize[1];
-		// decompression:
+
 		$bodylen = $len - $headerlen - 8;
 		if( $bodylen < 1 ) {
 			// IMPLEMENTATION BUG!

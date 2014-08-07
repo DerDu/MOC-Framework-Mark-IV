@@ -2,6 +2,7 @@
 namespace MOC\IV\Core\Network\Proxy\Source\Type;
 
 use MOC\IV\Core\Network\Proxy\Source\Config\Server;
+use MOC\IV\Core\Network\Proxy\Source\Utility\Curl;
 use MOC\IV\Core\Network\Proxy\Source\Utility\Gzip;
 
 /**
@@ -38,7 +39,11 @@ class None extends Generic {
 		}
 
 		if( $this->Server->getPort() == '443' ) {
-			return file_get_contents( $Url );
+			if( in_array( 'https', stream_get_wrappers() ) ) {
+				return file_get_contents( $Url );
+			} else {
+				return Curl::getFileHttps( $Url, null, null, $this->getCustomHeader( true ) );
+			}
 		}
 
 		if( ( $Socket = fsockopen( $this->Server->getHost(), $this->Server->getPort(), $this->ErrorNumber, $this->ErrorString, $this->Timeout ) ) ) {

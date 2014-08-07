@@ -1,8 +1,11 @@
 <?php
 namespace MOC\IV\Core\Update\GitHub\Source\Type;
 
-class Tree {
+use MOC\IV\Core\Update\GitHub\Source\Config;
 
+class Tree {
+	/** @var Config|null $Config */
+	private $Config = null;
 	/** @var null|string $Identifier */
 	private $Identifier = null;
 	/** @var null|int $Size */
@@ -12,9 +15,11 @@ class Tree {
 
 	/**
 	 * @param \stdClass $Tree
+	 * @param Config    $Config
 	 */
-	function __construct( \stdClass $Tree ) {
+	function __construct( \stdClass $Tree, Config $Config ) {
 
+		$this->Config = $Config;
 		$this->Identifier = $Tree->sha;
 		$this->Size = $Tree->size;
 		$this->Location = $Tree->path;
@@ -42,5 +47,12 @@ class Tree {
 	public function getSize() {
 
 		return $this->Size;
+	}
+
+	/**
+	 * @return Config|null
+	 */
+	public function getConfig() {
+		return $this->Config;
 	}
 }

@@ -7,17 +7,17 @@ class Blob {
 	private $Identifier = null;
 	/** @var null|int $Size */
 	private $Size = null;
+	/** @var null|string $Location */
+	private $Location = null;
 	/** @var null|string $Content */
 	private $Content = null;
 
-	/**
-	 * @param \stdClass $Blob
-	 */
-	function __construct( \stdClass $Blob ) {
+	function __construct( Tree $Tree ) {
 
-		$this->Identifier = $Blob->sha;
-		$this->Size = $Blob->size;
-		$this->Content = ${$Blob->encoding.'_decode'}( $Blob->content );
+		$this->Identifier = $Tree->getIdentifier();
+		$this->Size = $Tree->getSize();
+		$this->Location = $Tree->getLocation();
+
 	}
 
 	/**
@@ -42,5 +42,12 @@ class Blob {
 	public function getSize() {
 
 		return $this->Size;
+	}
+
+	/**
+	 * @return null|string
+	 */
+	public function getLocation() {
+		return $this->Location;
 	}
 }

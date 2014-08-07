@@ -1,7 +1,6 @@
 <?php
 namespace MOC\IV\Core;
 
-use MOC\IV\Api;
 use MOC\IV\Core\Update\GitHub\Source\Channel\Draft;
 use MOC\IV\Core\Update\GitHub\Source\Channel\Nightly;
 use MOC\IV\Core\Update\GitHub\Source\Channel\Release;
@@ -40,7 +39,7 @@ class Update implements IUpdateInterface {
 				// Get Files
 				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
 
-				var_dump( $Tree );
+				var_dump( $Tree->getList() );
 			}
 		}
 
@@ -58,7 +57,7 @@ class Update implements IUpdateInterface {
 				// Get Files
 				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
 
-				var_dump( $Tree );
+				var_dump( $Tree->getList() );
 			}
 		}
 
@@ -74,7 +73,7 @@ class Update implements IUpdateInterface {
 				// Get Files
 				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
 
-				var_dump( $Tree );
+				var_dump( $Tree->getList() );
 			}
 		}
 

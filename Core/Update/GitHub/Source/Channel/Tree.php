@@ -13,7 +13,7 @@ class Tree extends Generic {
 		$ItemList = json_decode( $this->Config->getNetwork()->getFile( 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/trees/'.$Identifier.'?recursive=1' ) );
 		foreach( (array)$ItemList->tree as $Item ) {
 			if( $Item->type == 'blob' ) {
-				$Item = new TreeItem( $Item );
+				$Item = new TreeItem( $Item, $Config );
 				$this->Channel[] = $Item;
 			}
 		}
