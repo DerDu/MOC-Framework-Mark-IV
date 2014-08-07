@@ -37,9 +37,8 @@ class Update implements IUpdateInterface {
 				/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Tag $Tag */
 				$Tag = $NightlyChannel->getBuild( $Release->getVersion() );
 				// Get Files
-				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
+				new Tree( $Configuration, $Tag->getIdentifier() );
 
-				var_dump( $Tree->getList() );
 			}
 		}
 
@@ -55,9 +54,8 @@ class Update implements IUpdateInterface {
 				/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Tag $Tag */
 				$Tag = $NightlyChannel->getBuild( $Draft->getVersion() );
 				// Get Files
-				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
+				new Tree( $Configuration, $Tag->getIdentifier() );
 
-				var_dump( $Tree->getList() );
 			}
 		}
 
@@ -71,9 +69,8 @@ class Update implements IUpdateInterface {
 			$Tag = current( $NightlyChannel->getList() );
 			if( $Tag ) {
 				// Get Files
-				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
+				new Tree( $Configuration, $Tag->getIdentifier() );
 
-				var_dump( $Tree->getList() );
 			}
 		}
 

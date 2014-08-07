@@ -3,6 +3,7 @@ namespace MOC\IV\Core\Network\Proxy\Source\Type;
 
 use MOC\IV\Core\Network\Proxy\Source\Config\Server;
 use MOC\IV\Core\Network\Proxy\Source\Config\Credentials;
+use MOC\IV\Core\Network\Proxy\Source\Utility\Gzip;
 
 /**
  * Class Generic
@@ -22,6 +23,46 @@ abstract class Generic {
 	protected $ErrorString = null;
 
 	protected $CustomHeader = array();
+
+	protected $Socket = null;
+	protected $Content = '';
+
+	protected function openSocket() {
+		$this->$Socket = fsockopen( $this->Server->getHost(), $this->Server->getPort(), $this->ErrorNumber, $this->ErrorString, $this->Timeout );
+		if( false === $this->Socket ) {
+			trigger_error( '['.$this->ErrorNumber.'] '.$this->ErrorString );
+			$this->Content = null;
+			return false;
+		}
+		return true;
+	}
+
+	protected function readSocket( $Status = false ) {
+		while( !feof( $this->Socket ) ) {
+			$this->Content .= fread( $this->Socket, 4096 );
+			if( $Status ) {
+				$Match = array();
+				preg_match( '![0-9]{3}!', $this->Content, $Match );
+				return $Match[0];
+			}
+		}
+		return null;
+	}
+
+	protected function closeSocket( $ContentToCheck ) {
+		fclose( $this->Socket );
+		if( $this->Content == $ContentToCheck ) {
+			// Not Modified -> Care for Header
+			$Header = substr( $this->Content, 0, strpos( $this->Content, "\r\n\r\n" ) + 4 );
+			$this->Content = substr( $this->Content, strpos( $this->Content, "\r\n\r\n" ) + 4 );
+			if( preg_match( '!content-encoding: gzip!is', $Header ) ) {
+				$this->Content = Gzip::doDecode( $this->Content );
+			}
+		} else {
+			// Already Modified -> Nothing to do
+			$this->Content = $ContentToCheck;
+		}
+	}
 
 	/**
 	 * @param string $Name
