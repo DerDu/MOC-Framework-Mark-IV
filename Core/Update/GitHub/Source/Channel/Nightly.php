@@ -18,6 +18,9 @@ class Nightly extends Generic {
 		krsort( $this->Channel );
 	}
 
+	/**
+	 * @return NightlyItem[]
+	 */
 	public function getList() {
 
 		return $this->Channel;

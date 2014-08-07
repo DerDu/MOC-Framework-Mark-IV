@@ -5,6 +5,7 @@ use MOC\IV\Api;
 use MOC\IV\Core\Update\GitHub\Source\Channel\Draft;
 use MOC\IV\Core\Update\GitHub\Source\Channel\Nightly;
 use MOC\IV\Core\Update\GitHub\Source\Channel\Release;
+use MOC\IV\Core\Update\GitHub\Source\Channel\Tree;
 
 /**
  * Interface IUpdateInterface
@@ -26,18 +27,55 @@ class Update implements IUpdateInterface {
 		$Configuration = $this->apiGitHub()->createConfig( __DIR__.'/Update/Config.ini' );
 
 		if( $Configuration->getChannelRelease() ) {
-			$Channel = new Release( $Configuration );
-			var_dump( $Channel->getList() );
+			// Get Release
+			$ReleaseChannel = new Release( $Configuration );
+			// Latest Release
+			/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Release $Release */
+			$Release = current( $ReleaseChannel->getList() );
+			if( $Release ) {
+				// Get Tag
+				$NightlyChannel = new Nightly( $Configuration );
+				/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Tag $Tag */
+				$Tag = $NightlyChannel->getBuild( $Release->getVersion() );
+				// Get Files
+				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
+
+				var_dump( $Tree );
+			}
 		}
 
 		if( $Configuration->getChannelDraft() ) {
-			$Channel = new Draft( $Configuration );
-			var_dump( $Channel->getList() );
+			// Get Draft
+			$DraftChannel = new Draft( $Configuration );
+			// Latest Draft
+			/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Release $Draft */
+			$Draft = current( $DraftChannel->getList() );
+			if( $Draft ) {
+				// Get Tag
+				$NightlyChannel = new Nightly( $Configuration );
+				/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Tag $Tag */
+				$Tag = $NightlyChannel->getBuild( $Draft->getVersion() );
+				// Get Files
+				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
+
+				var_dump( $Tree );
+			}
 		}
 
+
+
 		if( $Configuration->getChannelNightly() ) {
-			$Channel = new Nightly( $Configuration );
-			var_dump( $Channel->getList() );
+			// Get Nightly
+			$NightlyChannel = new Nightly( $Configuration );
+			// Latest Nightly
+			/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Tag $Tag */
+			$Tag = current( $NightlyChannel->getList() );
+			if( $Tag ) {
+				// Get Files
+				$Tree = new Tree( $Configuration, $Tag->getIdentifier() );
+
+				var_dump( $Tree );
+			}
 		}
 
 	}

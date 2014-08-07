@@ -14,12 +14,15 @@ class Release extends Generic {
 		foreach( (array)$ItemList as $Item ) {
 			$Item = new ReleaseItem( $Item );
 			if( !$Item->getDraft() ) {
-				$this->Channel[$Item->getTimestamp()] = $Item;
+				$this->Channel[$Item->getVersion()] = $Item;
 			}
 		}
 		krsort( $this->Channel );
 	}
 
+	/**
+	 * @return ReleaseItem[]
+	 */
 	public function getList() {
 
 		return $this->Channel;

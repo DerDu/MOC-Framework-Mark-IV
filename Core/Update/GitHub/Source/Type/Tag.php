@@ -30,4 +30,12 @@ class Tag {
 		return $this->Version;
 	}
 
+	/**
+	 * @return null|string
+	 */
+	public function getIdentifier() {
+
+		return $this->Identifier;
+	}
+
 }
