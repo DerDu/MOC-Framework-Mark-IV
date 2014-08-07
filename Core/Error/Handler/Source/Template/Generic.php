@@ -12,6 +12,8 @@ abstract class Generic {
 	private $HtmlTemplate;
 	/** @var string $HtmlStyle */
 	private $HtmlStyle;
+	/** @var bool $ApplyHtmlStyle */
+	private static $ApplyHtmlStyle = true;
 
 	/** @var string $Title */
 	private $Title = 'Error';
@@ -48,21 +50,38 @@ abstract class Generic {
 		$this->Information = $Information;
 
 		$this->HtmlTemplate =
-			'<div class="MOC-Error-Reporting-Container" style="background-color: #FEA;">'.
+			'<div class="MOC-Error-Reporting-Container MOC-Error-Reporting-Type-Error">'.
 			'<div class="MOC-Error-Reporting-Element">{Title}</div>'.
-			'<div class="MOC-Error-Reporting-Element" style="font-weight: bold;">{Message}</div>'.
+			'<div class="MOC-Error-Reporting-Element MOC-Error-Reporting-Message">{Message}</div>'.
+			'<div class="MOC-Error-Reporting-Element">Code {Code} in {File} at line {Line}</div>'.
 			'<div class="MOC-Error-Reporting-Element">
 				<div class="MOC-Error-Reporting-Trace">{Trace}</div>
 			</div>'.
-			'<div class="MOC-Error-Reporting-Element">Code {Code} in {File} at line {Line}</div>'.
 			'<div class="MOC-Error-Reporting-Element">{Information}</div>'.
 			'</div>';
 
 		$this->HtmlStyle =
 			'<style type="text/css">'.
-			'.MOC-Error-Reporting-Container { color: #F00; border: 1px dotted #F00; margin: 1px; padding: 10px; font-family: monospace; }'.
-			'.MOC-Error-Reporting-Element { margin: 5px 0 5px 0; font-size: 10px; }'.
-			'.MOC-Error-Reporting-Trace { padding: 5px; font-size: 9px; border: 1px dotted #F00;" }'.
+			'.MOC-Error-Reporting-Container { margin: 1px; padding: 10px; font-family: arial; margin: 5px 0 5px 0; font-size: 14px; }'.
+			'.MOC-Error-Reporting-Element { margin: 5px 0 5px 0; font-size: 13px; }'.
+			'.MOC-Error-Reporting-Message { font-size: 13px; font-weight: bold; padding: 7px 0 7px 0; }'.
+
+			'.MOC-Error-Reporting-Trace { padding: 7px; font-size: 12px; border: 1px dotted #F00; font-family: monospace; margin: 15px 0 15px 0; }'.
+			'.MOC-Error-Reporting-Trace ul { padding: 0; margin: 0; }'.
+			'.MOC-Error-Reporting-Trace li { padding: 5px; border-top: 1px dotted #F00; }'.
+			'.MOC-Error-Reporting-Trace li:first-child { border-top: none; }'.
+
+			'.MOC-Error-Reporting-Type-Error { background-color: #FEA; color: #F00; border: 1px dotted #F00; }'.
+
+			'.MOC-Error-Reporting-Type-Exception { background-color: #B00; color: #ED9; border: 1px dotted #ED9; }'.
+			'.MOC-Error-Reporting-Type-Exception .MOC-Error-Reporting-Trace { border: 1px dotted #ED9; }'.
+			'.MOC-Error-Reporting-Type-Exception .MOC-Error-Reporting-Trace li { border-top: 1px dotted #ED9; }'.
+			'.MOC-Error-Reporting-Type-Exception .MOC-Error-Reporting-Trace li:first-child { border-top: none; }'.
+
+			'.MOC-Error-Reporting-Type-Shutdown { background-color: #B00; color: #ED9; border: 1px dotted #ED9; }'.
+			'.MOC-Error-Reporting-Type-Shutdown .MOC-Error-Reporting-Trace { border: 1px dotted #ED9; }'.
+			'.MOC-Error-Reporting-Type-Shutdown .MOC-Error-Reporting-Trace li { border-top: 1px dotted #ED9; }'.
+			'.MOC-Error-Reporting-Type-Shutdown .MOC-Error-Reporting-Trace li:first-child { border-top: none; }'.
 			'</style>';
 	}
 
@@ -82,12 +101,13 @@ abstract class Generic {
 	 * @return string
 	 */
 	private function getOutput() {
-
-		return $this->HtmlStyle.str_replace(
+		$Output = ( self::$ApplyHtmlStyle ? $this->HtmlStyle : '' ).str_replace(
 			array( '{Title}', '{Message}', '{Code}', '{File}', '{Line}', '{Trace}', '{Information}' ),
 			array( $this->Title, nl2br( $this->Message ), $this->Code, $this->File, $this->Line, nl2br( $this->Trace ), $this->Information ),
 			$this->HtmlTemplate
 		);
+		self::$ApplyHtmlStyle = false;
+		return $Output;
 	}
 
 	/**

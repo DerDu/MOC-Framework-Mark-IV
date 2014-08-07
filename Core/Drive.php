@@ -7,7 +7,9 @@ namespace MOC\IV\Core;
  * @package MOC\IV\Core
  */
 interface IDriveInterface {
+
 	public function apiDirectory( $Location );
+
 	public function apiFile( $Location );
 }
 
@@ -27,6 +29,7 @@ class Drive implements IDriveInterface {
 	}
 
 	public function optimizePathSyntax( $Path ) {
+
 		$Path = rtrim( preg_replace( '![\\\/]+!', DIRECTORY_SEPARATOR, $Path ), '\\/' );
 		while( preg_match( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', $Path, $Match ) ) {
 			$Path = preg_replace( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', '', $Path, 1 );

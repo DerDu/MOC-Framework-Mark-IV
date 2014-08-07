@@ -49,7 +49,7 @@ class Store implements IStoreInterface {
 	 */
 	public function getValue( $Key = null ) {
 
-		$Content = &$this->Session->getContent();
+		$Content = & $this->Session->getContent();
 		if( $Key !== null ) {
 			if( isset( $Content[$Key] ) ) {
 				return $Content[$Key];
@@ -69,7 +69,7 @@ class Store implements IStoreInterface {
 	 */
 	public function setValue( $Key, $Value ) {
 
-		$Content = &$this->Session->getContent();
+		$Content = & $this->Session->getContent();
 		$Content[$Key] = $Value;
 
 		return $this;

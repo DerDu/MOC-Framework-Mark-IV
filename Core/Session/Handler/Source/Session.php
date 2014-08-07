@@ -89,7 +89,9 @@ class Session implements ISessionInterface {
 	 * @return array
 	 */
 	public function &getContent() {
-		$Reference = &$_SESSION[self::$Identifier];
+
+		$Reference = & $_SESSION[self::$Identifier];
+
 		return $Reference;
 	}
 }

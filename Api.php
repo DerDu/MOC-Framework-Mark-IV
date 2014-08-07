@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV;
 
+use MOC\IV\Core\Update;
+
 /**
  * Interface IApi
  *
@@ -45,7 +47,7 @@ interface IApiInterface {
 	/**
 	 * @return void
 	 */
-	public static function doBootstrap();
+	public static function runBootstrap();
 }
 
 /**
@@ -100,7 +102,7 @@ class Api implements IApiInterface {
 	/**
 	 *
 	 */
-	final public static function doBootstrap() {
+	final public static function runBootstrap() {
 
 		spl_autoload_register( function ( $Class ) {
 
@@ -115,6 +117,15 @@ class Api implements IApiInterface {
 		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createError() );
 		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createException() );
 		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createShutdown() );
+	}
+
+	/**
+	 * @return Update
+	 */
+	final public static function runUpdate() {
+
+		return new Update();
+
 	}
 
 	/**
@@ -153,4 +164,4 @@ class Api implements IApiInterface {
 /**
  * Bootstrap
  */
-Api::doBootstrap();
+Api::runBootstrap();

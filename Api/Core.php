@@ -3,6 +3,7 @@ namespace MOC\IV\Api;
 
 use MOC\IV\Core\Drive;
 use MOC\IV\Core\Error;
+use MOC\IV\Core\Network;
 use MOC\IV\Core\Session;
 
 /**
@@ -26,6 +27,11 @@ interface ICoreInterface {
 	 * @return Drive
 	 */
 	public function unitDrive();
+
+	/**
+	 * @return Network
+	 */
+	public function unitNetwork();
 }
 
 /**
@@ -57,6 +63,14 @@ class Core implements ICoreInterface {
 	public function unitSession() {
 
 		return new Session();
+	}
+
+	/**
+	 * @return Network
+	 */
+	public function unitNetwork() {
+
+		return new Network();
 	}
 
 }

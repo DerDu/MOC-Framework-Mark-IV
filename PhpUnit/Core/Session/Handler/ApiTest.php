@@ -4,7 +4,9 @@ namespace MOC\PhpUnit\Core\Session\Handler;
 use MOC\IV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
+
 	public function testHandlerApi() {
+
 		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
 
 		$this->assertInstanceOf( '\MOC\IV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->openSession() );
