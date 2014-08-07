@@ -38,7 +38,7 @@ class Curl {
 		curl_setopt( $Curl, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $Curl, CURLOPT_SSL_VERIFYHOST, false );
 		curl_setopt( $Curl, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt( $Curl, CURLOPT_VERBOSE, true );
+		curl_setopt( $Curl, CURLOPT_VERBOSE, false );
 
 		$Data = curl_exec( $Curl );
 		curl_close( $Curl );

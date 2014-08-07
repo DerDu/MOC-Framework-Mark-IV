@@ -36,3 +36,13 @@ Usage
 	```php
 	print Api::groupModule()->unitEncoding()->apiText('Latin-Chars öäüß')->getUtf8();
 	```
+
+Version
+-------
+
+Version number MAJOR.MINOR.PATCH.BUILD:
+
+- MAJOR version: incompatible API changes,
+- MINOR version: add functionality in a backwards-compatible manner
+- PATCH version: backwards-compatible bug fixes.
+- BUILD version: internal development tags

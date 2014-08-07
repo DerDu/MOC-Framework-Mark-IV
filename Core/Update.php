@@ -2,6 +2,9 @@
 namespace MOC\IV\Core;
 
 use MOC\IV\Api;
+use MOC\IV\Core\Update\GitHub\Source\Channel\Draft;
+use MOC\IV\Core\Update\GitHub\Source\Channel\Nightly;
+use MOC\IV\Core\Update\GitHub\Source\Channel\Release;
 
 /**
  * Interface IUpdateInterface
@@ -20,16 +23,29 @@ interface IUpdateInterface {
 class Update implements IUpdateInterface {
 
 	function __construct() {
+		$Configuration = $this->apiGitHub()->createConfig( __DIR__.'/Update/Config.ini' );
 
-		$Server = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->createServer( '192.168.100.254', '3128' );
-		$Credentials = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->createCredentials( 'Kunze', 'Ny58N' );
+		if( $Configuration->getChannelRelease() ) {
+			$Channel = new Release( $Configuration );
+			var_dump( $Channel->getList() );
+		}
 
-		$Proxy = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->createBasic( $Server, $Credentials );
-		$Proxy->setCustomHeader( 'User-Agent', 'DerDu' );
+		if( $Configuration->getChannelDraft() ) {
+			$Channel = new Draft( $Configuration );
+			var_dump( $Channel->getList() );
+		}
 
-		var_dump( json_decode( $Proxy->getFile( 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/tags' ) ) );
-		var_dump( json_decode( $Proxy->getFile( 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases' ) ) );
+		if( $Configuration->getChannelNightly() ) {
+			$Channel = new Nightly( $Configuration );
+			var_dump( $Channel->getList() );
+		}
 
 	}
 
+	/**
+	 * @return Update\GitHub\Api
+	 */
+	public function apiGitHub() {
+		return new Update\GitHub\Api();
+	}
 }

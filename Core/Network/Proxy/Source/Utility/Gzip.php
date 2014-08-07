@@ -19,7 +19,7 @@ class Gzip {
 	 *
 	 * @return bool|null|string
 	 */
-	public static function Decode( $data, &$filename = '', &$error = '', $maxlength = null ) {
+	public static function doDecode( $data, &$filename = '', &$error = '', $maxlength = null ) {
 
 		$len = strlen( $data );
 		if( $len < 18 || strcmp( substr( $data, 0, 2 ), "\x1f\x8b" ) ) {

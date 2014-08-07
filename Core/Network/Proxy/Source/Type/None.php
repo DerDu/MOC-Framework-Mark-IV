@@ -63,7 +63,7 @@ class None extends Generic {
 				$Header = substr( $Content, 0, strpos( $Content, "\r\n\r\n" ) + 4 );
 				$Content = substr( $Content, strpos( $Content, "\r\n\r\n" ) + 4 );
 				if( preg_match( '!content-encoding: gzip!is', $Header ) ) {
-					$Content = Gzip::Decode( $Content );
+					$Content = Gzip::doDecode( $Content );
 				}
 			} else {
 				// Already Modified -> Nothing to do
