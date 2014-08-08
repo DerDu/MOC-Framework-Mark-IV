@@ -1,6 +1,7 @@
 <?php
 namespace MOC\IV\Api;
 
+use MOC\IV\Core\Cache;
 use MOC\IV\Core\Drive;
 use MOC\IV\Core\Error;
 use MOC\IV\Core\Network;
@@ -33,6 +34,16 @@ interface ICoreInterface {
 	 * @return Network
 	 */
 	public function unitNetwork();
+
+	/**
+	 * @return Cache
+	 */
+	public function unitCache();
+
+	/**
+	 * @return Update
+	 */
+	public function unitUpdate();
 }
 
 /**
@@ -72,6 +83,14 @@ class Core implements ICoreInterface {
 	public function unitNetwork() {
 
 		return new Network();
+	}
+
+	/**
+	 * @return Cache
+	 */
+	public function unitCache() {
+
+		return new Cache();
 	}
 
 	/**
