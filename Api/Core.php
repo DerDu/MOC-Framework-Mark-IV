@@ -5,6 +5,7 @@ use MOC\IV\Core\Drive;
 use MOC\IV\Core\Error;
 use MOC\IV\Core\Network;
 use MOC\IV\Core\Session;
+use MOC\IV\Core\Update;
 
 /**
  * Interface ICore
@@ -71,6 +72,14 @@ class Core implements ICoreInterface {
 	public function unitNetwork() {
 
 		return new Network();
+	}
+
+	/**
+	 * @return Update
+	 */
+	public function unitUpdate() {
+
+		return new Update();
 	}
 
 }

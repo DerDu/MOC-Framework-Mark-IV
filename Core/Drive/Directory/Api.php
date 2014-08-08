@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Core\Drive\Directory;
 
+use MOC\IV\Core\Drive\Directory\Utility\Check;
+
 /**
  * Interface IApi
  *
@@ -8,6 +10,88 @@ namespace MOC\IV\Core\Drive\Directory;
  */
 interface IApiInterface {
 
+	/**
+	 * @return bool
+	 */
+	public function checkExists();
+
+	/**
+	 * @return bool
+	 */
+	public function checkIsEmpty();
+
+	/**
+	 * @param bool $Recursive
+	 *
+	 * @return \MOC\IV\Core\Drive\Directory\Api[]
+	 */
+	public function getDirectoryList( $Recursive = false );
+
+	/**
+	 * @param string $Location
+	 *
+	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 */
+	public function getDirectory( $Location );
+
+	/**
+	 * @param string $Location
+	 *
+	 * @return \MOC\IV\Core\Drive\File\Api
+	 */
+	public function getFile( $Location );
+
+	/**
+	 * @return string
+	 */
+	public function getHash();
+
+	/**
+	 * @param bool $Recursive
+	 *
+	 * @return \MOC\IV\Core\Drive\File\Api[]
+	 */
+	public function getFileList( $Recursive = false );
+
+	/**
+	 * @return string
+	 */
+	public function getLocation();
+
+	/**
+	 * File-Name
+	 *
+	 * @return null|string
+	 */
+	public function getName();
+
+	/**
+	 * File-Path
+	 *
+	 * @return null|string
+	 */
+	public function getPath();
+
+	/**
+	 * File-Timestamp
+	 *
+	 * @return null|int
+	 */
+	public function getTime();
+
+	/**
+	 * @param string $Name
+	 *
+	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 * @throws \Exception
+	 */
+	public function createDirectory( $Name );
+
+	/**
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function removeDirectory();
 }
 
 /**
@@ -16,5 +100,240 @@ interface IApiInterface {
  * @package MOC\IV\Core\Drive\Directory
  */
 class Api implements IApiInterface {
+
+	/** @var string $Location */
+	private $Location = '';
+
+	/**
+	 * @param string $Location
+	 * @param bool   $createIfNotExists
+	 */
+	function __construct( $Location, $createIfNotExists = false ) {
+
+		$this->Location = Check::convertCleanPathSyntax( $Location );
+		if( $createIfNotExists && !$this->checkExists() ) {
+			$this->createDirectory();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	final public function checkExists() {
+
+		if( file_exists( $this->Location ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @param string $Name
+	 *
+	 * @return Api
+	 * @throws \Exception
+	 */
+	final public function createDirectory( $Name = '' ) {
+
+		$Name = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Name );
+		if( !is_dir( $Name ) && !is_file( $Name ) ) {
+			if( false === mkdir( $Name, 0777, true ) ) {
+				throw new \Exception( 'Unable to create directory!'."\n".$Name );
+			} else {
+				return $this->getDirectory( $Name );
+			}
+		} else {
+			trigger_error( 'Directory or file exists already!'."\n".$Name );
+
+			return $this->getDirectory( $Name );
+		}
+	}
+
+	/**
+	 * @param string $Location
+	 *
+	 * @return Api
+	 */
+	final public function getDirectory( $Location ) {
+
+		return new Api( $Location );
+	}
+
+	/**
+	 * @return bool
+	 */
+	final public function checkIsEmpty() {
+
+		if( !count( $this->getDirectoryList() ) && !count( $this->getFileList() ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param bool $Recursive
+	 *
+	 * @return Api[]
+	 */
+	final public function getDirectoryList( $Recursive = false ) {
+
+		if( is_dir( $this->Location ) ) {
+			$List = array();
+			if( ( $Directory = $this->openDirectoryHandler() ) ) {
+				if( $Recursive ) {
+					while( false !== ( $Item = $Directory->read() ) ) {
+						if( $Item != '.' && $Item != '..' ) {
+							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
+							if( is_dir( $Item ) ) {
+								$Recursive = $this->getDirectory( $Item );
+								array_push( $List, $this->getDirectory( $Item ) );
+								$List = array_merge( $List, $Recursive->getDirectoryList( true ) );
+							}
+						}
+					}
+				} else {
+					while( false !== ( $Item = $Directory->read() ) ) {
+						if( $Item != '.' && $Item != '..' ) {
+							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
+							if( is_dir( $Item ) ) {
+								array_push( $List, $this->getDirectory( $Item ) );
+							}
+						}
+					}
+				}
+			}
+			$Directory->close();
+
+			return $List;
+		} else {
+			return array();
+		}
+	}
+
+	/**
+	 * @return bool|\Directory
+	 */
+	final private function openDirectoryHandler() {
+
+		if( !is_object( $Handler = dir( $this->Location ) ) ) {
+			return false;
+		}
+
+		return $Handler;
+	}
+
+	/**
+	 * @param bool $Recursive
+	 *
+	 * @return \MOC\IV\Core\Drive\File\Api[]
+	 */
+	final public function getFileList( $Recursive = false ) {
+
+		if( is_dir( $this->Location ) ) {
+			$List = array();
+			if( ( $Directory = $this->openDirectoryHandler() ) ) {
+				if( $Recursive ) {
+					while( false !== ( $Item = $Directory->read() ) ) {
+						if( $Item != '.' && $Item != '..' ) {
+							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
+							if( is_dir( $Item ) ) {
+								$Recursive = $this->getDirectory( $Item );
+								$List = array_merge( $List, $Recursive->getFileList( true ) );
+							} else {
+								array_push( $List, $this->getFile( $Item ) );
+							}
+						}
+					}
+				} else {
+					while( false !== ( $Item = $Directory->read() ) ) {
+						if( $Item != '.' && $Item != '..' ) {
+							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
+							if( !is_dir( $Item ) ) {
+								array_push( $List, $this->getFile( $Item ) );
+							}
+						}
+					}
+				}
+			}
+			$Directory->close();
+
+			return $List;
+		} else {
+			return array();
+		}
+	}
+
+	/**
+	 * @param string $Location
+	 *
+	 * @return \MOC\IV\Core\Drive\File\Api
+	 */
+	final public function getFile( $Location ) {
+
+		return \MOC\IV\Api::groupCore()->unitDrive()->apiFile( $Location );
+	}
+
+	/**
+	 * @return string
+	 */
+	final public function getHash() {
+
+		return sha1( $this->Location );
+	}
+
+	/**
+	 * @return string
+	 */
+	final public function getLocation() {
+
+		return $this->Location;
+	}
+
+	/**
+	 * File-Name
+	 *
+	 * @return string|null
+	 */
+	final public function getName() {
+
+		return pathinfo( $this->Location, PATHINFO_FILENAME );
+	}
+
+	/**
+	 * File-Path
+	 *
+	 * @return string|null
+	 */
+	final public function getPath() {
+
+		return pathinfo( $this->Location, PATHINFO_DIRNAME );
+	}
+
+	/**
+	 * File-Timestamp
+	 *
+	 * @return int|null
+	 */
+	final public function getTime() {
+
+		return $this->CheckExists() ? filemtime( $this->Location ) : null;
+	}
+
+	/**
+	 * @return bool
+	 * @throws \Exception
+	 */
+	final public function removeDirectory() {
+
+		if( false === rmdir( $this->Location ) ) {
+			throw new \Exception( 'Unable to remove directory!' );
+		}
+
+		return true;
+	}
 
 }

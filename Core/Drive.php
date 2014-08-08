@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Core;
 
+use MOC\IV\Core\Drive\Directory\Utility\Check;
+
 /**
  * Interface IDrive
  *
@@ -8,9 +10,29 @@ namespace MOC\IV\Core;
  */
 interface IDriveInterface {
 
+	/**
+	 * @param string $Location
+	 *
+	 * @return Drive\Directory\Api
+	 */
 	public function apiDirectory( $Location );
 
+	/**
+	 * @param string $Location
+	 *
+	 * @return Drive\File\Api
+	 */
 	public function apiFile( $Location );
+
+	/**
+	 * @return Drive\Directory\Api
+	 */
+	public function getRootDirectory();
+
+	/**
+	 * @return Drive\Directory\Api
+	 */
+	public function getCurrentDirectory();
 }
 
 /**
@@ -20,19 +42,40 @@ interface IDriveInterface {
  */
 class Drive implements IDriveInterface {
 
-	public function apiDirectory( $Location ) {
-
-	}
-
+	/**
+	 * @param string $Location
+	 *
+	 * @return Drive\File\Api
+	 */
 	public function apiFile( $Location ) {
 
+		return new Drive\File\Api( $Location );
 	}
 
-	public function optimizePathSyntax( $Path ) {
+	/**
+	 * @param string $Location
+	 *
+	 * @return Drive\Directory\Api
+	 */
+	public function apiDirectory( $Location ) {
 
-		$Path = rtrim( preg_replace( '![\\\/]+!', DIRECTORY_SEPARATOR, $Path ), '\\/' );
-		while( preg_match( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', $Path, $Match ) ) {
-			$Path = preg_replace( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', '', $Path, 1 );
-		}
+		return new Drive\Directory\Api( $Location );
 	}
+
+	/**
+	 * @return Drive\Directory\Api
+	 */
+	public function getRootDirectory() {
+
+		return Check::getRootDirectory();
+	}
+
+	/**
+	 * @return Drive\Directory\Api
+	 */
+	public function getCurrentDirectory() {
+
+		return Check::getCurrentDirectory();
+	}
+
 }
