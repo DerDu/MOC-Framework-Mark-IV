@@ -155,6 +155,12 @@ class Api implements IApiInterface {
 	 * @return Api
 	 */
 	public function closeFile( $Mode = self::MODE_WRITE_BINARY, $Location = null ) {
+
+		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
+		if( !$Directory->checkExists() ) {
+			$Directory->createDirectory();
+		}
+
 		if( null == $Location || $this->Location == $Location ) {
 			$Mode = $this->fetchWriteMode( $Mode );
 			if( is_array( $this->Content ) ) {

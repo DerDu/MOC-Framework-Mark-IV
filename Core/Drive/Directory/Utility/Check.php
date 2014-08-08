@@ -60,10 +60,10 @@ class Check {
 	 * @return string
 	 */
 	public static function convertCleanPathSyntax( $Path ) {
-
 		$Path = rtrim( preg_replace( '![\\\/]+!', DIRECTORY_SEPARATOR, $Path ), '\\/' );
 		while( preg_match( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', $Path, $Match ) ) {
 			$Path = preg_replace( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', '', $Path, 1 );
 		}
+		return $Path;
 	}
 }
