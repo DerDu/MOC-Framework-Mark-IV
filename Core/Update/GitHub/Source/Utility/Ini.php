@@ -10,11 +10,13 @@ class Ini {
 
 	/**
 	 * @param string $Location
+	 * @param int    $Scanner INI_SCANNER_NORMAL, INI_SCANNER_RAW
 	 *
 	 * @return array
 	 */
-	public static function readFile( $Location ) {
-		return parse_ini_file( $Location, true );
+	public static function readFile( $Location, $Scanner = INI_SCANNER_NORMAL ) {
+
+		return parse_ini_file( $Location, true, $Scanner );
 	}
 
 	/**
@@ -24,6 +26,7 @@ class Ini {
 	 * @return bool
 	 */
 	public static function writeFile( $Location, $Array ) {
+
 		$Content = '';
 		if( !$Location = fopen( $Location, 'w' ) ) {
 			return false;
@@ -33,6 +36,7 @@ class Ini {
 			return false;
 		}
 		fclose( $Location );
+
 		return true;
 	}
 
@@ -42,6 +46,7 @@ class Ini {
 	 * @param bool   $Sections
 	 */
 	private static function doWrite( &$Content, $Array, $Sections ) {
+
 		foreach( $Array as $Key => $Value ) {
 			if( is_array( $Value ) ) {
 				if( $Sections ) {

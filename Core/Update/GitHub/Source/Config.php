@@ -8,125 +8,149 @@ class Config {
 
 	private $Location = false;
 
-	private $ProxyHost = null;
-	private $ProxyPort = null;
-	private $ProxyUser = null;
-	private $ProxyPass = null;
-
-	private $ChannelRelease = true;
-	private $ChannelDraft = false;
-	private $ChannelNightly = false;
-
-	private $VersionMajor = 0;
-	private $VersionMinor = 0;
-	private $VersionPatch = 0;
-	private $VersionBuild = 0;
+	private $Structure = array(
+		'Version:Current'   => array(
+			'Major' => 0,
+			'Minor' => 0,
+			'Patch' => 0,
+			'Build' => 0
+		),
+		'Channel:List'      => array(
+			'Release'             => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases',
+			'Preview'             => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases',
+			'Nightly'             => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/tags',
+			/**
+			 * Internal
+			 */
+			'GitHub:Channel:Tree' => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/trees',
+			'GitHub:Channel:Blob' => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/blobs',
+			'GitHub:Channel:Limit' => 'https://api.github.com/rate_limit'
+		),
+		'Channel:Active'    => array(
+			'Release' => true,
+			'Preview' => false,
+			'Nightly' => false
+		),
+		'Network:Proxy'     => array(
+			'Host' => null,
+			'Port' => null,
+			'User' => null,
+			'Pass' => null
+		),
+		'Match:AutoUpdate'  => array(
+			'Major' => true,
+			'Minor' => true,
+			'Patch' => false,
+			'Build' => false
+		),
+		'Match:AutoInstall' => array(
+			'Major' => true,
+			'Minor' => true,
+			'Patch' => true,
+			'Build' => true
+		)
+	);
 
 	private $Network = null;
 
 	function __construct( $Location ) {
+
+		/**
+		 * Parse File
+		 */
 		$this->Location = $Location;
-		$ValueList = Ini::readFile( $this->Location );
-		if( isset( $ValueList['Version'] ) ) {
-			if( isset( $ValueList['Version']['CurrentMajor'] ) ) {
-				$this->VersionMajor = $ValueList['Version']['CurrentMajor'];
-			}
-			if( isset( $ValueList['Version']['CurrentMinor'] ) ) {
-				$this->VersionMinor = $ValueList['Version']['CurrentMinor'];
-			}
-			if( isset( $ValueList['Version']['CurrentPatch'] ) ) {
-				$this->VersionPatch = $ValueList['Version']['CurrentPatch'];
-			}
-			if( isset( $ValueList['Version']['CurrentBuild'] ) ) {
-				$this->VersionBuild = $ValueList['Version']['CurrentBuild'];
-			}
-		}
-		if( isset( $ValueList['Channel'] ) ) {
-			if( isset( $ValueList['Channel']['UseRelease'] ) ) {
-				$this->ChannelRelease = $ValueList['Channel']['UseRelease'];
-			}
-			if( isset( $ValueList['Channel']['UseDraft'] ) ) {
-				$this->ChannelDraft = $ValueList['Channel']['UseDraft'];
-			}
-			if( isset( $ValueList['Channel']['UseNightly'] ) ) {
-				$this->ChannelNightly = $ValueList['Channel']['UseNightly'];
-			}
-		}
-		if( isset( $ValueList['Network'] ) ) {
-			if( isset( $ValueList['Network']['ProxyHost'] ) ) {
-				$this->ProxyHost = $ValueList['Network']['ProxyHost'];
-			}
-			if( isset( $ValueList['Network']['ProxyPort'] ) ) {
-				$this->ProxyPort = $ValueList['Network']['ProxyPort'];
-			}
-			if( isset( $ValueList['Network']['ProxyUser'] ) ) {
-				$this->ProxyUser = $ValueList['Network']['ProxyUser'];
-			}
-			if( isset( $ValueList['Network']['ProxyPass'] ) ) {
-				$this->ProxyPass = $ValueList['Network']['ProxyPass'];
+		$ValueList = Ini::readFile( $this->Location, INI_SCANNER_RAW );
+		/**
+		 * Prepare Content
+		 */
+		foreach( (array)$this->Structure as $Group => $ItemList ) {
+			foreach( (array)$ItemList as $Key => $Value ) {
+				if( isset( $ValueList[$Group] ) && isset( $ValueList[$Group][$Key] ) ) {
+					switch( strtoupper( $Group ) ) {
+						case 'VERSION:CURRENT':
+						{
+							$ValueList[$Group][$Key] = (integer)$ValueList[$Group][$Key];
+							break;
+						}
+					}
+					switch( strtoupper( $ValueList[$Group][$Key] ) ) {
+						case 'TRUE':
+						case 'ON':
+						{
+							$ValueList[$Group][$Key] = true;
+							break;
+						}
+						case 'FALSE':
+						case 'OFF':
+						{
+							$ValueList[$Group][$Key] = false;
+							break;
+						}
+					}
+					$this->Structure[$Group][$Key] = $ValueList[$Group][$Key];
+				}
 			}
 		}
-		if( null !== $this->ProxyHost && null !== $this->ProxyUser ) {
-			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->createBasic(
-				Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->createServer( $this->ProxyHost, $this->ProxyPort ),
-				Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->createCredentials( $this->ProxyUser, $this->ProxyPass )
+		/**
+		 * Create Network
+		 */
+		if( null !== $this->getProxyHost() && null !== $this->getProxyUser() ) {
+			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildBasic(
+				Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( $this->getProxyHost(), $this->getProxyPort() ),
+				Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildCredentials( $this->getProxyUser(), $this->getProxyPass() )
+			);
+		} else if( null !== $this->getProxyHost() ) {
+			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildRelay(
+				Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( $this->getProxyHost(), $this->getProxyPort() )
 			);
 		} else {
-			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->createNone();
+			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildNone();
 		}
-		$this->Network->setCustomHeader( 'User-Agent', 'DerDu' );
+		$this->Network->setCustomHeader( 'User-Agent', $this->getChannelListRelease() );
 	}
 
 	/**
-	 * @param boolean $ChannelDraft
+	 * @return null|string
 	 */
-	public function setChannelDraft( $ChannelDraft ) {
+	public function getProxyHost() {
 
-		$this->ChannelDraft = $ChannelDraft;
+		return $this->Structure['Network:Proxy']['Host'];
 	}
 
 	/**
-	 * @return boolean
+	 * @return null|string
 	 */
-	public function getChannelDraft() {
+	public function getProxyUser() {
 
-		return $this->ChannelDraft;
+		return $this->Structure['Network:Proxy']['User'];
 	}
 
 	/**
-	 * @param boolean $ChannelNightly
+	 * @return null|string
 	 */
-	public function setChannelNightly( $ChannelNightly ) {
+	public function getProxyPort() {
 
-		$this->ChannelNightly = $ChannelNightly;
+		return $this->Structure['Network:Proxy']['Port'];
 	}
 
 	/**
-	 * @return boolean
+	 * @return null|string
 	 */
-	public function getChannelNightly() {
+	public function getProxyPass() {
 
-		return $this->ChannelNightly;
+		return $this->Structure['Network:Proxy']['Pass'];
 	}
 
 	/**
-	 * @param boolean $ChannelRelease
+	 * @return string
 	 */
-	public function setChannelRelease( $ChannelRelease ) {
+	public function getChannelListRelease() {
 
-		$this->ChannelRelease = $ChannelRelease;
+		return $this->Structure['Channel:List']['Release'];
 	}
 
 	/**
-	 * @return boolean
-	 */
-	public function getChannelRelease() {
-
-		return $this->ChannelRelease;
-	}
-
-	/**
-	 * @return \MOC\IV\Core\Network\Proxy\Source\Type\None|null
+	 * @return \MOC\IV\Core\Network\Proxy\Source\Type\Generic
 	 */
 	public function getNetwork() {
 
@@ -134,131 +158,168 @@ class Config {
 	}
 
 	/**
-	 * @param null $ProxyHost
+	 * @return string
 	 */
-	public function setProxyHost( $ProxyHost ) {
+	public function getChannelListPreview() {
 
-		$this->ProxyHost = $ProxyHost;
+		return $this->Structure['Channel:List']['Preview'];
 	}
 
 	/**
-	 * @return null
+	 * @return string
 	 */
-	public function getProxyHost() {
+	public function getChannelListNightly() {
 
-		return $this->ProxyHost;
-	}
-
-	/**
-	 * @param null $ProxyPass
-	 */
-	public function setProxyPass( $ProxyPass ) {
-
-		$this->ProxyPass = $ProxyPass;
-	}
-
-	/**
-	 * @return null
-	 */
-	public function getProxyPass() {
-
-		return $this->ProxyPass;
-	}
-
-	/**
-	 * @param null $ProxyPort
-	 */
-	public function setProxyPort( $ProxyPort ) {
-
-		$this->ProxyPort = $ProxyPort;
-	}
-
-	/**
-	 * @return null
-	 */
-	public function getProxyPort() {
-
-		return $this->ProxyPort;
-	}
-
-	/**
-	 * @param null $ProxyUser
-	 */
-	public function setProxyUser( $ProxyUser ) {
-
-		$this->ProxyUser = $ProxyUser;
-	}
-
-	/**
-	 * @return null
-	 */
-	public function getProxyUser() {
-
-		return $this->ProxyUser;
-	}
-
-	/**
-	 * @param int $VersionBuild
-	 */
-	public function setVersionBuild( $VersionBuild ) {
-
-		$this->VersionBuild = $VersionBuild;
+		return $this->Structure['Channel:List']['Nightly'];
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getVersionBuild() {
+	public function getCurrentVersionMajor() {
 
-		return $this->VersionBuild;
-	}
-
-	/**
-	 * @param int $VersionMajor
-	 */
-	public function setVersionMajor( $VersionMajor ) {
-
-		$this->VersionMajor = $VersionMajor;
+		return $this->Structure['Version:Current']['Major'];
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getVersionMajor() {
+	public function getCurrentVersionMinor() {
 
-		return $this->VersionMajor;
-	}
-
-	/**
-	 * @param int $VersionMinor
-	 */
-	public function setVersionMinor( $VersionMinor ) {
-
-		$this->VersionMinor = $VersionMinor;
+		return $this->Structure['Version:Current']['Minor'];
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getVersionMinor() {
+	public function getCurrentVersionPatch() {
 
-		return $this->VersionMinor;
-	}
-
-	/**
-	 * @param int $VersionPatch
-	 */
-	public function setVersionPatch( $VersionPatch ) {
-
-		$this->VersionPatch = $VersionPatch;
+		return $this->Structure['Version:Current']['Patch'];
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getVersionPatch() {
+	public function getCurrentVersionBuild() {
 
-		return $this->VersionPatch;
+		return $this->Structure['Version:Current']['Build'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdateMajor() {
+
+		return $this->Structure['Match:AutoUpdate']['Major'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdateMinor() {
+
+		return $this->Structure['Match:AutoUpdate']['Minor'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdatePatch() {
+
+		return $this->Structure['Match:AutoUpdate']['Patch'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdateBuild() {
+
+		return $this->Structure['Match:AutoUpdate']['Build'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallMajor() {
+
+		return $this->Structure['Match:AutoInstall']['Major'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallMinor() {
+
+		return $this->Structure['Match:AutoInstall']['Minor'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallPatch() {
+
+		return $this->Structure['Match:AutoInstall']['Patch'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallBuild() {
+
+		return $this->Structure['Match:AutoInstall']['Build'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getChannelActiveRelease() {
+
+		return $this->Structure['Channel:Active']['Release'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getChannelActivePreview() {
+
+		return $this->Structure['Channel:Active']['Preview'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getChannelActiveNightly() {
+
+		return $this->Structure['Channel:Active']['Nightly'];
+	}
+
+	/**
+	 * @param string $Identifier
+	 * @param bool   $Recursive
+	 *
+	 * @return string
+	 */
+	public function getGitHubChannelTree( $Identifier, $Recursive = true ) {
+
+		return $this->Structure['Channel:List']['GitHub:Channel:Tree'].'/'.$Identifier.( $Recursive ? '?recursive=1' : '' );
+	}
+
+	/**
+	 * @param string $Identifier
+	 *
+	 * @return string
+	 */
+	public function getGitHubChannelBlob( $Identifier ) {
+
+		return $this->Structure['Channel:List']['GitHub:Channel:Blob'].'/'.$Identifier;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGitHubChannelLimit() {
+
+		return $this->Structure['Channel:List']['GitHub:Channel:Limit'];
 	}
 
 }

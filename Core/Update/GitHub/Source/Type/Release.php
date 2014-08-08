@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Core\Update\GitHub\Source\Type;
 
+use MOC\IV\Core\Update\GitHub\Source\Version;
+
 /**
  * Class Release
  *
@@ -10,31 +12,30 @@ class Release {
 
 	/** @var null|string $Name */
 	private $Name = null;
-	/** @var null|string $Version */
+	/** @var null|string $Description */
+	private $Description = null;
+	/** @var null|Version $Version */
 	private $Version = null;
-	/** @var int|null $Timestamp */
-	private $Timestamp = null;
-	/** @var null|bool $Draft */
-	private $Draft = null;
+	/** @var null|Tag $Tag */
+	private $Tag = null;
+	/** @var null|Tree $Tree */
+	private $Tree = null;
 
 	/**
 	 * @param \stdClass $Release
 	 */
 	function __construct( \stdClass $Release ) {
 
-		$this->Name = $Release->name;
-		$this->Version = $Release->tag_name;
-		$this->Timestamp = strtotime( $Release->published_at );
+		if( isset( $Release->tag_name ) ) {
+			$this->Name = $Release->name;
+			$this->Description = $Release->body;
+			$this->Version = new Version( $Release->tag_name );
+		} else {
+			$this->Name = '';
+			$this->Description = '';
+			$this->Version = new Version( $Release->name );
+		}
 
-		$this->Draft = $Release->prerelease;
-	}
-
-	/**
-	 * @return bool|null
-	 */
-	public function getDraft() {
-
-		return $this->Draft;
 	}
 
 	/**
@@ -46,19 +47,50 @@ class Release {
 	}
 
 	/**
-	 * @return int|null
+	 * @return null|string
 	 */
-	public function getTimestamp() {
+	public function getDescription() {
 
-		return $this->Timestamp;
+		return $this->Description;
 	}
 
 	/**
-	 * @return null|string
+	 * @return null|Version
 	 */
 	public function getVersion() {
 
 		return $this->Version;
 	}
 
+	/**
+	 * @return Tag|null
+	 */
+	public function getTag() {
+
+		return $this->Tag;
+	}
+
+	/**
+	 * @param Tag $Tag
+	 */
+	public function setTag( Tag $Tag ) {
+
+		$this->Tag = $Tag;
+	}
+
+	/**
+	 * @return Tree|null
+	 */
+	public function getTree() {
+
+		return $this->Tree;
+	}
+
+	/**
+	 * @param Tree $Tree
+	 */
+	public function setTree( Tree $Tree ) {
+
+		$this->Tree = $Tree;
+	}
 }

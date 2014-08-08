@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Core\Update\GitHub\Source\Type;
 
+use MOC\IV\Core\Update\GitHub\Source\Version;
+
 /**
  * Class Tag
  *
@@ -8,7 +10,7 @@ namespace MOC\IV\Core\Update\GitHub\Source\Type;
  */
 class Tag {
 
-	/** @var null|string $Version */
+	/** @var null|Version $Version */
 	private $Version = null;
 	/** @var null|string $Identifier */
 	private $Identifier = null;
@@ -18,12 +20,12 @@ class Tag {
 	 */
 	function __construct( \stdClass $Tag ) {
 
-		$this->Version = $Tag->name;
+		$this->Version = new Version( $Tag->name );
 		$this->Identifier = $Tag->commit->sha;
 	}
 
 	/**
-	 * @return null|string
+	 * @return null|Version
 	 */
 	public function getVersion() {
 

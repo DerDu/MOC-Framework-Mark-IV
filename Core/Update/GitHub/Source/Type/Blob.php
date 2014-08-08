@@ -1,6 +1,11 @@
 <?php
 namespace MOC\IV\Core\Update\GitHub\Source\Type;
 
+/**
+ * Class Blob
+ *
+ * @package MOC\IV\Core\Update\GitHub\Source\Type
+ */
 class Blob {
 
 	/** @var null|string $Identifier */
@@ -9,23 +14,16 @@ class Blob {
 	private $Size = null;
 	/** @var null|string $Location */
 	private $Location = null;
-	/** @var null|string $Content */
-	private $Content = null;
-
-	function __construct( Tree $Tree ) {
-
-		$this->Identifier = $Tree->getIdentifier();
-		$this->Size = $Tree->getSize();
-		$this->Location = $Tree->getLocation();
-
-	}
 
 	/**
-	 * @return null|string
+	 * @param \stdClass $Blob
 	 */
-	public function getContent() {
+	function __construct( \stdClass $Blob ) {
 
-		return $this->Content;
+		$this->Identifier = $Blob->sha;
+		$this->Size = $Blob->size;
+		$this->Location = $Blob->path;
+
 	}
 
 	/**
@@ -48,6 +46,7 @@ class Blob {
 	 * @return null|string
 	 */
 	public function getLocation() {
+
 		return $this->Location;
 	}
 }
