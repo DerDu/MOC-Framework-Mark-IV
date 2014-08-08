@@ -62,7 +62,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final public static function loadClass( $Class ) {
+	public static function loadClass( $Class ) {
 
 		$Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
 		$Class = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
@@ -82,7 +82,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final public static function loadInterface( $File ) {
+	public static function loadInterface( $File ) {
 
 		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)Interface(.*?)$$!s';
 		if( preg_match( $Pattern, $File, $Match ) ) {
@@ -102,7 +102,7 @@ class Api implements IApiInterface {
 	/**
 	 *
 	 */
-	final public static function runBootstrap() {
+	public static function runBootstrap() {
 
 		spl_autoload_register( function ( $Class ) {
 
@@ -122,7 +122,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return Update
 	 */
-	final public static function runUpdate() {
+	public static function runUpdate() {
 
 		return new Update();
 
@@ -131,7 +131,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return Api\Core
 	 */
-	final public static function groupCore() {
+	public static function groupCore() {
 
 		return new Api\Core();
 	}
@@ -139,7 +139,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return Api\Module
 	 */
-	final public static function groupModule() {
+	public static function groupModule() {
 
 		return new Api\Module();
 	}
@@ -147,7 +147,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return Api\Extension
 	 */
-	final public static function groupExtension() {
+	public static function groupExtension() {
 
 		return new Api\Extension();
 	}
@@ -155,7 +155,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return Api\Plugin
 	 */
-	final public static function groupPlugin() {
+	public static function groupPlugin() {
 
 		return new Api\Plugin();
 	}

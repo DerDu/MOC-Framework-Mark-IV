@@ -144,7 +144,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return string
 	 */
-	final public function getLocation() {
+	public function getLocation() {
 		return $this->Location;
 	}
 
@@ -154,7 +154,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return Api
 	 */
-	final public function closeFile( $Mode = self::MODE_WRITE_BINARY, $Location = null ) {
+	public function closeFile( $Mode = self::MODE_WRITE_BINARY, $Location = null ) {
 		if( null == $Location || $this->Location == $Location ) {
 			$Mode = $this->fetchWriteMode( $Mode );
 			if( is_array( $this->Content ) ) {
@@ -188,7 +188,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return bool
 	 */
-	final public function checkExists() {
+	public function checkExists() {
 		if( file_exists( $this->Location ) ) {
 			return true;
 		} else {
@@ -199,14 +199,14 @@ class Api implements IApiInterface {
 	/**
 	 * @return string
 	 */
-	final public function getHash() {
+	public function getHash() {
 		return ( file_exists( $this->Location ) ? sha1_file( $this->Location ) : sha1( $this->Location ) );
 	}
 
 	/**
 	 * @return bool|null|string
 	 */
-	final public function getContent() {
+	public function getContent() {
 		// Read from File
 		if( $this->checkExists() && $this->Content === null ) {
 			$this->Content = file_get_contents( $this->Location );
@@ -219,7 +219,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return Api
 	 */
-	final public function setContent( $Content ) {
+	public function setContent( $Content ) {
 		$this->Content = $Content;
 		return $this;
 	}
@@ -229,7 +229,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string|null
 	 */
-	final public function getName() {
+	public function getName() {
 		return pathinfo( $this->Location, PATHINFO_FILENAME );
 	}
 
@@ -238,7 +238,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string|null
 	 */
-	final public function getFullName() {
+	public function getFullName() {
 		return $this->getName().( $this->getExtension() != null ? '.'.$this->getExtension() : '' );
 	}
 
@@ -247,7 +247,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string|null
 	 */
-	final public function getExtension() {
+	public function getExtension() {
 		return pathinfo( $this->Location, PATHINFO_EXTENSION );
 	}
 
@@ -256,7 +256,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string|null
 	 */
-	final public function getPath() {
+	public function getPath() {
 		return pathinfo( $this->Location, PATHINFO_DIRNAME );
 	}
 
@@ -265,7 +265,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return int|null
 	 */
-	final public function getSize() {
+	public function getSize() {
 		return $this->checkExists() ? filesize( $this->Location ) : null;
 	}
 
@@ -274,14 +274,14 @@ class Api implements IApiInterface {
 	 *
 	 * @return int|null
 	 */
-	final public function getTime() {
+	public function getTime() {
 		return $this->checkExists() ? filemtime( $this->Location ) : null;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function GetUrl() {
+	public function getUrl() {
 		return $this->fetchScheme().$this->fetchHost().( $this->fetchPort()?':'.$this->fetchPort():'' ).'/'.$this->fetchPath().'/'.basename( $this->getLocation() );
 	}
 
@@ -292,7 +292,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final public function copyFile( $Location ) {
+	public function copyFile( $Location ) {
 		if( file_exists( $this->Location ) ) {
 			if( copy( $this->Location, Check::convertCleanPathSyntax( $Location ) ) ) {
 				return true;
@@ -308,7 +308,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final public function moveFile( $Location ) {
+	public function moveFile( $Location ) {
 		if( file_exists( $this->Location ) ) {
 			if( ($Return = $this->lockRename( $Location )) ) {
 				$this->Location = $Location;
@@ -323,7 +323,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final public function removeFile() {
+	public function removeFile() {
 		if( file_exists( $this->Location ) ) {
 			return $this->lockRemove();
 		}
@@ -335,7 +335,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final public function touchFile() {
+	public function touchFile() {
 		if( strlen( $this->Location ) > 0 ) {
 			fclose( fopen( $this->Location, 'a' ) );
 			return true;
@@ -353,7 +353,7 @@ class Api implements IApiInterface {
 	 * @return bool
 	 * @throws \Exception
 	 */
-	final private function lockWrite( $Location = null, $Content = null, $Mode = null ) {
+	private function lockWrite( $Location = null, $Content = null, $Mode = null ) {
 		$Mode = $this->fetchWriteMode( $Mode );
 		switch( strtoupper( $Mode ) ) {
 			case 'A': {
@@ -423,7 +423,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final private function lockRename( $Location, $Timeout = 15 ) {
+	private function lockRename( $Location, $Timeout = 15 ) {
 		if( is_file( $this->Location ) ) {
 			if(
 				( false !== ( $HandlerA = fopen( $this->Location, "r" ) ) )
@@ -460,7 +460,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	final private function lockRemove( $Timeout = 15 ) {
+	private function lockRemove( $Timeout = 15 ) {
 		if( is_file( $this->Location ) ) {
 			if( false !== ( $Handler = fopen( $this->Location, "w" ) ) ) {
 				while( flock( $Handler, LOCK_EX | LOCK_NB ) === false && $Timeout > 0 ) {
@@ -486,7 +486,7 @@ class Api implements IApiInterface {
 	 * @return string
 	 * @throws \Exception
 	 */
-	final private function fetchCacheFile() {
+	private function fetchCacheFile() {
 		if( ( $CacheFile = tempnam( ini_get('upload_tmp_dir'), 'write' ) ) === false ) {
 			throw new \Exception( 'Cache-Access failed!' );
 		}
@@ -500,7 +500,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string
 	 */
-	final private function fetchWriteMode( $Mode ) {
+	private function fetchWriteMode( $Mode ) {
 		switch( $Mode ) {
 			case 1: { return self::MODE_APPEND; }
 			case 2: { return self::MODE_WRITE; }
@@ -515,7 +515,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return string
 	 */
-	final private function fetchPath() {
+	private function fetchPath() {
 		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
 		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\IV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\'), '/' ) );
 	}
@@ -523,14 +523,14 @@ class Api implements IApiInterface {
 	/**
 	 * @return string
 	 */
-	final private function fetchHost() {
+	private function fetchHost() {
 		return $_SERVER['SERVER_NAME'];
 	}
 
 	/**
 	 * @return string
 	 */
-	final private function fetchScheme() {
+	private function fetchScheme() {
 		switch( $this->fetchPort() ) {
 			case '80': return 'http://';
 			case '21': return 'ftp://';
@@ -542,7 +542,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return bool
 	 */
-	final private function fetchPort() {
+	private function fetchPort() {
 		if( !isset( $_SERVER['SERVER_PORT'] ) ) {
 			return false;
 		}

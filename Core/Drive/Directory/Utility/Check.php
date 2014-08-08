@@ -13,7 +13,7 @@ class Check {
 	/**
 	 * @return \MOC\IV\Core\Drive\Directory\Api
 	 */
-	final public static function getCurrentDirectory() {
+	public static function getCurrentDirectory() {
 
 		return Api::groupCore()->unitDrive()->apiDirectory( self::getRootDirectory()->getLocation().dirname( $_SERVER['SCRIPT_NAME'] ) );
 	}
@@ -21,7 +21,7 @@ class Check {
 	/**
 	 * @return \MOC\IV\Core\Drive\Directory\Api
 	 */
-	final public static function getRootDirectory() {
+	public static function getRootDirectory() {
 
 		self::correctDocumentRoot();
 
@@ -37,7 +37,7 @@ class Check {
 	 * @static
 	 * @return void
 	 */
-	final private function correctDocumentRoot() {
+	private function correctDocumentRoot() {
 
 		if( !isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
 			if( isset( $_SERVER['SCRIPT_FILENAME'] ) ) {
@@ -59,7 +59,7 @@ class Check {
 	 *
 	 * @return string
 	 */
-	final public static function convertCleanPathSyntax( $Path ) {
+	public static function convertCleanPathSyntax( $Path ) {
 
 		$Path = rtrim( preg_replace( '![\\\/]+!', DIRECTORY_SEPARATOR, $Path ), '\\/' );
 		while( preg_match( '!(\\\|/)[^\\\/]+?(\\\|/)\.\.!', $Path, $Match ) ) {

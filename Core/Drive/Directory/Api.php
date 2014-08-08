@@ -121,7 +121,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return bool
 	 */
-	final public function checkExists() {
+	public function checkExists() {
 
 		if( file_exists( $this->Location ) ) {
 			return true;
@@ -136,7 +136,7 @@ class Api implements IApiInterface {
 	 * @return Api
 	 * @throws \Exception
 	 */
-	final public function createDirectory( $Name = '' ) {
+	public function createDirectory( $Name = '' ) {
 
 		$Name = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Name );
 		if( !is_dir( $Name ) && !is_file( $Name ) ) {
@@ -157,7 +157,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return Api
 	 */
-	final public function getDirectory( $Location ) {
+	public function getDirectory( $Location ) {
 
 		return new Api( $Location );
 	}
@@ -165,7 +165,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return bool
 	 */
-	final public function checkIsEmpty() {
+	public function checkIsEmpty() {
 
 		if( !count( $this->getDirectoryList() ) && !count( $this->getFileList() ) ) {
 			return true;
@@ -179,7 +179,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return Api[]
 	 */
-	final public function getDirectoryList( $Recursive = false ) {
+	public function getDirectoryList( $Recursive = false ) {
 
 		if( is_dir( $this->Location ) ) {
 			$List = array();
@@ -217,7 +217,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return bool|\Directory
 	 */
-	final private function openDirectoryHandler() {
+	private function openDirectoryHandler() {
 
 		if( !is_object( $Handler = dir( $this->Location ) ) ) {
 			return false;
@@ -231,7 +231,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return \MOC\IV\Core\Drive\File\Api[]
 	 */
-	final public function getFileList( $Recursive = false ) {
+	public function getFileList( $Recursive = false ) {
 
 		if( is_dir( $this->Location ) ) {
 			$List = array();
@@ -272,7 +272,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return \MOC\IV\Core\Drive\File\Api
 	 */
-	final public function getFile( $Location ) {
+	public function getFile( $Location ) {
 
 		return \MOC\IV\Api::groupCore()->unitDrive()->apiFile( $Location );
 	}
@@ -280,7 +280,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return string
 	 */
-	final public function getHash() {
+	public function getHash() {
 
 		return sha1( $this->Location );
 	}
@@ -288,7 +288,7 @@ class Api implements IApiInterface {
 	/**
 	 * @return string
 	 */
-	final public function getLocation() {
+	public function getLocation() {
 
 		return $this->Location;
 	}
@@ -298,7 +298,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string|null
 	 */
-	final public function getName() {
+	public function getName() {
 
 		return pathinfo( $this->Location, PATHINFO_FILENAME );
 	}
@@ -308,7 +308,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return string|null
 	 */
-	final public function getPath() {
+	public function getPath() {
 
 		return pathinfo( $this->Location, PATHINFO_DIRNAME );
 	}
@@ -318,7 +318,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return int|null
 	 */
-	final public function getTime() {
+	public function getTime() {
 
 		return $this->CheckExists() ? filemtime( $this->Location ) : null;
 	}
@@ -327,7 +327,7 @@ class Api implements IApiInterface {
 	 * @return bool
 	 * @throws \Exception
 	 */
-	final public function removeDirectory() {
+	public function removeDirectory() {
 
 		if( false === rmdir( $this->Location ) ) {
 			throw new \Exception( 'Unable to remove directory!' );
