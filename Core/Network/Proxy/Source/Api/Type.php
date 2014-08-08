@@ -17,14 +17,14 @@ interface ITypeInterface {
 	/**
 	 * @return None
 	 */
-	public function createNone();
+	public function buildNone();
 
 	/**
 	 * @param Server $Server
 	 *
 	 * @return Relay
 	 */
-	public function createRelay( Server $Server );
+	public function buildRelay( Server $Server );
 
 	/**
 	 * @param Server      $Server
@@ -32,7 +32,7 @@ interface ITypeInterface {
 	 *
 	 * @return Basic
 	 */
-	public function createBasic( Server $Server, Credentials $Credentials );
+	public function buildBasic( Server $Server, Credentials $Credentials );
 }
 
 /**
@@ -45,7 +45,7 @@ class Type implements ITypeInterface {
 	/**
 	 * @return None
 	 */
-	public function createNone() {
+	public function buildNone() {
 
 		return new None();
 	}
@@ -55,7 +55,7 @@ class Type implements ITypeInterface {
 	 *
 	 * @return Relay
 	 */
-	public function createRelay( Server $Server ) {
+	public function buildRelay( Server $Server ) {
 
 		return new Relay( $Server );
 	}
@@ -66,7 +66,7 @@ class Type implements ITypeInterface {
 	 *
 	 * @return Basic
 	 */
-	public function createBasic( Server $Server, Credentials $Credentials ) {
+	public function buildBasic( Server $Server, Credentials $Credentials ) {
 
 		return new Basic( $Server, $Credentials );
 	}

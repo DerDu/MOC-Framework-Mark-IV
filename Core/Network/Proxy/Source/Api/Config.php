@@ -17,7 +17,7 @@ interface IConfigInterface {
 	 *
 	 * @return Credentials
 	 */
-	public function createCredentials( $UserName, $Password );
+	public function buildCredentials( $UserName, $Password );
 
 	/**
 	 * @param string     $Host
@@ -25,7 +25,7 @@ interface IConfigInterface {
 	 *
 	 * @return Server
 	 */
-	public function createServer( $Host, $Port );
+	public function buildServer( $Host, $Port );
 }
 
 /**
@@ -41,7 +41,7 @@ class Config implements IConfigInterface {
 	 *
 	 * @return Credentials
 	 */
-	public function createCredentials( $UserName, $Password ) {
+	public function buildCredentials( $UserName, $Password ) {
 
 		return new Credentials( $UserName, $Password );
 	}
@@ -52,7 +52,7 @@ class Config implements IConfigInterface {
 	 *
 	 * @return Server
 	 */
-	public function createServer( $Host, $Port ) {
+	public function buildServer( $Host, $Port ) {
 
 		return new Server( $Host, $Port );
 	}

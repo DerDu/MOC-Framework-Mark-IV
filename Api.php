@@ -114,9 +114,9 @@ class Api implements IApiInterface {
 		}
 		error_reporting( 0 );
 
-		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createError() );
-		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createException() );
-		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->createShutdown() );
+		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildError() );
+		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildException() );
+		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildShutdown() );
 	}
 
 	/**

@@ -15,7 +15,7 @@ class Error extends Generic {
 
 		set_error_handler(
 			create_function( '$Code, $Message, $File, $Line',
-				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->createError()'.
+				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->buildError()'.
 				'->setData( "Runtime Error", $Message, $Code, $File, $Line, "", "Execution has been continued..." );'
 			)
 		);

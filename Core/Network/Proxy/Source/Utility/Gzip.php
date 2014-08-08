@@ -12,115 +12,115 @@ class Gzip {
 	 * by katzlbtjunk@hotmail.com
 	 * http://de3.php.net/manual/en/function.gzdecode.php#82930
 	 *
-	 * @param        $data
-	 * @param string $filename
-	 * @param string $error
-	 * @param null   $maxlength
+	 * @param        $Data
+	 * @param string $FileName
+	 * @param string $Error
+	 * @param null   $MaxLength
 	 *
 	 * @return bool|null|string
 	 */
-	public static function doDecode( $data, &$filename = '', &$error = '', $maxlength = null ) {
+	public static function doDecode( $Data, &$FileName = '', &$Error = '', $MaxLength = null ) {
 
-		$len = strlen( $data );
-		if( $len < 18 || strcmp( substr( $data, 0, 2 ), "\x1f\x8b" ) ) {
-			$error = "Not in GZIP format.";
+		$Length = strlen( $Data );
+		if( $Length < 18 || strcmp( substr( $Data, 0, 2 ), "\x1f\x8b" ) ) {
+			$Error = "Not in GZIP format.";
 
 			return null; // Not GZIP format (See RFC 1952)
 		}
-		$method = ord( substr( $data, 2, 1 ) ); // Compression method
-		$flags = ord( substr( $data, 3, 1 ) ); // Flags
-		if( $flags & 31 != $flags ) {
-			$error = "Reserved bits not allowed.";
+		$Method = ord( substr( $Data, 2, 1 ) ); // Compression method
+		$Flags = ord( substr( $Data, 3, 1 ) ); // Flags
+		if( $Flags & 31 != $Flags ) {
+			$Error = "Reserved bits not allowed.";
 
 			return null;
 		}
-		$headerlen = 10;
-		if( $flags & 4 ) {
+		$HeaderLength = 10;
+		if( $Flags & 4 ) {
 			// 2-byte length prefixed EXTRA data in header
-			if( $len - $headerlen - 2 < 8 ) {
+			if( $Length - $HeaderLength - 2 < 8 ) {
 				return false; // invalid
 			}
-			$extralen = unpack( "v", substr( $data, 8, 2 ) );
-			$extralen = $extralen[1];
-			if( $len - $headerlen - 2 - $extralen < 8 ) {
+			$ExtraLength = unpack( "v", substr( $Data, 8, 2 ) );
+			$ExtraLength = $ExtraLength[1];
+			if( $Length - $HeaderLength - 2 - $ExtraLength < 8 ) {
 				return false; // invalid
 			}
-			$headerlen += 2 + $extralen;
+			$HeaderLength += 2 + $ExtraLength;
 		}
-		$filename = "";
-		if( $flags & 8 ) {
+		$FileName = "";
+		if( $Flags & 8 ) {
 			// C-style string
-			if( $len - $headerlen - 1 < 8 ) {
+			if( $Length - $HeaderLength - 1 < 8 ) {
 				return false; // invalid
 			}
-			$filenamelen = strpos( substr( $data, $headerlen ), chr( 0 ) );
-			if( $filenamelen === false || $len - $headerlen - $filenamelen - 1 < 8 ) {
+			$FileNameLength = strpos( substr( $Data, $HeaderLength ), chr( 0 ) );
+			if( $FileNameLength === false || $Length - $HeaderLength - $FileNameLength - 1 < 8 ) {
 				return false; // invalid
 			}
-			$filename = substr( $data, $headerlen, $filenamelen );
-			$headerlen += $filenamelen + 1;
+			$FileName = substr( $Data, $HeaderLength, $FileNameLength );
+			$HeaderLength += $FileNameLength + 1;
 		}
-		if( $flags & 16 ) {
+		if( $Flags & 16 ) {
 			// C-style string COMMENT data in header
-			if( $len - $headerlen - 1 < 8 ) {
+			if( $Length - $HeaderLength - 1 < 8 ) {
 				return false; // invalid
 			}
-			$commentlen = strpos( substr( $data, $headerlen ), chr( 0 ) );
-			if( $commentlen === false || $len - $headerlen - $commentlen - 1 < 8 ) {
+			$CommentLength = strpos( substr( $Data, $HeaderLength ), chr( 0 ) );
+			if( $CommentLength === false || $Length - $HeaderLength - $CommentLength - 1 < 8 ) {
 				return false; // Invalid header format
 			}
-			$headerlen += $commentlen + 1;
+			$HeaderLength += $CommentLength + 1;
 		}
-		if( $flags & 2 ) {
+		if( $Flags & 2 ) {
 			// 2-bytes (lowest order) of CRC32 on header present
-			if( $len - $headerlen - 2 < 8 ) {
+			if( $Length - $HeaderLength - 2 < 8 ) {
 				return false; // invalid
 			}
-			$calccrc = crc32( substr( $data, 0, $headerlen ) ) & 0xffff;
-			$headercrc = unpack( "v", substr( $data, $headerlen, 2 ) );
-			$headercrc = $headercrc[1];
-			if( $headercrc != $calccrc ) {
-				$error = "Header checksum failed.";
+			$CalculateCRC = crc32( substr( $Data, 0, $HeaderLength ) ) & 0xffff;
+			$HeaderCRC = unpack( "v", substr( $Data, $HeaderLength, 2 ) );
+			$HeaderCRC = $HeaderCRC[1];
+			if( $HeaderCRC != $CalculateCRC ) {
+				$Error = "Header checksum failed.";
 
 				return false; // Bad header CRC
 			}
-			$headerlen += 2;
+			$HeaderLength += 2;
 		}
 		// GZIP FOOTER
-		$datacrc = unpack( "V", substr( $data, -8, 4 ) );
-		$datacrc = sprintf( '%u', $datacrc[1] & 0xFFFFFFFF );
-		$isize = unpack( "V", substr( $data, -4 ) );
-		$isize = $isize[1];
+		$DataCRC = unpack( "V", substr( $Data, -8, 4 ) );
+		$DataCRC = sprintf( '%u', $DataCRC[1] & 0xFFFFFFFF );
+		$Size = unpack( "V", substr( $Data, -4 ) );
+		$Size = $Size[1];
 
-		$bodylen = $len - $headerlen - 8;
-		if( $bodylen < 1 ) {
+		$BodyLength = $Length - $HeaderLength - 8;
+		if( $BodyLength < 1 ) {
 			// IMPLEMENTATION BUG!
 			return null;
 		}
-		$body = substr( $data, $headerlen, $bodylen );
-		$data = "";
-		if( $bodylen > 0 ) {
-			switch( $method ) {
+		$Body = substr( $Data, $HeaderLength, $BodyLength );
+		$Data = "";
+		if( $BodyLength > 0 ) {
+			switch( $Method ) {
 				case 8:
 					// Currently the only supported compression method:
-					$data = gzinflate( $body, $maxlength );
+					$Data = gzinflate( $Body, $MaxLength );
 					break;
 				default:
-					$error = "Unknown compression method.";
+					$Error = "Unknown compression method.";
 
 					return false;
 			}
 		} // zero-byte body content is allowed
-		// Verifiy CRC32
-		$crc = sprintf( "%u", crc32( $data ) );
-		$crcOK = $crc == $datacrc;
-		$lenOK = $isize == strlen( $data );
-		if( !$lenOK || !$crcOK ) {
-			$error = ( $lenOK ? '' : 'Length check FAILED. ' ).( $crcOK ? '' : 'Checksum FAILED.' );
+		// Verify CRC32
+		$CRC = sprintf( "%u", crc32( $Data ) );
+		$CheckCRC = $CRC == $DataCRC;
+		$CheckLength = $Size == strlen( $Data );
+		if( !$CheckLength || !$CheckCRC ) {
+			$Error = ( $CheckLength ? '' : 'Length check FAILED. ' ).( $CheckCRC ? '' : 'Checksum FAILED.' );
 
 			return false;
 		}
 
-		return $data;
+		return $Data;
 	}
 }

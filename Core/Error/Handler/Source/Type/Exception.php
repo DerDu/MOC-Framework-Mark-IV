@@ -17,7 +17,7 @@ class Exception extends Generic {
 
 		set_exception_handler(
 			create_function( '$Exception',
-				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->createException()->setData('
+				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->buildException()->setData('
 				.'"Exception", $Exception->getMessage(), $Exception->getCode(),'
 				.'$Exception->getFile(), $Exception->getLine(), $Exception->getTraceAsString(), "Execution has been stopped!" '
 				.');'

@@ -15,17 +15,17 @@ interface ITypeInterface {
 	/**
 	 * @return Error
 	 */
-	public function createError();
+	public function buildError();
 
 	/**
 	 * @return Exception
 	 */
-	public function createException();
+	public function buildException();
 
 	/**
 	 * @return Shutdown
 	 */
-	public function createShutdown();
+	public function buildShutdown();
 }
 
 /**
@@ -38,7 +38,7 @@ class Type implements ITypeInterface {
 	/**
 	 * @return Error
 	 */
-	public function createError() {
+	public function buildError() {
 
 		return new Error();
 	}
@@ -46,7 +46,7 @@ class Type implements ITypeInterface {
 	/**
 	 * @return Exception
 	 */
-	public function createException() {
+	public function buildException() {
 
 		return new Exception();
 	}
@@ -54,7 +54,7 @@ class Type implements ITypeInterface {
 	/**
 	 * @return Shutdown
 	 */
-	public function createShutdown() {
+	public function buildShutdown() {
 
 		return new Shutdown();
 	}
