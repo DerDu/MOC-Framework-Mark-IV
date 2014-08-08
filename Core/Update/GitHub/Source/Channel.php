@@ -39,14 +39,14 @@ class Channel {
 
 		$Channel = array();
 		if( $this->Config->getChannelActiveRelease() ) {
-			if( false === ( $ReleaseList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( $this->Config->getChannelListRelease() ) ) ) {
+			if( false === ( $ReleaseList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( sha1( $this->Config->getChannelListRelease() ) ) ) ) {
 				$ReleaseList = json_decode(
 					$this->Config->getNetwork()->getFile( $this->Config->getChannelListRelease() )
 				);
 				if( !$this->checkRateLimit( $ReleaseList ) ) {
 					return false;
 				};
-				Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $ReleaseList, $this->Config->getChannelListRelease() );
+				Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $ReleaseList, sha1( $this->Config->getChannelListRelease() ) );
 			}
 			foreach( (array)$ReleaseList as $ReleaseItem ) {
 				if( !$ReleaseItem->prerelease ) {
@@ -106,14 +106,14 @@ class Channel {
 
 		$Channel = array();
 		if( $this->Config->getChannelActivePreview() ) {
-			if( false === ( $ReleaseList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( $this->Config->getChannelListPreview() ) ) ) {
+			if( false === ( $ReleaseList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( sha1( $this->Config->getChannelListPreview() ) ) ) ) {
 				$ReleaseList = json_decode(
 					$this->Config->getNetwork()->getFile( $this->Config->getChannelListPreview() )
 				);
 				if( !$this->checkRateLimit( $ReleaseList ) ) {
 					return false;
 				};
-				Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $ReleaseList, $this->Config->getChannelListPreview() );
+				Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $ReleaseList, sha1( $this->Config->getChannelListPreview() ) );
 			}
 			foreach( (array)$ReleaseList as $ReleaseItem ) {
 				if( $ReleaseItem->prerelease ) {
@@ -144,14 +144,14 @@ class Channel {
 
 		$Channel = array();
 		if( $this->Config->getChannelActiveNightly() ) {
-			if( false === ( $ReleaseList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( $this->Config->getChannelListNightly() ) ) ) {
+			if( false === ( $ReleaseList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( sha1( $this->Config->getChannelListNightly() ) ) ) ) {
 				$ReleaseList = json_decode(
 					$this->Config->getNetwork()->getFile( $this->Config->getChannelListNightly() )
 				);
 				if( !$this->checkRateLimit( $ReleaseList ) ) {
 					return false;
 				};
-				Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $ReleaseList, $this->Config->getChannelListNightly() );
+				Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $ReleaseList, sha1( $this->Config->getChannelListNightly() ) );
 			}
 			foreach( (array)$ReleaseList as $ReleaseItem ) {
 				$Release = $this->Type->buildRelease( $ReleaseItem );
@@ -179,27 +179,27 @@ class Channel {
 	 * @return bool|Release
 	 */
 	private function buildTagTree( Release $Release ) {
-		if( false === ( $TagList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( $this->Config->getChannelListNightly() ) ) ) {
+		if( false === ( $TagList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( sha1( $this->Config->getChannelListNightly() ) ) ) ) {
 			$TagList = json_decode(
 				$this->Config->getNetwork()->getFile( $this->Config->getChannelListNightly() )
 			);
 			if( !$this->checkRateLimit( $TagList ) ) {
 				return false;
 			};
-			Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $TagList, $this->Config->getChannelListNightly() );
+			Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $TagList, sha1( $this->Config->getChannelListNightly() ) );
 		}
 		foreach( (array)$TagList as $TagItem ) {
 			$Tag = $this->Type->buildTag( $TagItem );
 			if( $Tag->getVersion()->getVersionString() == $Release->getVersion()->getVersionString() ) {
 				$Release->setTag( $Tag );
-				if( false === ( $TreeList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) ) ) {
+				if( false === ( $TreeList = Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->getCacheData( sha1( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) ) ) ) {
 					$TreeList = json_decode(
 						$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) )
 					);
 					if( !$this->checkRateLimit( $TreeList ) ) {
 						return false;
 					};
-					Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $TreeList, $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) );
+					Api::groupCore()->unitCache()->apiFile( $this->Cache, __CLASS__ )->setCacheData( $TreeList, sha1( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) );
 				}
 				$Tree = $this->Type->buildTree( $TreeList );
 				$Release->setTree( $Tree );
