@@ -33,6 +33,10 @@ interface IDriveInterface {
 	 * @return Drive\Directory\Api
 	 */
 	public function getCurrentDirectory();
+	/**
+	 * @return Drive\Directory\Api
+	 */
+	public function getDataDirectory();
 }
 
 /**
@@ -78,4 +82,10 @@ class Drive implements IDriveInterface {
 		return Check::getCurrentDirectory();
 	}
 
+	/**
+	 * @return Drive\Directory\Api
+	 */
+	public function getDataDirectory() {
+		return $this->apiDirectory( __DIR__.'/../Data' );
+	}
 }
