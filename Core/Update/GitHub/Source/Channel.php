@@ -28,18 +28,15 @@ class Channel {
 
 		$this->Type = new Type();
 		$this->Config = $Config;
-		$this->Version = new Version(
-			$Config->getCurrentVersionMajor()
-			.'.'.$Config->getCurrentVersionMinor()
-			.'.'.$Config->getCurrentVersionPatch()
-			.'.'.$Config->getCurrentVersionBuild()
-		);
+		$this->Version = $this->Config->getVersion();
 	}
 
 	/**
+	 * @param bool $Download
+	 *
 	 * @return Release[]|null
 	 */
-	public function getChannelRelease() {
+	public function getChannelRelease( $Download = false ) {
 
 		$Channel = array();
 		if( $this->Config->getChannelActiveRelease() ) {
@@ -64,9 +61,11 @@ class Channel {
 					if( false === ( $Release = $this->downloadTagTree( $Release ) ) ) {
 						return false;
 					};
-					if( false === ( $Release = $this->downloadData( $Release ) ) ) {
-						return false;
-					};
+					if( $Download ) {
+						if( false === ( $Release = $this->downloadUpdate( $Release ) ) ) {
+							return false;
+						};
+					}
 					array_push( $Channel, $Release );
 				}
 			}
@@ -107,9 +106,11 @@ class Channel {
 	}
 
 	/**
+	 * @param bool $Download
+	 *
 	 * @return Release[]|null
 	 */
-	public function getChannelPreview() {
+	public function getChannelPreview( $Download = false ) {
 
 		$Channel = array();
 		if( $this->Config->getChannelActivePreview() ) {
@@ -134,9 +135,11 @@ class Channel {
 					if( false === ( $Release = $this->downloadTagTree( $Release ) ) ) {
 						return false;
 					};
-					if( false === ( $Release = $this->downloadData( $Release ) ) ) {
-						return false;
-					};
+					if( $Download ) {
+						if( false === ( $Release = $this->downloadUpdate( $Release ) ) ) {
+							return false;
+						};
+					}
 					array_push( $Channel, $Release );
 				}
 			}
@@ -148,9 +151,11 @@ class Channel {
 	}
 
 	/**
+	 * @param bool $Download
+	 *
 	 * @return Release[]|null
 	 */
-	public function getChannelNightly() {
+	public function getChannelNightly( $Download = false ) {
 
 		$Channel = array();
 		if( $this->Config->getChannelActiveNightly() ) {
@@ -174,9 +179,11 @@ class Channel {
 				if( false === ( $Release = $this->downloadTagTree( $Release ) ) ) {
 					return false;
 				};
-				if( false === ( $Release = $this->downloadData( $Release ) ) ) {
-					return false;
-				};
+				if( $Download ) {
+					if( false === ( $Release = $this->downloadUpdate( $Release ) ) ) {
+						return false;
+					};
+				}
 				array_push( $Channel, $Release );
 			}
 
@@ -222,7 +229,7 @@ class Channel {
 		return false;
 	}
 
-	private function downloadData( Release $Release ) {
+	private function downloadUpdate( Release $Release ) {
 		$BlobList = $Release->getTree()->getBlobList();
 
 		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Data[] $DataList */

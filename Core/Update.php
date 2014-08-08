@@ -8,6 +8,11 @@ namespace MOC\IV\Core;
  */
 interface IUpdateInterface {
 	/**
+	 * @return Update\Gui\Api
+	 */
+	public function apiGui();
+
+	/**
 	 * @return Update\GitHub\Api
 	 */
 	public function apiGitHub();
@@ -19,6 +24,13 @@ interface IUpdateInterface {
  * @package MOC\IV\Core
  */
 class Update implements IUpdateInterface {
+
+	/**
+	 * @return Update\Gui\Api
+	 */
+	public function apiGui() {
+		return new Update\Gui\Api();
+	}
 
 	/**
 	 * @return Update\GitHub\Api

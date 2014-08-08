@@ -16,14 +16,14 @@ class Config {
 			'Build' => 0
 		),
 		'Channel:List'      => array(
-			'Release'             => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases',
-			'Preview'             => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases',
-			'Nightly'             => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/tags',
+			'Release'              => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases',
+			'Preview'              => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/releases',
+			'Nightly'              => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/tags',
 			/**
 			 * Internal
 			 */
-			'GitHub:Channel:Tree' => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/trees',
-			'GitHub:Channel:Blob' => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/blobs',
+			'GitHub:Channel:Tree'  => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/trees',
+			'GitHub:Channel:Blob'  => 'https://api.github.com/repos/DerDu/MOC-Framework-Mark-IV/git/blobs',
 			'GitHub:Channel:Limit' => 'https://api.github.com/rate_limit'
 		),
 		'Channel:Active'    => array(
@@ -52,6 +52,9 @@ class Config {
 	);
 
 	private $Network = null;
+
+	/** @var Version|null $Version */
+	private $Version = null;
 
 	function __construct( $Location ) {
 
@@ -106,7 +109,13 @@ class Config {
 		} else {
 			$this->Network = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildNone();
 		}
+
 		$this->Network->setCustomHeader( 'User-Agent', $this->getChannelListRelease() );
+		$this->Version = new Version( $this->getCurrentVersionMajor()
+			.'.'.$this->getCurrentVersionMinor()
+			.'.'.$this->getCurrentVersionPatch()
+			.'.'.$this->getCurrentVersionBuild()
+		);
 	}
 
 	/**
@@ -320,6 +329,13 @@ class Config {
 	public function getGitHubChannelLimit() {
 
 		return $this->Structure['Channel:List']['GitHub:Channel:Limit'];
+	}
+
+	/**
+	 * @return Version|null
+	 */
+	public function getVersion() {
+		return $this->Version;
 	}
 
 }
