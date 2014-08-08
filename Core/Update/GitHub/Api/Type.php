@@ -5,6 +5,7 @@ use MOC\IV\Core\Update\GitHub\Source\Type\Release;
 use MOC\IV\Core\Update\GitHub\Source\Type\Tag;
 use MOC\IV\Core\Update\GitHub\Source\Type\Tree;
 use MOC\IV\Core\Update\GitHub\Source\Type\Blob;
+use MOC\IV\Core\Update\GitHub\Source\Type\Data;
 
 interface ITypeInterface {
 
@@ -35,6 +36,13 @@ interface ITypeInterface {
 	 * @return Blob
 	 */
 	public function buildBlob( \stdClass $Item );
+
+	/**
+	 * @param \stdClass $Item
+	 *
+	 * @return Data
+	 */
+	public function buildData( \stdClass $Item );
 }
 
 class Type implements ITypeInterface {
@@ -77,6 +85,16 @@ class Type implements ITypeInterface {
 	public function buildBlob( \stdClass $Item ) {
 
 		return new Blob( $Item );
+	}
+
+	/**
+	 * @param \stdClass $Item
+	 *
+	 * @return Data
+	 */
+	public function buildData( \stdClass $Item ) {
+
+		return new Data( $Item );
 	}
 
 }

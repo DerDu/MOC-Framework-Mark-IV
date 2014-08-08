@@ -20,6 +20,8 @@ class Release {
 	private $Tag = null;
 	/** @var null|Tree $Tree */
 	private $Tree = null;
+	/** @var array|Data[] $Data */
+	private $DataList = array();
 
 	/**
 	 * @param \stdClass $Release
@@ -92,5 +94,19 @@ class Release {
 	public function setTree( Tree $Tree ) {
 
 		$this->Tree = $Tree;
+	}
+
+	/**
+	 * @return array|Data[]
+	 */
+	public function getDataList() {
+		return $this->DataList;
+	}
+
+	/**
+	 * @param Data[] $DataList
+	 */
+	public function setDataList( $DataList ) {
+		$this->DataList = $DataList;
 	}
 }
