@@ -11,10 +11,15 @@ $Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../GitHub/Con
 
 if( $Config->getChannelActiveRelease() ) {
 
-	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRelease();
+	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRelease( true );
 
 	if( false === $ReleaseList ) {
-		print 'Error';
+
+		$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelError.html' )->getContent();
+		$Template = str_replace( '${Retry}', Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRetryTimestamp(), $Template );
+
+		print $Template;
+
 	} else {
 
 		if( empty( $ReleaseList ) ) {

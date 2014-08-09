@@ -14,7 +14,12 @@ if( $Config->getChannelActiveNightly() ) {
 	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelNightly();
 
 	if( false === $ReleaseList ) {
-		print 'Error';
+
+		$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelError.html' )->getContent();
+		$Template = str_replace( '${Retry}', Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRetryTimestamp(), $Template );
+
+		print $Template;
+
 	} else {
 
 		if( empty( $ReleaseList ) ) {

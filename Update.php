@@ -69,34 +69,42 @@
 		jQuery.get("Core/Update/Gui/EndPoint/CurrentVersion.php")
 			.done(function (Response) {
 				CurrentVersion.html(Response);
+
+
 			})
 			.fail(function (Response) {
 				CurrentVersion.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
+			}).always(function () {
+
+
+				jQuery.get("Core/Update/Gui/EndPoint/SearchRelease.php")
+					.done(function (Response) {
+						ChannelRelease.html(Response);
+					})
+					.fail(function (Response) {
+						ChannelRelease.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
+					}).always(function () {
+
+						jQuery.get("Core/Update/Gui/EndPoint/SearchPreview.php")
+							.done(function (Response) {
+								ChannelPreview.html(Response);
+							})
+							.fail(function (Response) {
+								ChannelPreview.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
+							}).always(function () {
+
+								jQuery.get("Core/Update/Gui/EndPoint/SearchNightly.php")
+									.done(function (Response) {
+										ChannelNightly.html(Response);
+									})
+									.fail(function (Response) {
+										ChannelNightly.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
+									});
+
+							});
+					});
 			});
 
-		jQuery.get("Core/Update/Gui/EndPoint/SearchRelease.php")
-			.done(function (Response) {
-				ChannelRelease.html(Response);
-			})
-			.fail(function (Response) {
-				ChannelRelease.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
-			});
-
-		jQuery.get("Core/Update/Gui/EndPoint/SearchPreview.php")
-			.done(function (Response) {
-				ChannelPreview.html(Response);
-			})
-			.fail(function (Response) {
-				ChannelPreview.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
-			});
-
-		jQuery.get("Core/Update/Gui/EndPoint/SearchNightly.php")
-			.done(function (Response) {
-				ChannelNightly.html(Response);
-			})
-			.fail(function (Response) {
-				ChannelNightly.html('<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>');
-			});
 	});
 </script>
 
