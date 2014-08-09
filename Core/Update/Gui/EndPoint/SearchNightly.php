@@ -18,13 +18,39 @@ if( $Config->getChannelActiveNightly() ) {
 	} else {
 
 		if( empty( $ReleaseList ) ) {
-			print 'Empty';
+
+			print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
+
 		} else {
+
+			$SkipReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRelease();
+			$SkipPreviewList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelPreview();
+
+			$Found = false;
 
 			/** @var Release $Release */
 			foreach( (array)$ReleaseList as $Release ) {
 
-				$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/SearchNightly.html' )->getContent();
+				$Skip = false;
+
+				/** @var Release $SkipRelease */
+				foreach( (array)$SkipReleaseList as $SkipRelease ) {
+					if( $SkipRelease->getVersion()->checkBehindAheadStatusOf( $Release->getVersion() ) <= 0 ) {
+						$Skip = true;
+					}
+				}
+				/** @var Release $SkipRelease */
+				foreach( (array)$SkipPreviewList as $SkipRelease ) {
+					if( $SkipRelease->getVersion()->checkBehindAheadStatusOf( $Release->getVersion() ) <= 0 ) {
+						$Skip = true;
+					}
+				}
+				if( $Skip ) {
+					continue;
+				}
+
+
+				$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/Search.html' )->getContent();
 
 				$Template = str_replace( '${Version}', $Release->getVersion()->getVersionString(), $Template );
 				$Template = str_replace( '${Name}', $Release->getName(), $Template );
@@ -43,16 +69,18 @@ if( $Config->getChannelActiveNightly() ) {
 				$Template = str_replace( '${Size}', $Size, $Template );
 
 				$Template = str_replace( '${Identifier}', $Release->getTag()->getIdentifier(), $Template );
+				$Template = str_replace( '${Type}', 'Nightly', $Template );
+
+				$Found = true;
 
 				print $Template;
 			}
 
+			if( !$Found ) {
+				print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
+			}
 		}
-
 	}
 } else {
-
-	$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
-
-	print $Template;
+	print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
 }

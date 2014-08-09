@@ -7,10 +7,6 @@ interface IApiInterface {
 
 class Api implements IApiInterface {
 
-	private $AvailableRelease = array();
-	private $AvailablePreview = array();
-	private $AvailableNightly = array();
-
 	public function searchUpdate() {
 
 	}

@@ -1,0 +1,37 @@
+<div class="Search" data-rel="${Identifier}" data-role="${Type}">
+	<h2>${Type} <span class="Color HighLight">${Version}</span></h2>
+
+
+	<div class="Description">
+		<h3>${Name}</h3>
+		${Description}
+	</div>
+
+	<hr/>
+
+	<div class="Information">
+		<div>Resources: <span class="Color HighLight">${Count}</span></div>
+		<div>Size: <span class="Color HighLight">${Size}</span></div>
+	</div>
+
+	<div class="Button">
+		<a class="Download" data-role="${Identifier}">Download</a>
+	</div>
+</div>
+<script>
+	jQuery('.Download[data-role="${Identifier}"]').on('click', function () {
+		var Panel = jQuery('.Search[data-rel="${Identifier}"][data-role="${Type}"]');
+		var Loading = jQuery('<div class="Search Color HighLight" data-rel="${Identifier}" data-role="${Type}">Loading...</div>');
+		Panel.replaceWith( Loading );
+
+		jQuery.get("Core/Update/Gui/EndPoint/Download${Type}.php?data-rel=${Identifier}")
+				.done(function (Response) {
+					Loading.replaceWith(Response);
+				})
+				.fail(function (Response) {
+					console.log(Response);
+					Loading.replaceWith('<div class="Search Color HighLight" data-rel="${Identifier}" data-role="${Type}"><h2>Error '+Response.status+'</h2><div class="Information">' + Response.statusText + '</div></div>');
+				});
+
+	});
+</script>

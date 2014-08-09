@@ -18,13 +18,15 @@ if( $Config->getChannelActiveRelease() ) {
 	} else {
 
 		if( empty( $ReleaseList ) ) {
-			print 'Empty';
+
+			print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
+
 		} else {
 
 			/** @var Release $Release */
 			foreach( (array)$ReleaseList as $Release ) {
 
-				$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/SearchRelease.html' )->getContent();
+				$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/Search.html' )->getContent();
 
 				$Template = str_replace( '${Version}', $Release->getVersion()->getVersionString(), $Template );
 				$Template = str_replace( '${Name}', $Release->getName(), $Template );
@@ -43,6 +45,7 @@ if( $Config->getChannelActiveRelease() ) {
 				$Template = str_replace( '${Size}', $Size, $Template );
 
 				$Template = str_replace( '${Identifier}', $Release->getTag()->getIdentifier(), $Template );
+				$Template = str_replace( '${Type}', 'Release', $Template );
 
 				print $Template;
 			}
@@ -51,8 +54,5 @@ if( $Config->getChannelActiveRelease() ) {
 
 	}
 } else {
-
-	$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
-
-	print $Template;
+	print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
 }
