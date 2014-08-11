@@ -28,7 +28,7 @@ abstract class Generic {
 	protected $Content = '';
 
 	protected function openSocket() {
-		$this->$Socket = fsockopen( $this->Server->getHost(), $this->Server->getPort(), $this->ErrorNumber, $this->ErrorString, $this->Timeout );
+		$this->Socket = fsockopen( $this->Server->getHost(), $this->Server->getPort(), $this->ErrorNumber, $this->ErrorString, $this->Timeout );
 		if( false === $this->Socket ) {
 			trigger_error( '['.$this->ErrorNumber.'] '.$this->ErrorString );
 			$this->Content = null;

@@ -10,11 +10,13 @@
 	</testsuites>
 
 	<filter>
+		<blacklist>
+			<directory>/vendor</directory>
+		</blacklist>
 		<whitelist>
 			<directory>./</directory>
 			<exclude>
 				<directory>./PhpUnit</directory>
-				<directory>./vendor</directory>
 			</exclude>
 		</whitelist>
 	</filter>
