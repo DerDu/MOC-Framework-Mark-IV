@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>MOC Mark IV - Update</title>
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
 	      type='text/css'>
 	<link rel="stylesheet" href="Update.css"/>
