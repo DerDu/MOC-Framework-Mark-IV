@@ -85,18 +85,6 @@ class Channel {
 
 		if( $Response instanceof \stdClass ) {
 			if( isset( $Response->message ) && isset( $Response->documentation_url ) ) {
-				$Limit = json_decode(
-					$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() )
-				);
-				/*
-				trigger_error(
-					$Response->message
-					.'<br/>'.$Response->documentation_url
-					.'<br/>'
-					.'<br/>Limit: '.$Limit->resources->core->limit.' per hour'
-					.'<br/>Reset: '.date( 'd.m.Y H:i:s', $Limit->resources->core->reset )
-				);
-				*/
 				return false;
 			} else {
 				return true;

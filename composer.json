@@ -1,5 +1,16 @@
 {
+	"name": "DerDu/MOC-Framework-Mark-IV",
+	"description": "Mind the task - forget the obstacles...",
+	"minimum-stability": "stable",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "DerDu",
+			"email": "gerdchristian.kunze@googlemail.com"
+		}
+	],
+
 	"require-dev": {
-	    "satooshi/php-coveralls": "dev-master"
+		"satooshi/php-coveralls": "dev-master"
 	}
 }
