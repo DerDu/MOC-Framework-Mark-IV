@@ -58,6 +58,12 @@
 
 </div>
 
+<div id="BottomBar">
+	<ul>
+		<li><a href="http://github.com" style="background: transparent url('Core/Update/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px;">Powered by GitHub</a></li>
+	</ul>
+</div>
+
 <script type="text/javascript">
 	jQuery(function () {
 		var CurrentVersion = jQuery('#CurrentVersion');
