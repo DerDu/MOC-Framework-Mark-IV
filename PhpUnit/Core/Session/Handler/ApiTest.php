@@ -5,6 +5,9 @@ use MOC\IV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @runTestsInSeparateProcesses
+	 */
 	public function testHandlerApi() {
 
 		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );

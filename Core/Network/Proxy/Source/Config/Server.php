@@ -19,8 +19,8 @@ class Server {
 	 */
 	function __construct( $Host, $Port ) {
 
-		$this->Host = $Host;
-		$this->Port = $Port;
+		$this->setHost( $Host );
+		$this->setPort( $Port );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class Server {
 	 */
 	public function setPort( $Port ) {
 
-		$this->Port = $Port;
+		$this->Port = (integer)$Port;
 
 		return $this;
 	}

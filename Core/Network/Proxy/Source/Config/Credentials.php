@@ -19,8 +19,8 @@ class Credentials {
 	 */
 	function __construct( $UserName, $Password ) {
 
-		$this->Username = $UserName;
-		$this->Password = $Password;
+		$this->setUsername( $UserName );
+		$this->setPassword( $Password );
 	}
 
 	/**
