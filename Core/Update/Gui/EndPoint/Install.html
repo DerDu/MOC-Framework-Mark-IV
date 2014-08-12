@@ -24,7 +24,7 @@
 		var Loading = jQuery('<div class="Search Color HighLight" data-rel="${Identifier}" data-role="${Type}">Loading...</div>');
 		Panel.replaceWith( Loading );
 
-		jQuery.get("Core/Update/Gui/EndPoint/Install${Type}.php?data-rel=${Identifier}")
+		jQuery.get("../Core/Update/Gui/EndPoint/Install${Type}.php?data-rel=${Identifier}")
 				.done(function (Response) {
 					Loading.replaceWith(Response);
 				})

@@ -10,6 +10,8 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testHandlerApi() {
 
+		ob_start();
+
 		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
 
 		$this->assertInstanceOf( '\MOC\IV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->openSession() );
@@ -31,5 +33,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( '\MOC\IV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->closeSession() );
 		Api::groupCore()->unitSession()->apiHandler()->setIdentifier( 'Test2' );
 		$this->assertInstanceOf( '\MOC\IV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->destroySession() );
+
+		ob_end_clean();
 	}
 }
