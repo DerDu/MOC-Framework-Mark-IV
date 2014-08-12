@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Api;
 
+use MOC\IV\Plugin\OSMEngine;
+
 /**
  * Interface IPlugin
  *
@@ -16,5 +18,9 @@ interface IPluginInterface {
  * @package MOC\IV\Api
  */
 class Plugin implements IPluginInterface {
+
+	public function unitOSMEngine() {
+		return new OSMEngine();
+	}
 
 }
