@@ -7,6 +7,7 @@ use MOC\IV\Core\Error;
 use MOC\IV\Core\Network;
 use MOC\IV\Core\Session;
 use MOC\IV\Core\Update;
+use MOC\IV\Core\Xml;
 
 /**
  * Interface ICore
@@ -99,6 +100,14 @@ class Core implements ICoreInterface {
 	public function unitUpdate() {
 
 		return new Update();
+	}
+
+	/**
+	 * @return Xml
+	 */
+	public function unitXml() {
+
+		return new Xml();
 	}
 
 }

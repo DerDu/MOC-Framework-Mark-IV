@@ -23,8 +23,12 @@ class Element {
 		$NodeCount = count( $OSMElement->node );
 
 		for( $Run = 0; $Run < $NodeCount; $Run++ ) {
-			$AttributeList = $OSMElement->node[$Run]->attributes();
-			$this->Node[$AttributeList['id']] = new Node( $OSMElement->node[$Run] );
+			/** @var \SimpleXMLElement $OSMNode */
+			$OSMNode = $OSMElement->node[$Run];
+			/** @var \SimpleXMLElement $OSMAttribute */
+			$OSMId= $OSMNode->attributes()->id;
+			var_dump( $OSMId );
+			//$this->Node[$AttributeList['id']] = new Node( $OSMElement->node[$Run] );
 		}
 	}
 }
