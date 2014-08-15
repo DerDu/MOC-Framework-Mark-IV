@@ -1,18 +1,24 @@
 <?php
 namespace MOC\IV\Core\Xml\Reader\Source;
 
+/**
+ * Class Token
+ *
+ * @package MOC\IV\Core\Xml\Reader\Source
+ */
 class Token extends TokenPattern {
 
 	private $Name = '';
 	private $AttributeList = array();
 	private $Position = 0;
 
-	function __construct(  &$Content  ) {
+	/**
+	 * @param array $Content
+	 */
+	function __construct( $Content ) {
+
 		$this->Position = $Content[1];
-
-		$Token = explode(' ', $Content[0] );
-		$this->Name = preg_replace( '!/$!is', '', array_shift( $Token ) );
-
+		$this->Name = rtrim( substr( $Content[0], 0, strpos( $Content[0], ' ' ) ) );
 		preg_match_all( '![\w:]+="[^"]*?"!is', $Content[0], $Matches );
 		$Token = $Matches[0];
 
@@ -32,6 +38,7 @@ class Token extends TokenPattern {
 	 * @return string
 	 */
 	public function getName() {
+
 		return $this->Name;
 	}
 
@@ -39,6 +46,7 @@ class Token extends TokenPattern {
 	 * @return int
 	 */
 	public function getPosition() {
+
 		return $this->Position;
 	}
 
@@ -46,6 +54,7 @@ class Token extends TokenPattern {
 	 * @return array
 	 */
 	public function getAttributeList() {
+
 		return $this->AttributeList;
 	}
 }

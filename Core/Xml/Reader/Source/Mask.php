@@ -1,10 +1,15 @@
 <?php
 namespace MOC\IV\Core\Xml\Reader\Source;
 
+/**
+ * Class Mask
+ *
+ * @package MOC\IV\Core\Xml\Reader\Source
+ */
 abstract class Mask {
 
-	const MASK_COMMENT = '!(?<=\!--).*?(?=//-->)!is';
-	const MASK_CDATA = '!(?<=\!\[CDATA\[).*?(?=\]\]>)!is';
+	const PATTERN_COMMENT = '!(?<=\!--).*?(?=//-->)!is';
+	const PATTERN_CDATA = '!(?<=\!\[CDATA\[).*?(?=\]\]>)!is';
 
 	/**
 	 * @param string $Payload
@@ -13,8 +18,11 @@ abstract class Mask {
 	 * @return mixed
 	 */
 	protected function encodePayload( $Payload, $Pattern ) {
-
-		return preg_replace_callback( $Pattern, array( $this, 'encodeMethod' ), $Payload );
+		if( $Pattern == self::PATTERN_COMMENT ) {
+			return preg_replace( $Pattern, '', $Payload );
+		} else {
+			return preg_replace_callback( $Pattern, array( $this, 'encodeMethod' ), $Payload );
+		}
 	}
 
 	/**

@@ -1,6 +1,11 @@
 <?php
 namespace MOC\IV\Core\Xml\Reader\Source;
 
+/**
+ * Class TokenType
+ *
+ * @package MOC\IV\Core\Xml\Reader\Source
+ */
 abstract class TokenType {
 
 	protected $Type = 0;
