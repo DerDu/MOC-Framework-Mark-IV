@@ -2,6 +2,7 @@
 namespace MOC\IV\Plugin;
 
 use \MOC\IV\Core\Drive\File\IApiInterface as File;
+use MOC\IV\Core\Xml\Reader\Source\Node;
 use MOC\IV\Plugin\OSMEngine\Api\Element;
 use MOC\IV\Plugin\OSMEngine\Source\Parser;
 
@@ -15,7 +16,8 @@ class OSMEngine implements IOSMEngineInterface {
 		return new Parser( $OSMFile );
 	}
 
-	public function apiElement( \SimpleXMLElement $OSMElement ) {
+	public function apiElement( Node $OSMElement ) {
 		return new Element( $OSMElement );
 	}
+
 }
