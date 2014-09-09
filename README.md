@@ -47,3 +47,33 @@ Version number MAJOR.MINOR.PATCH.BUILD:
 - MINOR version: add functionality in a backwards-compatible manner
 - PATCH version: backwards-compatible bug fixes.
 - BUILD version: internal development tags
+
+Structure
+---------
+
+- Root:
+	- Bootstrap-Api
+	- Group-Factory
+		- ```group{Name}()```
+- Level A:
+	- Group-Api
+	- Unit-Factory
+		- ```unit{Name}({Dependency,..})```
+- Level B:
+	- Unit-Api
+	- Object-Factory
+		- ```api{Name}({Dependency,..})```
+- Level C:
+	- Object-Api
+		- ```set{Property}({Value})```
+		- ```get{Property}()```
+		- ```{action}{ReferenceName}({Dependency,..})```
+
+Goals
+-----
+
+- Seamless and simple interface
+- Exchangeable code structure
+- Maximum flexible factory (dependency injection)
+- Minimal api setter usage
+
