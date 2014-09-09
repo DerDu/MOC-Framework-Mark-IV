@@ -19,6 +19,13 @@ interface IApiInterface {
 	public function getCacheData( $Identifier );
 
 	/**
+	 * @param bool $Identifier
+	 *
+	 * @return bool|\MOC\IV\Core\Drive\File\Api
+	 */
+	public function getCacheFile( $Identifier = false );
+
+	/**
 	 * @return mixed|void
 	 */
 	public function purgeCache();
@@ -41,6 +48,7 @@ class Api implements IApiInterface {
 	 *
 	 */
 	function __construct( $Timeout = 60, $Group = '', $Extension = 'cache' ) {
+
 		$this->setTimeout( $Timeout );
 		$this->setGroup( $Group );
 		$this->setExtension( $Extension );
@@ -58,7 +66,9 @@ class Api implements IApiInterface {
 	 * @return Api
 	 */
 	private function setTimeout( $Seconds ) {
+
 		$this->Timeout = time() + $Seconds;
+
 		return $this;
 	}
 
@@ -68,7 +78,9 @@ class Api implements IApiInterface {
 	 * @return Api
 	 */
 	private function setGroup( $Name ) {
+
 		$this->Group = sha1( serialize( $Name ) );
+
 		return $this;
 	}
 
@@ -78,17 +90,9 @@ class Api implements IApiInterface {
 	 * @return Api
 	 */
 	private function setExtension( $Extension ) {
-		$this->Extension = $Extension;
-		return $this;
-	}
 
-	/**
-	 * @param mixed $Data
-	 *
-	 * @return string|Api
-	 */
-	private function setIdentifier( $Data ) {
-		$this->Identifier = sha1( serialize( $Data ) );
+		$this->Extension = $Extension;
+
 		return $this;
 	}
 
@@ -96,7 +100,7 @@ class Api implements IApiInterface {
 	 * @param mixed      $Data
 	 * @param null|mixed $Identifier
 	 *
-	 * @return Api
+	 * @return Api|string
 	 */
 	public function setCacheData( $Data, $Identifier = null ) {
 
@@ -111,7 +115,53 @@ class Api implements IApiInterface {
 		} else {
 			$this->setCacheFile( serialize( $Data ) );
 		}
+
+		if( null === $Identifier ) {
+			return $this->Identifier;
+		} else {
+			return $this;
+		}
+	}
+
+	/**
+	 * @param mixed $Data
+	 *
+	 * @return string|Api
+	 */
+	private function setIdentifier( $Data ) {
+
+		$this->Identifier = sha1( serialize( $Data ) );
+
 		return $this;
+	}
+
+	/**
+	 * @param mixed $Data
+	 *
+	 * @return \MOC\IV\Core\Drive\File\Api
+	 */
+	private function setCacheFile( $Data ) {
+
+		$Cache = \MOC\IV\Api::groupCore()->unitDrive()->apiFile(
+			$this->getLocation()->getLocation().DIRECTORY_SEPARATOR.
+			$this->Identifier.'.'.$this->Timeout.'.'.$this->Extension
+		)->setContent( $Data )->closeFile();
+
+		/**
+		 * Bug: Instant Cache-Timeout on No-Cache-File-Syntax named files
+		 * Fix: Set File-Time to Cache-Timeout
+		 */
+		touch( $Cache->getLocation(), $this->Timeout );
+
+		return $Cache;
+	}
+
+	/**
+	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 */
+	private function getLocation() {
+
+		return \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->Directory->getLocation().DIRECTORY_SEPARATOR.$this->Group, true );
 	}
 
 	/**
@@ -120,6 +170,7 @@ class Api implements IApiInterface {
 	 * @return bool|mixed
 	 */
 	public function getCacheData( $Identifier ) {
+
 		$this->Identifier = $Identifier;
 
 		if( false == ( $File = $this->getCacheFile() ) ) {
@@ -134,9 +185,20 @@ class Api implements IApiInterface {
 	}
 
 	/**
+	 * @param bool|string $Identifier
+	 * @param bool        $Prepare
+	 *
 	 * @return bool|\MOC\IV\Core\Drive\File\Api
 	 */
-	private function getCacheFile() {
+	public function getCacheFile( $Identifier = false, $Prepare = false ) {
+
+		if( $Identifier ) {
+			$this->Identifier = $Identifier;
+			if( $Prepare == true ) {
+				$this->setCacheFile( '' );
+			}
+		}
+
 		$CacheList = $this->getLocation()->getFileList();
 		/** @var \MOC\IV\Core\Drive\File\Api $Cache */
 		foreach( (array)$CacheList as $Cache ) {
@@ -150,27 +212,50 @@ class Api implements IApiInterface {
 				}
 			}
 		}
+
 		return false;
 	}
 
 	/**
-	 * @param mixed $Data
-	 *
-	 * @return \MOC\IV\Core\Drive\File\Api
+	 * Cache-File Name-Convention
+	 * [Identifier].[Timestamp].[Extension]
 	 */
-	private function setCacheFile( $Data ) {
-		$Cache = \MOC\IV\Api::groupCore()->unitDrive()->apiFile(
-			$this->getLocation()->getLocation().DIRECTORY_SEPARATOR.
-			$this->Identifier.'.'.$this->Timeout.'.'.$this->Extension
-		)->setContent( $Data )->closeFile();
 
-		/**
-		 * Bug: Instant Cache-Timeout on No-Cache-File-Syntax named files
-		 * Fix: Set File-Time to Cache-Timeout
-		 */
-		touch( $Cache->getLocation(), $this->Timeout );
+	/**
+	 * @param \MOC\IV\Core\Drive\File\Api $File
+	 *
+	 * @return int
+	 */
+	private function getIdentifier( \MOC\IV\Core\Drive\File\Api $File ) {
 
-		return $Cache;
+		$Name = explode( '.', $File->getName() );
+
+		return $Name[0];
+	}
+
+	/**
+	 * @param \MOC\IV\Core\Drive\File\Api $File
+	 *
+	 * @return int
+	 */
+	private function getTimestamp( \MOC\IV\Core\Drive\File\Api $File ) {
+
+		$Name = explode( '.', $File->getName() );
+		if( isset( $Name[1] ) ) {
+			return $Name[1];
+		}
+
+		return $File->getTime();
+	}
+
+	/**
+	 * @param \MOC\IV\Core\Drive\File\Api $File
+	 *
+	 * @return int
+	 */
+	private function getExtension( \MOC\IV\Core\Drive\File\Api $File ) {
+
+		return $File->getExtension();
 	}
 
 	/**
@@ -197,50 +282,6 @@ class Api implements IApiInterface {
 				$Cache->removeFile();
 			}
 		}
-	}
-
-	/**
-	 * Cache-File Name-Convention
-	 * [Identifier].[Timestamp].[Extension]
-	 */
-
-	/**
-	 * @param \MOC\IV\Core\Drive\File\Api $File
-	 *
-	 * @return int
-	 */
-	private function getExtension( \MOC\IV\Core\Drive\File\Api $File ) {
-		return $File->getExtension();
-	}
-
-	/**
-	 * @param \MOC\IV\Core\Drive\File\Api $File
-	 *
-	 * @return int
-	 */
-	private function getTimestamp( \MOC\IV\Core\Drive\File\Api $File ) {
-		$Name = explode( '.', $File->getName() );
-		if( isset( $Name[1] ) ) {
-			return $Name[1];
-		}
-		return $File->getTime();
-	}
-
-	/**
-	 * @param \MOC\IV\Core\Drive\File\Api $File
-	 *
-	 * @return int
-	 */
-	private function getIdentifier( \MOC\IV\Core\Drive\File\Api $File ) {
-		$Name = explode( '.', $File->getName() );
-		return $Name[0];
-	}
-
-	/**
-	 * @return \MOC\IV\Core\Drive\Directory\Api
-	 */
-	private function getLocation() {
-		return \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->Directory->getLocation().DIRECTORY_SEPARATOR.$this->Group, true );
 	}
 
 }
