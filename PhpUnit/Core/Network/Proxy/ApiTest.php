@@ -5,17 +5,14 @@ use MOC\IV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
 
-	public function testProxyApi() {
+	public function testNetworkProxyApi() {
+
 		$this->assertInstanceOf( '\MOC\IV\Core\Network\Proxy\Source\Api\Config', Api::groupCore()->unitNetwork()->apiProxy()->apiConfig() );
 		$this->assertInstanceOf( '\MOC\IV\Core\Network\Proxy\Source\Api\Type', Api::groupCore()->unitNetwork()->apiProxy()->apiType() );
-	}
 
-	public function testConfigApi() {
 		$this->assertInstanceOf( '\MOC\IV\Core\Network\Proxy\Source\Config\Credentials', Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildCredentials( 'DummyUser', 'DummyPassword' ) );
 		$this->assertInstanceOf( '\MOC\IV\Core\Network\Proxy\Source\Config\Server', Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( 'DummyHost', '1234' ) );
-	}
 
-	public function testTypeApi() {
 		$Server = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( '127.0.0.1', '80' );
 		$Credentials = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildCredentials( 'DummyUser', 'DummyPassword' );
 
@@ -26,6 +23,5 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 		$None->getFile( 'http://127.0.0.1', true );
 		$Relay->getFile( 'http://127.0.0.1', true );
 		$Basic->getFile( 'http://127.0.0.1', true );
-
 	}
 }

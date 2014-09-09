@@ -8,7 +8,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @runTestsInSeparateProcesses
 	 */
-	public function testHandlerApi() {
+	public function testSessionHandlerApi() {
 
 		ob_start();
 

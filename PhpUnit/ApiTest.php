@@ -5,7 +5,7 @@ use MOC\IV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
 
-	public function testInstanceCreation() {
+	public function testGroupFactory() {
 
 		$this->assertInstanceOf( '\MOC\IV\Api\Core', Api::groupCore() );
 		$this->assertInstanceOf( '\MOC\IV\Api\Module', Api::groupModule() );
