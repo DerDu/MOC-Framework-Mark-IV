@@ -1,6 +1,8 @@
 <?php
 namespace MOC\IV\Api;
 
+use MOC\IV\Extension\Documentation;
+
 /**
  * Interface IExtension
  *
@@ -17,4 +19,11 @@ interface IExtensionInterface {
  */
 class Extension implements IExtensionInterface {
 
+	/**
+	 * @return Documentation
+	 */
+	public function unitDocumentation() {
+
+		return new Documentation();
+	}
 }

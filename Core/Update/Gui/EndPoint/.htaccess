@@ -1,3 +1,6 @@
+Order Allow,Deny
+Allow from all
+
 RewriteEngine On
 RewriteCond %{HTTP_HOST}@@%{HTTP_REFERER} !^([^@]*)@@https?://\1/.*
 RewriteRule .*\.php [NC,F]

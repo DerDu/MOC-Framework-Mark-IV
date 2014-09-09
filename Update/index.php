@@ -7,7 +7,7 @@
 	<script src="jQuery.ReleaseNotes/2014-09-09-13-06/js/releasenotes.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
 	      type='text/css'>
-	<link rel="stylesheet" href="theme.css"/>
+	<link rel="stylesheet" href="Style/theme.css"/>
 	<link rel="stylesheet" href="jQuery.ReleaseNotes/2014-09-09-13-06/css/releasenotes.plugin.css"/>
 </head>
 <body>

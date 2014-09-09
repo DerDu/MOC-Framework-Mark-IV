@@ -324,6 +324,13 @@ class Api implements IApiInterface {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getUrl() {
+		return $this->fetchScheme().$this->fetchHost().( $this->fetchPort()?':'.$this->fetchPort():'' ).'/'.$this->fetchPath().'/'.basename( $this->getLocation() );
+	}
+
+	/**
 	 * @return bool
 	 * @throws \Exception
 	 */
@@ -336,4 +343,40 @@ class Api implements IApiInterface {
 		return true;
 	}
 
+	/**
+	 * @return string
+	 */
+	private function fetchPath() {
+		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
+		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\IV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\'), '/' ) );
+	}
+
+	/**
+	 * @return string
+	 */
+	private function fetchHost() {
+		return $_SERVER['SERVER_NAME'];
+	}
+
+	/**
+	 * @return string
+	 */
+	private function fetchScheme() {
+		switch( $this->fetchPort() ) {
+			case '80': return 'http://';
+			case '21': return 'ftp://';
+			case '443': return 'https://';
+			default: return 'http://';
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function fetchPort() {
+		if( !isset( $_SERVER['SERVER_PORT'] ) ) {
+			return false;
+		}
+		return $_SERVER['SERVER_PORT'];
+	}
 }

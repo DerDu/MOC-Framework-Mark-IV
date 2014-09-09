@@ -39,10 +39,24 @@ interface IApiInterface {
 
 	/**
 	 * @param string $File
+	 * @param string $Class
 	 *
 	 * @return bool
 	 */
-	public static function loadInterface( $File );
+	public static function loadInterface( $File, $Class );
+
+	/**
+	 * @param string $Class
+	 *
+	 * @return bool
+	 */
+	public static function loadAdditional( $Class );
+
+	/**
+	 * @param string                   $Namespace
+	 * @param Core\Drive\Directory\Api $Location
+	 */
+	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\Api $Location );
 
 	/**
 	 * @return void
@@ -57,47 +71,8 @@ interface IApiInterface {
  */
 class Api implements IApiInterface {
 
-	/**
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadClass( $Class ) {
-
-		$Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
-		$Class = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
-		if( false === ( $File = realpath( $Class ) ) ) {
-			/** Detect possible Interface-Definition in Class-File **/
-			return self::loadInterface( $Class );
-		} else {
-			/** @noinspection PhpIncludeInspection */
-			require( $File );
-
-			return true;
-		}
-	}
-
-	/**
-	 * @param string $File
-	 *
-	 * @return bool
-	 */
-	public static function loadInterface( $File ) {
-
-		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)Interface(.*?)$$!s';
-		if( preg_match( $Pattern, $File, $Match ) ) {
-			if( false === ( $File = realpath( $Match[1].$Match[2].$Match[3] ) ) ) {
-				return false;
-			} else {
-				/** @noinspection PhpIncludeInspection */
-				require( $File );
-
-				return true;
-			}
-		}
-
-		return false;
-	}
+	/** @var array $NamespaceLocationList */
+	private static $NamespaceLocationList = array();
 
 	/**
 	 *
@@ -120,12 +95,72 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return Update
+	 * @param string $Class
+	 *
+	 * @return bool
 	 */
-	public static function runUpdate() {
+	public static function loadClass( $Class ) {
 
-		return new Update();
+		$Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
+		$Location = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
+		if( false === ( $File = realpath( $Location ) ) ) {
+			/** Detect possible Interface-Definition in Class-File **/
+			return self::loadInterface( $Location, $Class );
+		} else {
+			/** @noinspection PhpIncludeInspection */
+			require( $File );
 
+			return true;
+		}
+	}
+
+	/**
+	 * @param string $File
+	 * @param string $Class
+	 *
+	 * @return bool
+	 */
+	public static function loadInterface( $File, $Class ) {
+
+		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)Interface(.*?)$$!s';
+		if( preg_match( $Pattern, $File, $Match ) ) {
+			if( false === ( $File = realpath( $Match[1].$Match[2].$Match[3] ) ) ) {
+				return false;
+			} else {
+				/** @noinspection PhpIncludeInspection */
+				require( $File );
+
+				return true;
+			}
+		} else {
+			return self::loadAdditional( $Class );
+		}
+	}
+
+	/**
+	 * @param string $Class
+	 *
+	 * @return bool
+	 */
+	public static function loadAdditional( $Class ) {
+
+		/** @var Core\Drive\Directory\Api $Location */
+		foreach( (array)self::$NamespaceLocationList as $Namespace => $Location ) {
+			if( strpos( $Class, $Namespace ) !== 0 ) {
+				continue;
+			}
+			$Class = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, $Location->getLocation().DIRECTORY_SEPARATOR.$Class.'.php' );
+			if( false === ( $File = realpath( $Class ) ) ) {
+				/** Detect possible Additional Class-Files **/
+			} else {
+				/** @noinspection PhpIncludeInspection */
+				require( $File );
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -134,6 +169,26 @@ class Api implements IApiInterface {
 	public static function groupCore() {
 
 		return new Api\Core();
+	}
+
+	/**
+	 * @param string                   $Namespace
+	 * @param Core\Drive\Directory\Api $Location
+	 */
+	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\Api $Location ) {
+
+		if( $Location->checkExists() && !$Location->checkIsEmpty() ) {
+			self::$NamespaceLocationList[$Namespace] = $Location;
+		}
+	}
+
+	/**
+	 * @return Update
+	 */
+	public static function runUpdate() {
+
+		return new Update();
+
 	}
 
 	/**
