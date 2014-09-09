@@ -178,7 +178,7 @@ hr {
 
 .Channel {
 	color: #FFFFFF;
-	background-color: #C4696A;
+	background-color: #C46969;
 }
 
 .Channel h1 {
@@ -189,7 +189,8 @@ hr {
 
 .Channel #ChannelRelease,
 .Channel #ChannelPreview,
-.Channel #ChannelNightly {
+.Channel #ChannelNightly,
+.Channel #ChannelNotes {
 	color: #999999;
 
 	border: solid #222222;

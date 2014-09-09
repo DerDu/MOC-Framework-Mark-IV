@@ -94,24 +94,105 @@ class Channel {
 		}
 	}
 
+	/**
+	 * @param Release $Release
+	 *
+	 * @return bool|Release
+	 */
+	private function downloadTagTree( Release $Release ) {
+
+		if( false === ( $TagList = Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->getCacheData( sha1( $this->Config->getChannelListNightly() ) ) ) ) {
+			$TagList = json_decode(
+				$this->Config->getNetwork()->getFile( $this->Config->getChannelListNightly() )
+			);
+			if( !$this->checkRateLimit( $TagList ) ) {
+				return false;
+			};
+			Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->setCacheData( $TagList, sha1( $this->Config->getChannelListNightly() ) );
+		}
+		foreach( (array)$TagList as $TagItem ) {
+			$Tag = $this->Type->buildTag( $TagItem );
+			if( $Tag->getVersion()->getVersionString() == $Release->getVersion()->getVersionString() ) {
+				$Release->setTag( $Tag );
+				if( false === ( $TreeList = Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->getCacheData( sha1( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) ) ) ) {
+					$TreeList = json_decode(
+						$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) )
+					);
+					if( !$this->checkRateLimit( $TreeList ) ) {
+						return false;
+					};
+					Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->setCacheData( $TreeList, sha1( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) );
+				}
+				$Tree = $this->Type->buildTree( $TreeList );
+				$Release->setTree( $Tree );
+
+				return $Release;
+			}
+		}
+
+		return false;
+	}
+
+	private function downloadUpdate( Release $Release ) {
+
+		$BlobList = $Release->getTree()->getBlobList();
+
+		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Data[] $DataList */
+		$DataList = array();
+		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Blob $Blob */
+		foreach( (array)$BlobList as $Blob ) {
+
+			if( false === ( $Data = Api::groupCore()->unitCache()->apiFile( $this->DataCache, __METHOD__ )->getCacheData( $Blob->getIdentifier() ) ) ) {
+				$Data = json_decode(
+					$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelBlob( $Blob->getIdentifier() ) )
+				);
+				if( !$this->checkRateLimit( $Data ) ) {
+					return false;
+				};
+				Api::groupCore()->unitCache()->apiFile( $this->DataCache, __METHOD__ )->setCacheData( $Data, $Blob->getIdentifier() );
+			}
+			$Data = $this->Type->buildData( $Data );
+			array_push( $DataList, $Data );
+
+		}
+
+		$Release->setDataList( $DataList );
+
+		return $Release;
+	}
+
 	public function getChannelRetryTimestamp() {
+
 		$Limit = json_decode(
 			$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() )
 		);
 
 		$Return = '';
 		$rem = $Limit->resources->core->reset - time();
-		$day = floor($rem / 86400);
-		$hr  = floor(($rem % 86400) / 3600);
-		$min = floor(($rem % 3600) / 60);
-		$sec = ($rem % 60);
+		$day = floor( $rem / 86400 );
+		$hr = floor( ( $rem % 86400 ) / 3600 );
+		$min = floor( ( $rem % 3600 ) / 60 );
+		$sec = ( $rem % 60 );
 
-		if($day) $Return .= "$day Days ";
-		if($hr) $Return .= "$hr Hours ";
-		if($min) $Return .= "$min Minutes ";
-		if($sec) $Return .= "$sec Seconds ";
+		if( $day )
+			$Return .= "$day Days ";
+		if( $hr )
+			$Return .= "$hr Hours ";
+		if( $min )
+			$Return .= "$min Minutes ";
+		if( $sec )
+			$Return .= "$sec Seconds ";
 
 		return $Return;
+	}
+
+	public function getChannelLimit() {
+
+		$Limit = json_decode(
+			$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() )
+		);
+
+		return $Limit->resources->core->remaining.'/'.$Limit->resources->core->limit;
 	}
 
 	/**
@@ -200,68 +281,5 @@ class Channel {
 		} else {
 			return null;
 		}
-	}
-
-	/**
-	 * @param Release $Release
-	 *
-	 * @return bool|Release
-	 */
-	private function downloadTagTree( Release $Release ) {
-		if( false === ( $TagList = Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->getCacheData( sha1( $this->Config->getChannelListNightly() ) ) ) ) {
-			$TagList = json_decode(
-				$this->Config->getNetwork()->getFile( $this->Config->getChannelListNightly() )
-			);
-			if( !$this->checkRateLimit( $TagList ) ) {
-				return false;
-			};
-			Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->setCacheData( $TagList, sha1( $this->Config->getChannelListNightly() ) );
-		}
-		foreach( (array)$TagList as $TagItem ) {
-			$Tag = $this->Type->buildTag( $TagItem );
-			if( $Tag->getVersion()->getVersionString() == $Release->getVersion()->getVersionString() ) {
-				$Release->setTag( $Tag );
-				if( false === ( $TreeList = Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->getCacheData( sha1( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) ) ) ) {
-					$TreeList = json_decode(
-						$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) )
-					);
-					if( !$this->checkRateLimit( $TreeList ) ) {
-						return false;
-					};
-					Api::groupCore()->unitCache()->apiFile( $this->ChannelCache, __CLASS__ )->setCacheData( $TreeList, sha1( $this->Config->getGitHubChannelTree( $Tag->getIdentifier() ) ) );
-				}
-				$Tree = $this->Type->buildTree( $TreeList );
-				$Release->setTree( $Tree );
-				return $Release;
-			}
-		}
-		return false;
-	}
-
-	private function downloadUpdate( Release $Release ) {
-		$BlobList = $Release->getTree()->getBlobList();
-
-		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Data[] $DataList */
-		$DataList = array();
-		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Blob $Blob */
-		foreach( (array)$BlobList as $Blob ) {
-
-			if( false === ( $Data = Api::groupCore()->unitCache()->apiFile( $this->DataCache, __METHOD__ )->getCacheData( $Blob->getIdentifier() ) ) ) {
-				$Data = json_decode(
-					$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelBlob( $Blob->getIdentifier() ) )
-				);
-				if( !$this->checkRateLimit( $Data ) ) {
-					return false;
-				};
-				Api::groupCore()->unitCache()->apiFile( $this->DataCache, __METHOD__ )->setCacheData( $Data, $Blob->getIdentifier() );
-			}
-			$Data = $this->Type->buildData( $Data );
-			array_push( $DataList, $Data );
-
-		}
-
-		$Release->setDataList( $DataList );
-
-		return $Release;
 	}
 }
