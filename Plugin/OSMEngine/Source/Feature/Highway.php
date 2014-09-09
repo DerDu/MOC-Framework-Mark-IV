@@ -3,8 +3,6 @@ namespace MOC\IV\Plugin\OSMEngine\Source\Feature;
 
 class Highway extends Generic {
 
-	const TYPE_ROAD = 'ROAD';
-
 	const TYPE_MOTORWAY = 'MOTORWAY';
 	const TYPE_TRUNK = 'TRUNK';
 	const TYPE_PRIMARY = 'PRIMARY';
@@ -12,39 +10,27 @@ class Highway extends Generic {
 	const TYPE_TERTIARY = 'TERTIARY';
 	const TYPE_RESIDENTIAL = 'RESIDENTIAL';
 	const TYPE_SERVICE = 'SERVICE';
+	const TYPE_UNCLASSIFIED = 'UNCLASSIFIED';
+	const TYPE_CYCLEWAY = 'CYCLEWAY';
+	const TYPE_FOOTWAY = 'FOOTWAY';
+	const TYPE_PEDESTRIAN = 'PEDESTRIAN';
+	const TYPE_STEPS = 'STEPS';
+	const TYPE_ROAD = 'ROAD';
+	const TYPE_DISUSED = 'DISUSED';
+	const TYPE_PATH = 'PATH';
+	const TYPE_PLATFORM = 'PLATFORM';
+	const TYPE_TRAFFIC_ISLAND = 'TRAFFIC_ISLAND';
+	const TYPE_LIVING_STREET = 'LIVING_STREET';
+	const TYPE_TRACK = 'TRACK';
 
 	function __construct( \MOC\IV\Core\Xml\Reader\Source\Node $Node ) {
 
-		switch( strtoupper( $Node->getAttribute( 'v' ) ) ) {
-			case self::TYPE_MOTORWAY:
-				$this->setType( self::TYPE_MOTORWAY );
-				break;
-			case self::TYPE_PRIMARY:
-				$this->setType( self::TYPE_PRIMARY );
-				break;
-			case self::TYPE_RESIDENTIAL:
-				$this->setType( self::TYPE_RESIDENTIAL );
-				break;
-			case self::TYPE_SECONDARY:
-				$this->setType( self::TYPE_SECONDARY );
-				break;
-			case self::TYPE_SERVICE:
-				$this->setType( self::TYPE_SERVICE );
-				break;
-			case self::TYPE_TERTIARY:
-				$this->setType( self::TYPE_TERTIARY );
-				break;
-			case self::TYPE_TRUNK:
-				$this->setType( self::TYPE_TRUNK );
-				break;
-			default:
-				$this->setType( self::TYPE_ROAD );
-				break;
+		$Type = strtoupper( $Node->getAttribute( 'v' ) );
+		if( defined( 'self::TYPE_'.$Type ) ) {
+			$this->setType( constant( 'self::TYPE_'.$Type ) );
+		} else {
+			$this->setType( false );
+			trigger_error( 'Highway missing '.$Type );
 		}
-	}
-
-	public function hasType( $TypeName ) {
-
-		return $this->getType() == $TypeName;
 	}
 }

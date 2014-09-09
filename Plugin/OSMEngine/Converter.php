@@ -31,14 +31,14 @@ class Converter {
 	}
 
 	public function setSize( $Width, $Height ) {
-				// This also controls the aspect ratio of the projection
+		// This also controls the aspect ratio of the projection
 		$this->Width = $Width;
 		$this->Height = $Height;
 
 		// Corrent Ratio
-		$Y = abs($this->South-$this->North);
-		$X = abs($this->West-$this->East);
-		$this->Height = $this->Width / $X * $Y;
+//		$Y = abs($this->South-$this->North);
+//		$X = abs($this->West-$this->East);
+//		$this->Height = $this->Width / $X * $Y;
 
 		// Some constants to relate chosen area to screen coordinates
 		$this->MinY = $this->mercatorY( $this->South );

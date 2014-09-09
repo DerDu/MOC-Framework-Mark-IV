@@ -7,6 +7,7 @@ class Way {
 	const TYPE_AREA = 'AREA';
 
 	const FEATURE_HIGHWAY = 'HIGHWAY';
+	const FEATURE_BUILDING = 'BUILDING';
 
 	private $Type = self::TYPE_WAY;
 	private $NodeList = array();
@@ -21,8 +22,8 @@ class Way {
 				array_push( $this->NodeList, $Child->getAttribute( 'ref' ) );
 			}
 			if( $Child->getName() == 'tag' ) {
-				if( class_exists( $FeatureClass = '\MOC\IV\Plugin\OSMEngine\Source\Feature\\'.( $FeatureName = strtoupper( $Child->getAttribute( 'k' ) ) ) ) ) {
-					$this->TagList[$FeatureName] = new $FeatureClass( $Child );
+				if( class_exists( $FeatureClass = '\MOC\IV\Plugin\OSMEngine\Source\Feature\\'.( ucwords( $FeatureName = $Child->getAttribute( 'k' ) ) ) ) ) {
+					$this->TagList[strtoupper( $FeatureName )] = new $FeatureClass( $Child );
 				}
 			}
 		}
@@ -35,19 +36,29 @@ class Way {
 	public function hasFeature( $FeatureName = null ) {
 
 		if( null === $FeatureName ) {
-			if( empty( $this->TagList ) ) {
-				return false;
-			}
-
-			return true;
+			return !empty( $this->TagList );
 		} else {
 			return array_key_exists( strtoupper( $FeatureName ), $this->TagList );
 		}
 	}
 
+	/**
+	 * @param null|string $FeatureName
+	 *
+	 * @return \MOC\IV\Plugin\OSMEngine\Source\Feature\Generic|\MOC\IV\Plugin\OSMEngine\Source\Feature\Generic[]
+	 */
+	public function getFeature( $FeatureName = null ) {
+
+		if( null === $FeatureName ) {
+			return $this->TagList;
+		} else {
+			return $this->TagList[strtoupper( $FeatureName )];
+		}
+	}
+
 	public function hasType( $TypeName ) {
 
-		return $this->Type = $TypeName;
+		return $this->Type == $TypeName;
 	}
 
 	/**

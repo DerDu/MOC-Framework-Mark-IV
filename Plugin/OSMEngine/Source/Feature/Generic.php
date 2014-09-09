@@ -1,24 +1,38 @@
 <?php
 namespace MOC\IV\Plugin\OSMEngine\Source\Feature;
 
+/**
+ * Class Generic
+ *
+ * @package MOC\IV\Plugin\OSMEngine\Source\Feature
+ */
 abstract class Generic {
 
 	private $Type = null;
 
 	/**
-	 * @param null $Type
+	 * @param string $TypeName
+	 *
+	 * @return bool
 	 */
-	public function setType( $Type ) {
+	public function hasType( $TypeName ) {
 
-		$this->Type = $Type;
+		return $this->getType() == $TypeName;
 	}
 
 	/**
-	 * @return null
+	 * @return null|string
 	 */
 	public function getType() {
 
 		return $this->Type;
 	}
 
+	/**
+	 * @param null|string $Type
+	 */
+	public function setType( $Type ) {
+
+		$this->Type = $Type;
+	}
 }
