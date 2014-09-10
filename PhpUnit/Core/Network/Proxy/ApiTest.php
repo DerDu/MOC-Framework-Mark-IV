@@ -19,9 +19,5 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\None', $None = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildNone() );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\Relay', $Relay = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildRelay( $Server ) );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\Basic', $Basic = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildBasic( $Server, $Credentials ) );
-
-		$None->getFile( 'http://127.0.0.1', true );
-		$Relay->getFile( 'http://127.0.0.1', true );
-		$Basic->getFile( 'http://127.0.0.1', true );
 	}
 }

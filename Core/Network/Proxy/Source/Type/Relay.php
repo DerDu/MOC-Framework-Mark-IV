@@ -15,6 +15,12 @@ class Relay extends Generic {
 		$this->Server = $Server;
 	}
 
+	/**
+	 * @param string $Url
+	 * @param bool   $Status
+	 *
+	 * @return bool|null|string
+	 */
 	public function getFile( $Url, $Status = false ) {
 
 		if( $this->openSocket() ) {
