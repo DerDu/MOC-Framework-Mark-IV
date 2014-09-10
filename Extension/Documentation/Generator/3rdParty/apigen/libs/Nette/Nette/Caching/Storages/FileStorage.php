@@ -156,7 +156,11 @@ class FileStorage extends Nette\Object implements Nette\Caching\IStorage
 		if ($this->useDirs && !is_dir($dir = dirname($cacheFile))) {
 			@mkdir($dir, 0777); // @ - directory may already exist
 		}
-		$handle = @fopen($cacheFile, 'r+b'); // @ - file may not exist
+		if( file_exists( $cacheFile ) ){
+			$handle = @fopen($cacheFile, 'r+b'); // @ - file may not exist
+		} else {
+			$handle = false;
+		}
 		if (!$handle) {
 			$handle = fopen($cacheFile, 'wb');
 			if (!$handle) {
@@ -335,7 +339,11 @@ class FileStorage extends Nette\Object implements Nette\Caching\IStorage
 	 */
 	protected function readMetaAndLock($file, $lock)
 	{
-		$handle = @fopen($file, 'r+b'); // @ - file may not exist
+		if( file_exists( $file ) ){
+			$handle = @fopen($file, 'r+b'); // @ - file may not exist
+		} else {
+			$handle = false;
+		}
 		if (!$handle) {
 			return NULL;
 		}

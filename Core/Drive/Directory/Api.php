@@ -92,6 +92,13 @@ interface IApiInterface {
 	 * @throws \Exception
 	 */
 	public function removeDirectory();
+
+	/**
+	 * File-Url
+	 *
+	 * @return string
+	 */
+	public function getUrl();
 }
 
 /**
@@ -286,14 +293,6 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getLocation() {
-
-		return $this->Location;
-	}
-
-	/**
 	 * File-Name
 	 *
 	 * @return string|null
@@ -301,16 +300,6 @@ class Api implements IApiInterface {
 	public function getName() {
 
 		return pathinfo( $this->Location, PATHINFO_FILENAME );
-	}
-
-	/**
-	 * File-Path
-	 *
-	 * @return string|null
-	 */
-	public function getPath() {
-
-		return pathinfo( $this->Location, PATHINFO_DIRNAME );
 	}
 
 	/**
@@ -327,7 +316,73 @@ class Api implements IApiInterface {
 	 * @return string
 	 */
 	public function getUrl() {
-		return $this->fetchScheme().$this->fetchHost().( $this->fetchPort()?':'.$this->fetchPort():'' ).'/'.$this->fetchPath().'/'.basename( $this->getLocation() );
+
+		return $this->fetchScheme().$this->fetchHost().( $this->fetchPort() ? ':'.$this->fetchPort() : '' ).'/'.$this->fetchPath().'/'.basename( $this->getLocation() );
+	}
+
+	/**
+	 * @return string
+	 */
+	private function fetchScheme() {
+
+		switch( $this->fetchPort() ) {
+			case '80':
+				return 'http://';
+			case '21':
+				return 'ftp://';
+			case '443':
+				return 'https://';
+			default:
+				return 'http://';
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function fetchPort() {
+
+		if( !isset( $_SERVER['SERVER_PORT'] ) ) {
+			return false;
+		}
+
+		return $_SERVER['SERVER_PORT'];
+	}
+
+	/**
+	 * @return string
+	 */
+	private function fetchHost() {
+
+		return $_SERVER['SERVER_NAME'];
+	}
+
+	/**
+	 * @return string
+	 */
+	private function fetchPath() {
+
+		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
+
+		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\IV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\' ), '/' ) );
+	}
+
+	/**
+	 * File-Path
+	 *
+	 * @return string|null
+	 */
+	public function getPath() {
+
+		return pathinfo( $this->Location, PATHINFO_DIRNAME );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLocation() {
+
+		return $this->Location;
 	}
 
 	/**
@@ -341,42 +396,5 @@ class Api implements IApiInterface {
 		}
 
 		return true;
-	}
-
-	/**
-	 * @return string
-	 */
-	private function fetchPath() {
-		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
-		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\IV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\'), '/' ) );
-	}
-
-	/**
-	 * @return string
-	 */
-	private function fetchHost() {
-		return $_SERVER['SERVER_NAME'];
-	}
-
-	/**
-	 * @return string
-	 */
-	private function fetchScheme() {
-		switch( $this->fetchPort() ) {
-			case '80': return 'http://';
-			case '21': return 'ftp://';
-			case '443': return 'https://';
-			default: return 'http://';
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function fetchPort() {
-		if( !isset( $_SERVER['SERVER_PORT'] ) ) {
-			return false;
-		}
-		return $_SERVER['SERVER_PORT'];
 	}
 }

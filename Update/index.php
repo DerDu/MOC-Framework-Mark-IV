@@ -14,9 +14,12 @@
 
 <div id="TopBar">
 	<ul>
-		<li><a href="http://derdu.github.io/MOC-Framework-Mark-IV" title="DerDu" onclick="window.open(this.href); return false;">Documentation</a></li>
-		<li><a href="https://github.com/DerDu/MOC-Framework-Mark-IV" title="DerDu" onclick="window.open(this.href); return false;">GitHub</a></li>
-		<li><a href="https://github.com/DerDu" title="DerDu" onclick="window.open(this.href); return false;">DerDu</a></li>
+		<li><a href="http://derdu.github.io/MOC-Framework-Mark-IV" title="DerDu"
+		       onclick="window.open(this.href); return false;">Documentation</a></li>
+		<li><a href="https://github.com/DerDu/MOC-Framework-Mark-IV" title="DerDu"
+		       onclick="window.open(this.href); return false;">GitHub</a></li>
+		<li><a href="https://github.com/DerDu" title="DerDu" onclick="window.open(this.href); return false;">DerDu</a>
+		</li>
 	</ul>
 </div>
 
@@ -68,12 +71,12 @@
 
 <div id="BottomBar">
 	<ul>
-		<li><a href="http://github.com"
-		       style="background: transparent url('../Core/Update/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px;">Powered
-				by GitHub</a>
+		<li>Powered by <a href="http://github.com"
+		                 style="background: transparent url('../Core/Update/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
 		</li>
 		<li>
-			<a>Api Request-Limit: <span class="Color HighLight" id="CurrentLimit">Loading...</span></a>
+			Api Request-Limit<a href="http://developer.github.com/v3/rate_limit/"><span class="Color HighLight"
+			                                                                              id="CurrentLimit">Loading...</span></a>
 		</li>
 	</ul>
 </div>
@@ -122,8 +125,8 @@
 
 										jQuery.get( "../Core/Update/Gui/EndPoint/CurrentLimit.php" )
 											.done( function( Response ) {
-												Response = Response.split('/');
-												CurrentLimit.html( Math.round( 100 - ( 100/parseInt(Response[1]) * parseInt(Response[0]) ) ) + '% (' + Response[0] + '/' + Response[1] + ')' );
+												Response = Response.split( '/' );
+												CurrentLimit.html( Math.round( 100 - ( 100 / parseInt( Response[1] ) * parseInt( Response[0] ) ) ) + '% (' + Response[0] + '/' + Response[1] + ')' );
 											} )
 											.fail(function( Response ) {
 												CurrentLimit.html( '<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>' );
@@ -134,17 +137,17 @@
 							} );
 					} );
 			} );
-/*
-		jQuery( "#ChannelNotes" ).releaseNotes( {
-			milestonesShown: 10,
-			phpApi: true,
-			phpApiPath: 'jQuery.ReleaseNotes/2014-09-09-13-06/',
-			showDescription: true,
-			showComments: true,
-			// Used if phpAPI is false
-			repo: 'MOC-Framework-Mark-IV',
-			username: 'DerDu'
-		} );*/
+		/*
+		 jQuery( "#ChannelNotes" ).releaseNotes( {
+		 milestonesShown: 10,
+		 phpApi: true,
+		 phpApiPath: 'jQuery.ReleaseNotes/2014-09-09-13-06/',
+		 showDescription: true,
+		 showComments: true,
+		 // Used if phpAPI is false
+		 repo: 'MOC-Framework-Mark-IV',
+		 username: 'DerDu'
+		 } );*/
 	} );
 </script>
 

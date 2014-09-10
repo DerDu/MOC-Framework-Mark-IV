@@ -338,7 +338,10 @@ class Generator extends Nette\Object
 	 */
 	public function generate()
 	{
-		@mkdir($this->config->destination, 0755, true);
+		if (!is_dir($this->config->destination)) {
+			@mkdir($this->config->destination, 0755, true);
+		}
+
 		if (!is_dir($this->config->destination) || !is_writable($this->config->destination)) {
 			throw new RuntimeException(sprintf('Directory "%s" isn\'t writable', $this->config->destination));
 		}
@@ -2085,7 +2088,9 @@ class Generator extends Nette\Object
 	 */
 	private function forceDir($path)
 	{
-		@mkdir(dirname($path), 0755, true);
+		if (!is_dir(dirname($path))) {
+			@mkdir(dirname($path), 0755, true);
+		}
 		return $path;
 	}
 

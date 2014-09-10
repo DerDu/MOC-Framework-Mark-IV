@@ -13,7 +13,7 @@ body {
 	background-color: #232323;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-weight: 300;
 	margin: 5px 0;
@@ -31,14 +31,33 @@ h2 {
 }
 
 h3 {
-	font-size: 1.1em
+	font-size: 1.1em;
+	color: #E3CE90;
 }
 
-a, :focus, :active {
+h4 {
+	font-size: 1em;
+}
+
+caption {
+	color: #E3CE90;
+	border-bottom: 1px solid #E3CE90;
+	text-align: left;
+	font-size: 1.1em;
+}
+
+b {
+	font-weight: 300;
+}
+
+a, a:focus, a:active {
 	text-decoration: none;
 	outline: none;
-	color: #999999;
+	color: #8F8980;
+}
 
+a:hover {
+	color: #E3CE90;
 }
 
 hr {
@@ -200,7 +219,7 @@ hr {
 .Channel #ChannelPreview,
 .Channel #ChannelNightly,
 .Channel #ChannelNotes {
-	color: #999999;
+	color: #CCCCCC;
 
 	border: solid #222222;
 	border-width: 1px 0;

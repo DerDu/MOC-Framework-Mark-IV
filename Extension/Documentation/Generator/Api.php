@@ -2,8 +2,20 @@
 namespace MOC\IV\Extension\Documentation\Generator;
 
 use ApiGen\Config;
-use ApiGen\Generator;
 use Nette\Config\Adapters\NeonAdapter;
+
+\MOC\IV\Api::registerAdditionalNamespace(
+	'ApiGen', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
+);
+\MOC\IV\Api::registerAdditionalNamespace(
+	'TokenReflection', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
+);
+\MOC\IV\Api::registerAdditionalNamespace(
+	'FSHL', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
+);
+//require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
+//require_once( __DIR__.'/3rdParty/apigen/libs/Texy/texy/texy.php' );
+
 
 /**
  * Interface IApiInterface
@@ -40,35 +52,6 @@ class Api implements IApiInterface {
 		$this->Destination = $Destination;
 	}
 
-	public function buildDocumentation() {
-
-		\MOC\IV\Api::registerAdditionalNamespace(
-			'ApiGen', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
-		);
-
-		require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
-		$Config = $this->getConfig();
-
-		$Cache = \MOC\IV\Api::groupCore()->unitCache()->apiFile( 3600, __CLASS__ );
-
-		$Neon = new NeonAdapter();
-		$Cache->getCacheFile( sha1( serialize( $Config ) ), true )
-			->setContent( $Neon->dump( $Config ) )
-			->closeFile();
-		$_SERVER['argv'] = array(
-			'--config', $Cache->getCacheFile( sha1( serialize( $Config ) ) )->getLocation()
-		);
-
-		$Config = new Config();
-		$Config->processCliOptions( $_SERVER['argv'] );
-
-		$Generator = new Generator( $Config );
-
-		$Config->prepare();
-
-		var_dump( $Generator->parse() );
-	}
-
 	private function getConfig() {
 
 		return array(
@@ -79,7 +62,7 @@ class Api implements IApiInterface {
 			// List of allowed file extensions
 			'extensions'   => array( 'php' ),
 			// Mask to exclude file or directory from processing
-			'exclude'      => '*/Documentation/Content/*,*/.idea/*,*/.git/*,*/#Trash/*,*/Data/*,*/Library/*,*/3rdParty/*',
+			'exclude'      => '*/Documentation/Content/*,*/.idea/*,*/.git/*,*/#Trash/*,*/Data/*,*/Library/*,*/3rdParty/*,*/PhpUnit/*,*/jQuery/*',
 			// Don't generate documentation for classes from file or directory with this mask
 			//'skipDocPath' => '',
 			// Don't generate documentation for classes with this name prefix
@@ -99,7 +82,7 @@ class Api implements IApiInterface {
 			// Google Analytics tracking code
 			//'googleAnalytics' => '',
 			// Template config file
-			//'templateConfig' =>  './templates/default/config.neon',
+			'templateConfig' =>  __DIR__.'/3rdParty/apigen/templates/MOC/config.neon',
 			// Grouping of classes
 			'groups'       => 'auto',
 			// List of allowed HTML tags in documentation
@@ -148,7 +131,7 @@ class Api implements IApiInterface {
 
 		$Config = $this->getConfig();
 
-		$Cache = \MOC\IV\Api::groupCore()->unitCache()->apiFile( 3600, __CLASS__ );
+		$Cache = \MOC\IV\Api::groupCore()->unitCache()->apiFile( 120, __CLASS__ );
 		if( !$Cache->getCacheFile( sha1( serialize( $Config ) ) ) ) {
 			require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
 			$Neon = new NeonAdapter();
@@ -163,6 +146,6 @@ class Api implements IApiInterface {
 			include( __DIR__.'/3rdParty/apigen/apigen.php' );
 		}
 
-		return \MOC\IV\Api::groupCore()->unitDrive()->apiFile( $this->Destination->getLocation().'/index.html' )->getContent();
+		return $this->Destination->getUrl().'/index.html';
 	}
 }
