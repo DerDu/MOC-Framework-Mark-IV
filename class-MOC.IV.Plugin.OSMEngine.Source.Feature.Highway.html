@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="ApiGen 2.8.0" />
+
+    <title>Class MOC\IV\Plugin\OSMEngine\Source\Feature\Highway</title>
+
+    <script type="text/javascript" src="resources/combined.js?1893768863"></script>
+    <script type="text/javascript" src="elementlist.js?136968840"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1845199352" />
+
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
+	      type='text/css' />
+</head>
+<body>
+
+<div id="TopBar">
+	<ul>
+		<li><a href="http://derdu.github.io/MOC-Framework-Mark-IV" title="DerDu"
+		       onclick="window.open(this.href); return false;">Documentation</a></li>
+		<li><a href="https://github.com/DerDu/MOC-Framework-Mark-IV" title="DerDu"
+		       onclick="window.open(this.href); return false;">GitHub</a></li>
+		<li><a href="https://github.com/DerDu" title="DerDu" onclick="window.open(this.href); return false;">DerDu</a>
+		</li>
+	</ul>
+</div>
+
+<div id="Header">
+	<h1>MOC Framework</h1>
+
+	<p>Mark IV</p>
+</div>
+
+<div id="Navigation">
+	<ul>
+		<li>
+			<a>Documentation</a>
+		</li>
+	</ul>
+</div>
+
+<div class="Channel">
+	<h1>Api Documentation</h1>
+
+	<div id="ChannelRelease">
+
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-MOC.html">MOC<span></span></a>
+						<ul>
+				<li class="active main"><a href="namespace-MOC.IV.html">IV<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.html">Core<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Cache.html">Cache<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Cache.File.html">File</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.html">Drive<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.Directory.html">Directory<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.Directory.Utility.html">Utility</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.File.html">File</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.html">Error<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.html">Handler<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Source.Template.html">Template</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Source.Type.html">Type</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.html">Network<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.html">Proxy<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Config.html">Config</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Type.html">Type</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Utility.html">Utility</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Session.html">Session<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Session.Handler.html">Handler<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Session.Handler.Source.html">Source</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.html">Update<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.html">GitHub<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Source.Type.html">Type</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Source.Utility.html">Utility</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.Gui.html">Gui</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Xml.html">Xml<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Xml.Reader.html">Reader<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Xml.Reader.Source.html">Source</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Extension.html">Extension<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Extension.Documentation.html">Documentation<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Extension.Documentation.Generator.html">Generator</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Module.html">Module<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Module.Encoding.html">Encoding<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Module.Encoding.Text.html">Text<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Module.Encoding.Text.Source.html">Source</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.html">Plugin<span></span></a>
+						<ul>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.OSMEngine.html">OSMEngine<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Api.html">Api</a>
+						</li>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Element.html">Element</a>
+						</li>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Feature.html">Feature</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Utility.html">Utility</a>
+						</li>
+							</ul></li></ul></li></ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Building.html">Building</a></li>
+				<li><a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html">Generic</a></li>
+				<li class="active"><a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html">Highway</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" class="Button" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Feature.html" title="Summary of MOC\IV\Plugin\OSMEngine\Source\Feature"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Highway</h1>
+
+
+	<div class="description">
+	
+<p>Class Generic</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html"><span>MOC\IV\Plugin\OSMEngine\Source\Feature\Generic</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>MOC\IV\Plugin\OSMEngine\Source\Feature\Highway</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-MOC.html">MOC</a>\<a href="namespace-MOC.IV.html">IV</a>\<a href="namespace-MOC.IV.Plugin.html">Plugin</a>\<a href="namespace-MOC.IV.Plugin.OSMEngine.html">OSMEngine</a>\<a href="namespace-MOC.IV.Plugin.OSMEngine.Source.html">Source</a>\<a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Feature.html">Feature</a><br />
+		<b>Package:</b> MOC\IV\Plugin\OSMEngine\Source\Feature<br />
+
+		<b>Located at</b> <a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#4-36" title="Go to source code">Plugin/OSMEngine/Source/Feature/Highway.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#26-35" title="Go to source code">__construct</a>( <span><code><a href="class-MOC.IV.Core.Xml.Reader.Source.Node.html">MOC\IV\Core\Xml\Reader\Source\Node</a></code> <var>$Node</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html#methods">MOC\IV\Plugin\OSMEngine\Source\Feature\Generic</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html#_getType">getType()</a>, 
+			<a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html#_hasType">hasType()</a>, 
+			<a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html#_setType">setType()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+	<table class="summary" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="TYPE_MOTORWAY" id="TYPE_MOTORWAY">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#6" title="Go to source code"><b>TYPE_MOTORWAY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'MOTORWAY'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_MOTORWAY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TRUNK" id="TYPE_TRUNK">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#7" title="Go to source code"><b>TYPE_TRUNK</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'TRUNK'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TRUNK" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_PRIMARY" id="TYPE_PRIMARY">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#8" title="Go to source code"><b>TYPE_PRIMARY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'PRIMARY'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_PRIMARY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_SECONDARY" id="TYPE_SECONDARY">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#9" title="Go to source code"><b>TYPE_SECONDARY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'SECONDARY'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_SECONDARY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TERTIARY" id="TYPE_TERTIARY">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#10" title="Go to source code"><b>TYPE_TERTIARY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'TERTIARY'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TERTIARY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_RESIDENTIAL" id="TYPE_RESIDENTIAL">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#11" title="Go to source code"><b>TYPE_RESIDENTIAL</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'RESIDENTIAL'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_RESIDENTIAL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_SERVICE" id="TYPE_SERVICE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#12" title="Go to source code"><b>TYPE_SERVICE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'SERVICE'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_SERVICE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNCLASSIFIED" id="TYPE_UNCLASSIFIED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#13" title="Go to source code"><b>TYPE_UNCLASSIFIED</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'UNCLASSIFIED'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNCLASSIFIED" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_CYCLEWAY" id="TYPE_CYCLEWAY">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#14" title="Go to source code"><b>TYPE_CYCLEWAY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'CYCLEWAY'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_CYCLEWAY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_FOOTWAY" id="TYPE_FOOTWAY">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#15" title="Go to source code"><b>TYPE_FOOTWAY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'FOOTWAY'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_FOOTWAY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_PEDESTRIAN" id="TYPE_PEDESTRIAN">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#16" title="Go to source code"><b>TYPE_PEDESTRIAN</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'PEDESTRIAN'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_PEDESTRIAN" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_STEPS" id="TYPE_STEPS">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#17" title="Go to source code"><b>TYPE_STEPS</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'STEPS'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_STEPS" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ROAD" id="TYPE_ROAD">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#18" title="Go to source code"><b>TYPE_ROAD</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'ROAD'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ROAD" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DISUSED" id="TYPE_DISUSED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#19" title="Go to source code"><b>TYPE_DISUSED</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'DISUSED'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DISUSED" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_PATH" id="TYPE_PATH">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#20" title="Go to source code"><b>TYPE_PATH</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'PATH'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_PATH" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_PLATFORM" id="TYPE_PLATFORM">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#21" title="Go to source code"><b>TYPE_PLATFORM</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'PLATFORM'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_PLATFORM" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TRAFFIC_ISLAND" id="TYPE_TRAFFIC_ISLAND">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#22" title="Go to source code"><b>TYPE_TRAFFIC_ISLAND</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'TRAFFIC_ISLAND'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TRAFFIC_ISLAND" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_LIVING_STREET" id="TYPE_LIVING_STREET">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#23" title="Go to source code"><b>TYPE_LIVING_STREET</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'LIVING_STREET'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_LIVING_STREET" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TRACK" id="TYPE_TRACK">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html#24" title="Go to source code"><b>TYPE_TRACK</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'TRACK'</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TRACK" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+
+		<div style="clear: both;"></div>
+	</div>
+</div>
+
+<div id="BottomBar">
+	<ul>
+		<li>Powered by <a href="http://github.com"
+		       style="background: transparent url('resources/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
+		</li>
+		<li>
+			 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		</li>
+	</ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="ApiGen 2.8.0" />
+    <meta name="robots" content="noindex" />
+
+    <title>File Plugin/OSMEngine/Source/Feature/Building.php</title>
+
+    <script type="text/javascript" src="resources/combined.js?1893768863"></script>
+    <script type="text/javascript" src="elementlist.js?136968840"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1845199352" />
+
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
+	      type='text/css' />
+</head>
+<body>
+
+<div id="TopBar">
+	<ul>
+		<li><a href="http://derdu.github.io/MOC-Framework-Mark-IV" title="DerDu"
+		       onclick="window.open(this.href); return false;">Documentation</a></li>
+		<li><a href="https://github.com/DerDu/MOC-Framework-Mark-IV" title="DerDu"
+		       onclick="window.open(this.href); return false;">GitHub</a></li>
+		<li><a href="https://github.com/DerDu" title="DerDu" onclick="window.open(this.href); return false;">DerDu</a>
+		</li>
+	</ul>
+</div>
+
+<div id="Header">
+	<h1>MOC Framework</h1>
+
+	<p>Mark IV</p>
+</div>
+
+<div id="Navigation">
+	<ul>
+		<li>
+			<a>Documentation</a>
+		</li>
+	</ul>
+</div>
+
+<div class="Channel">
+	<h1>Api Documentation</h1>
+
+	<div id="ChannelRelease">
+
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-MOC.html">MOC<span></span></a>
+						<ul>
+				<li class="active main"><a href="namespace-MOC.IV.html">IV<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.html">Core<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Cache.html">Cache<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Cache.File.html">File</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.html">Drive<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.Directory.html">Directory<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.Directory.Utility.html">Utility</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Drive.File.html">File</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.html">Error<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.html">Handler<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Source.Template.html">Template</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Error.Handler.Source.Type.html">Type</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.html">Network<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.html">Proxy<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Config.html">Config</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Type.html">Type</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Network.Proxy.Source.Utility.html">Utility</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Session.html">Session<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Session.Handler.html">Handler<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Session.Handler.Source.html">Source</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.html">Update<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.html">GitHub<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Api.html">Api</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Source.Type.html">Type</a>
+						</li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.GitHub.Source.Utility.html">Utility</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Update.Gui.html">Gui</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Core.Xml.html">Xml<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Xml.Reader.html">Reader<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Core.Xml.Reader.Source.html">Source</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Extension.html">Extension<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Extension.Documentation.html">Documentation<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Extension.Documentation.Generator.html">Generator</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Module.html">Module<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Module.Encoding.html">Encoding<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Module.Encoding.Text.html">Text<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Module.Encoding.Text.Source.html">Source</a>
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.html">Plugin<span></span></a>
+						<ul>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.OSMEngine.html">OSMEngine<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Api.html">Api</a>
+						</li>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Source.html">Source<span></span></a>
+						<ul>
+				<li class="main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Element.html">Element</a>
+						</li>
+				<li class="active main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Feature.html">Feature</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="namespace-MOC.IV.Plugin.OSMEngine.Utility.html">Utility</a>
+						</li>
+							</ul></li></ul></li></ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Building.html">Building</a></li>
+				<li><a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Generic.html">Generic</a></li>
+				<li><a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Highway.html">Highway</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" class="Button" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-MOC.IV.Plugin.OSMEngine.Source.Feature.html" title="Summary of MOC\IV\Plugin\OSMEngine\Source\Feature"><span>Namespace</span></a>
+			</li>
+			<li>
+				<a href="class-MOC.IV.Plugin.OSMEngine.Source.Feature.Building.html" title="Summary of MOC\IV\Plugin\OSMEngine\Source\Feature\Building"><span>Class</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<pre><code><span id="1" class="l"><a class="l" href="#1"> 1: </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a class="l" href="#2"> 2: </a><span class="php-keyword1">namespace</span> MOC\IV\Plugin\OSMEngine\Source\Feature;
+</span><span id="3" class="l"><a class="l" href="#3"> 3: </a>
+</span><span id="4" class="l"><a class="l" href="#4"> 4: </a><span class="php-keyword1">class</span> <a id="Building" href="#Building">Building</a> <span class="php-keyword1">extends</span> Generic {
+</span><span id="5" class="l"><a class="l" href="#5"> 5: </a>
+</span><span id="6" class="l"><a class="l" href="#6"> 6: </a>    <span class="php-keyword1">const</span> <a id="TYPE_APARTMENTS" href="#TYPE_APARTMENTS">TYPE_APARTMENTS</a> = <span class="php-quote">'APARTMENTS'</span>;
+</span><span id="7" class="l"><a class="l" href="#7"> 7: </a>    <span class="php-keyword1">const</span> <a id="TYPE_OFFICE" href="#TYPE_OFFICE">TYPE_OFFICE</a> = <span class="php-quote">'OFFICE'</span>;
+</span><span id="8" class="l"><a class="l" href="#8"> 8: </a>    <span class="php-keyword1">const</span> <a id="TYPE_RETAIL" href="#TYPE_RETAIL">TYPE_RETAIL</a> = <span class="php-quote">'RETAIL'</span>;
+</span><span id="9" class="l"><a class="l" href="#9"> 9: </a>    <span class="php-keyword1">const</span> <a id="TYPE_COMMERCIAL" href="#TYPE_COMMERCIAL">TYPE_COMMERCIAL</a> = <span class="php-quote">'COMMERCIAL'</span>;
+</span><span id="10" class="l"><a class="l" href="#10">10: </a>    <span class="php-keyword1">const</span> <a id="TYPE_CHURCH" href="#TYPE_CHURCH">TYPE_CHURCH</a> = <span class="php-quote">'CHURCH'</span>;
+</span><span id="11" class="l"><a class="l" href="#11">11: </a>    <span class="php-keyword1">const</span> <a id="TYPE_SCHOOL" href="#TYPE_SCHOOL">TYPE_SCHOOL</a> = <span class="php-quote">'SCHOOL'</span>;
+</span><span id="12" class="l"><a class="l" href="#12">12: </a>    <span class="php-keyword1">const</span> <a id="TYPE_HOUSE" href="#TYPE_HOUSE">TYPE_HOUSE</a> = <span class="php-quote">'HOUSE'</span>;
+</span><span id="13" class="l"><a class="l" href="#13">13: </a>    <span class="php-keyword1">const</span> <a id="TYPE_SUPERMARKET" href="#TYPE_SUPERMARKET">TYPE_SUPERMARKET</a> = <span class="php-quote">'SUPERMARKET'</span>;
+</span><span id="14" class="l"><a class="l" href="#14">14: </a>    <span class="php-keyword1">const</span> <a id="TYPE_KINDERGARDEN" href="#TYPE_KINDERGARDEN">TYPE_KINDERGARDEN</a> = <span class="php-quote">'KINDERGARDEN'</span>;
+</span><span id="15" class="l"><a class="l" href="#15">15: </a>    <span class="php-keyword1">const</span> <a id="TYPE_RESIDENTIAL" href="#TYPE_RESIDENTIAL">TYPE_RESIDENTIAL</a> = <span class="php-quote">'RESIDENTIAL'</span>;
+</span><span id="16" class="l"><a class="l" href="#16">16: </a>    <span class="php-keyword1">const</span> <a id="TYPE_COLLAPSED" href="#TYPE_COLLAPSED">TYPE_COLLAPSED</a> = <span class="php-quote">'COLLAPSED'</span>;
+</span><span id="17" class="l"><a class="l" href="#17">17: </a>    <span class="php-keyword1">const</span> <a id="TYPE_GARAGES" href="#TYPE_GARAGES">TYPE_GARAGES</a> = <span class="php-quote">'GARAGES'</span>;
+</span><span id="18" class="l"><a class="l" href="#18">18: </a>    <span class="php-keyword1">const</span> <a id="TYPE_GARAGE" href="#TYPE_GARAGE">TYPE_GARAGE</a> = <span class="php-quote">'GARAGE'</span>;
+</span><span id="19" class="l"><a class="l" href="#19">19: </a>    <span class="php-keyword1">const</span> <a id="TYPE_PUBLIC" href="#TYPE_PUBLIC">TYPE_PUBLIC</a> = <span class="php-quote">'PUBLIC'</span>;
+</span><span id="20" class="l"><a class="l" href="#20">20: </a>    <span class="php-keyword1">const</span> <a id="TYPE_MANUFACTURE" href="#TYPE_MANUFACTURE">TYPE_MANUFACTURE</a> = <span class="php-quote">'MANUFACTURE'</span>;
+</span><span id="21" class="l"><a class="l" href="#21">21: </a>    <span class="php-keyword1">const</span> <a id="TYPE_INDUSTRIAL" href="#TYPE_INDUSTRIAL">TYPE_INDUSTRIAL</a> = <span class="php-quote">'INDUSTRIAL'</span>;
+</span><span id="22" class="l"><a class="l" href="#22">22: </a>    <span class="php-keyword1">const</span> <a id="TYPE_TRAIN_STATION" href="#TYPE_TRAIN_STATION">TYPE_TRAIN_STATION</a> = <span class="php-quote">'TRAIN_STATION'</span>;
+</span><span id="23" class="l"><a class="l" href="#23">23: </a>
+</span><span id="24" class="l"><a class="l" href="#24">24: </a>    <span class="php-keyword1">const</span> <a id="TYPE_YES" href="#TYPE_YES">TYPE_YES</a> = <span class="php-quote">'YES'</span>;
+</span><span id="25" class="l"><a class="l" href="#25">25: </a>
+</span><span id="26" class="l"><a class="l" href="#26">26: </a>    <span class="php-keyword1">function</span> <a id="___construct" href="#___construct">__construct</a>( \MOC\IV\Core\Xml\Reader\Source\Node <span class="php-var">$Node</span> ) {
+</span><span id="27" class="l"><a class="l" href="#27">27: </a>
+</span><span id="28" class="l"><a class="l" href="#28">28: </a>        <span class="php-var">$Type</span> = <span class="php-keyword2">strtoupper</span>( <span class="php-var">$Node</span>-&gt;getAttribute( <span class="php-quote">'v'</span> ) );
+</span><span id="29" class="l"><a class="l" href="#29">29: </a>        <span class="php-keyword1">if</span>( <span class="php-keyword2">defined</span>( <span class="php-quote">'self::TYPE_'</span>.<span class="php-var">$Type</span> ) ) {
+</span><span id="30" class="l"><a class="l" href="#30">30: </a>            <span class="php-var">$this</span>-&gt;<span class="php-keyword2">setType</span>( <span class="php-keyword2">constant</span>( <span class="php-quote">'self::TYPE_'</span>.<span class="php-var">$Type</span> ) );
+</span><span id="31" class="l"><a class="l" href="#31">31: </a>        } <span class="php-keyword1">else</span> {
+</span><span id="32" class="l"><a class="l" href="#32">32: </a>            <span class="php-var">$this</span>-&gt;<span class="php-keyword2">setType</span>( <span class="php-keyword1">false</span> );
+</span><span id="33" class="l"><a class="l" href="#33">33: </a>            <span class="php-keyword2">trigger_error</span>( <span class="php-quote">'Building missing '</span>.<span class="php-var">$Type</span> );
+</span><span id="34" class="l"><a class="l" href="#34">34: </a>        }
+</span><span id="35" class="l"><a class="l" href="#35">35: </a>    }
+</span><span id="36" class="l"><a class="l" href="#36">36: </a>}
+</span><span id="37" class="l"><a class="l" href="#37">37: </a></span></code></pre>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+
+		<div style="clear: both;"></div>
+	</div>
+</div>
+
+<div id="BottomBar">
+	<ul>
+		<li>Powered by <a href="http://github.com"
+		       style="background: transparent url('resources/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
+		</li>
+		<li>
+			 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		</li>
+	</ul>
+</div>
+
+</body>
+</html>
