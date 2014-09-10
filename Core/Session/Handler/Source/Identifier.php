@@ -58,6 +58,14 @@ class Identifier implements IIdentifierInterface {
 	/**
 	 * @return string
 	 */
+	public function __toString() {
+
+		return $this->getIdentifier();
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getIdentifier() {
 
 		return session_id();
