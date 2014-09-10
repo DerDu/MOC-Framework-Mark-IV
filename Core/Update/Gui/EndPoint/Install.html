@@ -29,7 +29,6 @@
 					Loading.replaceWith(Response);
 				})
 				.fail(function (Response) {
-					console.log(Response);
 					Loading.replaceWith('<div class="Search Color HighLight" data-rel="${Identifier}" data-role="${Type}"><h2>Error '+Response.status+'</h2><div class="Information">' + Response.statusText + '</div></div>');
 				});
 

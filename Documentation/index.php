@@ -1,17 +1,8 @@
-<?php
-require_once( __DIR__.'/../Api.php' );
-set_time_limit( 0 );
-ini_set( 'xdebug.var_display_max_children', 32 );
-ini_set( 'xdebug.var_display_max_data', 4096 );
-ini_set( 'xdebug.var_display_max_depth', 6 );
-?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>MOC Mark IV - Update</title>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-	<script src="Content/elementlist.js"></script>
-	<script src="Content/resources/combined.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
 	      type='text/css'>
 	<link rel="stylesheet" href="Style/theme.css"/>
