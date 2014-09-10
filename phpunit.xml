@@ -19,6 +19,7 @@
 				<directory>./travis</directory>
 				<directory>./vendor</directory>
 				<directory>./Update</directory>
+				<directory>./Documentation</directory>
 			</exclude>
 		</whitelist>
 	</filter>

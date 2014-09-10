@@ -3,7 +3,6 @@ namespace MOC\MarkIV\Core\Xml\Reader;
 
 use MOC\MarkIV\Core\Xml\Reader\Source\Node;
 use MOC\MarkIV\Core\Xml\Reader\Source\Parser;
-use MOC\MarkIV\Core\Xml\Reader\Source\Token;
 use MOC\MarkIV\Core\Xml\Reader\Source\Tokenizer;
 
 /**
@@ -37,13 +36,7 @@ class Api implements IApiInterface {
 	 * @return Source\Node|null
 	 */
 	public function parseContent() {
-/*
-		if( function_exists( 'simplexml_load_string' ) ) {
-			$Xml = simplexml_load_string( $this->XmlContent );
 
-			return $this->parseSimpleXml( $Xml );
-		}
-*/
 		$Instance = new Parser( new Tokenizer( $this->XmlContent ) );
 
 		return $Instance->getResult();
@@ -56,7 +49,10 @@ class Api implements IApiInterface {
 		$Object = get_object_vars( $Xml );
 
 		if( isset( $Object['@attributes'] ) ) {
-			array_walk( $Object['@attributes'], function( $Value, $Name, Node $Node ){ $Node->setAttribute( $Name, $Value ); }, $Node );
+			array_walk( $Object['@attributes'], function ( $Value, $Name, Node $Node ) {
+
+				$Node->setAttribute( $Name, $Value );
+			}, $Node );
 			unset( $Object['@attributes'] );
 		}
 
