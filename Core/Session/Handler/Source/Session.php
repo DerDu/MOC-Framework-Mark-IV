@@ -81,8 +81,9 @@ class Session implements ISessionInterface {
 	 * @return void
 	 */
 	public function destroySession() {
-
-		session_destroy();
+		if( $this->isSessionAvailable() ) {
+			session_destroy();
+		}
 	}
 
 	/**
@@ -93,5 +94,21 @@ class Session implements ISessionInterface {
 		$Reference = & $_SESSION[self::$Identifier];
 
 		return $Reference;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isSessionAvailable() {
+
+		if( php_sapi_name() !== 'cli' ) {
+			if( version_compare( phpversion(), '5.4.0', '>=' ) ) {
+				return session_status() === PHP_SESSION_ACTIVE ? true : false;
+			} else {
+				return session_id() === '' ? false : true;
+			}
+		}
+
+		return false;
 	}
 }
