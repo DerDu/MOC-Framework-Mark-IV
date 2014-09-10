@@ -1,13 +1,13 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Utility;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Utility;
 
-use MOC\IV\Core\Network\Proxy\Source\Config\Credentials;
-use MOC\IV\Core\Network\Proxy\Source\Config\Server;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Credentials;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
 
 /**
  * Class Curl
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Utility
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Utility
  */
 class Curl {
 

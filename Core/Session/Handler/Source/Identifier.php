@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Session\Handler\Source;
+namespace MOC\MarkIV\Core\Session\Handler\Source;
 
 /**
  * Interface IIdentifier
  *
- * @package MOC\IV\Core\Session\Handler\Source
+ * @package MOC\MarkIV\Core\Session\Handler\Source
  */
 interface IIdentifierInterface {
 
@@ -29,7 +29,7 @@ interface IIdentifierInterface {
 /**
  * Class Identifier
  *
- * @package MOC\IV\Core\Session\Handler\Source
+ * @package MOC\MarkIV\Core\Session\Handler\Source
  */
 class Identifier implements IIdentifierInterface {
 

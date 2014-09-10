@@ -1,11 +1,11 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Api;
+namespace MOC\MarkIV\Core\Update\GitHub\Api;
 
-use MOC\IV\Core\Update\GitHub\Source\Type\Release;
-use MOC\IV\Core\Update\GitHub\Source\Type\Tag;
-use MOC\IV\Core\Update\GitHub\Source\Type\Tree;
-use MOC\IV\Core\Update\GitHub\Source\Type\Blob;
-use MOC\IV\Core\Update\GitHub\Source\Type\Data;
+use MOC\MarkIV\Core\Update\GitHub\Source\Type\Release;
+use MOC\MarkIV\Core\Update\GitHub\Source\Type\Tag;
+use MOC\MarkIV\Core\Update\GitHub\Source\Type\Tree;
+use MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob;
+use MOC\MarkIV\Core\Update\GitHub\Source\Type\Data;
 
 interface ITypeInterface {
 

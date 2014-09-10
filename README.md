@@ -2,6 +2,8 @@ MOC-Framework (Mark IV)
 =======================
 The easy way to OOP
 
+Simple, fast, extensible, unified interface to unlimited possibilities.
+
 Mind the task - forget the obstacles...
 ---------------------------------------
 
@@ -30,13 +32,15 @@ Usage
 2. Start your engine
 
 	```php
-	use MOC\IV\Api;
+	use MOC\MarkIV\Api;
 	```
 3. Put the pedal to the metal.
 
 	```php
 	print Api::groupModule()->unitEncoding()->apiText('Latin-Chars öäüß')->getUtf8();
 	```
+
+Full API-Documentation visit <http://derdu.github.io/MOC-Framework-Mark-IV>
 
 Version
 -------
@@ -77,3 +81,10 @@ Goals
 - Maximum flexible factory (dependency injection)
 - Minimal api setter usage
 
+3rd-Party Software (3PS) used by MOC
+------------------------------------
+
+***apigen*** to create the documentation
+
+	Project: <http://apigen.org>
+	License: BSD

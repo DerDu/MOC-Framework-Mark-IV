@@ -1,18 +1,18 @@
 <?php
-namespace MOC\IV\Api;
+namespace MOC\MarkIV\Api;
 
-use MOC\IV\Core\Cache;
-use MOC\IV\Core\Drive;
-use MOC\IV\Core\Error;
-use MOC\IV\Core\Network;
-use MOC\IV\Core\Session;
-use MOC\IV\Core\Update;
-use MOC\IV\Core\Xml;
+use MOC\MarkIV\Core\Cache;
+use MOC\MarkIV\Core\Drive;
+use MOC\MarkIV\Core\Error;
+use MOC\MarkIV\Core\Network;
+use MOC\MarkIV\Core\Session;
+use MOC\MarkIV\Core\Update;
+use MOC\MarkIV\Core\Xml;
 
 /**
  * Interface ICore
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 interface ICoreInterface {
 
@@ -45,12 +45,17 @@ interface ICoreInterface {
 	 * @return Update
 	 */
 	public function unitUpdate();
+
+	/**
+	 * @return Xml
+	 */
+	public function unitXml();
 }
 
 /**
  * Class Core
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 class Core implements ICoreInterface {
 

@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Source\Utility;
+namespace MOC\MarkIV\Core\Update\GitHub\Source\Utility;
 
 /**
  * Class Ini
  *
- * @package MOC\IV\Core\Update\GitHub\Source\Utility
+ * @package MOC\MarkIV\Core\Update\GitHub\Source\Utility
  */
 class Ini {
 

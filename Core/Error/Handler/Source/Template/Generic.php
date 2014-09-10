@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Error\Handler\Source\Template;
+namespace MOC\MarkIV\Core\Error\Handler\Source\Template;
 
 /**
  * Class Generic
  *
- * @package MOC\IV\Core\Error\Handler\Source\Template
+ * @package MOC\MarkIV\Core\Error\Handler\Source\Template
  */
 abstract class Generic {
 

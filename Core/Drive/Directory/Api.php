@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core\Drive\Directory;
+namespace MOC\MarkIV\Core\Drive\Directory;
 
-use MOC\IV\Core\Drive\Directory\Utility\Check;
+use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
 
 /**
  * Interface IApi
  *
- * @package MOC\IV\Core\Drive\Directory
+ * @package MOC\MarkIV\Core\Drive\Directory
  */
 interface IApiInterface {
 
@@ -23,21 +23,21 @@ interface IApiInterface {
 	/**
 	 * @param bool $Recursive
 	 *
-	 * @return \MOC\IV\Core\Drive\Directory\Api[]
+	 * @return \MOC\MarkIV\Core\Drive\Directory\Api[]
 	 */
 	public function getDirectoryList( $Recursive = false );
 
 	/**
 	 * @param string $Location
 	 *
-	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 * @return \MOC\MarkIV\Core\Drive\Directory\Api
 	 */
 	public function getDirectory( $Location );
 
 	/**
 	 * @param string $Location
 	 *
-	 * @return \MOC\IV\Core\Drive\File\Api
+	 * @return \MOC\MarkIV\Core\Drive\File\Api
 	 */
 	public function getFile( $Location );
 
@@ -49,7 +49,7 @@ interface IApiInterface {
 	/**
 	 * @param bool $Recursive
 	 *
-	 * @return \MOC\IV\Core\Drive\File\Api[]
+	 * @return \MOC\MarkIV\Core\Drive\File\Api[]
 	 */
 	public function getFileList( $Recursive = false );
 
@@ -82,7 +82,7 @@ interface IApiInterface {
 	/**
 	 * @param string $Name
 	 *
-	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 * @return \MOC\MarkIV\Core\Drive\Directory\Api
 	 * @throws \Exception
 	 */
 	public function createDirectory( $Name );
@@ -104,7 +104,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Core\Drive\Directory
+ * @package MOC\MarkIV\Core\Drive\Directory
  */
 class Api implements IApiInterface {
 
@@ -236,7 +236,7 @@ class Api implements IApiInterface {
 	/**
 	 * @param bool $Recursive
 	 *
-	 * @return \MOC\IV\Core\Drive\File\Api[]
+	 * @return \MOC\MarkIV\Core\Drive\File\Api[]
 	 */
 	public function getFileList( $Recursive = false ) {
 
@@ -277,11 +277,11 @@ class Api implements IApiInterface {
 	/**
 	 * @param string $Location
 	 *
-	 * @return \MOC\IV\Core\Drive\File\Api
+	 * @return \MOC\MarkIV\Core\Drive\File\Api
 	 */
 	public function getFile( $Location ) {
 
-		return \MOC\IV\Api::groupCore()->unitDrive()->apiFile( $Location );
+		return \MOC\MarkIV\Api::groupCore()->unitDrive()->apiFile( $Location );
 	}
 
 	/**
@@ -362,9 +362,9 @@ class Api implements IApiInterface {
 	 */
 	private function fetchPath() {
 
-		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
+		$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
 
-		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\IV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\' ), '/' ) );
+		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\MarkIV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\' ), '/' ) );
 	}
 
 	/**

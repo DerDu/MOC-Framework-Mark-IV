@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core\Error\Handler\Source\Type;
+namespace MOC\MarkIV\Core\Error\Handler\Source\Type;
 
-use MOC\IV\Core\Error\Handler\Source\Template\Error as ErrorTemplate;
+use MOC\MarkIV\Core\Error\Handler\Source\Template\Error as ErrorTemplate;
 
 /**
  * Interface IGeneric
  *
- * @package MOC\IV\Core\Error\Handler\Source\Type
+ * @package MOC\MarkIV\Core\Error\Handler\Source\Type
  */
 interface IGenericInterface {
 
@@ -29,7 +29,7 @@ interface IGenericInterface {
 /**
  * Class Generic
  *
- * @package MOC\IV\Core\Error\Handler\Source\Type
+ * @package MOC\MarkIV\Core\Error\Handler\Source\Type
  */
 abstract class Generic implements IGenericInterface {
 

@@ -1,17 +1,17 @@
 <?php
-namespace MOC\IV\Core\Session\Handler;
+namespace MOC\MarkIV\Core\Session\Handler;
 
-use MOC\IV\Core\Session\Handler\Source\ISessionInterface;
-use MOC\IV\Core\Session\Handler\Source\Session;
-use MOC\IV\Core\Session\Handler\Source\IIdentifierInterface;
-use MOC\IV\Core\Session\Handler\Source\Identifier;
-use MOC\IV\Core\Session\Handler\Source\IStoreInterface;
-use MOC\IV\Core\Session\Handler\Source\Store;
+use MOC\MarkIV\Core\Session\Handler\Source\ISessionInterface;
+use MOC\MarkIV\Core\Session\Handler\Source\Session;
+use MOC\MarkIV\Core\Session\Handler\Source\IIdentifierInterface;
+use MOC\MarkIV\Core\Session\Handler\Source\Identifier;
+use MOC\MarkIV\Core\Session\Handler\Source\IStoreInterface;
+use MOC\MarkIV\Core\Session\Handler\Source\Store;
 
 /**
  * Interface IApi
  *
- * @package MOC\IV\Core\Session\Handler
+ * @package MOC\MarkIV\Core\Session\Handler
  */
 interface IApiInterface extends ISessionInterface, IIdentifierInterface, IStoreInterface {
 
@@ -20,7 +20,7 @@ interface IApiInterface extends ISessionInterface, IIdentifierInterface, IStoreI
 /**
  * Class Api
  *
- * @package MOC\IV\Core\Session\Handler
+ * @package MOC\MarkIV\Core\Session\Handler
  */
 class Api implements IApiInterface {
 

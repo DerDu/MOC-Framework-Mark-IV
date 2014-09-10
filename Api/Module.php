@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Api;
+namespace MOC\MarkIV\Api;
 
-use MOC\IV\Module\Encoding;
+use MOC\MarkIV\Module\Encoding;
 
 /**
  * Interface IModule
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 interface IModuleInterface {
 
@@ -19,7 +19,7 @@ interface IModuleInterface {
 /**
  * Class Module
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 class Module implements IModuleInterface {
 

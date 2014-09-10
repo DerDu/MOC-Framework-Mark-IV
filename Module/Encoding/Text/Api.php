@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Module\Encoding\Text;
+namespace MOC\MarkIV\Module\Encoding\Text;
 
 /**
  * Interface IMap
  *
- * @package MOC\IV\Module\Encoding\Text\Source
+ * @package MOC\MarkIV\Module\Encoding\Text\Source
  */
 interface IMapInterface {
 
@@ -17,7 +17,7 @@ interface IMapInterface {
 /**
  * Interface IApi
  *
- * @package MOC\IV\Module\Encoding\Text
+ * @package MOC\MarkIV\Module\Encoding\Text
  */
 interface IApiInterface {
 
@@ -35,7 +35,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Module\Encoding\Text
+ * @package MOC\MarkIV\Module\Encoding\Text
  */
 class Api implements IApiInterface {
 

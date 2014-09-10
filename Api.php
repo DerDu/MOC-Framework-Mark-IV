@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV;
+namespace MOC\MarkIV;
 
-use MOC\IV\Core\Update;
+use MOC\MarkIV\Core\Update;
 
 /**
  * Interface IApi
  *
- * @package MOC\IV
+ * @package MOC\MarkIV
  */
 interface IApiInterface {
 
@@ -67,7 +67,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV
+ * @package MOC\MarkIV
  */
 class Api implements IApiInterface {
 

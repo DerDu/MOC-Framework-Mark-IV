@@ -1,25 +1,33 @@
 <?php
-namespace MOC\IV\Api;
+namespace MOC\MarkIV\Api;
 
-use MOC\IV\Plugin\OSMEngine;
+use MOC\MarkIV\Plugin\OSMEngine;
 
 /**
  * Interface IPlugin
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 interface IPluginInterface {
 
+	/**
+	 * @return OSMEngine
+	 */
+	public function unitOSMEngine();
 }
 
 /**
  * Class Plugin
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 class Plugin implements IPluginInterface {
 
+	/**
+	 * @return OSMEngine
+	 */
 	public function unitOSMEngine() {
+
 		return new OSMEngine();
 	}
 

@@ -70,6 +70,28 @@ hr {
 	background-color: #E3CE90;
 }
 
+input[type=text] {
+	text-align: center;
+	margin-top: 5px;
+
+	border: 1px solid #3C3C3C;
+	color: #E3CE90;
+	padding: 5px;
+
+	cursor: pointer;
+
+	background: #292929;
+	background-image: -ms-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: -moz-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: -o-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #313131), color-stop(1, #292929));
+	background-image: -webkit-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: linear-gradient(to bottom, #313131 0%, #292929 100%);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
 #TopBar {
 	padding: 5px 0;
 	font-size: .8em;
@@ -275,7 +297,6 @@ hr {
 	right: 10px;
 	bottom: 10px;
 	text-align: right;
-	font-size: 1.2em;
 	margin-top: 5px;
 
 	border: 1px solid #3C3C3C;

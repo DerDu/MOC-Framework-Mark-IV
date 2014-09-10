@@ -1,8 +1,8 @@
 <?php
 namespace MOC\PhpUnit\Module\Encoding\Text;
 
-use MOC\IV\Api;
-use MOC\IV\Module\Encoding\Text\Source\Dictionary;
+use MOC\MarkIV\Api;
+use MOC\MarkIV\Module\Encoding\Text\Source\Dictionary;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
 

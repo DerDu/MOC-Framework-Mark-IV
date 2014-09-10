@@ -1,17 +1,17 @@
 <?php
-namespace MOC\IV\Core\Drive\Directory\Utility;
+namespace MOC\MarkIV\Core\Drive\Directory\Utility;
 
-use MOC\IV\Api;
+use MOC\MarkIV\Api;
 
 /**
  * Class Check
  *
- * @package MOC\IV\Core\Drive\Directory\Utility
+ * @package MOC\MarkIV\Core\Drive\Directory\Utility
  */
 class Check {
 
 	/**
-	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 * @return \MOC\MarkIV\Core\Drive\Directory\Api
 	 */
 	public static function getCurrentDirectory() {
 
@@ -19,7 +19,7 @@ class Check {
 	}
 
 	/**
-	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 * @return \MOC\MarkIV\Core\Drive\Directory\Api
 	 */
 	public static function getRootDirectory() {
 

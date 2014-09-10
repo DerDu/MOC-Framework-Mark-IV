@@ -1,5 +1,5 @@
 <?php
-namespace MOC\IV\Core\Cache\File;
+namespace MOC\MarkIV\Core\Cache\File;
 
 interface IApiInterface {
 
@@ -21,7 +21,7 @@ interface IApiInterface {
 	/**
 	 * @param bool $Identifier
 	 *
-	 * @return bool|\MOC\IV\Core\Drive\File\Api
+	 * @return bool|\MOC\MarkIV\Core\Drive\File\Api
 	 */
 	public function getCacheFile( $Identifier = false );
 
@@ -33,7 +33,7 @@ interface IApiInterface {
 
 class Api implements IApiInterface {
 
-	/** @var \MOC\IV\Core\Drive\Directory\Api $Directory */
+	/** @var \MOC\MarkIV\Core\Drive\Directory\Api $Directory */
 	private $Directory = null;
 	/** @var int $Timeout */
 	private $Timeout = 60;
@@ -52,8 +52,8 @@ class Api implements IApiInterface {
 		$this->setTimeout( $Timeout );
 		$this->setGroup( $Group );
 		$this->setExtension( $Extension );
-		$this->Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory(
-			\MOC\IV\Api::groupCore()->unitDrive()->getDataDirectory()->getLocation().DIRECTORY_SEPARATOR.'Cache'
+		$this->Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory(
+			\MOC\MarkIV\Api::groupCore()->unitDrive()->getDataDirectory()->getLocation().DIRECTORY_SEPARATOR.'Cache'
 		);
 		if( !$this->Directory->checkExists() ) {
 			$this->Directory->createDirectory();
@@ -138,11 +138,11 @@ class Api implements IApiInterface {
 	/**
 	 * @param mixed $Data
 	 *
-	 * @return \MOC\IV\Core\Drive\File\Api
+	 * @return \MOC\MarkIV\Core\Drive\File\Api
 	 */
 	private function setCacheFile( $Data ) {
 
-		$Cache = \MOC\IV\Api::groupCore()->unitDrive()->apiFile(
+		$Cache = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiFile(
 			$this->getLocation()->getLocation().DIRECTORY_SEPARATOR.
 			$this->Identifier.'.'.$this->Timeout.'.'.$this->Extension
 		)->setContent( $Data )->closeFile();
@@ -157,11 +157,11 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return \MOC\IV\Core\Drive\Directory\Api
+	 * @return \MOC\MarkIV\Core\Drive\Directory\Api
 	 */
 	private function getLocation() {
 
-		return \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->Directory->getLocation().DIRECTORY_SEPARATOR.$this->Group, true );
+		return \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $this->Directory->getLocation().DIRECTORY_SEPARATOR.$this->Group, true );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class Api implements IApiInterface {
 	 * @param bool|string $Identifier
 	 * @param bool        $Prepare
 	 *
-	 * @return bool|\MOC\IV\Core\Drive\File\Api
+	 * @return bool|\MOC\MarkIV\Core\Drive\File\Api
 	 */
 	public function getCacheFile( $Identifier = false, $Prepare = false ) {
 
@@ -200,7 +200,7 @@ class Api implements IApiInterface {
 		}
 
 		$CacheList = $this->getLocation()->getFileList();
-		/** @var \MOC\IV\Core\Drive\File\Api $Cache */
+		/** @var \MOC\MarkIV\Core\Drive\File\Api $Cache */
 		foreach( (array)$CacheList as $Cache ) {
 			if( $this->getIdentifier( $Cache ) == $this->Identifier ) {
 				if( $this->getTimestamp( $Cache ) > time() ) {
@@ -222,11 +222,11 @@ class Api implements IApiInterface {
 	 */
 
 	/**
-	 * @param \MOC\IV\Core\Drive\File\Api $File
+	 * @param \MOC\MarkIV\Core\Drive\File\Api $File
 	 *
 	 * @return int
 	 */
-	private function getIdentifier( \MOC\IV\Core\Drive\File\Api $File ) {
+	private function getIdentifier( \MOC\MarkIV\Core\Drive\File\Api $File ) {
 
 		$Name = explode( '.', $File->getName() );
 
@@ -234,11 +234,11 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @param \MOC\IV\Core\Drive\File\Api $File
+	 * @param \MOC\MarkIV\Core\Drive\File\Api $File
 	 *
 	 * @return int
 	 */
-	private function getTimestamp( \MOC\IV\Core\Drive\File\Api $File ) {
+	private function getTimestamp( \MOC\MarkIV\Core\Drive\File\Api $File ) {
 
 		$Name = explode( '.', $File->getName() );
 		if( isset( $Name[1] ) ) {
@@ -249,11 +249,11 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @param \MOC\IV\Core\Drive\File\Api $File
+	 * @param \MOC\MarkIV\Core\Drive\File\Api $File
 	 *
 	 * @return int
 	 */
-	private function getExtension( \MOC\IV\Core\Drive\File\Api $File ) {
+	private function getExtension( \MOC\MarkIV\Core\Drive\File\Api $File ) {
 
 		return $File->getExtension();
 	}
@@ -265,17 +265,17 @@ class Api implements IApiInterface {
 
 		$CacheList = $this->Directory->getFileList( true );
 		$Directory = null;
-		/** @var \MOC\IV\Core\Drive\File\Api $Cache */
+		/** @var \MOC\MarkIV\Core\Drive\File\Api $Cache */
 		foreach( (array)$CacheList as $Cache ) {
 			// Get Cache Location
 			if( $Directory === null ) {
-				$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $Cache->getPath() );
+				$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $Cache->getPath() );
 			}
 			if( $Directory->getLocation() != $Cache->getPath() ) {
 				if( $Directory->checkIsEmpty() ) {
 					$Directory->removeDirectory();
 				}
-				$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $Cache->getPath() );
+				$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $Cache->getPath() );
 			}
 			// Remove Cache
 			if( time() > $this->getTimestamp( $Cache ) ) {

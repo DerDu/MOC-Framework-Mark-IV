@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Source\Type;
+namespace MOC\MarkIV\Core\Update\GitHub\Source\Type;
 
 /**
  * Class Tree
  *
- * @package MOC\IV\Core\Update\GitHub\Source\Type
+ * @package MOC\MarkIV\Core\Update\GitHub\Source\Type
  */
 class Tree {
 

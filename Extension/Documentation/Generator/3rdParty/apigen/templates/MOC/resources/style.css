@@ -299,7 +299,6 @@ input[type=text] {
 	right: 10px;
 	bottom: 10px;
 	text-align: right;
-	font-size: 1.2em;
 	margin-top: 5px;
 
 	border: 1px solid #3C3C3C;
@@ -367,7 +366,8 @@ code a b {
 /* Left side */
 #left {
 	overflow: auto;
-	width: 270px;
+	width: auto !important;
+	min-width: 20%;
 	float: left;
 }
 
@@ -454,16 +454,32 @@ code a b {
 	position: inherit;
 	right: auto;
 	left: auto;
-	font-size: inherit;
 }
 
 /* Autocomplete */
 .ac_results {
-	padding: 0;
-	border: 1px solid #cccccc;
-	background-color: #ffffff;
 	overflow: hidden;
 	z-index: 99999;
+
+	text-align: left;
+	margin-top: 5px;
+
+	border: 1px solid #3C3C3C;
+	color: #E3CE90;
+	padding: 5px;
+
+	cursor: pointer;
+
+	background: #292929;
+	background-image: -ms-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: -moz-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: -o-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #313131), color-stop(1, #292929));
+	background-image: -webkit-linear-gradient(top, #313131 0%, #292929 100%);
+	background-image: linear-gradient(to bottom, #313131 0%, #292929 100%);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .ac_results ul {
@@ -612,6 +628,10 @@ dl.tree dd {
 
 .summary .description.detailed h4 {
 	margin-top: 3px;
+}
+
+.summary .description.detailed {
+	display: block;
 }
 
 .summary dl {

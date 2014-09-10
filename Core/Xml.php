@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core;
+namespace MOC\MarkIV\Core;
 
-use MOC\IV\Api;
+use MOC\MarkIV\Api;
 
 /**
  * Interface IXmlInterface
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 interface IXmlInterface {
 
@@ -21,7 +21,7 @@ interface IXmlInterface {
 /**
  * Class Xml
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 class Xml implements IXmlInterface {
 

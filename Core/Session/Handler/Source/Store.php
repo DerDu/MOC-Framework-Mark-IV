@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Session\Handler\Source;
+namespace MOC\MarkIV\Core\Session\Handler\Source;
 
 /**
  * Interface IStore
  *
- * @package MOC\IV\Core\Session\Handler\Source
+ * @package MOC\MarkIV\Core\Session\Handler\Source
  */
 interface IStoreInterface {
 
@@ -27,7 +27,7 @@ interface IStoreInterface {
 /**
  * Class Store
  *
- * @package MOC\IV\Core\Session\Handler\Source
+ * @package MOC\MarkIV\Core\Session\Handler\Source
  */
 class Store implements IStoreInterface {
 

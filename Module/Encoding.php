@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Module;
+namespace MOC\MarkIV\Module;
 
 /**
  * Interface IEncoding
  *
- * @package MOC\IV\Module
+ * @package MOC\MarkIV\Module
  */
 interface IEncodingInterface {
 
@@ -19,7 +19,7 @@ interface IEncodingInterface {
 /**
  * Class Encoding
  *
- * @package MOC\IV\Module
+ * @package MOC\MarkIV\Module
  */
 class Encoding implements IEncodingInterface {
 

@@ -1,13 +1,13 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy;
+namespace MOC\MarkIV\Core\Network\Proxy;
 
-use MOC\IV\Core\Network\Proxy\Source\Api\Config;
-use MOC\IV\Core\Network\Proxy\Source\Api\Type;
+use MOC\MarkIV\Core\Network\Proxy\Source\Api\Config;
+use MOC\MarkIV\Core\Network\Proxy\Source\Api\Type;
 
 /**
  * Interface IApiInterface
  *
- * @package MOC\IV\Core\Network\Proxy
+ * @package MOC\MarkIV\Core\Network\Proxy
  */
 interface IApiInterface {
 
@@ -25,7 +25,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Core\Network\Proxy
+ * @package MOC\MarkIV\Core\Network\Proxy
  */
 class Api implements IApiInterface {
 

@@ -1,17 +1,17 @@
 <?php
-namespace MOC\IV\Extension\Documentation\Generator;
+namespace MOC\MarkIV\Extension\Documentation\Generator;
 
 use ApiGen\Config;
 use Nette\Config\Adapters\NeonAdapter;
 
-\MOC\IV\Api::registerAdditionalNamespace(
-	'ApiGen', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
+\MOC\MarkIV\Api::registerAdditionalNamespace(
+	'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
 );
-\MOC\IV\Api::registerAdditionalNamespace(
-	'TokenReflection', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
+\MOC\MarkIV\Api::registerAdditionalNamespace(
+	'TokenReflection', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
 );
-\MOC\IV\Api::registerAdditionalNamespace(
-	'FSHL', \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
+\MOC\MarkIV\Api::registerAdditionalNamespace(
+	'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
 );
 //require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
 //require_once( __DIR__.'/3rdParty/apigen/libs/Texy/texy/texy.php' );
@@ -20,7 +20,7 @@ use Nette\Config\Adapters\NeonAdapter;
 /**
  * Interface IApiInterface
  *
- * @package MOC\IV\Extension\Documentation\Generator
+ * @package MOC\MarkIV\Extension\Documentation\Generator
  */
 interface IApiInterface {
 
@@ -33,20 +33,20 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Extension\Documentation\Generator
+ * @package MOC\MarkIV\Extension\Documentation\Generator
  */
 class Api implements IApiInterface {
 
-	/** @var \MOC\IV\Core\Drive\Directory\IApiInterface|null $Source */
+	/** @var \MOC\MarkIV\Core\Drive\Directory\IApiInterface|null $Source */
 	private $Source = null;
-	/** @var \MOC\IV\Core\Drive\Directory\IApiInterface|null $Destination */
+	/** @var \MOC\MarkIV\Core\Drive\Directory\IApiInterface|null $Destination */
 	private $Destination = null;
 
 	/**
-	 * @param \MOC\IV\Core\Drive\Directory\IApiInterface $Source
-	 * @param \MOC\IV\Core\Drive\Directory\IApiInterface $Destination
+	 * @param \MOC\MarkIV\Core\Drive\Directory\IApiInterface $Source
+	 * @param \MOC\MarkIV\Core\Drive\Directory\IApiInterface $Destination
 	 */
-	function __construct( \MOC\IV\Core\Drive\Directory\IApiInterface $Source, \MOC\IV\Core\Drive\Directory\IApiInterface $Destination ) {
+	function __construct( \MOC\MarkIV\Core\Drive\Directory\IApiInterface $Source, \MOC\MarkIV\Core\Drive\Directory\IApiInterface $Destination ) {
 
 		$this->Source = $Source;
 		$this->Destination = $Destination;
@@ -62,7 +62,7 @@ class Api implements IApiInterface {
 			// List of allowed file extensions
 			'extensions'   => array( 'php' ),
 			// Mask to exclude file or directory from processing
-			'exclude'      => '*/Documentation/Content/*,*/.idea/*,*/.git/*,*/#Trash/*,*/Data/*,*/Library/*,*/3rdParty/*,*/PhpUnit/*,*/jQuery/*',
+			'exclude'      => '*/Documentation/Content/*,*/.idea/*,*/.git/*,*/#Trash/*,*/Data/*,*/Library/*,*/3rdParty/*,*/PhpUnit/*,*/jQuery*/*',
 			// Don't generate documentation for classes from file or directory with this mask
 			//'skipDocPath' => '',
 			// Don't generate documentation for classes with this name prefix
@@ -131,7 +131,7 @@ class Api implements IApiInterface {
 
 		$Config = $this->getConfig();
 
-		$Cache = \MOC\IV\Api::groupCore()->unitCache()->apiFile( 120, __CLASS__ );
+		$Cache = \MOC\MarkIV\Api::groupCore()->unitCache()->apiFile( 120, __CLASS__ );
 		if( !$Cache->getCacheFile( sha1( serialize( $Config ) ) ) ) {
 			require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
 			$Neon = new NeonAdapter();
@@ -146,6 +146,6 @@ class Api implements IApiInterface {
 			include( __DIR__.'/3rdParty/apigen/apigen.php' );
 		}
 
-		return $this->Destination->getUrl().'/index.html';
+		return $this->Destination->getUrl().'/namespace-MOC.MarkIV.Api.html';
 	}
 }

@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core;
+namespace MOC\MarkIV\Core;
 
 /**
  * Interface IUpdateInterface
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 interface IUpdateInterface {
 	/**
@@ -21,7 +21,7 @@ interface IUpdateInterface {
 /**
  * Class Update
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 class Update implements IUpdateInterface {
 

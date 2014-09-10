@@ -1,9 +1,9 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Source;
+namespace MOC\MarkIV\Core\Update\GitHub\Source;
 
-use MOC\IV\Api;
-use MOC\IV\Core\Update\GitHub\Api\Type;
-use MOC\IV\Core\Update\GitHub\Source\Type\Release;
+use MOC\MarkIV\Api;
+use MOC\MarkIV\Core\Update\GitHub\Api\Type;
+use MOC\MarkIV\Core\Update\GitHub\Source\Type\Release;
 
 class Channel {
 
@@ -137,9 +137,9 @@ class Channel {
 
 		$BlobList = $Release->getTree()->getBlobList();
 
-		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Data[] $DataList */
+		/** @var \MOC\MarkIV\Core\Update\GitHub\Source\Type\Data[] $DataList */
 		$DataList = array();
-		/** @var \MOC\IV\Core\Update\GitHub\Source\Type\Blob $Blob */
+		/** @var \MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob $Blob */
 		foreach( (array)$BlobList as $Blob ) {
 
 			if( false === ( $Data = Api::groupCore()->unitCache()->apiFile( $this->DataCache, __METHOD__ )->getCacheData( $Blob->getIdentifier() ) ) ) {

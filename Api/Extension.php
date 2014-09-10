@@ -1,21 +1,25 @@
 <?php
-namespace MOC\IV\Api;
+namespace MOC\MarkIV\Api;
 
-use MOC\IV\Extension\Documentation;
+use MOC\MarkIV\Extension\Documentation;
 
 /**
  * Interface IExtension
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 interface IExtensionInterface {
 
+	/**
+	 * @return Documentation
+	 */
+	public function unitDocumentation();
 }
 
 /**
  * Class Extension
  *
- * @package MOC\IV\Api
+ * @package MOC\MarkIV\Api
  */
 class Extension implements IExtensionInterface {
 

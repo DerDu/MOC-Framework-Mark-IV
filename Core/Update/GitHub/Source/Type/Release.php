@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Source\Type;
+namespace MOC\MarkIV\Core\Update\GitHub\Source\Type;
 
-use MOC\IV\Core\Update\GitHub\Source\Version;
+use MOC\MarkIV\Core\Update\GitHub\Source\Version;
 
 /**
  * Class Release
  *
- * @package MOC\IV\Core\Update\GitHub\Source\Type
+ * @package MOC\MarkIV\Core\Update\GitHub\Source\Type
  */
 class Release {
 

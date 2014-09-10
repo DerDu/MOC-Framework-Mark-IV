@@ -1,12 +1,12 @@
 <?php
 namespace MOC\PhpUnit\Module;
 
-use MOC\IV\Api;
+use MOC\MarkIV\Api;
 
 class EncodingTest extends \PHPUnit_Framework_TestCase {
 
 	public function testEncodingApi() {
 
-		$this->assertInstanceOf( '\MOC\IV\Module\Encoding\Text\Api', Api::groupModule()->unitEncoding()->apiText( '' ) );
+		$this->assertInstanceOf( '\MOC\MarkIV\Module\Encoding\Text\Api', Api::groupModule()->unitEncoding()->apiText( '' ) );
 	}
 }

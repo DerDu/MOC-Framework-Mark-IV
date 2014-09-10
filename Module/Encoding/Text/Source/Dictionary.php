@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Module\Encoding\Text\Source;
+namespace MOC\MarkIV\Module\Encoding\Text\Source;
 
 /**
  * Interface IDictionary
  *
- * @package MOC\IV\Module\Encoding\Text\Source
+ * @package MOC\MarkIV\Module\Encoding\Text\Source
  */
 interface IDictionaryInterface {
 
@@ -22,7 +22,7 @@ interface IDictionaryInterface {
 /**
  * Class Dictionary
  *
- * @package MOC\IV\Module\Encoding\Text\Source
+ * @package MOC\MarkIV\Module\Encoding\Text\Source
  */
 class Dictionary implements IDictionaryInterface {
 

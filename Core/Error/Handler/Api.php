@@ -1,13 +1,13 @@
 <?php
-namespace MOC\IV\Core\Error\Handler;
+namespace MOC\MarkIV\Core\Error\Handler;
 
-use MOC\IV\Core\Error\Handler\Api\Type;
-use MOC\IV\Core\Error\Handler\Source\Type\Generic;
+use MOC\MarkIV\Core\Error\Handler\Api\Type;
+use MOC\MarkIV\Core\Error\Handler\Source\Type\Generic;
 
 /**
  * Interface IApi
  *
- * @package MOC\IV\Core\Error\Handler
+ * @package MOC\MarkIV\Core\Error\Handler
  */
 interface IApiInterface {
 
@@ -22,7 +22,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Core\Error\Handler
+ * @package MOC\MarkIV\Core\Error\Handler
  */
 class Api implements IApiInterface {
 

@@ -1,11 +1,11 @@
 <?php
-namespace MOC\IV\Plugin;
+namespace MOC\MarkIV\Plugin;
 
-use MOC\IV\Api;
-use \MOC\IV\Core\Drive\File\IApiInterface as File;
-use MOC\IV\Core\Xml\Reader\Source\Node;
-use MOC\IV\Plugin\OSMEngine\Api\Element;
-use MOC\IV\Plugin\OSMEngine\Source\Parser;
+use MOC\MarkIV\Api;
+use \MOC\MarkIV\Core\Drive\File\IApiInterface as File;
+use MOC\MarkIV\Core\Xml\Reader\Source\Node;
+use MOC\MarkIV\Plugin\OSMEngine\Api\Element;
+use MOC\MarkIV\Plugin\OSMEngine\Source\Parser;
 
 interface IOSMEngineInterface {
 

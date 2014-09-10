@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core;
+namespace MOC\MarkIV\Core;
 
 /**
  * Interface IError
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 interface IErrorInterface {
 
@@ -17,7 +17,7 @@ interface IErrorInterface {
 /**
  * Class Error
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 class Error implements IErrorInterface {
 

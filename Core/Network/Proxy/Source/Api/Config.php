@@ -1,13 +1,13 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Api;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Api;
 
-use MOC\IV\Core\Network\Proxy\Source\Config\Credentials;
-use MOC\IV\Core\Network\Proxy\Source\Config\Server;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Credentials;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
 
 /**
  * Interface IConfigInterface
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Api
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Api
  */
 interface IConfigInterface {
 
@@ -31,7 +31,7 @@ interface IConfigInterface {
 /**
  * Class Config
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Api
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Api
  */
 class Config implements IConfigInterface {
 

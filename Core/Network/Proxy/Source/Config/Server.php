@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Config;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Config;
 
 /**
  * Class Server
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Config
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Config
  */
 class Server {
 

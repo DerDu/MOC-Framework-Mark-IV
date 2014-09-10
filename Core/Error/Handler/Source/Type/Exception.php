@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core\Error\Handler\Source\Type;
+namespace MOC\MarkIV\Core\Error\Handler\Source\Type;
 
-use MOC\IV\Core\Error\Handler\Source\Template\Exception as ExceptionTemplate;
+use MOC\MarkIV\Core\Error\Handler\Source\Template\Exception as ExceptionTemplate;
 
 /**
  * Class Exception
  *
- * @package MOC\IV\Core\Error\Handler\Source\Type
+ * @package MOC\MarkIV\Core\Error\Handler\Source\Type
  */
 class Exception extends Generic {
 
@@ -17,7 +17,7 @@ class Exception extends Generic {
 
 		set_exception_handler(
 			create_function( '$Exception',
-				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->buildException()->setData('
+				'\MOC\MarkIV\Api::groupCore()->unitError()->apiHandler()->apiType()->buildException()->setData('
 				.'"Exception", $Exception->getMessage(), $Exception->getCode(),'
 				.'$Exception->getFile(), $Exception->getLine(), $Exception->getTraceAsString(), "Execution has been stopped!" '
 				.');'

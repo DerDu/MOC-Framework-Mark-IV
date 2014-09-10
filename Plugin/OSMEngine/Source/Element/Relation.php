@@ -6,7 +6,7 @@
  * Time: 16:38
  */
 
-namespace MOC\IV\Plugin\OSMEngine\Source\Element;
+namespace MOC\MarkIV\Plugin\OSMEngine\Source\Element;
 
 
 class Relation {

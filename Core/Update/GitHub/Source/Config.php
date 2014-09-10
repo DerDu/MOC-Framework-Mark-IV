@@ -1,8 +1,8 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Source;
+namespace MOC\MarkIV\Core\Update\GitHub\Source;
 
-use MOC\IV\Api;
-use MOC\IV\Core\Update\GitHub\Source\Utility\Ini;
+use MOC\MarkIV\Api;
+use MOC\MarkIV\Core\Update\GitHub\Source\Utility\Ini;
 
 class Config {
 
@@ -159,7 +159,7 @@ class Config {
 	}
 
 	/**
-	 * @return \MOC\IV\Core\Network\Proxy\Source\Type\Generic
+	 * @return \MOC\MarkIV\Core\Network\Proxy\Source\Type\Generic
 	 */
 	public function getNetwork() {
 

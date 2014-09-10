@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core;
+namespace MOC\MarkIV\Core;
 
-use MOC\IV\Core\Drive\Directory\Utility\Check;
+use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
 
 /**
  * Interface IDrive
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 interface IDriveInterface {
 
@@ -42,7 +42,7 @@ interface IDriveInterface {
 /**
  * Class Drive
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 class Drive implements IDriveInterface {
 

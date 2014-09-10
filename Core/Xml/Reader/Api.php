@@ -1,15 +1,15 @@
 <?php
-namespace MOC\IV\Core\Xml\Reader;
+namespace MOC\MarkIV\Core\Xml\Reader;
 
-use MOC\IV\Core\Xml\Reader\Source\Node;
-use MOC\IV\Core\Xml\Reader\Source\Parser;
-use MOC\IV\Core\Xml\Reader\Source\Token;
-use MOC\IV\Core\Xml\Reader\Source\Tokenizer;
+use MOC\MarkIV\Core\Xml\Reader\Source\Node;
+use MOC\MarkIV\Core\Xml\Reader\Source\Parser;
+use MOC\MarkIV\Core\Xml\Reader\Source\Token;
+use MOC\MarkIV\Core\Xml\Reader\Source\Tokenizer;
 
 /**
  * Interface IApiInterface
  *
- * @package MOC\IV\Core\Xml\Reader
+ * @package MOC\MarkIV\Core\Xml\Reader
  */
 interface IApiInterface {
 
@@ -18,7 +18,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Core\Xml\Reader
+ * @package MOC\MarkIV\Core\Xml\Reader
  */
 class Api implements IApiInterface {
 

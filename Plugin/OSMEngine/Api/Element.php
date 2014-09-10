@@ -6,24 +6,24 @@
  * Time: 16:37
  */
 
-namespace MOC\IV\Plugin\OSMEngine\Api;
+namespace MOC\MarkIV\Plugin\OSMEngine\Api;
 
-use MOC\IV\Plugin\OSMEngine\Source\Element\Node;
-use MOC\IV\Plugin\OSMEngine\Source\Element\Relation;
-use MOC\IV\Plugin\OSMEngine\Source\Element\Way;
+use MOC\MarkIV\Plugin\OSMEngine\Source\Element\Node;
+use MOC\MarkIV\Plugin\OSMEngine\Source\Element\Relation;
+use MOC\MarkIV\Plugin\OSMEngine\Source\Element\Way;
 
 class Element {
-	/** @var \MOC\IV\Plugin\OSMEngine\Source\Element\Node[] $NodeList */
+	/** @var \MOC\MarkIV\Plugin\OSMEngine\Source\Element\Node[] $NodeList */
 	private $NodeList = array();
-	/** @var \MOC\IV\Plugin\OSMEngine\Source\Element\Relation[] $NodeList */
+	/** @var \MOC\MarkIV\Plugin\OSMEngine\Source\Element\Relation[] $NodeList */
 	private $RelationList = array();
-	/** @var \MOC\IV\Plugin\OSMEngine\Source\Element\Way[] $NodeList */
+	/** @var \MOC\MarkIV\Plugin\OSMEngine\Source\Element\Way[] $NodeList */
 	private $WayList = array();
 
-	function __construct( \MOC\IV\Core\Xml\Reader\Source\Node $OSMElement ) {
+	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $OSMElement ) {
 
 		$NodeList = $OSMElement->getChildList();
-		/** @var \MOC\IV\Core\Xml\Reader\Source\Node $Node */
+		/** @var \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node */
 		foreach( (array)$NodeList as $Node ) {
 			if( $Node->getName() == 'node' ) {
 				$this->NodeList[$Node->getAttribute( 'id' )] = new Node( $Node );
@@ -39,7 +39,7 @@ class Element {
 	}
 
 	/**
-	 * @return \MOC\IV\Plugin\OSMEngine\Source\Element\Way[]
+	 * @return \MOC\MarkIV\Plugin\OSMEngine\Source\Element\Way[]
 	 */
 	public function getWayList() {
 
@@ -47,7 +47,7 @@ class Element {
 	}
 
 	/**
-	 * @return \MOC\IV\Plugin\OSMEngine\Source\Element\Node[]
+	 * @return \MOC\MarkIV\Plugin\OSMEngine\Source\Element\Node[]
 	 */
 	public function getNodeList() {
 
@@ -55,7 +55,7 @@ class Element {
 	}
 
 	/**
-	 * @return \MOC\IV\Plugin\OSMEngine\Source\Element\Relation[]
+	 * @return \MOC\MarkIV\Plugin\OSMEngine\Source\Element\Relation[]
 	 */
 	public function getRelationList() {
 

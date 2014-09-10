@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Core\Error\Handler\Source\Type;
+namespace MOC\MarkIV\Core\Error\Handler\Source\Type;
 
-use MOC\IV\Core\Error\Handler\Source\Template\Shutdown as ShutdownTemplate;
+use MOC\MarkIV\Core\Error\Handler\Source\Template\Shutdown as ShutdownTemplate;
 
 /**
  * Class Shutdown
  *
- * @package MOC\IV\Core\Error\Handler\Source\Type
+ * @package MOC\MarkIV\Core\Error\Handler\Source\Type
  */
 class Shutdown extends Generic {
 
@@ -17,7 +17,7 @@ class Shutdown extends Generic {
 
 		register_shutdown_function(
 			create_function( '',
-				'\MOC\IV\Api::groupCore()->unitError()->apiHandler()->apiType()->buildShutdown()->setData( "Shutdown", "","-1","","" );'
+				'\MOC\MarkIV\Api::groupCore()->unitError()->apiHandler()->apiType()->buildShutdown()->setData( "Shutdown", "","-1","","" );'
 			)
 		);
 	}

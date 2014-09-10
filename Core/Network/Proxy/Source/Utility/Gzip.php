@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Utility;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Utility;
 
 /**
  * Class Gzip
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Utility
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Utility
  */
 class Gzip {
 

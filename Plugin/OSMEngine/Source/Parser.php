@@ -1,8 +1,8 @@
 <?php
-namespace MOC\IV\Plugin\OSMEngine\Source;
+namespace MOC\MarkIV\Plugin\OSMEngine\Source;
 
-use \MOC\IV\Core\Drive\File\IApiInterface as File;
-use MOC\IV\Plugin\OSMEngine\Api\Element;
+use \MOC\MarkIV\Core\Drive\File\IApiInterface as File;
+use MOC\MarkIV\Plugin\OSMEngine\Api\Element;
 
 class Parser {
 

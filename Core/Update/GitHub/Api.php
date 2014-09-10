@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub;
+namespace MOC\MarkIV\Core\Update\GitHub;
 
 /**
  * Interface IApiInterface
  *
- * @package MOC\IV\Core\Update\GitHub
+ * @package MOC\MarkIV\Core\Update\GitHub
  */
 interface IApiInterface {
 	/**
@@ -32,7 +32,7 @@ interface IApiInterface {
 /**
  * Class Api
  *
- * @package MOC\IV\Core\Update\GitHub
+ * @package MOC\MarkIV\Core\Update\GitHub
  */
 class Api implements IApiInterface {
 

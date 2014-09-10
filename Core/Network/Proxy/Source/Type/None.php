@@ -1,13 +1,13 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Type;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Type;
 
-use MOC\IV\Core\Network\Proxy\Source\Config\Server;
-use MOC\IV\Core\Network\Proxy\Source\Utility\Curl;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
+use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Curl;
 
 /**
  * Class None
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Type
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Type
  */
 class None extends Generic {
 

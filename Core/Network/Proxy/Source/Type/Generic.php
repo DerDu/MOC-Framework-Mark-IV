@@ -1,14 +1,14 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Type;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Type;
 
-use MOC\IV\Core\Network\Proxy\Source\Config\Server;
-use MOC\IV\Core\Network\Proxy\Source\Config\Credentials;
-use MOC\IV\Core\Network\Proxy\Source\Utility\Gzip;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Credentials;
+use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Gzip;
 
 /**
  * Class Generic
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Type
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Type
  */
 abstract class Generic {
 

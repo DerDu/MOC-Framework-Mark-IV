@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Extension;
+namespace MOC\MarkIV\Extension;
 
-use MOC\IV\Core\Drive\Directory\IApiInterface;
+use MOC\MarkIV\Core\Drive\Directory\IApiInterface;
 
 /**
  * Interface IDocumentationInterface
  *
- * @package MOC\IV\Extension
+ * @package MOC\MarkIV\Extension
  */
 interface IDocumentationInterface {
 
@@ -22,7 +22,7 @@ interface IDocumentationInterface {
 /**
  * Class Documentation
  *
- * @package MOC\IV\Extension
+ * @package MOC\MarkIV\Extension
  */
 class Documentation implements IDocumentationInterface {
 

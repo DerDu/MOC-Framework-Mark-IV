@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Session\Handler\Source;
+namespace MOC\MarkIV\Core\Session\Handler\Source;
 
 /**
  * Interface ISession
  *
- * @package MOC\IV\Core\Session\Handler\Source
+ * @package MOC\MarkIV\Core\Session\Handler\Source
  */
 interface ISessionInterface {
 
@@ -32,7 +32,7 @@ interface ISessionInterface {
 /**
  * Class Session
  *
- * @package MOC\IV\Core\Session\Handler\Source
+ * @package MOC\MarkIV\Core\Session\Handler\Source
  */
 class Session implements ISessionInterface {
 

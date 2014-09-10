@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Plugin\OSMEngine\Source\Feature;
+namespace MOC\MarkIV\Plugin\OSMEngine\Source\Feature;
 
 /**
  * Class Generic
  *
- * @package MOC\IV\Plugin\OSMEngine\Source\Feature
+ * @package MOC\MarkIV\Plugin\OSMEngine\Source\Feature
  */
 abstract class Generic {
 

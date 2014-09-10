@@ -1,12 +1,12 @@
 <?php
-namespace MOC\IV\Module\Encoding\Text\Source;
+namespace MOC\MarkIV\Module\Encoding\Text\Source;
 
-use MOC\IV\Module\Encoding\Text\IMapInterface;
+use MOC\MarkIV\Module\Encoding\Text\IMapInterface;
 
 /**
  * Class Latin1
  *
- * @package MOC\IV\Module\Encoding\Text\Source
+ * @package MOC\MarkIV\Module\Encoding\Text\Source
  */
 class Latin1 implements IMapInterface {
 

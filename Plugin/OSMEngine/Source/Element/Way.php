@@ -1,5 +1,5 @@
 <?php
-namespace MOC\IV\Plugin\OSMEngine\Source\Element;
+namespace MOC\MarkIV\Plugin\OSMEngine\Source\Element;
 
 class Way {
 
@@ -13,16 +13,16 @@ class Way {
 	private $NodeList = array();
 	private $TagList = array();
 
-	function __construct( \MOC\IV\Core\Xml\Reader\Source\Node $Node ) {
+	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
 
 		$NodeList = $Node->getChildList();
-		/** @var \MOC\IV\Core\Xml\Reader\Source\Node $Child */
+		/** @var \MOC\MarkIV\Core\Xml\Reader\Source\Node $Child */
 		foreach( (array)$NodeList as $Child ) {
 			if( $Child->getName() == 'nd' ) {
 				array_push( $this->NodeList, $Child->getAttribute( 'ref' ) );
 			}
 			if( $Child->getName() == 'tag' ) {
-				if( class_exists( $FeatureClass = '\MOC\IV\Plugin\OSMEngine\Source\Feature\\'.( ucwords( $FeatureName = $Child->getAttribute( 'k' ) ) ) ) ) {
+				if( class_exists( $FeatureClass = '\MOC\MarkIV\Plugin\OSMEngine\Source\Feature\\'.( ucwords( $FeatureName = $Child->getAttribute( 'k' ) ) ) ) ) {
 					$this->TagList[strtoupper( $FeatureName )] = new $FeatureClass( $Child );
 				}
 			}
@@ -45,7 +45,7 @@ class Way {
 	/**
 	 * @param null|string $FeatureName
 	 *
-	 * @return \MOC\IV\Plugin\OSMEngine\Source\Feature\Generic|\MOC\IV\Plugin\OSMEngine\Source\Feature\Generic[]
+	 * @return \MOC\MarkIV\Plugin\OSMEngine\Source\Feature\Generic|\MOC\MarkIV\Plugin\OSMEngine\Source\Feature\Generic[]
 	 */
 	public function getFeature( $FeatureName = null ) {
 

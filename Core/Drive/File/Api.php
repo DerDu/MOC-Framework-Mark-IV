@@ -1,7 +1,7 @@
 <?php
-namespace MOC\IV\Core\Drive\File;
+namespace MOC\MarkIV\Core\Drive\File;
 
-use MOC\IV\Core\Drive\Directory\Utility\Check;
+use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
 
 interface IApiInterface {
 
@@ -156,7 +156,7 @@ class Api implements IApiInterface {
 	 */
 	public function closeFile( $Mode = self::MODE_WRITE_BINARY, $Location = null ) {
 
-		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
+		$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
 		if( !$Directory->checkExists() ) {
 			$Directory->createDirectory();
 		}
@@ -522,8 +522,8 @@ class Api implements IApiInterface {
 	 * @return string
 	 */
 	private function fetchPath() {
-		$Directory = \MOC\IV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
-		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\IV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\'), '/' ) );
+		$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $this->getPath() );
+		return str_replace( '\\', '/', trim( trim( str_replace( \MOC\MarkIV\Api::groupCore()->unitDrive()->getRootDirectory()->getLocation(), '', $Directory->getLocation() ), '\\'), '/' ) );
 	}
 
 	/**

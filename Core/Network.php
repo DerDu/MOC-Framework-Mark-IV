@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core;
+namespace MOC\MarkIV\Core;
 
 /**
  * Interface INetworkInterface
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 interface INetworkInterface {
 
@@ -17,7 +17,7 @@ interface INetworkInterface {
 /**
  * Class Network
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 class Network implements INetworkInterface {
 

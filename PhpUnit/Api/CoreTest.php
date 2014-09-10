@@ -1,14 +1,14 @@
 <?php
 namespace MOC\PhpUnit\Api;
 
-use MOC\IV\Api;
+use MOC\MarkIV\Api;
 
 class CoreTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUnitFactory() {
 
-		$this->assertInstanceOf( '\MOC\IV\Core\Error', Api::groupCore()->unitError() );
-		$this->assertInstanceOf( '\MOC\IV\Core\Drive', Api::groupCore()->unitDrive() );
-		$this->assertInstanceOf( '\MOC\IV\Core\Session', Api::groupCore()->unitSession() );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Error', Api::groupCore()->unitError() );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Drive', Api::groupCore()->unitDrive() );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session', Api::groupCore()->unitSession() );
 	}
 }

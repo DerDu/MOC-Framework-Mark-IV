@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core;
+namespace MOC\MarkIV\Core;
 
 /**
  * Interface ICacheInterface
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 interface ICacheInterface {
 	/**
@@ -20,7 +20,7 @@ interface ICacheInterface {
 /**
  * Class Cache
  *
- * @package MOC\IV\Core
+ * @package MOC\MarkIV\Core
  */
 class Cache implements ICacheInterface {
 

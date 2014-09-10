@@ -1,16 +1,16 @@
 <?php
-namespace MOC\IV\Core\Network\Proxy\Source\Api;
+namespace MOC\MarkIV\Core\Network\Proxy\Source\Api;
 
-use MOC\IV\Core\Network\Proxy\Source\Config\Credentials;
-use MOC\IV\Core\Network\Proxy\Source\Config\Server;
-use MOC\IV\Core\Network\Proxy\Source\Type\Basic;
-use MOC\IV\Core\Network\Proxy\Source\Type\None;
-use MOC\IV\Core\Network\Proxy\Source\Type\Relay;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Credentials;
+use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
+use MOC\MarkIV\Core\Network\Proxy\Source\Type\Basic;
+use MOC\MarkIV\Core\Network\Proxy\Source\Type\None;
+use MOC\MarkIV\Core\Network\Proxy\Source\Type\Relay;
 
 /**
  * Interface ITypeInterface
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Api
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Api
  */
 interface ITypeInterface {
 
@@ -38,7 +38,7 @@ interface ITypeInterface {
 /**
  * Class Type
  *
- * @package MOC\IV\Core\Network\Proxy\Source\Api
+ * @package MOC\MarkIV\Core\Network\Proxy\Source\Api
  */
 class Type implements ITypeInterface {
 

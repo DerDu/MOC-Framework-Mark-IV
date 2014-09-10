@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Xml\Reader\Source;
+namespace MOC\MarkIV\Core\Xml\Reader\Source;
 
 /**
  * Class Token
  *
- * @package MOC\IV\Core\Xml\Reader\Source
+ * @package MOC\MarkIV\Core\Xml\Reader\Source
  */
 class Token extends TokenPattern {
 

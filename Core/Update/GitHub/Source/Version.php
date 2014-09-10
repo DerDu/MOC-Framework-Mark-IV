@@ -1,10 +1,10 @@
 <?php
-namespace MOC\IV\Core\Update\GitHub\Source;
+namespace MOC\MarkIV\Core\Update\GitHub\Source;
 
 /**
  * Class Version
  *
- * @package MOC\IV\Core\Update\GitHub\Source
+ * @package MOC\MarkIV\Core\Update\GitHub\Source
  */
 class Version {
 

@@ -1,5 +1,5 @@
 <?php
-namespace MOC\IV\Plugin\OSMEngine\Utility;
+namespace MOC\MarkIV\Plugin\OSMEngine\Utility;
 
 class Mapper {
 
