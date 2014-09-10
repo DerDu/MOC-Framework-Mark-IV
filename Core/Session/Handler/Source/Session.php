@@ -61,7 +61,7 @@ class Session implements ISessionInterface {
 	 */
 	public function openSession() {
 
-		if( !strlen( session_id() ) > 0 ) {
+		if( !$this->isSessionAvailable() ) {
 			session_start();
 		}
 		if( !isset( $_SESSION[self::$Identifier] ) ) {
@@ -81,8 +81,21 @@ class Session implements ISessionInterface {
 	 * @return void
 	 */
 	public function destroySession() {
+
 		if( $this->isSessionAvailable() ) {
 			session_destroy();
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isSessionAvailable() {
+
+		if( version_compare( phpversion(), '5.4.0', '>=' ) ) {
+			return session_status() === PHP_SESSION_ACTIVE ? true : false;
+		} else {
+			return session_id() === '' ? false : true;
 		}
 	}
 
@@ -94,21 +107,5 @@ class Session implements ISessionInterface {
 		$Reference = & $_SESSION[self::$Identifier];
 
 		return $Reference;
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function isSessionAvailable() {
-
-		if( php_sapi_name() !== 'cli' ) {
-			if( version_compare( phpversion(), '5.4.0', '>=' ) ) {
-				return session_status() === PHP_SESSION_ACTIVE ? true : false;
-			} else {
-				return session_id() === '' ? false : true;
-			}
-		}
-
-		return false;
 	}
 }
