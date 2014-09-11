@@ -1,35 +1,14 @@
 <?php
-namespace MOC\MarkIV\Extension\Documentation\Generator;
+namespace MOC\MarkIV\Extension\Documentation\ApiGen;
 
+use MOC\MarkIV\Extension\Documentation\IApiInterface;
 use Nette\Config\Adapters\NeonAdapter;
 
-\MOC\MarkIV\Api::registerAdditionalNamespace(
-	'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
-);
-\MOC\MarkIV\Api::registerAdditionalNamespace(
-	'TokenReflection', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
-);
-\MOC\MarkIV\Api::registerAdditionalNamespace(
-	'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
-);
-
-/**
- * Interface IApiInterface
- *
- * @package MOC\MarkIV\Extension\Documentation\Generator
- */
-interface IApiInterface {
-
-	/**
-	 *
-	 */
-	public function createDocumentation();
-}
 
 /**
  * Class Api
  *
- * @package MOC\MarkIV\Extension\Documentation\Generator
+ * @package MOC\MarkIV\Extension\Documentation\ApiGen
  */
 class Api implements IApiInterface {
 
@@ -53,12 +32,22 @@ class Api implements IApiInterface {
 	 */
 	public function createDocumentation() {
 
-		set_time_limit( 120 );
+		\MOC\MarkIV\Api::registerAdditionalNamespace(
+			'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
+		);
+		\MOC\MarkIV\Api::registerAdditionalNamespace(
+			'TokenReflection', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
+		);
+		\MOC\MarkIV\Api::registerAdditionalNamespace(
+			'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
+		);
+
+		set_time_limit( 0 );
 
 		$Config = $this->getConfig();
 
-		$Cache = \MOC\MarkIV\Api::groupCore()->unitCache()->apiFile( 120, __CLASS__ );
-		if( !$Cache->getCacheFile( sha1( serialize( $Config ) ) ) ) {
+		$Cache = \MOC\MarkIV\Api::groupCore()->unitCache()->apiFile( 30, __CLASS__ );
+		if( ( isset($_REQUEST['Force']) && $_REQUEST['Force'] ) || !$Cache->getCacheFile( sha1( serialize( $Config ) ) ) ) {
 			require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
 			$Neon = new NeonAdapter();
 			$Cache->getCacheFile( sha1( serialize( $Config ) ), true )

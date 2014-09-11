@@ -1,17 +1,17 @@
 <?php
 namespace MOC\MarkIV\Core\Update\Gui\EndPoint;
 
-require_once( __DIR__.'/../../../../Api.php' );
+require_once( __DIR__.'/../../../../../Api.php' );
 
 use MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Release;
 
-$Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../GitHub/Config.ini' );
+$Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../Config.ini' );
 
 if( $Config->getChannelActiveRelease() ) {
 
-	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelPreview( true );
+	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelNightly( true );
 
 	if( false === $ReleaseList ) {
 
@@ -51,10 +51,9 @@ if( $Config->getChannelActiveRelease() ) {
 					$Template = str_replace( '${Size}', $Size, $Template );
 
 					$Template = str_replace( '${Identifier}', $Release->getTag()->getIdentifier(), $Template );
-					$Template = str_replace( '${Type}', 'Preview', $Template );
+					$Template = str_replace( '${Type}', 'Nightly', $Template );
 
 					print $Template;
-
 
 					break;
 				}

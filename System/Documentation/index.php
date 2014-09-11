@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MOC Mark IV - Update</title>
+	<title>MOC Mark IV - Documentation</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
 	      type='text/css'>
@@ -45,7 +47,7 @@
 <div id="BottomBar">
 	<ul>
 		<li>Powered by <a href="http://github.com"
-		                  style="background: transparent url('../Core/Update/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
+		                  style="background: transparent url('../../Core/Update/GitHub/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
 		</li>
 	</ul>
 </div>
@@ -58,7 +60,13 @@
 
 		ChannelNotes.children( 'div' ).html( 'Please wait...' );
 
-		jQuery.get( "../Extension/Documentation/Gui/EndPoint/GenerateDocumentation.php" )
+		/** @namespace window.open */
+		/** @namespace window.setTimeout */
+		/** @namespace Response.status */
+
+		jQuery.get( "../../Extension/Documentation/ApiGen/Gui/EndPoint/GenerateDocumentation.php", {
+			'ForceBuild': false
+		} )
 			.done( function( Response ) {
 				ChannelNotes.html( '<div class="Search Color HighLight">Redirecting...<div class="Information"><a href="' + Response + '">' + Response + '</a></div></div>' );
 				window.setTimeout( 'window.location = "' + Response + '"', 2000 );

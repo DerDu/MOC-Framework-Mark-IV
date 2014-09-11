@@ -14,9 +14,9 @@ interface IDocumentationInterface {
 	 * @param IApiInterface $Source
 	 * @param IApiInterface $Destination
 	 *
-	 * @return Documentation\Generator\Api
+	 * @return Documentation\ApiGen\Api
 	 */
-	public function apiGenerator( IApiInterface $Source, IApiInterface $Destination );
+	public function useApiGen( IApiInterface $Source, IApiInterface $Destination );
 }
 
 /**
@@ -30,10 +30,10 @@ class Documentation implements IDocumentationInterface {
 	 * @param IApiInterface $Source
 	 * @param IApiInterface $Destination
 	 *
-	 * @return Documentation\Generator\Api
+	 * @return Documentation\ApiGen\Api
 	 */
-	public function apiGenerator( IApiInterface $Source, IApiInterface $Destination ) {
+	public function useApiGen( IApiInterface $Source, IApiInterface $Destination ) {
 
-		return new Documentation\Generator\Api( $Source, $Destination );
+		return new Documentation\ApiGen\Api( $Source, $Destination );
 	}
 }

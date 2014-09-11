@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>MOC Mark IV - Update</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script src="jQuery.ReleaseNotes/2014-09-09-13-06/js/libs/marked.js"></script>
 	<script src="jQuery.ReleaseNotes/2014-09-09-13-06/js/releasenotes.js"></script>
@@ -60,7 +62,7 @@
 		<div class="Search Color HighLight">Loading...</div>
 	</div>
 </div>
-
+<!--
 <div class="Channel">
 	<h1>Release Notes</h1>
 
@@ -68,11 +70,11 @@
 		<div class="Search Color HighLight">Loading...</div>
 	</div>
 </div>
-
+//-->
 <div id="BottomBar">
 	<ul>
 		<li>Powered by <a href="http://github.com"
-		                 style="background: transparent url('../Core/Update/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
+		                 style="background: transparent url('../../Core/Update/GitHub/Gui/Logo/GitHub-Mark-Light-32px.png') no-repeat left center; padding-left: 42px; margin-left: 5px;">GitHub</a>
 		</li>
 		<li>
 			Api Request-Limit<a href="http://developer.github.com/v3/rate_limit/"><span class="Color HighLight"
@@ -90,7 +92,10 @@
 		var ChannelPreview = jQuery( '#ChannelPreview' );
 		var ChannelNightly = jQuery( '#ChannelNightly' );
 
-		jQuery.get( "../Core/Update/Gui/EndPoint/CurrentVersion.php" )
+		/** @namespace window.open */
+		/** @namespace Response.status */
+
+		jQuery.get( "../../Core/Update/GitHub/Gui/EndPoint/CurrentVersion.php" )
 			.done( function( Response ) {
 				CurrentVersion.html( Response );
 
@@ -99,7 +104,7 @@
 				CurrentVersion.html( '<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>' );
 			} ).always( function() {
 
-				jQuery.get( "../Core/Update/Gui/EndPoint/SearchRelease.php" )
+				jQuery.get( "../../Core/Update/GitHub/Gui/EndPoint/SearchRelease.php" )
 					.done( function( Response ) {
 						ChannelRelease.html( Response );
 					} )
@@ -107,7 +112,7 @@
 						ChannelRelease.html( '<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>' );
 					} ).always( function() {
 
-						jQuery.get( "../Core/Update/Gui/EndPoint/SearchPreview.php" )
+						jQuery.get( "../../Core/Update/GitHub/Gui/EndPoint/SearchPreview.php" )
 							.done( function( Response ) {
 								ChannelPreview.html( Response );
 							} )
@@ -115,7 +120,7 @@
 								ChannelPreview.html( '<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>' );
 							} ).always( function() {
 
-								jQuery.get( "../Core/Update/Gui/EndPoint/SearchNightly.php" )
+								jQuery.get( "../../Core/Update/GitHub/Gui/EndPoint/SearchNightly.php" )
 									.done( function( Response ) {
 										ChannelNightly.html( Response );
 									} )
@@ -123,7 +128,7 @@
 										ChannelNightly.html( '<div class="Search Color HighLight"><h2>Error ' + Response.status + '</h2><div class="Information">' + Response.statusText + '</div></div>' );
 									} ).always( function() {
 
-										jQuery.get( "../Core/Update/Gui/EndPoint/CurrentLimit.php" )
+										jQuery.get( "../../Core/Update/GitHub/Gui/EndPoint/CurrentLimit.php" )
 											.done( function( Response ) {
 												Response = Response.split( '/' );
 												CurrentLimit.html( Math.round( 100 - ( 100 / parseInt( Response[1] ) * parseInt( Response[0] ) ) ) + '% (' + Response[0] + '/' + Response[1] + ')' );

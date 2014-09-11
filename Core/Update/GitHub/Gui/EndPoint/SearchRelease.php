@@ -1,17 +1,17 @@
 <?php
 namespace MOC\MarkIV\Core\Update\Gui\EndPoint;
 
-require_once( __DIR__.'/../../../../Api.php' );
+require_once( __DIR__.'/../../../../../Api.php' );
 
 use MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Release;
 
-$Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../GitHub/Config.ini' );
+$Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../Config.ini' );
 
-if( $Config->getChannelActivePreview() ) {
+if( $Config->getChannelActiveRelease() ) {
 
-	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelPreview();
+	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRelease();
 
 	if( false === $ReleaseList ) {
 
@@ -28,25 +28,8 @@ if( $Config->getChannelActivePreview() ) {
 
 		} else {
 
-			$SkipReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRelease();
-
-			$Found = false;
-
 			/** @var Release $Release */
 			foreach( (array)$ReleaseList as $Release ) {
-
-				$Skip = false;
-
-				/** @var Release $SkipRelease */
-				foreach( (array)$SkipReleaseList as $SkipRelease ) {
-					if( $SkipRelease->getVersion()->checkBehindAheadStatusOf( $Release->getVersion() ) <= 0 ) {
-						$Skip = true;
-					}
-				}
-				if( $Skip ) {
-					continue;
-				}
-
 
 				$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/Search.html' )->getContent();
 
@@ -67,18 +50,14 @@ if( $Config->getChannelActivePreview() ) {
 				$Template = str_replace( '${Size}', $Size, $Template );
 
 				$Template = str_replace( '${Identifier}', $Release->getTag()->getIdentifier(), $Template );
-				$Template = str_replace( '${Type}', 'Preview', $Template );
-
-				$Found = true;
+				$Template = str_replace( '${Type}', 'Release', $Template );
 
 				print $Template;
 			}
 
-			if( ! $Found ) {
-				print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
-			}
 		}
+
 	}
 } else {
-	print  Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
+	print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
 }

@@ -86,5 +86,12 @@ Goals
 
 ***apigen*** to create the documentation
 
-	Project: <http://apigen.org>
+	Project: <https://github.com/apigen/apigen>
 	License: BSD
+	Version: 2.8.0
+
+***PHPMailer*** to add mail capability
+
+	Project: <https://github.com/PHPMailer/PHPMailer>
+	License: LGPL
+	Version: 5.2.8

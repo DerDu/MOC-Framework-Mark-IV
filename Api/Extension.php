@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Api;
 
 use MOC\MarkIV\Extension\Documentation;
+use MOC\MarkIV\Extension\Mail;
 
 /**
  * Interface IExtension
@@ -14,6 +15,11 @@ interface IExtensionInterface {
 	 * @return Documentation
 	 */
 	public function unitDocumentation();
+
+	/**
+	 * @return Mail
+	 */
+	public function unitMail();
 }
 
 /**
@@ -29,5 +35,13 @@ class Extension implements IExtensionInterface {
 	public function unitDocumentation() {
 
 		return new Documentation();
+	}
+
+	/**
+	 * @return Mail
+	 */
+	public function unitMail() {
+
+		return new Mail();
 	}
 }
