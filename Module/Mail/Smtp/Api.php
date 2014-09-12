@@ -28,14 +28,20 @@ class Api implements IApiInterface {
 	 */
 	public function openConnection( $Host, $User, $Password, $Port = 25 ) {
 
-		$this->prepareConnection( $Host, $User, $Password, $Port );
-		/** @var \PHPMailer $Extension */
-		$Extension = \MOC\MarkIV\Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
+		$Extension = $this->prepareConnection( $Host, $User, $Password, $Port );
 		$Extension->isSMTP();
 
 		return $this;
 	}
 
+	/**
+	 * @param string $Host
+	 * @param string $User
+	 * @param string $Password
+	 * @param int    $Port
+	 *
+	 * @return \PHPMailer
+	 */
 	protected function prepareConnection( $Host, $User, $Password, $Port = 25 ) {
 
 		/** @var \PHPMailer $Extension */
@@ -47,6 +53,8 @@ class Api implements IApiInterface {
 		$Extension->Username = $User;
 		$Extension->Password = $Password;
 		$Extension->Port = $Port;
+
+		return $Extension;
 	}
 
 	/**

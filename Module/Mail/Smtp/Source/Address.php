@@ -1,5 +1,5 @@
 <?php
-namespace MOC\MarkIV\Module\Mail\Smtp\Source\Address;
+namespace MOC\MarkIV\Module\Mail\Smtp\Source;
 
 use MOC\MarkIV\Api;
 

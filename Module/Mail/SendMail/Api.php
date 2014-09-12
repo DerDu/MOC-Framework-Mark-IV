@@ -20,9 +20,7 @@ class Api extends \MOC\MarkIV\Module\Mail\Smtp\Api implements IApiInterface {
 	 */
 	public function openConnection( $Host, $User, $Password, $Port = 25 ) {
 
-		$this->prepareConnection( $Host, $User, $Password, $Port );
-		/** @var \PHPMailer $Extension */
-		$Extension = \MOC\MarkIV\Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
+		$Extension = $this->prepareConnection( $Host, $User, $Password, $Port );
 		$Extension->isSendmail();
 
 		return $this;

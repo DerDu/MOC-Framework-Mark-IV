@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Module\Mail\Smtp\Source\Address;
 
 use MOC\MarkIV\Api;
+use MOC\MarkIV\Module\Mail\Smtp\Source\Address;
 
 /**
  * Class From
