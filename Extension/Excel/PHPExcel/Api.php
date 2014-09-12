@@ -26,7 +26,7 @@ class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiI
 	 */
 	public function buildInstance( $Identifier = null ) {
 
-		parent::buildInstance( new \PHPExcel(), $Identifier );
+		$this->createInstance( new \PHPExcel(), $Identifier );
 
 		return $this;
 	}

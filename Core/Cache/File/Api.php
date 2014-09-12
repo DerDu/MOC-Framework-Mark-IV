@@ -222,11 +222,11 @@ class Api implements IApiInterface {
 	 */
 
 	/**
-	 * @param \MOC\MarkIV\Core\Drive\File\Api $File
+	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
 	 *
 	 * @return int
 	 */
-	private function getIdentifier( \MOC\MarkIV\Core\Drive\File\Api $File ) {
+	private function getIdentifier( \MOC\MarkIV\Core\Drive\File\IApiInterface $File ) {
 
 		$Name = explode( '.', $File->getName() );
 
@@ -234,11 +234,11 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @param \MOC\MarkIV\Core\Drive\File\Api $File
+	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
 	 *
 	 * @return int
 	 */
-	private function getTimestamp( \MOC\MarkIV\Core\Drive\File\Api $File ) {
+	private function getTimestamp( \MOC\MarkIV\Core\Drive\File\IApiInterface $File ) {
 
 		$Name = explode( '.', $File->getName() );
 		if( isset( $Name[1] ) ) {
@@ -249,11 +249,11 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @param \MOC\MarkIV\Core\Drive\File\Api $File
+	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
 	 *
 	 * @return int
 	 */
-	private function getExtension( \MOC\MarkIV\Core\Drive\File\Api $File ) {
+	private function getExtension( \MOC\MarkIV\Core\Drive\File\IApiInterface $File ) {
 
 		return $File->getExtension();
 	}

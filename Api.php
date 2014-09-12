@@ -53,10 +53,10 @@ interface IApiInterface {
 	public static function loadAdditional( $Class );
 
 	/**
-	 * @param string                   $Namespace
-	 * @param Core\Drive\Directory\Api $Location
+	 * @param string                             $Namespace
+	 * @param Core\Drive\Directory\IApiInterface $Location
 	 */
-	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\Api $Location );
+	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location );
 
 	/**
 	 * @return void
@@ -172,10 +172,10 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @param string                   $Namespace
-	 * @param Core\Drive\Directory\Api $Location
+	 * @param string                             $Namespace
+	 * @param Core\Drive\Directory\IApiInterface $Location
 	 */
-	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\Api $Location ) {
+	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location ) {
 
 		if( $Location->checkExists() && !$Location->checkIsEmpty() ) {
 			self::$NamespaceLocationList[$Namespace] = $Location;

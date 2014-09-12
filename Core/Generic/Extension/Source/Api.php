@@ -18,22 +18,7 @@ abstract class Api {
 	 */
 	abstract function __construct();
 
-	/**
-	 * @param object      $Extension
-	 * @param null|string $Identifier
-	 *
-	 * @return Api
-	 */
-	protected function buildInstance( $Extension, $Identifier = null ) {
-
-		$Instance = new Instance( $Extension, $Identifier );
-		if( null !== self::$Instance ) {
-			self::$InstanceQueue[self::$Instance->getIdentifier()] = self::$Instance;
-		}
-		self::$Instance = $Instance;
-
-		return $this;
-	}
+	abstract function buildInstance( $Identifier = null );
 
 	/**
 	 * @return null|Instance
@@ -65,6 +50,23 @@ abstract class Api {
 
 		unset( self::$InstanceQueue[self::$Instance->getIdentifier()] );
 		self::$Instance = null;
+
+		return $this;
+	}
+
+	/**
+	 * @param object      $Extension
+	 * @param null|string $Identifier
+	 *
+	 * @return Api
+	 */
+	protected function createInstance( $Extension, $Identifier = null ) {
+
+		$Instance = new Instance( $Extension, $Identifier );
+		if( null !== self::$Instance ) {
+			self::$InstanceQueue[self::$Instance->getIdentifier()] = self::$Instance;
+		}
+		self::$Instance = $Instance;
 
 		return $this;
 	}

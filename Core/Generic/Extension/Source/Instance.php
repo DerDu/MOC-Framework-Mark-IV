@@ -17,6 +17,13 @@ interface IInstanceInterface {
 	 * @return object
 	 */
 	public function getObject();
+
+	/**
+	 * @param null|object $Object
+	 *
+	 * @return Instance
+	 */
+	public function setObject( $Object );
 }
 
 /**
@@ -24,9 +31,9 @@ interface IInstanceInterface {
  *
  * @package MOC\MarkIV\Core\Generic\Extension\Source
  */
-class Instance {
+class Instance implements IInstanceInterface {
 
-	/** @var null|\stdClass $Object */
+	/** @var null|object $Object */
 	private $Object = null;
 	/** @var null|string $Identifier */
 	private $Identifier = null;
@@ -59,6 +66,18 @@ class Instance {
 	public function getObject() {
 
 		return $this->Object;
+	}
+
+	/**
+	 * @param null|object $Object
+	 *
+	 * @return Instance
+	 */
+	public function setObject( $Object ) {
+
+		$this->Object = $Object;
+
+		return $this;
 	}
 
 }

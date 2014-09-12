@@ -27,7 +27,7 @@ class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiI
 	 */
 	public function buildInstance( $Identifier = null ) {
 
-		parent::buildInstance( new \PHPMailer(), $Identifier );
+		$this->createInstance( new \PHPMailer(), $Identifier );
 
 		return $this;
 	}
