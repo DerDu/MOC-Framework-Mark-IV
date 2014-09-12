@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Core;
 
 /**
- * Interface IError
+ * Interface IErrorInterface
  *
  * @package MOC\MarkIV\Core
  */

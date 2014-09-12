@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Core;
 
 /**
- * Interface ISession
+ * Interface ISessionInterface
  *
  * @package MOC\MarkIV\Core
  */

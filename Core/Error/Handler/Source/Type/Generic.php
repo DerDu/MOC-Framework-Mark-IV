@@ -4,7 +4,7 @@ namespace MOC\MarkIV\Core\Error\Handler\Source\Type;
 use MOC\MarkIV\Core\Error\Handler\Source\Template\Error as ErrorTemplate;
 
 /**
- * Interface IGeneric
+ * Interface IGenericInterface
  *
  * @package MOC\MarkIV\Core\Error\Handler\Source\Type
  */

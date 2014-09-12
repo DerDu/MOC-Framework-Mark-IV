@@ -4,7 +4,7 @@ namespace MOC\MarkIV;
 use MOC\MarkIV\Core\Update;
 
 /**
- * Interface IApi
+ * Interface IApiInterface
  *
  * @package MOC\MarkIV
  */

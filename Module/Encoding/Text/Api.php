@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Module\Encoding\Text;
 
 /**
- * Interface IMap
+ * Interface IMapInterface
  *
  * @package MOC\MarkIV\Module\Encoding\Text\Source
  */
@@ -15,7 +15,7 @@ interface IMapInterface {
 }
 
 /**
- * Interface IApi
+ * Interface IApiInterface
  *
  * @package MOC\MarkIV\Module\Encoding\Text
  */

@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Module\Encoding\Text\Source;
 
 /**
- * Interface IDictionary
+ * Interface IDictionaryInterface
  *
  * @package MOC\MarkIV\Module\Encoding\Text\Source
  */

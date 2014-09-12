@@ -6,7 +6,7 @@ use MOC\MarkIV\Core\Error\Handler\Source\Type\Exception;
 use MOC\MarkIV\Core\Error\Handler\Source\Type\Shutdown;
 
 /**
- * Interface IType
+ * Interface ITypeInterface
  *
  * @package MOC\MarkIV\Core\Error\Handler\Api
  */

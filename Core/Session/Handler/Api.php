@@ -9,7 +9,7 @@ use MOC\MarkIV\Core\Session\Handler\Source\IStoreInterface;
 use MOC\MarkIV\Core\Session\Handler\Source\Store;
 
 /**
- * Interface IApi
+ * Interface IApiInterface
  *
  * @package MOC\MarkIV\Core\Session\Handler
  */

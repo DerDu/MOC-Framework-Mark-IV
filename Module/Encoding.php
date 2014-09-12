@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Module;
 
 /**
- * Interface IEncoding
+ * Interface IEncodingInterface
  *
  * @package MOC\MarkIV\Module
  */

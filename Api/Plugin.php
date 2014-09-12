@@ -4,7 +4,7 @@ namespace MOC\MarkIV\Api;
 use MOC\MarkIV\Plugin\OSMEngine;
 
 /**
- * Interface IPlugin
+ * Interface IPluginInterface
  *
  * @package MOC\MarkIV\Api
  */

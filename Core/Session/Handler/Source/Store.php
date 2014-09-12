@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Core\Session\Handler\Source;
 
 /**
- * Interface IStore
+ * Interface IStoreInterface
  *
  * @package MOC\MarkIV\Core\Session\Handler\Source
  */

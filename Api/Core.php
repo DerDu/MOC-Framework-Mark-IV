@@ -10,7 +10,7 @@ use MOC\MarkIV\Core\Update;
 use MOC\MarkIV\Core\Xml;
 
 /**
- * Interface ICore
+ * Interface ICoreInterface
  *
  * @package MOC\MarkIV\Api
  */

@@ -4,7 +4,7 @@ namespace MOC\MarkIV\Core;
 use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
 
 /**
- * Interface IDrive
+ * Interface IDriveInterface
  *
  * @package MOC\MarkIV\Core
  */

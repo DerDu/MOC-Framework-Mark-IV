@@ -5,7 +5,7 @@ use MOC\MarkIV\Core\Error\Handler\Api\Type;
 use MOC\MarkIV\Core\Error\Handler\Source\Type\Generic;
 
 /**
- * Interface IApi
+ * Interface IApiInterface
  *
  * @package MOC\MarkIV\Core\Error\Handler
  */

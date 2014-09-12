@@ -2,7 +2,7 @@
 namespace MOC\MarkIV\Core\Session\Handler\Source;
 
 /**
- * Interface IIdentifier
+ * Interface IIdentifierInterface
  *
  * @package MOC\MarkIV\Core\Session\Handler\Source
  */

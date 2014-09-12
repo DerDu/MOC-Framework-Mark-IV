@@ -4,7 +4,7 @@ namespace MOC\MarkIV\Core\Drive\Directory;
 use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
 
 /**
- * Interface IApi
+ * Interface IApiInterface
  *
  * @package MOC\MarkIV\Core\Drive\Directory
  */

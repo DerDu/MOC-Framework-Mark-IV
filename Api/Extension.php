@@ -6,7 +6,7 @@ use MOC\MarkIV\Extension\Excel;
 use MOC\MarkIV\Extension\Mail;
 
 /**
- * Interface IExtension
+ * Interface IExtensionInterface
  *
  * @package MOC\MarkIV\Api
  */
