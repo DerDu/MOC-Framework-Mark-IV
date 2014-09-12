@@ -5,11 +5,6 @@ use MOC\MarkIV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
 
-	protected function setUp() {
-		Api::runBootstrap();
-	}
-
-
 	public function testGroupFactory() {
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Api\Core', Api::groupCore() );
@@ -18,8 +13,17 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( '\MOC\MarkIV\Api\Plugin', Api::groupPlugin() );
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Update', Api::runUpdate() );
-		$this->assertFalse( Api::loadAdditional( 'FALSE' ) );
-		$this->assertFalse( Api::loadInterface( 'FALSE', 'FALSE' ) );
-		$this->assertFalse( Api::loadClass( 'FALSE' ) );
+
+		Api::registerNamespace('NotAvailableNamespace', Api::groupCore()->unitDrive()->apiDirectory(__DIR__));
+		Api::registerNamespace('\\', Api::groupCore()->unitDrive()->apiDirectory(__DIR__));
+
+		$this->assertFalse( Api::loadClass( '\NotAvailableClass' ) );
+		$this->assertFalse( Api::loadInterface( '\INotAvailableInterface', '\INotAvailableInterface' ) );
+		$this->assertFalse( Api::loadNamespace( '\NotAvailableClass' ) );
+	}
+
+	protected function setUp() {
+
+		Api::runBootstrap();
 	}
 }

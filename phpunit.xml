@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="phpunit.bootstrap.php" stderr="true" colors="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<phpunit bootstrap="phpunit.bootstrap.php" stderr="true" colors="true"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
 
 	<testsuites>
@@ -10,17 +11,14 @@
 	</testsuites>
 
 	<filter>
-		<whitelist>
+		<blacklist>
+			<directory suffix=".php">./Extension/*/*/3rdParty</directory>
+		</blacklist>
+		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix="*.php">./</directory>
 			<exclude>
-				<directory>./build</directory>
-				<directory>./composer</directory>
-				<directory>./tests</directory>
-				<directory>./travis</directory>
-				<directory>./vendor</directory>
-				<directory>./3rdParty</directory>
-				<directory>./Update</directory>
-				<directory>./Documentation</directory>
+				<directory suffix=".php">./System/Update/</directory>
+				<directory suffix=".php">./System/Documentation/</directory>
 			</exclude>
 		</whitelist>
 	</filter>
