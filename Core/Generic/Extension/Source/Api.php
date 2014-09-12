@@ -25,7 +25,7 @@ abstract class Api {
 	 */
 	public function currentInstance() {
 
-		return self::$Instance;
+		return static::$Instance;
 	}
 
 	/**
@@ -35,10 +35,10 @@ abstract class Api {
 	 */
 	public function selectInstance( $Identifier ) {
 
-		if( null !== self::$Instance ) {
-			self::$InstanceQueue[self::$Instance->getIdentifier()] = self::$Instance;
+		if( null !== static::$Instance ) {
+			static::$InstanceQueue[static::$Instance->getIdentifier()] = static::$Instance;
 		}
-		self::$Instance = self::$InstanceQueue[$Identifier];
+		static::$Instance = static::$InstanceQueue[$Identifier];
 
 		return $this;
 	}
@@ -48,8 +48,8 @@ abstract class Api {
 	 */
 	public function destroyInstance() {
 
-		unset( self::$InstanceQueue[self::$Instance->getIdentifier()] );
-		self::$Instance = null;
+		unset( static::$InstanceQueue[static::$Instance->getIdentifier()] );
+		static::$Instance = null;
 
 		return $this;
 	}
@@ -63,10 +63,10 @@ abstract class Api {
 	protected function createInstance( $Extension, $Identifier = null ) {
 
 		$Instance = new Instance( $Extension, $Identifier );
-		if( null !== self::$Instance ) {
-			self::$InstanceQueue[self::$Instance->getIdentifier()] = self::$Instance;
+		if( null !== static::$Instance ) {
+			static::$InstanceQueue[static::$Instance->getIdentifier()] = static::$Instance;
 		}
-		self::$Instance = $Instance;
+		static::$Instance = $Instance;
 
 		return $this;
 	}

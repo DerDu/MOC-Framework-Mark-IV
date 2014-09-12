@@ -1,6 +1,7 @@
 <?php
 namespace MOC\MarkIV\Extension\Mail\PHPMailer;
 
+use MOC\MarkIV\Core\Generic\Extension\Source\Instance;
 use MOC\MarkIV\Extension\Mail\IApiInterface;
 
 /**
@@ -9,6 +10,11 @@ use MOC\MarkIV\Extension\Mail\IApiInterface;
  * @package MOC\MarkIV\Extension\Mail\PHPMailer
  */
 class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiInterface {
+
+	/** @var null|Instance $Instance */
+	protected static $Instance = null;
+	/** @var Instance[] $InstanceQueue */
+	protected static $InstanceQueue = array();
 
 	/**
 	 * Bootstrap

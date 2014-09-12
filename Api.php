@@ -50,13 +50,13 @@ interface IApiInterface {
 	 *
 	 * @return bool
 	 */
-	public static function loadAdditional( $Class );
+	public static function loadNamespace( $Class );
 
 	/**
 	 * @param string                             $Namespace
 	 * @param Core\Drive\Directory\IApiInterface $Location
 	 */
-	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location );
+	public static function registerNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location );
 
 	/**
 	 * @return void
@@ -133,7 +133,7 @@ class Api implements IApiInterface {
 				return true;
 			}
 		} else {
-			return self::loadAdditional( $Class );
+			return self::loadNamespace( $Class );
 		}
 	}
 
@@ -142,7 +142,7 @@ class Api implements IApiInterface {
 	 *
 	 * @return bool
 	 */
-	public static function loadAdditional( $Class ) {
+	public static function loadNamespace( $Class ) {
 
 		/** @var Core\Drive\Directory\Api $Location */
 		foreach( (array)self::$NamespaceLocationList as $Namespace => $Location ) {
@@ -175,7 +175,7 @@ class Api implements IApiInterface {
 	 * @param string                             $Namespace
 	 * @param Core\Drive\Directory\IApiInterface $Location
 	 */
-	public static function registerAdditionalNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location ) {
+	public static function registerNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location ) {
 
 		if( $Location->checkExists() && !$Location->checkIsEmpty() ) {
 			self::$NamespaceLocationList[$Namespace] = $Location;

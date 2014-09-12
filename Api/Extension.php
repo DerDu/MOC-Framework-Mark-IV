@@ -21,6 +21,11 @@ interface IExtensionInterface {
 	 * @return Mail
 	 */
 	public function unitMail();
+
+	/**
+	 * @return Excel
+	 */
+	public function unitExcel();
 }
 
 /**

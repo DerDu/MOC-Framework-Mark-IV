@@ -32,13 +32,13 @@ class Api implements IApiInterface {
 	 */
 	public function createDocumentation() {
 
-		\MOC\MarkIV\Api::registerAdditionalNamespace(
+		\MOC\MarkIV\Api::registerNamespace(
 			'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
 		);
-		\MOC\MarkIV\Api::registerAdditionalNamespace(
+		\MOC\MarkIV\Api::registerNamespace(
 			'TokenReflection', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
 		);
-		\MOC\MarkIV\Api::registerAdditionalNamespace(
+		\MOC\MarkIV\Api::registerNamespace(
 			'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
 		);
 
