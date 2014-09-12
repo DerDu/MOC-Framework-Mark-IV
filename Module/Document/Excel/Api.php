@@ -3,12 +3,20 @@ namespace MOC\MarkIV\Module\Document\Excel;
 
 use MOC\MarkIV\Module\Document\IApiInterface;
 
+/**
+ * Class Api
+ *
+ * @package MOC\MarkIV\Module\Document\Excel
+ */
 class Api implements IApiInterface {
 
 	const FILE_TYPE_EXCEL2007 = 'xlsx';
 	const FILE_TYPE_EXCEL5 = 'xls';
 	const FILE_TYPE_CSV = 'csv';
 
+	/**
+	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
+	 */
 	function __construct( \MOC\MarkIV\Core\Drive\File\IApiInterface $File = null ) {
 
 		$Extension = \MOC\MarkIV\Api::groupExtension()->unitExcel()->usePHPExcel()->currentInstance();
@@ -21,6 +29,11 @@ class Api implements IApiInterface {
 		}
 	}
 
+	/**
+	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
+	 *
+	 * @return IApiInterface
+	 */
 	public function openDocument( \MOC\MarkIV\Core\Drive\File\IApiInterface $File ) {
 
 		$Extension = \MOC\MarkIV\Api::groupExtension()->unitExcel()->usePHPExcel()->currentInstance();
@@ -31,6 +44,12 @@ class Api implements IApiInterface {
 		return $this;
 	}
 
+	/**
+	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
+	 * @param string                                    $Type
+	 *
+	 * @return IApiInterface
+	 */
 	public function closeDocument( \MOC\MarkIV\Core\Drive\File\IApiInterface $File, $Type = self::FILE_TYPE_EXCEL2007 ) {
 
 		/** @var \PHPExcel $Extension */
