@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Api;
 
 use MOC\MarkIV\Extension\Documentation;
+use MOC\MarkIV\Extension\Excel;
 use MOC\MarkIV\Extension\Mail;
 
 /**
@@ -43,5 +44,13 @@ class Extension implements IExtensionInterface {
 	public function unitMail() {
 
 		return new Mail();
+	}
+
+	/**
+	 * @return Excel
+	 */
+	public function unitExcel() {
+
+		return new Excel();
 	}
 }
