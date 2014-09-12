@@ -1,9 +1,9 @@
 <?php
-namespace MOC\PhpUnit\Core\Network\Proxy;
+namespace MOC\PhpUnit\Core\Network;
 
 use MOC\MarkIV\Api;
 
-class ApiTest extends \PHPUnit_Framework_TestCase {
+class ProxyTest extends \PHPUnit_Framework_TestCase {
 
 	public function testNetworkProxyApi() {
 

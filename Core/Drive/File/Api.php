@@ -530,7 +530,11 @@ class Api implements IApiInterface {
 	 * @return string
 	 */
 	private function fetchHost() {
-		return $_SERVER['SERVER_NAME'];
+		if( isset( $_SERVER['SERVER_NAME'] ) ) {
+			return $_SERVER['SERVER_NAME'];
+		} else {
+			return 'localhost';
+		}
 	}
 
 	/**

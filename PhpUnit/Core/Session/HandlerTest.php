@@ -3,7 +3,7 @@ namespace MOC\PhpUnit\Core\Session\Handler;
 
 use MOC\MarkIV\Api;
 
-class ApiTest extends \PHPUnit_Framework_TestCase {
+class HandlerTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @runTestsInSeparateProcesses
