@@ -18,6 +18,7 @@
 				<directory>./tests</directory>
 				<directory>./travis</directory>
 				<directory>./vendor</directory>
+				<directory>./3rdParty</directory>
 				<directory>./Update</directory>
 				<directory>./Documentation</directory>
 			</exclude>

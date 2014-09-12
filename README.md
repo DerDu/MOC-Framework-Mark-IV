@@ -95,3 +95,9 @@ Goals
 	Project: <https://github.com/PHPMailer/PHPMailer>
 	License: LGPL
 	Version: 5.2.8
+
+***PHPExcel*** to add office capability
+
+	Project: <https://github.com/PHPOffice/PHPExcel>
+	License: LGPL
+	Version: 1.8.0
