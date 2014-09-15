@@ -10,7 +10,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testSessionHandlerApi() {
 
-		ob_start();
+		ob_console();
 
 		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
 
@@ -34,6 +34,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase {
 		Api::groupCore()->unitSession()->apiHandler()->setIdentifier( 'Test2' );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->destroySession() );
 
-		ob_end_clean();
+		ob_close();
 	}
 }
