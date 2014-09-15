@@ -25,7 +25,6 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 
 		$Globals->useServer()->setServerPort(80);
 		$Url = Api::groupCore()->unitDrive()->apiFile(__FILE__)->getUrl();
-		var_dump( $Url );
 
 		$None->getFile( $Url, true );
 		$Relay->getFile( $Url, true );
@@ -33,7 +32,6 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 
 		$Globals->useServer()->setServerPort(443);
 		$Url = Api::groupCore()->unitDrive()->apiFile(__FILE__)->getUrl();
-		var_dump( $Url );
 
 		$None->getFile( $Url, true );
 		$Relay->getFile( $Url, true );
