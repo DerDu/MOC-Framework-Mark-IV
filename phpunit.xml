@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="phpunit.bootstrap.php" stderr="true" colors="true"
+<phpunit bootstrap="phpunit.bootstrap.php" stderr="true" colors="true" verbose="true"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
 
@@ -27,4 +27,7 @@
 		<log type="coverage-clover" target="build/logs/clover.xml"/>
 	</logging>
 
+	<php>
+		<const name="PHPUNIT_SUITE" value="true"/>
+	</php>
 </phpunit>
