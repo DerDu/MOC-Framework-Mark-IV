@@ -18,6 +18,7 @@ class MailTest extends \PHPUnit_Framework_TestCase {
 		$Api->apiContent()->buildSubject( 'Subject' );
 		$Api->apiContent()->buildBody( 'Body' );
 		$Api->apiContent()->buildAttachment( Api::groupCore()->unitDrive()->apiFile( __FILE__ ) );
+		$Api->sendMail();
 		$Api->closeConnection();
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Module\Mail\SendMail\Api', $Api = Api::groupModule()->unitMail()->apiSendMail() );
@@ -30,6 +31,7 @@ class MailTest extends \PHPUnit_Framework_TestCase {
 		$Api->apiContent()->buildSubject( 'Subject' );
 		$Api->apiContent()->buildBody( 'Body' );
 		$Api->apiContent()->buildAttachment( Api::groupCore()->unitDrive()->apiFile( __FILE__ ) );
+		$Api->sendMail();
 		$Api->closeConnection();
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Module\Mail\QMail\Api', $Api = Api::groupModule()->unitMail()->apiQMail() );
@@ -42,6 +44,7 @@ class MailTest extends \PHPUnit_Framework_TestCase {
 		$Api->apiContent()->buildSubject( 'Subject' );
 		$Api->apiContent()->buildBody( 'Body' );
 		$Api->apiContent()->buildAttachment( Api::groupCore()->unitDrive()->apiFile( __FILE__ ) );
+		$Api->sendMail();
 		$Api->closeConnection();
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Module\Mail\Pop3\Api', $Api = Api::groupModule()->unitMail()->apiPop3() );
@@ -54,6 +57,7 @@ class MailTest extends \PHPUnit_Framework_TestCase {
 		$Api->apiContent()->buildSubject( 'Subject' );
 		$Api->apiContent()->buildBody( 'Body' );
 		$Api->apiContent()->buildAttachment( Api::groupCore()->unitDrive()->apiFile( __FILE__ ) );
+		$Api->sendMail();
 		$Api->closeConnection();
 	}
 

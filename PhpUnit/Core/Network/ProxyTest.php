@@ -20,6 +20,10 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\None', $None = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildNone() );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\Relay', $Relay = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildRelay( $Server ) );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\Basic', $Basic = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildBasic( $Server, $Credentials ) );
+
+		$None->getFile( Api::groupCore()->unitDrive()->apiFile(__FILE__), true );
+		$Relay->getFile( Api::groupCore()->unitDrive()->apiFile(__FILE__), true );
+		$Basic->getFile( Api::groupCore()->unitDrive()->apiFile(__FILE__), true );
 	}
 
 	protected function setUp() {
