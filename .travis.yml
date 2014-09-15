@@ -15,6 +15,7 @@ matrix:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction
+  - composer global require "phpunit/phpunit=3.7.*"
 
 script:
  - mkdir -p build/logs
