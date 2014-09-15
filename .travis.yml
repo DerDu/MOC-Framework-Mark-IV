@@ -8,6 +8,10 @@ php:
   - 5.6
   - hhvm
 
+env:
+  - PHPUNIT_VERSION='3.7.*'
+#  - PHPUNIT_VERSION='4.0.*'
+
 matrix:
   allow_failures:
     - php: hhvm
@@ -15,13 +19,16 @@ matrix:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction
+  - composer require --no-update phpunit/phpunit=$PHPUNIT_VERSION
+  - composer install --prefer-source
 
 script:
  - mkdir -p build/logs
- - paratest --configuration phpunit.xml --coverage-text
+ - vendor/bin/phpunit --configuration phpunit.xml --coverage-text
 
 after_script:
  - php vendor/bin/coveralls -v
 
 notifications:
   email: false
+
