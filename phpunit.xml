@@ -17,6 +17,7 @@
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix="*.php">./</directory>
 			<exclude>
+				<directory suffix=".php">./Extension/*/*/3rdParty</directory>
 				<directory suffix=".php">./System/Update/</directory>
 				<directory suffix=".php">./System/Documentation/</directory>
 			</exclude>
