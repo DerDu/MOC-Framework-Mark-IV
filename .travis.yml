@@ -24,7 +24,7 @@ before_script:
 
 script:
  - mkdir -p build/logs
- - phpunit --configuration phpunit.xml --coverage-text
+ - phpunit --configuration phpunit.xml --coverage-text --debug
 # - vendor/bin/phpunit --configuration phpunit.xml --coverage-text
 # - vendor/bin/paratest --configuration phpunit.xml
 

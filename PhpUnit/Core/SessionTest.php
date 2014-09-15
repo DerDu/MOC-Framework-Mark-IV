@@ -4,6 +4,7 @@ namespace MOC\PhpUnit\Core;
 use MOC\MarkIV\Api;
 
 class SessionTest extends \PHPUnit_Framework_TestCase {
+
 	/**
 	 * @runTestsInSeparateProcesses
 	 */

@@ -4,7 +4,9 @@ namespace MOC\PhpUnit;
 use MOC\MarkIV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
-
+	/**
+	 * @runTestsInSeparateProcesses
+	 */
 	public function testGroupFactory() {
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Api\Core', Api::groupCore() );

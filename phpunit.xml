@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="phpunit.bootstrap.php" colors="true" verbose="true" backupGlobals="false"
+<phpunit bootstrap="phpunit.bootstrap.php" colors="false" verbose="false"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
 
@@ -40,11 +40,5 @@
 
 	<php>
 		<const name="PHPUNIT_SUITE" value="true"/>
-		<ini name="xdebug.default_enable" value="1"/>
-		<ini name="xdebug.enable_coverage" value="1"/>
-		<ini name="xdebug.remote_autostart" value="0"/>
-		<ini name="xdebug.remote_enable" value="0"/>
-		<ini name="xdebug.overload_var_dump" value="0"/>
-		<ini name="xdebug.show_mem_delta" value="0"/>
 	</php>
 </phpunit>
