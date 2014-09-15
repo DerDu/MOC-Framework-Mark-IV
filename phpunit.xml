@@ -12,22 +12,28 @@
 
 	<filter>
 		<blacklist>
-			<directory suffix=".php">./Extension/*/*/3rdParty</directory>
+			<directory>./.idea</directory>
+			<directory>./Data</directory>
+			<directory>./System</directory>
+			<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
+			<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
+			<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
 		</blacklist>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix="*.php">./</directory>
+		<whitelist processUncoveredFilesFromWhitelist="false">
+			<directory>./</directory>
 			<exclude>
+				<directory>./.idea</directory>
+				<directory>./Data</directory>
+				<directory>./System</directory>
 				<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
 				<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 				<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
-				<directory>./System/Update/</directory>
-				<directory>./System/Documentation/</directory>
 			</exclude>
 		</whitelist>
 	</filter>
 
 	<logging>
-		<log type="coverage-clover" target="Data/Cache/Clover.xml"/>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
 	</logging>
 
 	<php>
