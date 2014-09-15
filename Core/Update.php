@@ -8,7 +8,7 @@ namespace MOC\MarkIV\Core;
  */
 interface IUpdateInterface {
 	/**
-	 * @return Update\Gui\Api
+	 * @return Update\GitHub\Gui\Api
 	 */
 	public function apiGui();
 
@@ -26,10 +26,10 @@ interface IUpdateInterface {
 class Update implements IUpdateInterface {
 
 	/**
-	 * @return Update\Gui\Api
+	 * @return Update\GitHub\Gui\Api
 	 */
 	public function apiGui() {
-		return new Update\Gui\Api();
+		return new Update\GitHub\Gui\Api();
 	}
 
 	/**

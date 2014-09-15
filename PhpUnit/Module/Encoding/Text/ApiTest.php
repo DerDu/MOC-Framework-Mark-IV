@@ -6,6 +6,7 @@ use MOC\MarkIV\Module\Encoding\Text\Source\Dictionary;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
 
+	/** @runTestsInSeparateProcesses */
 	public function testEncodingTextApi() {
 
 		$this->assertInternalType( 'string', Api::groupModule()->unitEncoding()->apiText( '' )->getLatin1() );
@@ -17,5 +18,15 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'array', $Dictionary->getMapUtf8ToLatin1() );
 		$this->assertNotEmpty( $Dictionary->getMapUtf8ToLatin1() );
 
+	}
+
+	protected function setUp() {
+
+		ob_console();
+	}
+
+	protected function tearDown() {
+
+		ob_print();
 	}
 }

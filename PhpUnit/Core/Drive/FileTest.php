@@ -4,7 +4,10 @@ namespace MOC\PhpUnit\Core\Drive;
 use MOC\MarkIV\Api;
 
 class FileTest extends \PHPUnit_Framework_TestCase {
+
+	/** @runTestsInSeparateProcesses */
 	public function testDriveFile() {
+
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Drive\File\Api', $Api = Api::groupCore()->unitDrive()->apiFile( __FILE__ ) );
 
 		$this->assertInternalType( 'int', $Api->getSize() );
@@ -18,5 +21,15 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $Api->getContent() );
 		$this->assertInternalType( 'string', $Api->getExtension() );
 		$this->assertInternalType( 'int', $Api->getTime() );
+	}
+
+	protected function setUp() {
+
+		ob_console();
+	}
+
+	protected function tearDown() {
+
+		ob_print();
 	}
 }

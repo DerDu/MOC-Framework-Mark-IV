@@ -5,11 +5,20 @@ use MOC\MarkIV\Api;
 
 class SessionTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @runTestsInSeparateProcesses
-	 */
+	/** @runTestsInSeparateProcesses */
 	public function testSessionApi() {
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler() );
 	}
+
+	protected function setUp() {
+
+		ob_console();
+	}
+
+	protected function tearDown() {
+
+		ob_print();
+	}
+
 }

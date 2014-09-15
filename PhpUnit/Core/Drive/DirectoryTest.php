@@ -5,7 +5,8 @@ use MOC\MarkIV\Api;
 
 class DirectoryTest extends \PHPUnit_Framework_TestCase {
 
-	public function testDriveFile() {
+	/** @runTestsInSeparateProcesses */
+	public function testDriveDirectory() {
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Drive\Directory\Api', $Api = Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
 
@@ -21,6 +22,12 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 
+		ob_console();
 		unset( $_SERVER['DOCUMENT_ROOT'] );
+	}
+
+	protected function tearDown() {
+
+		ob_print();
 	}
 }

@@ -4,9 +4,8 @@ namespace MOC\PhpUnit;
 use MOC\MarkIV\Api;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
-	/**
-	 * @runTestsInSeparateProcesses
-	 */
+
+	/** @runTestsInSeparateProcesses */
 	public function testGroupFactory() {
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Api\Core', Api::groupCore() );
@@ -16,8 +15,8 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Update', Api::runUpdate() );
 
-		Api::registerNamespace('NotAvailableNamespace', Api::groupCore()->unitDrive()->apiDirectory(__DIR__));
-		Api::registerNamespace('\\', Api::groupCore()->unitDrive()->apiDirectory(__DIR__));
+		Api::registerNamespace( 'NotAvailableNamespace', Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
+		Api::registerNamespace( '\\', Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
 
 		$this->assertFalse( Api::loadClass( '\NotAvailableClass' ) );
 		$this->assertFalse( Api::loadInterface( '\INotAvailableInterface', '\INotAvailableInterface' ) );
@@ -26,6 +25,11 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 
-		Api::runBootstrap();
+		ob_console();
+	}
+
+	protected function tearDown() {
+
+		ob_print();
 	}
 }

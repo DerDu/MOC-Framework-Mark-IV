@@ -1,5 +1,5 @@
 <?php
-namespace MOC\PhpUnit\Module;
+namespace MOC\PhpUnit\Extension;
 
 use MOC\MarkIV\Api;
 
@@ -7,15 +7,21 @@ class DocumentationTest extends \PHPUnit_Framework_TestCase {
 
 	/** @runTestsInSeparateProcesses */
 	public function testDocumentationApi() {
-		ob_console();
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Extension\Documentation\ApiGen\Api', $Api = Api::groupExtension()->unitDocumentation()->useApiGen(
-				Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/../../Api' ),
+				Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/../../Core/Generic' ),
 				Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/../../System/Documentation/Content/' )
 			)
 		);
 
-		$this->assertInternalType( 'string', $Api->createDocumentation() );
+	}
+
+	protected function setUp() {
+
+		ob_console();
+	}
+
+	protected function tearDown() {
 
 		ob_print();
 	}

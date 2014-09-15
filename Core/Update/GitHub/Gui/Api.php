@@ -1,5 +1,5 @@
 <?php
-namespace MOC\MarkIV\Core\Update\Gui;
+namespace MOC\MarkIV\Core\Update\Github\Gui;
 
 interface IApiInterface {
 

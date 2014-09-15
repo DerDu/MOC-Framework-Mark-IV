@@ -28,6 +28,7 @@ class Api implements IApiInterface {
 	}
 
 	/**
+	 * @codeCoverageIgnore
 	 * @return bool|null|string
 	 */
 	public function createDocumentation() {
@@ -64,6 +65,9 @@ class Api implements IApiInterface {
 		return $this->Destination->getUrl().'/namespace-MOC.MarkIV.Api.html';
 	}
 
+	/**
+	 * @codeCoverageIgnore
+	 */
 	private function getConfig() {
 
 		return array(

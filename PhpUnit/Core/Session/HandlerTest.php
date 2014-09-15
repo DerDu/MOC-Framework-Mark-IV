@@ -5,12 +5,8 @@ use MOC\MarkIV\Api;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @runTestsInSeparateProcesses
-	 */
+	/** @runTestsInSeparateProcesses */
 	public function testSessionHandlerApi() {
-
-		ob_console();
 
 		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
 
@@ -34,6 +30,15 @@ class HandlerTest extends \PHPUnit_Framework_TestCase {
 		Api::groupCore()->unitSession()->apiHandler()->setIdentifier( 'Test2' );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->destroySession() );
 
-		ob_close();
+	}
+
+	protected function setUp() {
+
+		ob_console();
+	}
+
+	protected function tearDown() {
+
+		ob_print();
 	}
 }

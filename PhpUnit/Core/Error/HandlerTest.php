@@ -5,12 +5,8 @@ use MOC\MarkIV\Api;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @runTestsInSeparateProcesses
-	 */
+	/** @runTestsInSeparateProcesses */
 	public function testErrorHandlerApi() {
-
-		ob_console();
 
 		$Handler = Api::groupCore()->unitError()->apiHandler();
 
@@ -18,6 +14,15 @@ class HandlerTest extends \PHPUnit_Framework_TestCase {
 		$Handler->apiType()->buildException()->setData( 'Test', 'Message', 'Code', __FILE__, __LINE__, 'Trace', 'Information' );
 		$Handler->apiType()->buildShutdown()->setData( 'Test', 'Message', 'Code', __FILE__, __LINE__, 'Trace', 'Information' );
 
-		ob_close();
+	}
+
+	protected function setUp() {
+
+		ob_console();
+	}
+
+	protected function tearDown() {
+
+		ob_print();
 	}
 }
