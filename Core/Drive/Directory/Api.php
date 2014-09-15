@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Core\Drive\Directory;
 
 use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
+use MOC\MarkIV\Core\Generic\Globals\Source\Server;
 
 /**
  * Interface IApiInterface
@@ -338,27 +339,19 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return bool
+	 * @return bool|string
 	 */
 	private function fetchPort() {
-
-		if( !isset( $_SERVER['SERVER_PORT'] ) ) {
-			return false;
-		}
-
-		return $_SERVER['SERVER_PORT'];
+		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
+		return $Globals->useServer()->getServerPort();
 	}
 
 	/**
 	 * @return string
 	 */
 	private function fetchHost() {
-
-		if( isset( $_SERVER['SERVER_NAME'] ) ) {
-			return $_SERVER['SERVER_NAME'];
-		} else {
-			return 'localhost';
-		}
+		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
+		return $Globals->useServer()->getServerName('localhost');
 	}
 
 	/**
@@ -391,12 +384,12 @@ class Api implements IApiInterface {
 
 	/**
 	 * @return bool
-	 * @throws \Exception
 	 */
 	public function removeDirectory() {
 
 		if( false === rmdir( $this->Location ) ) {
-			throw new \Exception( 'Unable to remove directory!' );
+			trigger_error( 'Unable to remove directory!'."\n".$this->Location );
+			return false;
 		}
 
 		return true;

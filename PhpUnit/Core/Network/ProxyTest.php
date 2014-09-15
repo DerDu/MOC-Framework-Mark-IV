@@ -21,14 +21,28 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\Relay', $Relay = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildRelay( $Server ) );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\Basic', $Basic = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildBasic( $Server, $Credentials ) );
 
-		$None->getFile( Api::groupCore()->unitDrive()->apiFile(__FILE__), true );
-		$Relay->getFile( Api::groupCore()->unitDrive()->apiFile(__FILE__), true );
-		$Basic->getFile( Api::groupCore()->unitDrive()->apiFile(__FILE__), true );
+		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
+
+		$Globals->useServer()->setServerPort(80);
+		$Url = Api::groupCore()->unitDrive()->apiFile(__FILE__)->getUrl();
+		var_dump( $Url );
+
+		$None->getFile( $Url, true );
+		$Relay->getFile( $Url, true );
+		$Basic->getFile( $Url, true );
+
+		$Globals->useServer()->setServerPort(443);
+		$Url = Api::groupCore()->unitDrive()->apiFile(__FILE__)->getUrl();
+		var_dump( $Url );
+
+		$None->getFile( $Url, true );
+		$Relay->getFile( $Url, true );
+		$Basic->getFile( $Url, true );
 	}
 
 	protected function setUp() {
 
-		ob_console();
+		ob_console(__CLASS__);
 	}
 
 	protected function tearDown() {

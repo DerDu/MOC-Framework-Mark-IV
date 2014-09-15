@@ -530,11 +530,8 @@ class Api implements IApiInterface {
 	 * @return string
 	 */
 	private function fetchHost() {
-		if( isset( $_SERVER['SERVER_NAME'] ) ) {
-			return $_SERVER['SERVER_NAME'];
-		} else {
-			return 'localhost';
-		}
+		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
+		return $Globals->useServer()->getServerName('localhost');
 	}
 
 	/**
@@ -553,9 +550,7 @@ class Api implements IApiInterface {
 	 * @return bool
 	 */
 	private function fetchPort() {
-		if( !isset( $_SERVER['SERVER_PORT'] ) ) {
-			return false;
-		}
-		return $_SERVER['SERVER_PORT'];
+		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
+		return $Globals->useServer()->getServerPort();
 	}
 }

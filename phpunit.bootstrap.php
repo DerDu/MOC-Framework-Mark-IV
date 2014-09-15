@@ -1,9 +1,15 @@
 <?php
 require_once( 'Api.php' );
 
-function ob_console() {
+function ob_console($Class) {
+
+	global $Class;
 
 	ob_start( function ( $Document ) {
+
+		global $Class;
+
+		$Document = "\n\r---------------------------$Class----------------------------\n\r".$Document;
 
 		$Rules = array(
 			'@<script[^>]*?>.*?</script>@si',
