@@ -15,6 +15,7 @@
 			<directory>./.idea</directory>
 			<directory>./Data</directory>
 			<directory>./System</directory>
+			<directory>./Plugin</directory>
 			<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
 			<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 			<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
@@ -25,6 +26,7 @@
 				<directory>./.idea</directory>
 				<directory>./Data</directory>
 				<directory>./System</directory>
+				<directory>./Plugin</directory>
 				<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
 				<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 				<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
@@ -38,5 +40,11 @@
 
 	<php>
 		<const name="PHPUNIT_SUITE" value="true"/>
+		<ini name="xdebug.default_enable" value="1"/>
+		<ini name="xdebug.enable_coverage" value="1"/>
+		<ini name="xdebug.remote_autostart" value="0"/>
+		<ini name="xdebug.remote_enable" value="0"/>
+		<ini name="xdebug.overload_var_dump" value="0"/>
+		<ini name="xdebug.show_mem_delta" value="0"/>
 	</php>
 </phpunit>

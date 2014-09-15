@@ -4,7 +4,9 @@ namespace MOC\PhpUnit\Core\Drive;
 use MOC\MarkIV\Api;
 
 class DirectoryTest extends \PHPUnit_Framework_TestCase {
+
 	public function testDriveFile() {
+
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Drive\Directory\Api', $Api = Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
 
 		$this->assertInternalType( 'bool', $Api->checkExists() );
@@ -15,5 +17,10 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $Api->getUrl() );
 		$this->assertInternalType( 'string', $Api->getHash() );
 		$this->assertInternalType( 'int', $Api->getTime() );
+	}
+
+	protected function setUp() {
+
+		unset( $_SERVER['DOCUMENT_ROOT'] );
 	}
 }

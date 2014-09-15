@@ -263,23 +263,18 @@ class Api implements IApiInterface {
 	 */
 	public function purgeCache() {
 
-		$CacheList = $this->Directory->getFileList( true );
-		$Directory = null;
-		/** @var \MOC\MarkIV\Core\Drive\File\Api $Cache */
-		foreach( (array)$CacheList as $Cache ) {
-			// Get Cache Location
-			if( $Directory === null ) {
-				$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $Cache->getPath() );
+		$FileList = $this->Directory->getFileList( true );
+		/** @var \MOC\MarkIV\Core\Drive\File\Api $File */
+		foreach( (array)$FileList as $File ) {
+			if( time() > $this->getTimestamp( $File ) ) {
+				$File->removeFile();
 			}
-			if( $Directory->getLocation() != $Cache->getPath() ) {
-				if( $Directory->checkIsEmpty() ) {
-					$Directory->removeDirectory();
-				}
-				$Directory = \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( $Cache->getPath() );
-			}
-			// Remove Cache
-			if( time() > $this->getTimestamp( $Cache ) ) {
-				$Cache->removeFile();
+		}
+		$DirectoryList = $this->Directory->getDirectoryList( true );
+		/** @var \MOC\MarkIV\Core\Drive\Directory\Api $Directory */
+		foreach( (array)$DirectoryList as $Directory ) {
+			if( $Directory->checkIsEmpty() ) {
+				$Directory->removeDirectory();
 			}
 		}
 	}
