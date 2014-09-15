@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="phpunit.bootstrap.php" stderr="true" colors="true" verbose="true"
+<phpunit bootstrap="phpunit.bootstrap.php" colors="true" verbose="true"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
 
@@ -17,15 +17,17 @@
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix="*.php">./</directory>
 			<exclude>
-				<directory suffix=".php">./Extension/*/*/3rdParty</directory>
-				<directory suffix=".php">./System/Update/</directory>
-				<directory suffix=".php">./System/Documentation/</directory>
+				<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
+				<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
+				<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
+				<directory>./System/Update/</directory>
+				<directory>./System/Documentation/</directory>
 			</exclude>
 		</whitelist>
 	</filter>
 
 	<logging>
-		<log type="coverage-clover" target="build/logs/clover.xml"/>
+		<log type="coverage-clover" target="Data/Cache/Clover.xml"/>
 	</logging>
 
 	<php>
