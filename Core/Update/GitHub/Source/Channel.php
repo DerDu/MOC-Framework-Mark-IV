@@ -163,36 +163,45 @@ class Channel {
 
 	public function getChannelRetryTimestamp() {
 
-		$Limit = json_decode(
-			$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() )
-		);
+		$Result = $this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() );
 
-		$Return = '';
-		$rem = $Limit->resources->core->reset - time();
-		$day = floor( $rem / 86400 );
-		$hr = floor( ( $rem % 86400 ) / 3600 );
-		$min = floor( ( $rem % 3600 ) / 60 );
-		$sec = ( $rem % 60 );
+		if( is_string( $Result ) ) {
 
-		if( $day )
-			$Return .= "$day Days ";
-		if( $hr )
-			$Return .= "$hr Hours ";
-		if( $min )
-			$Return .= "$min Minutes ";
-		if( $sec )
-			$Return .= "$sec Seconds ";
+			$Limit = json_decode( $Result );
 
-		return $Return;
+			$Return = '';
+			$rem = $Limit->resources->core->reset - time();
+			$day = floor( $rem / 86400 );
+			$hr = floor( ( $rem % 86400 ) / 3600 );
+			$min = floor( ( $rem % 3600 ) / 60 );
+			$sec = ( $rem % 60 );
+
+			if( $day )
+				$Return .= "$day Days ";
+			if( $hr )
+				$Return .= "$hr Hours ";
+			if( $min )
+				$Return .= "$min Minutes ";
+			if( $sec )
+				$Return .= "$sec Seconds ";
+
+			return $Return;
+		} else {
+
+			return '-NA-';
+		}
 	}
 
 	public function getChannelLimit() {
 
-		$Limit = json_decode(
-			$this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() )
-		);
+		$Result = $this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() );
 
-		return $Limit->resources->core->remaining.'/'.$Limit->resources->core->limit;
+		if( is_string( $Result ) ) {
+			$Limit = json_decode( $Result );
+			return $Limit->resources->core->remaining.'/'.$Limit->resources->core->limit;
+		} else {
+			return '0/0';
+		}
 	}
 
 	/**

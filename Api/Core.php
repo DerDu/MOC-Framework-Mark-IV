@@ -4,6 +4,8 @@ namespace MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Cache;
 use MOC\MarkIV\Core\Drive;
 use MOC\MarkIV\Core\Error;
+use MOC\MarkIV\Core\Generic\Extension\Api as GenericExtension;
+use MOC\MarkIV\Core\Generic\Globals\Api as GenericGlobals;
 use MOC\MarkIV\Core\Network;
 use MOC\MarkIV\Core\Session;
 use MOC\MarkIV\Core\Update;
@@ -115,4 +117,17 @@ class Core implements ICoreInterface {
 		return new Xml();
 	}
 
+	/**
+	 * @return GenericExtension
+	 */
+	public function genericExtension() {
+		return new GenericExtension();
+	}
+
+	/**
+	 * @return GenericGlobals
+	 */
+	public function genericGlobals() {
+		return new GenericGlobals();
+	}
 }
