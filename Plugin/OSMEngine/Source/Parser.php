@@ -4,6 +4,11 @@ namespace MOC\MarkIV\Plugin\OSMEngine\Source;
 use \MOC\MarkIV\Core\Drive\File\IApiInterface as File;
 use MOC\MarkIV\Plugin\OSMEngine\Api\Element;
 
+/**
+ * Class Parser
+ *
+ * @package MOC\MarkIV\Plugin\OSMEngine\Source
+ */
 class Parser {
 
 	/** @var null|\SimpleXMLElement $OSMData */

@@ -1,6 +1,11 @@
 <?php
 namespace MOC\MarkIV\Plugin\OSMEngine\Source\Element;
 
+/**
+ * Class Way
+ *
+ * @package MOC\MarkIV\Plugin\OSMEngine\Source\Element
+ */
 class Way {
 
 	const TYPE_WAY = 'WAY';
@@ -13,6 +18,9 @@ class Way {
 	private $NodeList = array();
 	private $TagList = array();
 
+	/**
+	 * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
+	 */
 	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
 
 		$NodeList = $Node->getChildList();
@@ -33,6 +41,11 @@ class Way {
 		}
 	}
 
+	/**
+	 * @param null|string $FeatureName
+	 *
+	 * @return bool
+	 */
 	public function hasFeature( $FeatureName = null ) {
 
 		if( null === $FeatureName ) {

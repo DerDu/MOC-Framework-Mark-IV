@@ -1,6 +1,11 @@
 <?php
 namespace MOC\MarkIV\Plugin\OSMEngine\Source\Feature;
 
+/**
+ * Class Highway
+ *
+ * @package MOC\MarkIV\Plugin\OSMEngine\Source\Feature
+ */
 class Highway extends Generic {
 
 	const TYPE_MOTORWAY = 'MOTORWAY';
@@ -23,6 +28,9 @@ class Highway extends Generic {
 	const TYPE_LIVING_STREET = 'LIVING_STREET';
 	const TYPE_TRACK = 'TRACK';
 
+	/**
+	 * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
+	 */
 	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
 
 		$Type = strtoupper( $Node->getAttribute( 'v' ) );

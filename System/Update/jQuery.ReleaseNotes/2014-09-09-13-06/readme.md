@@ -81,7 +81,7 @@ Next include the plugin stylesheet
 
 	<link rel="stylesheet" href="css/releasenotes.plugin.css">
 
-Finally extenciate and define your options in the document.ready. 
+Finally extenciate and define your options in the document.ready.
 
 	<script>
 		$(document).ready(function() {
@@ -119,7 +119,7 @@ Since we use a bridge to get the github data, your credentials will never be exp
 
 ## Limitations
 
-The plugin works on 
+The plugin works on
 Firefox 3.6+,
 Safari,
 Chrome,

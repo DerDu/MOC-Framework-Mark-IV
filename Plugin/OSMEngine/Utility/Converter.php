@@ -1,7 +1,13 @@
 <?php
-namespace MOC\MarkIV\Plugin\OSMEngine;
+namespace MOC\MarkIV\Plugin\OSMEngine\Utility;
 
+use MOC\MarkIV\Plugin\OSMEngine\Utility;
 
+/**
+ * Class Converter
+ *
+ * @package MOC\MarkIV\Plugin\OSMEngine\Utility
+ */
 class Converter {
 
 	private $South, $North, $West, $East;
@@ -20,25 +26,18 @@ class Converter {
 		$this->setSize( $Width, $Height );
 	}
 
-	public static function setupMap( $South = 47.2, $North = 55.2, $West = 5.8, $East = 15.2, $Width = 1000, $Height = 1500 ) {
-		return new Converter( $South, $North, $West, $East, $Width, $Height );
-	}
+	public function setSize( $Width, $Height, $keepAspect = false ) {
 
-	// Formula for mercator projection y coordinate:
-	private function mercatorY( $Latitude ) {
-
-		return log( tan( $Latitude / 2 + M_PI / 4 ) );
-	}
-
-	public function setSize( $Width, $Height ) {
 		// This also controls the aspect ratio of the projection
 		$this->Width = $Width;
 		$this->Height = $Height;
 
 		// Corrent Ratio
-//		$Y = abs($this->South-$this->North);
-//		$X = abs($this->West-$this->East);
-//		$this->Height = $this->Width / $X * $Y;
+		if( $keepAspect ) {
+			$Y = abs( $this->South - $this->North );
+			$X = abs( $this->West - $this->East );
+			$this->Height = $this->Width / $X * $Y;
+		}
 
 		// Some constants to relate chosen area to screen coordinates
 		$this->MinY = $this->mercatorY( $this->South );
@@ -46,43 +45,34 @@ class Converter {
 		$this->FactorX = $this->Width / ( $this->East - $this->West );
 		$this->FactorY = $this->Height / ( $this->MaxY - $this->MinY );
 	}
+
+	// Formula for mercator projection y coordinate:
+
+	private function mercatorY( $Latitude ) {
+
+		return log( tan( $Latitude / 2 + M_PI / 4 ) );
+	}
+
+	public static function setupMap( $South = 47.2, $North = 55.2, $West = 5.8, $East = 15.2, $Width = 1000, $Height = 1500 ) {
+
+		return new Converter( $South, $North, $West, $East, $Width, $Height );
+	}
+
 	public function getSize() {
-		return new ConverterPosition( $this->Width, $this->Height );
+
+		return new Utility\Converter\Position( $this->Width, $this->Height );
 	}
 
 	// both in radians, use deg2rad if neccessary
 	public function toPixel( $Latitude, $Longitude ) {
-		$x = deg2rad($Longitude);
-		$y = $this->mercatorY( deg2rad($Latitude) );
+
+		$x = deg2rad( $Longitude );
+		$y = $this->mercatorY( deg2rad( $Latitude ) );
 		$x = ( $x - $this->West ) * $this->FactorX;
 		// y points south
 		$y = ( $this->MaxY - $y ) * $this->FactorY;
-		return new ConverterPosition( $x, $y );
-	}
-}
 
-class ConverterPosition {
-	private $X = 0, $Y = 0;
-
-	function __construct( $X, $Y ) {
-		$this->X = $X;
-		$this->Y = $Y;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getX() {
-
-		return $this->X;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getY() {
-
-		return $this->Y;
+		return new Utility\Converter\Position( $x, $y );
 	}
 }
 

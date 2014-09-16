@@ -1,6 +1,11 @@
 <?php
 namespace MOC\MarkIV\Plugin\OSMEngine\Source\Feature;
 
+/**
+ * Class Building
+ *
+ * @package MOC\MarkIV\Plugin\OSMEngine\Source\Feature
+ */
 class Building extends Generic {
 
 	const TYPE_APARTMENTS = 'APARTMENTS';
@@ -23,6 +28,9 @@ class Building extends Generic {
 
 	const TYPE_YES = 'YES';
 
+	/**
+	 * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
+	 */
 	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
 
 		$Type = strtoupper( $Node->getAttribute( 'v' ) );
