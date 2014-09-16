@@ -15,7 +15,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 
-		ob_console(__CLASS__);
+		ob_console( __CLASS__ );
 	}
 
 	protected function tearDown() {

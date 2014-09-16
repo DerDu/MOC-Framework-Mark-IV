@@ -23,15 +23,15 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 
 		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
 
-		$Globals->useServer()->setServerPort(80);
-		$Url = Api::groupCore()->unitDrive()->apiFile(__FILE__)->getUrl();
+		$Globals->useServer()->setServerPort( 80 );
+		$Url = Api::groupCore()->unitDrive()->apiFile( __FILE__ )->getUrl();
 
 		$None->getFile( $Url, true );
 		$Relay->getFile( $Url, true );
 		$Basic->getFile( $Url, true );
 
-		$Globals->useServer()->setServerPort(443);
-		$Url = Api::groupCore()->unitDrive()->apiFile(__FILE__)->getUrl();
+		$Globals->useServer()->setServerPort( 443 );
+		$Url = Api::groupCore()->unitDrive()->apiFile( __FILE__ )->getUrl();
 
 		$None->getFile( $Url, true );
 		$Relay->getFile( $Url, true );
@@ -40,7 +40,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 
-		ob_console(__CLASS__);
+		ob_console( __CLASS__ );
 	}
 
 	protected function tearDown() {

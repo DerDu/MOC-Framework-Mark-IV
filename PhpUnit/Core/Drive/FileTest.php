@@ -22,7 +22,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $Api->getExtension() );
 		$this->assertInternalType( 'int', $Api->getTime() );
 
-		$Api = Api::groupCore()->unitCache()->apiFile()->getCacheFile('Dummy',true);
+		$Api = Api::groupCore()->unitCache()->apiFile()->getCacheFile( 'Dummy', true );
 		$this->assertTrue( $Api->moveFile( $Api->getLocation().'.Test1' ) );
 		$this->assertTrue( $Api->copyFile( $Api->getLocation().'.Test2' ) );
 		$this->assertTrue( $Api->removeFile() );
@@ -30,7 +30,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 
-		ob_console(__CLASS__);
+		ob_console( __CLASS__ );
 	}
 
 	protected function tearDown() {
