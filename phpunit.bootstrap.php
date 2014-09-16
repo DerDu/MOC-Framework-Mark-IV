@@ -2,7 +2,7 @@
 /**
  * Fix: (Empty) Document-Root = Test-Environment / Project-Root
  */
-$_SERVER['DOCUMENT_ROOT'] = realpath(dirname(__FILE__));
+$_SERVER['DOCUMENT_ROOT'] = realpath( dirname( __FILE__ ) );
 /**
  * Load Framework
  */
@@ -11,42 +11,46 @@ require_once( __DIR__.'/Api.php' );
  * Bootstrap Framework
  */
 MOC\MarkIV\Api::runBootstrap();
+
 /**
  * Buffer Handler
  *
  * @param $Class
  */
-function ob_console( $Class ) {
+class BufferHandler {
 
-	ob_start( function ( $Document ) {
+	public static function obSetUp( $Class ) {
 
-		$Document = str_repeat( '=', 10 ).'> '.$Document;
+		ob_start( function ( $Document ) {
 
-		$Rules = array(
-			'!<script[^>]*?>.*?</script>!si',
-			'!<style[^>]*?>.*?</style>!si',
-			'!<[^>]*?>!si',
-			'!</[^>]*?>!si',
-			'!\t!si',
-			'!\s+$!si'
-		);
-		$Replace = array( '', '', "\n\r", "\n\r", "\t", '' );
-		$Document = preg_replace( $Rules, $Replace, $Document );
-		$Document = explode( "\n\r", $Document );
-		$Document = array_map( 'trim', $Document );
-		foreach( (array)$Document as $Index => $Value ) {
-			if( empty( $Value ) ) {
-				unset( $Document[$Index] );
+			$Document = str_repeat( '=', 10 ).'> '.$Document;
+
+			$Rules = array(
+				'!<script[^>]*?>.*?</script>!si',
+				'!<style[^>]*?>.*?</style>!si',
+				'!<[^>]*?>!si',
+				'!</[^>]*?>!si',
+				'!\t!si',
+				'!\s+$!si'
+			);
+			$Replace = array( '', '', "\n\r", "\n\r", "\t", '' );
+			$Document = preg_replace( $Rules, $Replace, $Document );
+			$Document = explode( "\n\r", $Document );
+			$Document = array_map( 'trim', $Document );
+			foreach( (array)$Document as $Index => $Value ) {
+				if( empty( $Value ) ) {
+					unset( $Document[$Index] );
+				}
 			}
-		}
-		$Document = trim( implode( "\n\r", $Document ) );
+			$Document = trim( implode( "\n\r", $Document ) );
 
-		return trim( $Document );
-	} );
-	print $Class;
-}
+			return trim( $Document );
+		} );
+		print $Class;
+	}
 
-function ob_print() {
+	public static function obTearDown() {
 
-	ob_end_flush();
+		ob_end_flush();
+	}
 }

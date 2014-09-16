@@ -30,11 +30,11 @@ class HandlerTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 
-		ob_console( __METHOD__ );
+		\BufferHandler::obSetUp( __CLASS__ );
 	}
 
 	protected function tearDown() {
 
-		ob_print();
+		\BufferHandler::obTearDown();
 	}
 }
