@@ -33,7 +33,7 @@ abstract class Mask {
 
 		$Match = array();
 		preg_match( $Pattern, $Node->getContent(), $Match );
-		$Node->setContent( $this->decodeMethod( $Match[0] ) );
+		$Node->setContent( $this->decodeMethod( empty( $Match ) ? '' : $Match[0] ) );
 	}
 
 	/**
