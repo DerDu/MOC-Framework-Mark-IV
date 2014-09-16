@@ -18,7 +18,7 @@ class Token extends TokenPattern {
 	function __construct( $Content ) {
 
 		$this->Position = $Content[1];
-		$this->Name = rtrim( substr( $Content[0], 0, strpos( $Content[0], ' ' ) ) );
+		$this->Name = preg_replace( '!\s.*?$!is', '', $Content[0] );
 		preg_match_all( '![\w:]+="[^"]*?"!is', $Content[0], $Matches );
 		$Token = $Matches[0];
 
