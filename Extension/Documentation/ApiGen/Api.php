@@ -4,7 +4,6 @@ namespace MOC\MarkIV\Extension\Documentation\ApiGen;
 use MOC\MarkIV\Extension\Documentation\IApiInterface;
 use Nette\Config\Adapters\NeonAdapter;
 
-
 /**
  * Class Api
  *
@@ -16,6 +15,8 @@ class Api implements IApiInterface {
 	private $Source = null;
 	/** @var \MOC\MarkIV\Core\Drive\Directory\IApiInterface|null $Destination */
 	private $Destination = null;
+	/** @var array $Configuration */
+	private $Configuration = array();
 
 	/**
 	 * @param \MOC\MarkIV\Core\Drive\Directory\IApiInterface $Source
@@ -25,49 +26,9 @@ class Api implements IApiInterface {
 
 		$this->Source = $Source;
 		$this->Destination = $Destination;
+		$this->Configuration = $this->getConfig();
 	}
 
-	/**
-	 * @codeCoverageIgnore
-	 * @return bool|null|string
-	 */
-	public function createDocumentation() {
-
-		\MOC\MarkIV\Api::registerNamespace(
-			'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
-		);
-		\MOC\MarkIV\Api::registerNamespace(
-			'TokenReflection', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
-		);
-		\MOC\MarkIV\Api::registerNamespace(
-			'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
-		);
-
-		set_time_limit( 0 );
-
-		$Config = $this->getConfig();
-
-		$Cache = \MOC\MarkIV\Api::groupCore()->unitCache()->apiFile( 30, __CLASS__ );
-		if( ( isset($_REQUEST['Force']) && $_REQUEST['Force'] ) || !$Cache->getCacheFile( sha1( serialize( $Config ) ) ) ) {
-			require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
-			$Neon = new NeonAdapter();
-			$Cache->getCacheFile( sha1( serialize( $Config ) ), true )
-				->setContent( $Neon->dump( $Config ) )
-				->closeFile();
-			$_SERVER['argv'] = array(
-				'DUMMY-SHELL-ARGS',
-				'--config', $Cache->getCacheFile( sha1( serialize( $Config ) ) )->getLocation()
-			);
-
-			include( __DIR__.'/3rdParty/apigen/apigen.php' );
-		}
-
-		return $this->Destination->getUrl().'/namespace-MOC.MarkIV.Api.html';
-	}
-
-	/**
-	 * @codeCoverageIgnore
-	 */
 	private function getConfig() {
 
 		return array(
@@ -98,7 +59,7 @@ class Api implements IApiInterface {
 			// Google Analytics tracking code
 			//'googleAnalytics' => '',
 			// Template config file
-			'templateConfig' => __DIR__.'/3rdParty/apigen/templates/MOC/config.neon',
+			'templateConfig' => __DIR__.'/Gui/Template/config.neon',
 			// Grouping of classes
 			'groups'         => 'auto',
 			// List of allowed HTML tags in documentation
@@ -136,5 +97,43 @@ class Api implements IApiInterface {
 			// Display additional information in case of an error
 			'debug'          => false
 		);
+	}
+
+	/**
+	 * @codeCoverageIgnore
+	 * @return bool|null|string
+	 */
+	public function createDocumentation() {
+
+		\MOC\MarkIV\Api::registerNamespace(
+			'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
+		);
+		\MOC\MarkIV\Api::registerNamespace(
+			'TokenReflection', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
+		);
+		\MOC\MarkIV\Api::registerNamespace(
+			'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
+		);
+
+		set_time_limit( 0 );
+
+		$Config = $this->getConfig();
+
+		$Cache = \MOC\MarkIV\Api::groupCore()->unitCache()->apiFile( 30, __CLASS__ );
+		if( ( isset( $_REQUEST['Force'] ) && $_REQUEST['Force'] ) || !$Cache->getCacheFile( sha1( serialize( $Config ) ) ) ) {
+			require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
+			$Neon = new NeonAdapter();
+			$Cache->getCacheFile( sha1( serialize( $Config ) ), true )
+				->setContent( $Neon->dump( $Config ) )
+				->closeFile();
+			$_SERVER['argv'] = array(
+				'DUMMY-SHELL-ARGS',
+				'--config', $Cache->getCacheFile( sha1( serialize( $Config ) ) )->getLocation()
+			);
+
+			include( __DIR__.'/3rdParty/apigen/apigen.php' );
+		}
+
+		return $this->Destination->getUrl().'/namespace-MOC.MarkIV.Api.html';
 	}
 }

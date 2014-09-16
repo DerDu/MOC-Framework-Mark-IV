@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit bootstrap="phpunit.bootstrap.php" colors="true" verbose="true" backupGlobals="true"
-         backupStaticAttributes="true" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false"
+         backupStaticAttributes="true" stopOnError="true" stopOnFailure="false" stopOnIncomplete="false"
          stopOnSkipped="false"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
@@ -21,6 +21,7 @@
 			<directory>./System</directory>
 			<directory>./Plugin</directory>
 			<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
+			<directory>./Extension/Documentation/ApiGen/Gui</directory>
 			<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 			<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
 		</blacklist>
@@ -34,6 +35,7 @@
 				<directory>./System</directory>
 				<directory>./Plugin</directory>
 				<directory>./Extension/Documentation/ApiGen/3rdParty</directory>
+				<directory>./Extension/Documentation/ApiGen/Gui</directory>
 				<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 				<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
 			</exclude>

@@ -62,6 +62,11 @@ interface IApiInterface {
 	 * @return void
 	 */
 	public static function runBootstrap();
+
+	/**
+	 * @return Update
+	 */
+	public static function runUpdate();
 }
 
 /**
@@ -75,7 +80,7 @@ class Api implements IApiInterface {
 	private static $NamespaceLocationList = array();
 
 	/**
-	 *
+	 * Bootstrap
 	 */
 	public static function runBootstrap() {
 
@@ -215,8 +220,3 @@ class Api implements IApiInterface {
 		return new Api\Plugin();
 	}
 }
-
-/**
- * Bootstrap
- */
-Api::runBootstrap();

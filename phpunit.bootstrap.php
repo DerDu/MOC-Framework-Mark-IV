@@ -1,6 +1,17 @@
 <?php
-require_once( 'Api.php' );
-
+/**
+ * Load Framework
+ */
+require_once( __DIR__.'/Api.php' );
+/**
+ * Bootstrap Framework
+ */
+MOC\MarkIV\Api::runBootstrap();
+/**
+ * Buffer Handler
+ *
+ * @param $Class
+ */
 function ob_console( $Class ) {
 
 	ob_start( function ( $Document ) {
@@ -24,11 +35,6 @@ function ob_console( $Class ) {
 		return $Document;
 	} );
 	print $Class."\n\r";
-}
-
-function ob_close() {
-
-	ob_end_clean();
 }
 
 function ob_print() {

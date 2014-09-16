@@ -210,12 +210,20 @@ class Api implements IApiInterface {
 
 		switch( $Recursive ) {
 			case true:
-				$Directory = new \RecursiveDirectoryIterator( $this->Location, \RecursiveDirectoryIterator::SKIP_DOTS );
-				$Iterator = new \RecursiveIteratorIterator( $Directory, \RecursiveIteratorIterator::SELF_FIRST, \RecursiveIteratorIterator::CATCH_GET_CHILD );
+				try {
+					$Directory = new \RecursiveDirectoryIterator( $this->Location, \RecursiveDirectoryIterator::SKIP_DOTS );
+					$Iterator = new \RecursiveIteratorIterator( $Directory, \RecursiveIteratorIterator::SELF_FIRST, \RecursiveIteratorIterator::CATCH_GET_CHILD );
+				} catch( \Exception $Exception ) {
+					return array();
+				}
 				break;
 			default:
-				$Directory = new \RecursiveDirectoryIterator( $this->Location, \RecursiveDirectoryIterator::SKIP_DOTS );
-				$Iterator = new \IteratorIterator( $Directory );
+				try {
+					$Directory = new \RecursiveDirectoryIterator( $this->Location, \RecursiveDirectoryIterator::SKIP_DOTS );
+					$Iterator = new \IteratorIterator( $Directory );
+				} catch( \Exception $Exception ) {
+					return array();
+				}
 				break;
 		}
 		return $Iterator;
