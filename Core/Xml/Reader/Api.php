@@ -26,6 +26,7 @@ class Api implements IApiInterface {
 
 	/**
 	 * @param string $XmlContent
+	 * @codeCoverageIgnore (Cache)
 	 */
 	function __construct( $XmlContent ) {
 

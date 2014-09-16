@@ -15,7 +15,7 @@
 	<!-- Exclude 3rdParty Applications //-->
 	<filter>
 		<blacklist>
-			<directory>./.idea</directory>
+			<directory><![CDATA[./.idea]]></directory>
 			<directory>./vendor</directory>
 			<directory>./build</directory>
 			<directory>./Data</directory>

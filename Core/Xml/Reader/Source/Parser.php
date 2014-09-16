@@ -43,7 +43,7 @@ class Parser extends Mask {
 					}
 					case $Parent::TYPE_CDATA :
 					{
-						$this->processCloseCDATA( $Parent ); #)
+						$this->processCloseCDATA( $Parent );
 						break;
 					}
 				}

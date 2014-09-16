@@ -7,6 +7,11 @@ use MOC\MarkIV\Core\Update\GitHub\Source\Type\Tree;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Data;
 
+/**
+ * Interface ITypeInterface
+ *
+ * @package MOC\MarkIV\Core\Update\GitHub\Api
+ */
 interface ITypeInterface {
 
 	/**
@@ -45,6 +50,11 @@ interface ITypeInterface {
 	public function buildData( \stdClass $Item );
 }
 
+/**
+ * Class Type
+ *
+ * @package MOC\MarkIV\Core\Update\GitHub\Api
+ */
 class Type implements ITypeInterface {
 
 	/**
