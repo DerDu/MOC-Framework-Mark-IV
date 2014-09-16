@@ -3,11 +3,11 @@ namespace MOC\MarkIV\Core\Update\Gui\EndPoint;
 
 require_once( __DIR__.'/../../../../../Api.php' );
 
-Api::runBootstrap();
-
 use MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Release;
+
+Api::runBootstrap();
 
 $Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../Config.ini' );
 

@@ -3,11 +3,11 @@ namespace MOC\MarkIV\Core\Update\Gui\EndPoint;
 
 require_once( __DIR__.'/../../../../../Api.php' );
 
-Api::runBootstrap();
-
 use MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Blob;
 use MOC\MarkIV\Core\Update\GitHub\Source\Type\Release;
+
+Api::runBootstrap();
 
 $Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../Config.ini' );
 
@@ -76,7 +76,7 @@ if( $Config->getChannelActivePreview() ) {
 				print $Template;
 			}
 
-			if( ! $Found ) {
+			if( !$Found ) {
 				print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
 			}
 		}
