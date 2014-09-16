@@ -19,20 +19,20 @@ abstract class TokenPattern extends TokenType {
 	 */
 	protected function determineType( $Content ) {
 
-		if( $Content[0] == '/' ) {
-			$this->Type = self::TYPE_CLOSE;
+		if( preg_match( $this->PatternTagCDATA, $Content ) ) {
+			$this->Type = self::TYPE_CDATA;
 		} else
-			if( $Content[strlen( $Content ) - 1] == '/' ) {
-				$this->Type = self::TYPE_SHORT;
+			if( preg_match( $this->PatternTagComment, $Content ) ) {
+				$this->Type = self::TYPE_COMMENT;
 			} else
-				if( strpos( $Content, '/' ) !== 0 ) {
-					$this->Type = self::TYPE_OPEN;
+				if( $Content[0] == '/' ) {
+					$this->Type = self::TYPE_CLOSE;
 				} else
-					if( preg_match( $this->PatternTagCDATA, $Content ) ) {
-						$this->Type = self::TYPE_CDATA;
+					if( $Content[strlen( $Content ) - 1] == '/' ) {
+						$this->Type = self::TYPE_SHORT;
 					} else
-						if( preg_match( $this->PatternTagComment, $Content ) ) {
-							$this->Type = self::TYPE_COMMENT;
+						if( strpos( $Content, '/' ) !== 0 ) {
+							$this->Type = self::TYPE_OPEN;
 						}
 	}
 }
