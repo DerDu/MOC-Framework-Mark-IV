@@ -58,7 +58,7 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return Api\Address
+	 * @return Api\IAddressInterface
 	 */
 	public function apiAddress() {
 

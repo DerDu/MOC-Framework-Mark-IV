@@ -189,49 +189,36 @@ class Api implements IApiInterface {
 	 */
 	public function getDirectoryList( $Recursive = false ) {
 
-		if( is_dir( $this->Location ) ) {
-			$List = array();
-			if( ( $Directory = $this->openDirectoryHandler() ) ) {
-				if( $Recursive ) {
-					while( false !== ( $Item = $Directory->read() ) ) {
-						if( $Item != '.' && $Item != '..' ) {
-							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
-							if( is_dir( $Item ) ) {
-								$Recursive = $this->getDirectory( $Item );
-								array_push( $List, $this->getDirectory( $Item ) );
-								$List = array_merge( $List, $Recursive->getDirectoryList( true ) );
-							}
-						}
-					}
-				} else {
-					while( false !== ( $Item = $Directory->read() ) ) {
-						if( $Item != '.' && $Item != '..' ) {
-							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
-							if( is_dir( $Item ) ) {
-								array_push( $List, $this->getDirectory( $Item ) );
-							}
-						}
-					}
-				}
+		$List = array();
+		$Iterator = $this->getDirectoryIterator( $Recursive );
+		/** @var \SplFileInfo $Item */
+		foreach( $Iterator as $Item ) {
+			if( $Item->isDir() ) {
+				array_push( $List, $this->getDirectory( Check::convertCleanPathSyntax( $Item->getRealPath() ) ) );
 			}
-			$Directory->close();
-
-			return $List;
-		} else {
-			return array();
 		}
+
+		return $List;
 	}
 
 	/**
-	 * @return bool|\Directory
+	 * @param bool $Recursive
+	 *
+	 * @return \IteratorIterator|\RecursiveIteratorIterator
 	 */
-	private function openDirectoryHandler() {
+	private function getDirectoryIterator( $Recursive = false ) {
 
-		if( !is_object( $Handler = dir( $this->Location ) ) ) {
-			return false;
+		switch( $Recursive ) {
+			case true:
+				$Directory = new \RecursiveDirectoryIterator( $this->Location, \RecursiveDirectoryIterator::SKIP_DOTS );
+				$Iterator = new \RecursiveIteratorIterator( $Directory, \RecursiveIteratorIterator::SELF_FIRST, \RecursiveIteratorIterator::CATCH_GET_CHILD );
+				break;
+			default:
+				$Directory = new \RecursiveDirectoryIterator( $this->Location, \RecursiveDirectoryIterator::SKIP_DOTS );
+				$Iterator = new \IteratorIterator( $Directory );
+				break;
 		}
-
-		return $Handler;
+		return $Iterator;
 	}
 
 	/**
@@ -241,38 +228,16 @@ class Api implements IApiInterface {
 	 */
 	public function getFileList( $Recursive = false ) {
 
-		if( is_dir( $this->Location ) ) {
-			$List = array();
-			if( ( $Directory = $this->openDirectoryHandler() ) ) {
-				if( $Recursive ) {
-					while( false !== ( $Item = $Directory->read() ) ) {
-						if( $Item != '.' && $Item != '..' ) {
-							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
-							if( is_dir( $Item ) ) {
-								$Recursive = $this->getDirectory( $Item );
-								$List = array_merge( $List, $Recursive->getFileList( true ) );
-							} else {
-								array_push( $List, $this->getFile( $Item ) );
-							}
-						}
-					}
-				} else {
-					while( false !== ( $Item = $Directory->read() ) ) {
-						if( $Item != '.' && $Item != '..' ) {
-							$Item = Check::convertCleanPathSyntax( $this->Location.DIRECTORY_SEPARATOR.$Item );
-							if( !is_dir( $Item ) ) {
-								array_push( $List, $this->getFile( $Item ) );
-							}
-						}
-					}
-				}
+		$List = array();
+		$Iterator = $this->getDirectoryIterator( $Recursive );
+		/** @var \SplFileInfo $Item */
+		foreach( $Iterator as $Item ) {
+			if( !$Item->isDir() ) {
+				array_push( $List, $this->getFile( Check::convertCleanPathSyntax( $Item->getRealPath() ) ) );
 			}
-			$Directory->close();
-
-			return $List;
-		} else {
-			return array();
 		}
+
+		return $List;
 	}
 
 	/**
@@ -342,7 +307,9 @@ class Api implements IApiInterface {
 	 * @return bool|string
 	 */
 	private function fetchPort() {
+
 		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
+
 		return $Globals->useServer()->getServerPort();
 	}
 
@@ -350,8 +317,10 @@ class Api implements IApiInterface {
 	 * @return string
 	 */
 	private function fetchHost() {
+
 		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
-		return $Globals->useServer()->getServerName('localhost');
+
+		return $Globals->useServer()->getServerName( 'localhost' );
 	}
 
 	/**
@@ -389,6 +358,7 @@ class Api implements IApiInterface {
 
 		if( false === rmdir( $this->Location ) ) {
 			trigger_error( 'Unable to remove directory!'."\n".$this->Location );
+
 			return false;
 		}
 

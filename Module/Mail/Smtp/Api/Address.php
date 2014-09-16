@@ -8,11 +8,59 @@ use MOC\MarkIV\Module\Mail\Smtp\Source\Address\Reply;
 use MOC\MarkIV\Module\Mail\Smtp\Source\Address\To;
 
 /**
+ * Interface IAddressInterface
+ *
+ * @package MOC\MarkIV\Module\Mail\Smtp\Api
+ */
+interface IAddressInterface {
+
+	/**
+	 * @param string $Address
+	 * @param string $Name
+	 *
+	 * @return From
+	 */
+	public function buildFrom( $Address, $Name = '' );
+
+	/**
+	 * @param string $Address
+	 * @param string $Name
+	 *
+	 * @return Reply
+	 */
+	public function buildReply( $Address, $Name = '' );
+
+	/**
+	 * @param string $Address
+	 * @param string $Name
+	 *
+	 * @return To
+	 */
+	public function buildTo( $Address, $Name = '' );
+
+	/**
+	 * @param string $Address
+	 * @param string $Name
+	 *
+	 * @return Cc
+	 */
+	public function buildCc( $Address, $Name = '' );
+
+	/**
+	 * @param string $Address
+	 * @param string $Name
+	 *
+	 * @return Bcc
+	 */
+	public function buildBcc( $Address, $Name = '' );
+}
+
+/**
  * Class Address
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Api
  */
-class Address {
+class Address implements IAddressInterface {
 
 	/**
 	 * @param string $Address
