@@ -70,6 +70,18 @@ class Session implements ISessionInterface {
 	}
 
 	/**
+	 * @return bool
+	 */
+	private function isSessionAvailable() {
+
+		if( version_compare( phpversion(), '5.4.0', '>=' ) ) {
+			return session_status() === PHP_SESSION_ACTIVE ? true : false;
+		} else {
+			return session_id() === '' ? false : true;
+		}
+	}
+
+	/**
 	 * @return void
 	 */
 	public function closeSession() {
@@ -84,18 +96,6 @@ class Session implements ISessionInterface {
 
 		if( $this->isSessionAvailable() ) {
 			session_destroy();
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function isSessionAvailable() {
-
-		if( version_compare( phpversion(), '5.4.0', '>=' ) ) {
-			return session_status() === PHP_SESSION_ACTIVE ? true : false;
-		} else {
-			return session_id() === '' ? false : true;
 		}
 	}
 

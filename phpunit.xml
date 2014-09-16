@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="phpunit.bootstrap.php" colors="true" verbose="true" backupGlobals="true"
-         backupStaticAttributes="true" stopOnError="true" stopOnFailure="false" stopOnIncomplete="false"
+<phpunit bootstrap="phpunit.bootstrap.php" stderr="true" colors="true" verbose="true" backupGlobals="true"
+         backupStaticAttributes="true" stopOnError="true" stopOnFailure="true" stopOnIncomplete="false"
          stopOnSkipped="false"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.2/phpunit.xsd">
 
 	<testsuites>
 		<testsuite name="TravisCI">
@@ -12,6 +12,7 @@
 		</testsuite>
 	</testsuites>
 
+	<!-- Exclude 3rdParty Applications //-->
 	<filter>
 		<blacklist>
 			<directory>./.idea</directory>
@@ -24,6 +25,7 @@
 			<directory>./Extension/Documentation/ApiGen/Gui</directory>
 			<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 			<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
+			<directory>./Core/Update/GitHub/Gui</directory>
 		</blacklist>
 		<whitelist processUncoveredFilesFromWhitelist="false">
 			<directory>./</directory>
@@ -38,6 +40,7 @@
 				<directory>./Extension/Documentation/ApiGen/Gui</directory>
 				<directory>./Extension/Excel/PHPExcel/3rdParty</directory>
 				<directory>./Extension/Mail/PHPMailer/3rdParty</directory>
+				<directory>./Core/Update/GitHub/Gui</directory>
 			</exclude>
 		</whitelist>
 	</filter>

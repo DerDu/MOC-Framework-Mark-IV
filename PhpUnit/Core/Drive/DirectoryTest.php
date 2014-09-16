@@ -22,7 +22,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$ResultA = $Api->getFileList();
 		$this->assertInternalType( 'array', $ResultA );
 		$this->assertNotEmpty( $ResultA );
-		$ResultB = $Api->getFileList(true);
+		$ResultB = $Api->getFileList( true );
 		$this->assertInternalType( 'array', $ResultB );
 		$this->assertNotEmpty( $ResultB );
 		$this->assertNotEquals( $ResultA, $ResultB );
@@ -30,7 +30,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$ResultA = $Api->getDirectoryList();
 		$this->assertInternalType( 'array', $ResultA );
 		$this->assertNotEmpty( $ResultA );
-		$ResultB = $Api->getDirectoryList(true);
+		$ResultB = $Api->getDirectoryList( true );
 		$this->assertInternalType( 'array', $ResultB );
 		$this->assertNotEmpty( $ResultB );
 		$this->assertNotEquals( $ResultA, $ResultB );
@@ -39,7 +39,6 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 
 		ob_console( __CLASS__ );
-		unset( $_SERVER['DOCUMENT_ROOT'] );
 	}
 
 	protected function tearDown() {

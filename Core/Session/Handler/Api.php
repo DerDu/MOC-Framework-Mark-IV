@@ -27,7 +27,7 @@ class Api implements IApiInterface {
 	/**
 	 * @param string $Identifier
 	 *
-	 * @return Api
+	 * @return IApiInterface
 	 */
 	public function setIdentifier( $Identifier ) {
 
@@ -38,7 +38,7 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return Api
+	 * @return IApiInterface
 	 */
 	public function newIdentifier() {
 
@@ -61,7 +61,7 @@ class Api implements IApiInterface {
 	/**
 	 * @param null|string $Identifier
 	 *
-	 * @return Api
+	 * @return IApiInterface
 	 */
 	public function openSession( $Identifier = null ) {
 
@@ -81,7 +81,7 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return Api
+	 * @return IApiInterface
 	 */
 	public function closeSession() {
 
@@ -92,7 +92,7 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return Api
+	 * @return IApiInterface
 	 */
 	public function destroySession() {
 
@@ -118,7 +118,7 @@ class Api implements IApiInterface {
 	 * @param string $Key
 	 * @param mixed  $Value
 	 *
-	 * @return Store
+	 * @return IApiInterface
 	 */
 	public function setValue( $Key, $Value ) {
 

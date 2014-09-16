@@ -33,7 +33,7 @@ class Api implements IApiInterface {
 	}
 
 	/**
-	 * @return Source\Node|null
+	 * @return Node|null
 	 */
 	public function parseContent() {
 
@@ -42,6 +42,12 @@ class Api implements IApiInterface {
 		return $Instance->getResult();
 	}
 
+	/**
+	 * @param \SimpleXMLElement $Xml
+	 *
+	 * @codeCoverageIgnore
+	 * @return Node
+	 */
 	private function parseSimpleXml( \SimpleXMLElement $Xml ) {
 
 		$Node = new Node();
