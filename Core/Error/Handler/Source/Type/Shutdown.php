@@ -35,7 +35,7 @@ class Shutdown extends Generic {
 	 */
 	public function setData( $Title, $Message, $Code, $File, $Line, $Trace = '', $Information = '' ) {
 
-		if( ( $Error = error_get_last() ) !== null ) {
+		if( ( $Error = error_get_last() ) !== null && $Error['type'] === E_ERROR ) {
 			if( empty( $Trace ) || strlen( $Trace ) < 10 ) {
 				$Trace = $this->getTrace();
 			}
