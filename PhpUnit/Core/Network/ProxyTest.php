@@ -24,14 +24,14 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 		$Globals = new \MOC\MarkIV\Core\Generic\Globals\Api();
 
 		$Globals->useServer()->setServerPort( 80 );
-		$Url = Api::groupCore()->unitDrive()->apiFile( __FILE__ )->getUrl();
+		$Url = 'http://www.google.de';
 
 		$None->getFile( $Url, true );
 		$Relay->getFile( $Url, true );
 		$Basic->getFile( $Url, true );
 
 		$Globals->useServer()->setServerPort( 443 );
-		$Url = Api::groupCore()->unitDrive()->apiFile( __FILE__ )->getUrl();
+		$Url = 'https://www.google.de';
 
 		$None->getFile( $Url, true );
 		$Relay->getFile( $Url, true );
