@@ -14,7 +14,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Config\Credentials', Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildCredentials( 'DummyUser', 'DummyPassword' ) );
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Config\Server', Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( 'DummyHost', '1234' ) );
 
-		$Server = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( '127.0.0.1', '80' );
+		$Server = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildServer( 'www.google.de', '80' );
 		$Credentials = Api::groupCore()->unitNetwork()->apiProxy()->apiConfig()->buildCredentials( 'DummyUser', 'DummyPassword' );
 
 		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Source\Type\None', $None = Api::groupCore()->unitNetwork()->apiProxy()->apiType()->buildNone() );

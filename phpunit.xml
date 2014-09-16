@@ -8,7 +8,7 @@
 
 	<testsuites>
 		<testsuite name="TravisCI">
-			<directory>./PhpUnit</directory>
+			<directory suffix=".php">./PhpUnit</directory>
 		</testsuite>
 	</testsuites>
 
@@ -28,7 +28,7 @@
 			<directory>./Core/Update/GitHub/Gui</directory>
 		</blacklist>
 		<whitelist processUncoveredFilesFromWhitelist="false">
-			<directory>./</directory>
+			<directory suffix=".php">./</directory>
 			<exclude>
 				<directory>./.idea</directory>
 				<directory>./vendor</directory>
