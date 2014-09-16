@@ -8,33 +8,29 @@ class HandlerTest extends \PHPUnit_Framework_TestCase {
 	/** @runTestsInSeparateProcesses */
 	public function testSessionHandlerApi() {
 
-		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\IApiInterface', $Api = Api::groupCore()->unitSession()->apiHandler() );
+		$this->assertEmpty( $Api->getIdentifier() );
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->openSession() );
-		$this->assertNotEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\IApiInterface', $Api->openSession() );
+		$this->assertNotEmpty( $Api->getIdentifier() );
+		$this->assertInternalType( 'array', $Api->getValue() );
+		$this->assertEmpty( $Api->getValue() );
+		$this->assertNull( $Api->getValue( 'KeyNotExists' ) );
+		$this->assertInternalType( 'array', $Api->getContent() );
 
-		$this->assertInternalType( 'array', Api::groupCore()->unitSession()->apiHandler()->getValue() );
-		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getValue() );
-		$this->assertNull( Api::groupCore()->unitSession()->apiHandler()->getValue( 'KeyNotExists' ) );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\IApiInterface', $Api->setValue( 'Key', 'Value' ) );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\IApiInterface', $Api->newIdentifier() );
+		$this->assertEquals( 'Value', $Api->getValue( 'Key' ) );
 
-		Api::groupCore()->unitSession()->apiHandler()->newIdentifier();
-		$this->assertInternalType( 'array', Api::groupCore()->unitSession()->apiHandler()->getContent() );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\IApiInterface', $Api->destroySession() );
+		$this->assertEmpty( $Api->getIdentifier() );
 
-		Api::groupCore()->unitSession()->apiHandler()->setValue( 'Key', 'Value' );
-		$this->assertEquals( 'Value', Api::groupCore()->unitSession()->apiHandler()->getValue( 'Key' ) );
-
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->destroySession() );
-		$this->assertEmpty( Api::groupCore()->unitSession()->apiHandler()->getIdentifier() );
-
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->closeSession() );
-		Api::groupCore()->unitSession()->apiHandler()->setIdentifier( 'Test2' );
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\Api', Api::groupCore()->unitSession()->apiHandler()->destroySession() );
-
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Session\Handler\IApiInterface', $Api->closeSession() );
 	}
 
 	protected function setUp() {
 
-		ob_console( __CLASS__ );
+		ob_console( __METHOD__ );
 	}
 
 	protected function tearDown() {
