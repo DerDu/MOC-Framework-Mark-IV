@@ -65,7 +65,7 @@ abstract class Generic implements IGenericInterface {
 			$Result[] = substr( $Trace[$Run], strpos( $Trace[$Run], ' ' ) );
 		}
 
-		return '<ul><li>'.implode( '</li><li>', $Result ).'</li><ul>';
+		return '<ul><li>'.implode( '</li><li>', $Result ).'</li></ul>';
 	}
 
 	/**

@@ -62,7 +62,7 @@ abstract class Generic {
 
 		$this->HtmlStyle =
 			'<style type="text/css">'.
-			'.MOC-Error-Reporting-Container { margin: 1px; padding: 10px; font-family: arial; margin: 5px 0 5px 0; font-size: 14px; }'.
+			'.MOC-Error-Reporting-Container { padding: 10px; font-family: arial, monospace; margin: 5px 0 5px 0; font-size: 14px; }'.
 			'.MOC-Error-Reporting-Element { margin: 5px 0 5px 0; font-size: 13px; }'.
 			'.MOC-Error-Reporting-Message { font-size: 13px; font-weight: bold; padding: 7px 0 7px 0; }'.
 

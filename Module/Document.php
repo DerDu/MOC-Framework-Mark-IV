@@ -1,6 +1,8 @@
 <?php
 namespace MOC\MarkIV\Module;
 
+use MOC\MarkIV\Core\Drive\File\IApiInterface;
+
 /**
  * Interface IDocumentInterface
  *
@@ -9,11 +11,11 @@ namespace MOC\MarkIV\Module;
 interface IDocumentInterface {
 
 	/**
-	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
+	 * @param IApiInterface $File
 	 *
 	 * @return Document\Excel\Api
 	 */
-	public function apiExcel( \MOC\MarkIV\Core\Drive\File\IApiInterface $File = null );
+	public function apiExcel( IApiInterface $File = null );
 }
 
 /**
@@ -24,11 +26,11 @@ interface IDocumentInterface {
 class Document {
 
 	/**
-	 * @param \MOC\MarkIV\Core\Drive\File\IApiInterface $File
+	 * @param IApiInterface $File
 	 *
 	 * @return Document\Excel\Api
 	 */
-	public function apiExcel( \MOC\MarkIV\Core\Drive\File\IApiInterface $File = null ) {
+	public function apiExcel( IApiInterface $File = null ) {
 
 		return new Document\Excel\Api( $File );
 	}

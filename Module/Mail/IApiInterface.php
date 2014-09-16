@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Module\Mail;
 
 use MOC\MarkIV\Module\Mail\Smtp\Api\IAddressInterface;
+use MOC\MarkIV\Module\Mail\Smtp\Api\IContentInterface;
 
 /**
  * Interface IApiInterface
@@ -26,7 +27,7 @@ interface IApiInterface {
 	public function apiAddress();
 
 	/**
-	 * @return Api\Content
+	 * @return IContentInterface
 	 */
 	public function apiContent();
 

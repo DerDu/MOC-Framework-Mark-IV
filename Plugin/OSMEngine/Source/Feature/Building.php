@@ -1,6 +1,8 @@
 <?php
 namespace MOC\MarkIV\Plugin\OSMEngine\Source\Feature;
 
+use MOC\MarkIV\Core\Xml\Reader\Source\Node;
+
 /**
  * Class Building
  *
@@ -29,9 +31,9 @@ class Building extends Generic {
 	const TYPE_YES = 'YES';
 
 	/**
-	 * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
+	 * @param Node $Node
 	 */
-	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
+	function __construct( Node $Node ) {
 
 		$Type = strtoupper( $Node->getAttribute( 'v' ) );
 		if( defined( 'self::TYPE_'.$Type ) ) {

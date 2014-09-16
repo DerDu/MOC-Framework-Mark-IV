@@ -26,8 +26,8 @@ class BufferHandler {
 			$Document = str_repeat( '=', 10 ).'> '.$Document;
 
 			$Rules = array(
-				'!<script[^>]*?>.*?</script>!si',
-				'!<style[^>]*?>.*?</style>!si',
+				'!\<script[^\>]*?\>.*?\</script\>!si',
+				'!\<style[^\>]*?\>.*?\</style\>!si',
 				'!<[^>]*?>!si',
 				'!</[^>]*?>!si',
 				'!\t!si',

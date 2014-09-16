@@ -45,7 +45,11 @@ class Api implements IApiInterface {
 	private $Extension = 'cache';
 
 	/**
+	 * @param int    $Timeout
+	 * @param string $Group
+	 * @param string $Extension
 	 *
+	 * @throws \Exception
 	 */
 	function __construct( $Timeout = 60, $Group = '', $Extension = 'cache' ) {
 

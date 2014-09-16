@@ -82,13 +82,13 @@ class Api implements IApiInterface {
 			'sourceCode'     => true,
 			// Add a link to download documentation as a ZIP archive
 			'download'       => true,
-			// Save a checkstyle report of poorly documented elements into a file
+			// Save a check style report of poorly documented elements into a file
 			'report'         => '',
 			// Wipe out the destination directory first
 			'wipeout'        => true,
 			// Don't display scanning and generating messages
 			'quiet'          => true,
-			// Display progressbars
+			// Display progressbar
 			'progressbar'    => false,
 			// Use colors
 			'colors'         => false,

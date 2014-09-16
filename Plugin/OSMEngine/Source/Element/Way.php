@@ -1,6 +1,8 @@
 <?php
 namespace MOC\MarkIV\Plugin\OSMEngine\Source\Element;
 
+use MOC\MarkIV\Core\Xml\Reader\Source\Node;
+
 /**
  * Class Way
  *
@@ -19,12 +21,12 @@ class Way {
 	private $TagList = array();
 
 	/**
-	 * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
+	 * @param Node $Node
 	 */
-	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
+	function __construct( Node $Node ) {
 
 		$NodeList = $Node->getChildList();
-		/** @var \MOC\MarkIV\Core\Xml\Reader\Source\Node $Child */
+		/** @var Node $Child */
 		foreach( (array)$NodeList as $Child ) {
 			if( $Child->getName() == 'nd' ) {
 				array_push( $this->NodeList, $Child->getAttribute( 'ref' ) );

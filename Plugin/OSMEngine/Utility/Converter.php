@@ -63,7 +63,7 @@ class Converter {
 		return new Utility\Converter\Position( $this->Width, $this->Height );
 	}
 
-	// both in radians, use deg2rad if neccessary
+	// both in radians, use deg2rad if necessary
 	public function toPixel( $Latitude, $Longitude ) {
 
 		$x = deg2rad( $Longitude );

@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Module\Mail\Smtp\Source\Content;
 
 use MOC\MarkIV\Api;
+use MOC\MarkIV\Core\Drive\File\IApiInterface;
 
 /**
  * Class Attachment
@@ -10,7 +11,13 @@ use MOC\MarkIV\Api;
  */
 class Attachment {
 
-	function __construct( \MOC\MarkIV\Core\Drive\File\IApiInterface $File ) {
+	/**
+	 * @param IApiInterface $File
+	 *
+	 * @throws \Exception
+	 * @throws \phpmailerException
+	 */
+	function __construct( IApiInterface $File ) {
 
 		/** @var \PHPMailer $Extension */
 		$Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
