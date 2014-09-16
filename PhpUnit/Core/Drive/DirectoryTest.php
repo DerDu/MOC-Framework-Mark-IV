@@ -8,7 +8,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 	/** @runTestsInSeparateProcesses */
 	public function testDriveDirectory() {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Drive\Directory\Api', $Api = Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
+		$this->assertInstanceOf( '\MOC\MarkIV\Core\Drive\Directory\Api', $Api = Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/../../' ) );
 
 		$this->assertInternalType( 'bool', $Api->checkExists() );
 		$this->assertInternalType( 'bool', $Api->checkIsEmpty() );
@@ -18,11 +18,27 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $Api->getUrl() );
 		$this->assertInternalType( 'string', $Api->getHash() );
 		$this->assertInternalType( 'int', $Api->getTime() );
+
+		$ResultA = $Api->getFileList();
+		$this->assertInternalType( 'array', $ResultA );
+		$this->assertNotEmpty( $ResultA );
+		$ResultB = $Api->getFileList(true);
+		$this->assertInternalType( 'array', $ResultB );
+		$this->assertNotEmpty( $ResultB );
+		$this->assertNotEquals( $ResultA, $ResultB );
+
+		$ResultA = $Api->getDirectoryList();
+		$this->assertInternalType( 'array', $ResultA );
+		$this->assertNotEmpty( $ResultA );
+		$ResultB = $Api->getDirectoryList(true);
+		$this->assertInternalType( 'array', $ResultB );
+		$this->assertNotEmpty( $ResultB );
+		$this->assertNotEquals( $ResultA, $ResultB );
 	}
 
 	protected function setUp() {
 
-		ob_console(__CLASS__);
+		ob_console( __CLASS__ );
 		unset( $_SERVER['DOCUMENT_ROOT'] );
 	}
 
