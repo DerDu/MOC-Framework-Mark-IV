@@ -1,5 +1,5 @@
 <?php
-namespace MOC\PhpUnit\Core\Core;
+namespace MOC\PhpUnit\Core;
 
 use MOC\MarkIV\Api;
 
@@ -24,8 +24,8 @@ class GenericTest extends \PHPUnit_Framework_TestCase {
 
 		$Api::doRefresh();
 
-		$this->assertEquals( isset( $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : '', $Api->getServerDocumentRoot() );
-		$this->assertEquals( isset( $_SERVER['SERVER_PORT'] ) ? $_SERVER['SERVER_PORT'] : 80, $Api->getServerPort() );
-		$this->assertEquals( isset( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : 'localhost', $Api->getServerName() );
+		$this->assertEquals( isset( $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : null, $Api->getServerDocumentRoot() );
+		$this->assertEquals( isset( $_SERVER['SERVER_PORT'] ) ? $_SERVER['SERVER_PORT'] : null, $Api->getServerPort() );
+		$this->assertEquals( isset( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : null, $Api->getServerName() );
 	}
 }
