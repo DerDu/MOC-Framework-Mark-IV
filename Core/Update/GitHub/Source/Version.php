@@ -6,7 +6,67 @@ namespace MOC\MarkIV\Core\Update\GitHub\Source;
  *
  * @package MOC\MarkIV\Core\Update\GitHub\Source
  */
-class Version {
+interface IVersionInterface {
+
+	/**
+	 * @return int
+	 */
+	public function getMinor();
+
+	/**
+	 * @param int $Patch
+	 */
+	public function setPatch( $Patch );
+
+	/**
+	 * @return int
+	 */
+	public function getBuild();
+
+	/**
+	 * @param int $Build
+	 */
+	public function setBuild( $Build );
+
+	/**
+	 * @param Version $Version
+	 *
+	 * @return int
+	 */
+	public function checkBehindAheadStatusOf( Version $Version );
+
+	/**
+	 * @return string
+	 */
+	public function getVersionString();
+
+	/**
+	 * @param int $Major
+	 */
+	public function setMajor( $Major );
+
+	/**
+	 * @param int $Minor
+	 */
+	public function setMinor( $Minor );
+
+	/**
+	 * @return int
+	 */
+	public function getPatch();
+
+	/**
+	 * @return int
+	 */
+	public function getMajor();
+}
+
+/**
+ * Class Version
+ *
+ * @package MOC\MarkIV\Core\Update\GitHub\Source
+ */
+class Version implements IVersionInterface {
 
 	/** @var int $Major */
 	private $Major = 0;
@@ -71,7 +131,7 @@ class Version {
 	 */
 	public function getMajor() {
 
-		return $this->Major;
+		return (int)$this->Major;
 	}
 
 	/**
@@ -87,7 +147,7 @@ class Version {
 	 */
 	public function getMinor() {
 
-		return $this->Minor;
+		return (int)$this->Minor;
 	}
 
 	/**
@@ -103,7 +163,7 @@ class Version {
 	 */
 	public function getPatch() {
 
-		return $this->Patch;
+		return (int)$this->Patch;
 	}
 
 	/**
@@ -119,7 +179,7 @@ class Version {
 	 */
 	public function getBuild() {
 
-		return $this->Build;
+		return (int)$this->Build;
 	}
 
 	/**

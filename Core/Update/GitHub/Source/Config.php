@@ -4,7 +4,160 @@ namespace MOC\MarkIV\Core\Update\GitHub\Source;
 use MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Update\GitHub\Source\Utility\Ini;
 
-class Config {
+/**
+ * Class Config
+ *
+ * @package MOC\MarkIV\Core\Update\GitHub\Source
+ */
+interface IConfigInterface {
+
+	/**
+	 * @return bool
+	 */
+	public function getChannelActivePreview();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallBuild();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdatePatch();
+
+	/**
+	 * @return string
+	 */
+	public function getChannelListRelease();
+
+	/**
+	 * @return bool
+	 */
+	public function getChannelActiveNightly();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdateBuild();
+
+	/**
+	 * @return \MOC\MarkIV\Core\Network\Proxy\Source\Type\Generic
+	 */
+	public function getNetwork();
+
+	/**
+	 * @param string $Identifier
+	 * @param bool   $Recursive
+	 *
+	 * @return string
+	 */
+	public function getGitHubChannelTree( $Identifier, $Recursive = true );
+
+	/**
+	 * @param string $Identifier
+	 *
+	 * @return string
+	 */
+	public function getGitHubChannelBlob( $Identifier );
+
+	/**
+	 * @return string
+	 */
+	public function getChannelListPreview();
+
+	/**
+	 * @return null|string
+	 */
+	public function getProxyHost();
+
+	/**
+	 * @return int
+	 */
+	public function getCurrentVersionPatch();
+
+	/**
+	 * @return Version|null
+	 */
+	public function getVersion();
+
+	/**
+	 * @return int
+	 */
+	public function getCurrentVersionMajor();
+
+	/**
+	 * @return bool
+	 */
+	public function getChannelActiveRelease();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdateMajor();
+
+	/**
+	 * @return null|string
+	 */
+	public function getProxyPass();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoUpdateMinor();
+
+	/**
+	 * @return null|string
+	 */
+	public function getProxyPort();
+
+	/**
+	 * @return null|string
+	 */
+	public function getProxyUser();
+
+	/**
+	 * @return int
+	 */
+	public function getCurrentVersionBuild();
+
+	/**
+	 * @return string
+	 */
+	public function getChannelListNightly();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallPatch();
+
+	/**
+	 * @return string
+	 */
+	public function getGitHubChannelLimit();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallMinor();
+
+	/**
+	 * @return bool
+	 */
+	public function getMatchAutoInstallMajor();
+
+	/**
+	 * @return int
+	 */
+	public function getCurrentVersionMinor();
+}
+
+/**
+ * Class Config
+ *
+ * @package MOC\MarkIV\Core\Update\GitHub\Source
+ */
+class Config implements IConfigInterface {
 
 	private $Location = false;
 
@@ -159,30 +312,6 @@ class Config {
 	}
 
 	/**
-	 * @return \MOC\MarkIV\Core\Network\Proxy\Source\Type\Generic
-	 */
-	public function getNetwork() {
-
-		return $this->Network;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getChannelListPreview() {
-
-		return $this->Structure['Channel:List']['Preview'];
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getChannelListNightly() {
-
-		return $this->Structure['Channel:List']['Nightly'];
-	}
-
-	/**
 	 * @return int
 	 */
 	public function getCurrentVersionMajor() {
@@ -212,6 +341,30 @@ class Config {
 	public function getCurrentVersionBuild() {
 
 		return $this->Structure['Version:Current']['Build'];
+	}
+
+	/**
+	 * @return \MOC\MarkIV\Core\Network\Proxy\Source\Type\Generic
+	 */
+	public function getNetwork() {
+
+		return $this->Network;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getChannelListPreview() {
+
+		return $this->Structure['Channel:List']['Preview'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getChannelListNightly() {
+
+		return $this->Structure['Channel:List']['Nightly'];
 	}
 
 	/**
@@ -335,6 +488,7 @@ class Config {
 	 * @return Version|null
 	 */
 	public function getVersion() {
+
 		return $this->Version;
 	}
 

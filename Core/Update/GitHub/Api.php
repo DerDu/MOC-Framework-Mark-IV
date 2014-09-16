@@ -1,28 +1,31 @@
 <?php
 namespace MOC\MarkIV\Core\Update\GitHub;
 
+use MOC\MarkIV\Core\Update\GitHub\Source\IConfigInterface;
+
 /**
  * Interface IApiInterface
  *
  * @package MOC\MarkIV\Core\Update\GitHub
  */
 interface IApiInterface {
-	/**
-	 * @param $Location
-	 *
-	 * @return Source\Config
-	 */
-	public function buildConfig( $Location );
 
 	/**
-	 * @param Source\Config $Config
+	 * @param null|string $Location
+	 *
+	 * @return IConfigInterface
+	 */
+	public function buildConfig( $Location = null );
+
+	/**
+	 * @param IConfigInterface $Config
 	 *
 	 * @return Source\Channel
 	 */
-	public function buildChannel( Source\Config $Config );
+	public function buildChannel( IConfigInterface $Config );
 
 	/**
-	 * @param $String
+	 * @param string $String
 	 *
 	 * @return Source\Version
 	 */
@@ -37,27 +40,31 @@ interface IApiInterface {
 class Api implements IApiInterface {
 
 	/**
-	 * @param $Location
+	 * @param null|string $Location
 	 *
-	 * @return Source\Config
+	 * @return IConfigInterface
 	 */
-	public function buildConfig( $Location ) {
+	public function buildConfig( $Location = null ) {
+
+		if( null === $Location ) {
+			$Location = __DIR__.'/Config.ini';
+		}
 
 		return new Source\Config( $Location );
 	}
 
 	/**
-	 * @param Source\Config $Config
+	 * @param IConfigInterface $Config
 	 *
 	 * @return Source\Channel
 	 */
-	public function buildChannel( Source\Config $Config ) {
+	public function buildChannel( IConfigInterface $Config ) {
 
 		return new Source\Channel( $Config );
 	}
 
 	/**
-	 * @param $String
+	 * @param string $String
 	 *
 	 * @return Source\Version
 	 */
