@@ -12,6 +12,8 @@ require_once( __DIR__.'/Api.php' );
  */
 MOC\MarkIV\Api::runBootstrap();
 
+set_time_limit( ( 60 * 5 ) );
+
 /**
  * Buffer Handler
  *

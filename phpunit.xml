@@ -5,6 +5,9 @@
          backupGlobals="true" backupStaticAttributes="true" stopOnError="true" stopOnFailure="true"
          stopOnIncomplete="false"
          stopOnSkipped="false"
+         timeoutForLargeTests="300"
+         timeoutForMediumTests="240"
+         timeoutForSmallTests="5"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.2/phpunit.xsd">
 
     <testsuites>

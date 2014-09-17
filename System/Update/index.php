@@ -5,12 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="jQuery.ReleaseNotes/2014-09-09-13-06/js/libs/marked.js"></script>
-    <script src="jQuery.ReleaseNotes/2014-09-09-13-06/js/releasenotes.js"></script>
+	<script src="3rdParty/jQuery.ReleaseNotes/2014-09-09-13-06/js/libs/marked.js"></script>
+	<script src="3rdParty/jQuery.ReleaseNotes/2014-09-09-13-06/js/releasenotes.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic|Open+Sans:300' rel='stylesheet'
           type='text/css'>
     <link rel="stylesheet" href="Style/theme.css"/>
-    <link rel="stylesheet" href="jQuery.ReleaseNotes/2014-09-09-13-06/css/releasenotes.plugin.css"/>
+	<link rel="stylesheet" href="3rdParty/jQuery.ReleaseNotes/2014-09-09-13-06/css/releasenotes.plugin.css"/>
 </head>
 <body>
 
