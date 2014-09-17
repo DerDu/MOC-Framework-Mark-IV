@@ -9,6 +9,8 @@ namespace MOC\MarkIV\Core\Error\Handler\Source\Template;
 abstract class Generic
 {
 
+    /** @var bool $ApplyTemplate */
+    public static $ApplyTemplate = true;
     /** @var bool $ApplyHtmlStyle */
     private static $ApplyHtmlStyle = true;
     /** @var string $HtmlTemplate */
@@ -91,8 +93,11 @@ abstract class Generic
      */
     function __toString()
     {
-
-        return $this->getOutput();
+        if( self::$ApplyTemplate ) {
+            return $this->getOutput();
+        } else {
+            return $this->getConsole();
+        }
     }
 
     /**
@@ -129,5 +134,32 @@ abstract class Generic
         $this->HtmlTemplate = $Html;
 
         return $this;
+    }
+
+    private function getConsole()
+    {
+
+        $Document = str_repeat( '=', 35 ).$this->getOutput();
+
+        $Rules = array(
+            '!\<script[^\>]*?\>.*?\</script\>!si',
+            '!\<style[^\>]*?\>.*?\</style\>!si',
+            '!<[^>]*?>!si',
+            '!</[^>]*?>!si',
+            '!\t!si',
+            '!\s+$!si'
+        );
+        $Replace = array( '', '', "\n\r", "\n\r", "\t", '' );
+        $Document = preg_replace( $Rules, $Replace, $Document );
+        $Document = explode( "\n\r", $Document );
+        $Document = array_map( 'trim', $Document );
+        foreach ((array)$Document as $Index => $Value) {
+            if (empty( $Value )) {
+                unset( $Document[$Index] );
+            }
+        }
+        $Document = trim( implode( "\n\r", $Document ) );
+
+        return trim( $Document )."\n\r";
     }
 }

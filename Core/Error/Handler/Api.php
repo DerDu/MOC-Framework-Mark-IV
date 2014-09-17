@@ -13,11 +13,23 @@ interface IApiInterface
 {
 
     /**
+     * @return Type
+     */
+    public function apiType();
+
+    /**
      * @param Generic $Type
      *
      * @return Api
      */
     public function registerType( Generic $Type );
+
+    /**
+     * @param bool $Toggle
+     *
+     * @return IApiInterface
+     */
+    public function applyTemplate( $Toggle = true );
 }
 
 /**
@@ -40,13 +52,25 @@ class Api implements IApiInterface
     /**
      * @param Generic $Type
      *
-     * @return Api
+     * @return IApiInterface
      */
     public function registerType( Generic $Type )
     {
 
         $Type->registerType();
 
+        return $this;
+    }
+
+    /**
+     * @param bool $Toggle
+     *
+     * @return IApiInterface
+     */
+    public function applyTemplate( $Toggle = true )
+    {
+
+        Source\Template\Generic::$ApplyTemplate = $Toggle;
         return $this;
     }
 }
