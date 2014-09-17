@@ -23,7 +23,7 @@ class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiI
     function __construct()
     {
 
-        require_once( __DIR__.'/3rdParty/PHPExcel/Classes/PHPExcel.php' );
+        require_once( __DIR__.'/3rdParty/Classes/PHPExcel.php' );
         \PHPExcel_Cell::setValueBinder( new \PHPExcel_Cell_AdvancedValueBinder() );
     }
 

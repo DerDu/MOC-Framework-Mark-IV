@@ -23,9 +23,9 @@ class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiI
     function __construct()
     {
 
-        require_once( '3rdParty/PHPMailer/class.phpmailer.php' );
-        require_once( '3rdParty/PHPMailer/class.pop3.php' );
-        require_once( '3rdParty/PHPMailer/class.smtp.php' );
+        require_once( '3rdParty/class.phpmailer.php' );
+        require_once( '3rdParty/class.pop3.php' );
+        require_once( '3rdParty/class.smtp.php' );
     }
 
     /**

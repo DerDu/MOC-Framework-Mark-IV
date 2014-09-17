@@ -22,20 +22,11 @@ abstract class Api
     abstract function buildInstance( $Identifier = null );
 
     /**
-     * @return null|Instance
-     */
-    public function currentInstance()
-    {
-
-        return static::$Instance;
-    }
-
-    /**
      * @param $Identifier
      *
      * @return Api
      */
-    public function selectInstance( $Identifier )
+    final public function selectInstance( $Identifier )
     {
 
         if (null !== static::$Instance) {
@@ -49,7 +40,7 @@ abstract class Api
     /**
      * @return Api
      */
-    public function destroyInstance()
+    final public function destroyInstance()
     {
 
         unset( static::$InstanceQueue[static::$Instance->getIdentifier()] );
@@ -59,12 +50,21 @@ abstract class Api
     }
 
     /**
+     * @return null|Instance
+     */
+    final public function currentInstance()
+    {
+
+        return static::$Instance;
+    }
+
+    /**
      * @param object      $Extension
      * @param null|string $Identifier
      *
      * @return Api
      */
-    protected function createInstance( $Extension, $Identifier = null )
+    final protected function createInstance( $Extension, $Identifier = null )
     {
 
         $Instance = new Instance( $Extension, $Identifier );
@@ -75,4 +75,5 @@ abstract class Api
 
         return $this;
     }
+
 }

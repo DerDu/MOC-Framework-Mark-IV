@@ -28,6 +28,17 @@ class Api implements IApiInterface
         \MOC\MarkIV\Core\Drive\Directory\IApiInterface $Destination
     ) {
 
+        \MOC\MarkIV\Api::registerNamespace(
+            'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty' )
+        );
+        \MOC\MarkIV\Api::registerNamespace(
+            'TokenReflection',
+            \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/libs/TokenReflection' )
+        );
+        \MOC\MarkIV\Api::registerNamespace(
+            'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/libs/FSHL' )
+        );
+
         $this->Source = $Source;
         $this->Destination = $Destination;
         $this->Configuration = $this->getConfig();
@@ -111,24 +122,13 @@ class Api implements IApiInterface
     public function createDocumentation()
     {
 
-        \MOC\MarkIV\Api::registerNamespace(
-            'ApiGen', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen' )
-        );
-        \MOC\MarkIV\Api::registerNamespace(
-            'TokenReflection',
-            \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/TokenReflection' )
-        );
-        \MOC\MarkIV\Api::registerNamespace(
-            'FSHL', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/apigen/libs/FSHL' )
-        );
-
         set_time_limit( 0 );
 
         $Config = $this->getConfig();
 
         $Cache = \MOC\MarkIV\Api::groupCore()->unitCache()->apiFile( 30, __CLASS__ );
         if (( isset( $_REQUEST['Force'] ) && $_REQUEST['Force'] ) || !$Cache->getCacheFile( sha1( serialize( $Config ) ) )) {
-            require_once( __DIR__.'/3rdParty/apigen/libs/Nette/Nette/loader.php' );
+            require_once( __DIR__.'/3rdParty/libs/Nette/Nette/loader.php' );
             $Neon = new NeonAdapter();
             $Cache->getCacheFile( sha1( serialize( $Config ) ), true )
                 ->setContent( $Neon->dump( $Config ) )
@@ -139,7 +139,7 @@ class Api implements IApiInterface
                 $Cache->getCacheFile( sha1( serialize( $Config ) ) )->getLocation()
             );
 
-            include( __DIR__.'/3rdParty/apigen/apigen.php' );
+            include( __DIR__.'/3rdParty/apigen.php' );
         }
 
         return $this->Destination->getUrl().'/namespace-MOC.MarkIV.Api.html';
