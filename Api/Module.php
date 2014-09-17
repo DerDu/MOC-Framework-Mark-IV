@@ -1,6 +1,7 @@
 <?php
 namespace MOC\MarkIV\Api;
 
+use MOC\MarkIV\Module\Database;
 use MOC\MarkIV\Module\Document;
 use MOC\MarkIV\Module\Encoding;
 use MOC\MarkIV\Module\Mail;
@@ -22,6 +23,10 @@ interface IModuleInterface
      * @return Document
      */
     public function unitDocument();
+    /**
+     * @return Database
+     */
+    public function unitDatabase();
 
     /**
      * @return Mail
@@ -36,6 +41,14 @@ interface IModuleInterface
  */
 class Module implements IModuleInterface
 {
+
+    /**
+     * @return Database
+     */
+    public function unitDatabase()
+    {
+        return new Database();
+    }
 
     /**
      * @return Encoding
