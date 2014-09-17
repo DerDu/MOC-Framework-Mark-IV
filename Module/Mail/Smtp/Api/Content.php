@@ -11,28 +11,30 @@ use MOC\MarkIV\Module\Mail\Smtp\Source\Content\Subject;
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Api
  */
-interface IContentInterface {
-	/**
-	 * @param string $Value
-	 *
-	 * @return Subject
-	 */
-	public function buildSubject( $Value );
+interface IContentInterface
+{
 
-	/**
-	 * @param string $Value
-	 * @param bool   $asHtml
-	 *
-	 * @return Body
-	 */
-	public function buildBody( $Value, $asHtml = true );
+    /**
+     * @param string $Value
+     *
+     * @return Subject
+     */
+    public function buildSubject( $Value );
 
-	/**
-	 * @param IApiInterface $File
-	 *
-	 * @return Attachment
-	 */
-	public function buildAttachment( IApiInterface $File );
+    /**
+     * @param string $Value
+     * @param bool   $asHtml
+     *
+     * @return Body
+     */
+    public function buildBody( $Value, $asHtml = true );
+
+    /**
+     * @param IApiInterface $File
+     *
+     * @return Attachment
+     */
+    public function buildAttachment( IApiInterface $File );
 }
 
 /**
@@ -40,36 +42,40 @@ interface IContentInterface {
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Api
  */
-class Content implements IContentInterface {
+class Content implements IContentInterface
+{
 
-	/**
-	 * @param string $Value
-	 *
-	 * @return Subject
-	 */
-	public function buildSubject( $Value ) {
+    /**
+     * @param string $Value
+     *
+     * @return Subject
+     */
+    public function buildSubject( $Value )
+    {
 
-		return new Subject( $Value );
-	}
+        return new Subject( $Value );
+    }
 
-	/**
-	 * @param string $Value
-	 * @param bool   $asHtml
-	 *
-	 * @return Body
-	 */
-	public function buildBody( $Value, $asHtml = true ) {
+    /**
+     * @param string $Value
+     * @param bool   $asHtml
+     *
+     * @return Body
+     */
+    public function buildBody( $Value, $asHtml = true )
+    {
 
-		return new Body( $Value, $asHtml );
-	}
+        return new Body( $Value, $asHtml );
+    }
 
-	/**
-	 * @param IApiInterface $File
-	 *
-	 * @return Attachment
-	 */
-	public function buildAttachment( IApiInterface $File ) {
+    /**
+     * @param IApiInterface $File
+     *
+     * @return Attachment
+     */
+    public function buildAttachment( IApiInterface $File )
+    {
 
-		return new Attachment( $File );
-	}
+        return new Attachment( $File );
+    }
 }

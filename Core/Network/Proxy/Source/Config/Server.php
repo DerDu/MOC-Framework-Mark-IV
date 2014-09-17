@@ -6,60 +6,66 @@ namespace MOC\MarkIV\Core\Network\Proxy\Source\Config;
  *
  * @package MOC\MarkIV\Core\Network\Proxy\Source\Config
  */
-class Server {
+class Server
+{
 
-	/** @var null|string $Host */
-	private $Host = null;
-	/** @var null|string $Port */
-	private $Port = null;
+    /** @var null|string $Host */
+    private $Host = null;
+    /** @var null|string $Port */
+    private $Port = null;
 
-	/**
-	 * @param string $Host
-	 * @param string $Port
-	 */
-	function __construct( $Host, $Port ) {
+    /**
+     * @param string $Host
+     * @param string $Port
+     */
+    function __construct( $Host, $Port )
+    {
 
-		$this->setHost( $Host );
-		$this->setPort( $Port );
-	}
+        $this->setHost( $Host );
+        $this->setPort( $Port );
+    }
 
-	/**
-	 * @param null|string $Port
-	 *
-	 * @return Server
-	 */
-	public function setPort( $Port ) {
+    /**
+     * @return null|string
+     */
+    public function getPort()
+    {
 
-		$this->Port = (integer)$Port;
+        return $this->Port;
+    }
 
-		return $this;
-	}
+    /**
+     * @param null|string $Port
+     *
+     * @return Server
+     */
+    public function setPort( $Port )
+    {
 
-	/**
-	 * @return null|string
-	 */
-	public function getPort() {
+        $this->Port = (integer)$Port;
 
-		return $this->Port;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param null|string $Host
-	 *
-	 * @return Server
-	 */
-	public function setHost( $Host ) {
+    /**
+     * @return null|string
+     */
+    public function getHost()
+    {
 
-		$this->Host = $Host;
+        return $this->Host;
+    }
 
-		return $this;
-	}
+    /**
+     * @param null|string $Host
+     *
+     * @return Server
+     */
+    public function setHost( $Host )
+    {
 
-	/**
-	 * @return null|string
-	 */
-	public function getHost() {
+        $this->Host = $Host;
 
-		return $this->Host;
-	}
+        return $this;
+    }
 }

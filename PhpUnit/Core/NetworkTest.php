@@ -3,21 +3,25 @@ namespace MOC\PhpUnit\Core;
 
 use MOC\MarkIV\Api;
 
-class NetworkTest extends \PHPUnit_Framework_TestCase {
+class NetworkTest extends \PHPUnit_Framework_TestCase
+{
 
-	/** @runTestsInSeparateProcesses */
-	public function testNetworkApi() {
+    /** @runTestsInSeparateProcesses */
+    public function testNetworkApi()
+    {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Api', Api::groupCore()->unitNetwork()->apiProxy() );
-	}
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Network\Proxy\Api', Api::groupCore()->unitNetwork()->apiProxy() );
+    }
 
-	protected function setUp() {
+    protected function setUp()
+    {
 
-		\BufferHandler::obSetUp( __CLASS__ );
-	}
+        \BufferHandler::obSetUp( __CLASS__ );
+    }
 
-	protected function tearDown() {
+    protected function tearDown()
+    {
 
-		\BufferHandler::obTearDown();
-	}
+        \BufferHandler::obTearDown();
+    }
 }

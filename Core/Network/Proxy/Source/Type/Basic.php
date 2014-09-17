@@ -10,36 +10,40 @@ use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Curl;
  *
  * @package MOC\MarkIV\Core\Network\Proxy\Source\Type
  */
-class Basic extends Generic {
+class Basic extends Generic
+{
 
-	function __construct( Server $Server, Credentials $Credentials ) {
+    function __construct( Server $Server, Credentials $Credentials )
+    {
 
-		$this->Server = $Server;
-		$this->Credentials = $Credentials;
-	}
+        $this->Server = $Server;
+        $this->Credentials = $Credentials;
+    }
 
-	public function getFile( $Url, $Status = false ) {
+    public function getFile( $Url, $Status = false )
+    {
 
-		if( strtoupper( parse_url( $Url, PHP_URL_SCHEME ) ) == 'HTTPS' ) {
-			return Curl::getFileHttps( $Url, $this->Server, $this->Credentials, $this->getCustomHeader( true ) );
-		}
+        if (strtoupper( parse_url( $Url, PHP_URL_SCHEME ) ) == 'HTTPS') {
+            return Curl::getFileHttps( $Url, $this->Server, $this->Credentials, $this->getCustomHeader( true ) );
+        }
 
-		if( $this->openSocket() ) {
-			fputs( $this->Socket, "GET ".$Url." HTTP/1.0\r\nHost: ".$this->Server->getHost()."\r\n" );
-			fputs( $this->Socket, "Proxy-Authorization: Basic ".base64_encode( $this->Credentials->getUsername().':'.$this->Credentials->getPassword() )."\r\n" );
-			fputs( $this->Socket, "Connection: close"."\r\n" );
-			fputs( $this->Socket, "\r\n" );
+        if ($this->openSocket()) {
+            fputs( $this->Socket, "GET ".$Url." HTTP/1.0\r\nHost: ".$this->Server->getHost()."\r\n" );
+            fputs( $this->Socket,
+                "Proxy-Authorization: Basic ".base64_encode( $this->Credentials->getUsername().':'.$this->Credentials->getPassword() )."\r\n" );
+            fputs( $this->Socket, "Connection: close"."\r\n" );
+            fputs( $this->Socket, "\r\n" );
 
-			if( null !== ( $Status = $this->readSocket( $Status ) ) ) {
-				return $Status;
-			}
+            if (null !== ( $Status = $this->readSocket( $Status ) )) {
+                return $Status;
+            }
 
-			// Check Status e.g 302 -> Redirect
-			$ContentToCheck = $this->getStatusCode( $this->Content );
+            // Check Status e.g 302 -> Redirect
+            $ContentToCheck = $this->getStatusCode( $this->Content );
 
-			$this->closeSocket( $ContentToCheck );
-		}
+            $this->closeSocket( $ContentToCheck );
+        }
 
-		return $this->Content;
-	}
+        return $this->Content;
+    }
 }

@@ -9,17 +9,18 @@ use MOC\MarkIV\Core\Network\Proxy\Source\Api\Type;
  *
  * @package MOC\MarkIV\Core\Network\Proxy
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
-	/**
-	 * @return Config
-	 */
-	public function apiConfig();
+    /**
+     * @return Config
+     */
+    public function apiConfig();
 
-	/**
-	 * @return Type
-	 */
-	public function apiType();
+    /**
+     * @return Type
+     */
+    public function apiType();
 }
 
 /**
@@ -27,22 +28,25 @@ interface IApiInterface {
  *
  * @package MOC\MarkIV\Core\Network\Proxy
  */
-class Api implements IApiInterface {
+class Api implements IApiInterface
+{
 
-	/**
-	 * @return Config
-	 */
-	public function apiConfig() {
+    /**
+     * @return Config
+     */
+    public function apiConfig()
+    {
 
-		return new Config();
-	}
+        return new Config();
+    }
 
-	/**
-	 * @return Type
-	 */
-	public function apiType() {
+    /**
+     * @return Type
+     */
+    public function apiType()
+    {
 
-		return new Type();
-	}
+        return new Type();
+    }
 
 }

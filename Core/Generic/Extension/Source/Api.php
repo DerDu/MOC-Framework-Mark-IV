@@ -6,68 +6,73 @@ namespace MOC\MarkIV\Core\Generic\Extension\Source;
  *
  * @package MOC\MarkIV\Core\Generic\Extension\Source
  */
-abstract class Api {
+abstract class Api
+{
 
-	/** @var null|Instance $Instance */
-	protected static $Instance = null;
-	/** @var Instance[] $InstanceQueue */
-	protected static $InstanceQueue = array();
+    /** @var null|Instance $Instance */
+    protected static $Instance = null;
+    /** @var Instance[] $InstanceQueue */
+    protected static $InstanceQueue = array();
 
-	/**
-	 * Bootstrap
-	 */
-	abstract function __construct();
+    /**
+     * Bootstrap
+     */
+    abstract function __construct();
 
-	abstract function buildInstance( $Identifier = null );
+    abstract function buildInstance( $Identifier = null );
 
-	/**
-	 * @return null|Instance
-	 */
-	public function currentInstance() {
+    /**
+     * @return null|Instance
+     */
+    public function currentInstance()
+    {
 
-		return static::$Instance;
-	}
+        return static::$Instance;
+    }
 
-	/**
-	 * @param $Identifier
-	 *
-	 * @return Api
-	 */
-	public function selectInstance( $Identifier ) {
+    /**
+     * @param $Identifier
+     *
+     * @return Api
+     */
+    public function selectInstance( $Identifier )
+    {
 
-		if( null !== static::$Instance ) {
-			static::$InstanceQueue[static::$Instance->getIdentifier()] = static::$Instance;
-		}
-		static::$Instance = static::$InstanceQueue[$Identifier];
+        if (null !== static::$Instance) {
+            static::$InstanceQueue[static::$Instance->getIdentifier()] = static::$Instance;
+        }
+        static::$Instance = static::$InstanceQueue[$Identifier];
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return Api
-	 */
-	public function destroyInstance() {
+    /**
+     * @return Api
+     */
+    public function destroyInstance()
+    {
 
-		unset( static::$InstanceQueue[static::$Instance->getIdentifier()] );
-		static::$Instance = null;
+        unset( static::$InstanceQueue[static::$Instance->getIdentifier()] );
+        static::$Instance = null;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param object      $Extension
-	 * @param null|string $Identifier
-	 *
-	 * @return Api
-	 */
-	protected function createInstance( $Extension, $Identifier = null ) {
+    /**
+     * @param object      $Extension
+     * @param null|string $Identifier
+     *
+     * @return Api
+     */
+    protected function createInstance( $Extension, $Identifier = null )
+    {
 
-		$Instance = new Instance( $Extension, $Identifier );
-		if( null !== static::$Instance ) {
-			static::$InstanceQueue[static::$Instance->getIdentifier()] = static::$Instance;
-		}
-		static::$Instance = $Instance;
+        $Instance = new Instance( $Extension, $Identifier );
+        if (null !== static::$Instance) {
+            static::$InstanceQueue[static::$Instance->getIdentifier()] = static::$Instance;
+        }
+        static::$Instance = $Instance;
 
-		return $this;
-	}
+        return $this;
+    }
 }

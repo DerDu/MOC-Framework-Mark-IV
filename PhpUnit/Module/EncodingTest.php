@@ -3,21 +3,26 @@ namespace MOC\PhpUnit\Module;
 
 use MOC\MarkIV\Api;
 
-class EncodingTest extends \PHPUnit_Framework_TestCase {
+class EncodingTest extends \PHPUnit_Framework_TestCase
+{
 
-	/** @runTestsInSeparateProcesses */
-	public function testEncodingApi() {
+    /** @runTestsInSeparateProcesses */
+    public function testEncodingApi()
+    {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Module\Encoding\Text\Api', Api::groupModule()->unitEncoding()->apiText( '' ) );
-	}
+        $this->assertInstanceOf( '\MOC\MarkIV\Module\Encoding\Text\Api',
+            Api::groupModule()->unitEncoding()->apiText( '' ) );
+    }
 
-	protected function setUp() {
+    protected function setUp()
+    {
 
-		\BufferHandler::obSetUp( __CLASS__ );
-	}
+        \BufferHandler::obSetUp( __CLASS__ );
+    }
 
-	protected function tearDown() {
+    protected function tearDown()
+    {
 
-		\BufferHandler::obTearDown();
-	}
+        \BufferHandler::obTearDown();
+    }
 }

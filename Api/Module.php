@@ -10,22 +10,23 @@ use MOC\MarkIV\Module\Mail;
  *
  * @package MOC\MarkIV\Api
  */
-interface IModuleInterface {
+interface IModuleInterface
+{
 
-	/**
-	 * @return Encoding
-	 */
-	public function unitEncoding();
+    /**
+     * @return Encoding
+     */
+    public function unitEncoding();
 
-	/**
-	 * @return Document
-	 */
-	public function unitDocument();
+    /**
+     * @return Document
+     */
+    public function unitDocument();
 
-	/**
-	 * @return Mail
-	 */
-	public function unitMail();
+    /**
+     * @return Mail
+     */
+    public function unitMail();
 }
 
 /**
@@ -33,29 +34,33 @@ interface IModuleInterface {
  *
  * @package MOC\MarkIV\Api
  */
-class Module implements IModuleInterface {
+class Module implements IModuleInterface
+{
 
-	/**
-	 * @return Encoding
-	 */
-	public function unitEncoding() {
+    /**
+     * @return Encoding
+     */
+    public function unitEncoding()
+    {
 
-		return new Encoding();
-	}
+        return new Encoding();
+    }
 
-	/**
-	 * @return Document
-	 */
-	public function unitDocument() {
+    /**
+     * @return Document
+     */
+    public function unitDocument()
+    {
 
-		return new Document();
-	}
+        return new Document();
+    }
 
-	/**
-	 * @return Mail
-	 */
-	public function unitMail() {
+    /**
+     * @return Mail
+     */
+    public function unitMail()
+    {
 
-		return new Mail();
-	}
+        return new Mail();
+    }
 }

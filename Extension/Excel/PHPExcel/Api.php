@@ -9,31 +9,34 @@ use MOC\MarkIV\Extension\Excel\IApiInterface;
  *
  * @package MOC\MarkIV\Extension\Excel\PHPExcel
  */
-class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiInterface {
+class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiInterface
+{
 
-	/** @var null|Instance $Instance */
-	protected static $Instance = null;
-	/** @var Instance[] $InstanceQueue */
-	protected static $InstanceQueue = array();
+    /** @var null|Instance $Instance */
+    protected static $Instance = null;
+    /** @var Instance[] $InstanceQueue */
+    protected static $InstanceQueue = array();
 
-	/**
-	 * Bootstrap
-	 */
-	function __construct() {
+    /**
+     * Bootstrap
+     */
+    function __construct()
+    {
 
-		require_once( __DIR__.'/3rdParty/PHPExcel/Classes/PHPExcel.php' );
-		\PHPExcel_Cell::setValueBinder( new \PHPExcel_Cell_AdvancedValueBinder() );
-	}
+        require_once( __DIR__.'/3rdParty/PHPExcel/Classes/PHPExcel.php' );
+        \PHPExcel_Cell::setValueBinder( new \PHPExcel_Cell_AdvancedValueBinder() );
+    }
 
-	/**
-	 * @param null|string $Identifier
-	 *
-	 * @return Api
-	 */
-	public function buildInstance( $Identifier = null ) {
+    /**
+     * @param null|string $Identifier
+     *
+     * @return Api
+     */
+    public function buildInstance( $Identifier = null )
+    {
 
-		$this->createInstance( new \PHPExcel(), $Identifier );
+        $this->createInstance( new \PHPExcel(), $Identifier );
 
-		return $this;
-	}
+        return $this;
+    }
 }

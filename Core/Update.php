@@ -6,16 +6,18 @@ namespace MOC\MarkIV\Core;
  *
  * @package MOC\MarkIV\Core
  */
-interface IUpdateInterface {
-	/**
-	 * @return Update\GitHub\Gui\Api
-	 */
-	public function apiGui();
+interface IUpdateInterface
+{
 
-	/**
-	 * @return Update\GitHub\Api
-	 */
-	public function apiGitHub();
+    /**
+     * @return Update\GitHub\Gui\Api
+     */
+    public function apiGui();
+
+    /**
+     * @return Update\GitHub\Api
+     */
+    public function apiGitHub();
 }
 
 /**
@@ -23,19 +25,24 @@ interface IUpdateInterface {
  *
  * @package MOC\MarkIV\Core
  */
-class Update implements IUpdateInterface {
+class Update implements IUpdateInterface
+{
 
-	/**
-	 * @return Update\GitHub\Gui\Api
-	 */
-	public function apiGui() {
-		return new Update\GitHub\Gui\Api();
-	}
+    /**
+     * @return Update\GitHub\Gui\Api
+     */
+    public function apiGui()
+    {
 
-	/**
-	 * @return Update\GitHub\Api
-	 */
-	public function apiGitHub() {
-		return new Update\GitHub\Api();
-	}
+        return new Update\GitHub\Gui\Api();
+    }
+
+    /**
+     * @return Update\GitHub\Api
+     */
+    public function apiGitHub()
+    {
+
+        return new Update\GitHub\Api();
+    }
 }

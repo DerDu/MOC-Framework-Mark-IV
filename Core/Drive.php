@@ -8,35 +8,37 @@ use MOC\MarkIV\Core\Drive\Directory\Utility\Check;
  *
  * @package MOC\MarkIV\Core
  */
-interface IDriveInterface {
+interface IDriveInterface
+{
 
-	/**
-	 * @param string $Location
-	 *
-	 * @return Drive\Directory\Api
-	 */
-	public function apiDirectory( $Location );
+    /**
+     * @param string $Location
+     *
+     * @return Drive\Directory\Api
+     */
+    public function apiDirectory( $Location );
 
-	/**
-	 * @param string $Location
-	 *
-	 * @return Drive\File\Api
-	 */
-	public function apiFile( $Location );
+    /**
+     * @param string $Location
+     *
+     * @return Drive\File\Api
+     */
+    public function apiFile( $Location );
 
-	/**
-	 * @return Drive\Directory\Api
-	 */
-	public function getRootDirectory();
+    /**
+     * @return Drive\Directory\Api
+     */
+    public function getRootDirectory();
 
-	/**
-	 * @return Drive\Directory\Api
-	 */
-	public function getCurrentDirectory();
-	/**
-	 * @return Drive\Directory\Api
-	 */
-	public function getDataDirectory();
+    /**
+     * @return Drive\Directory\Api
+     */
+    public function getCurrentDirectory();
+
+    /**
+     * @return Drive\Directory\Api
+     */
+    public function getDataDirectory();
 }
 
 /**
@@ -44,48 +46,55 @@ interface IDriveInterface {
  *
  * @package MOC\MarkIV\Core
  */
-class Drive implements IDriveInterface {
+class Drive implements IDriveInterface
+{
 
-	/**
-	 * @param string $Location
-	 *
-	 * @return Drive\File\Api
-	 */
-	public function apiFile( $Location ) {
+    /**
+     * @param string $Location
+     *
+     * @return Drive\File\Api
+     */
+    public function apiFile( $Location )
+    {
 
-		return new Drive\File\Api( $Location );
-	}
+        return new Drive\File\Api( $Location );
+    }
 
-	/**
-	 * @param string $Location
-	 *
-	 * @return Drive\Directory\Api
-	 */
-	public function apiDirectory( $Location ) {
+    /**
+     * @return Drive\Directory\Api
+     */
+    public function getRootDirectory()
+    {
 
-		return new Drive\Directory\Api( $Location );
-	}
+        return Check::getRootDirectory();
+    }
 
-	/**
-	 * @return Drive\Directory\Api
-	 */
-	public function getRootDirectory() {
+    /**
+     * @return Drive\Directory\Api
+     */
+    public function getCurrentDirectory()
+    {
 
-		return Check::getRootDirectory();
-	}
+        return Check::getCurrentDirectory();
+    }
 
-	/**
-	 * @return Drive\Directory\Api
-	 */
-	public function getCurrentDirectory() {
+    /**
+     * @return Drive\Directory\Api
+     */
+    public function getDataDirectory()
+    {
 
-		return Check::getCurrentDirectory();
-	}
+        return $this->apiDirectory( __DIR__.'/../Data' );
+    }
 
-	/**
-	 * @return Drive\Directory\Api
-	 */
-	public function getDataDirectory() {
-		return $this->apiDirectory( __DIR__.'/../Data' );
-	}
+    /**
+     * @param string $Location
+     *
+     * @return Drive\Directory\Api
+     */
+    public function apiDirectory( $Location )
+    {
+
+        return new Drive\Directory\Api( $Location );
+    }
 }

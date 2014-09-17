@@ -3,21 +3,26 @@ namespace MOC\PhpUnit\Module;
 
 use MOC\MarkIV\Api;
 
-class DocumentTest extends \PHPUnit_Framework_TestCase {
+class DocumentTest extends \PHPUnit_Framework_TestCase
+{
 
-	/** @runTestsInSeparateProcesses */
-	public function testDocumentApi() {
+    /** @runTestsInSeparateProcesses */
+    public function testDocumentApi()
+    {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Module\Document\Excel\Api', Api::groupModule()->unitDocument()->apiExcel() );
-	}
+        $this->assertInstanceOf( '\MOC\MarkIV\Module\Document\Excel\Api',
+            Api::groupModule()->unitDocument()->apiExcel() );
+    }
 
-	protected function setUp() {
+    protected function setUp()
+    {
 
-		\BufferHandler::obSetUp( __CLASS__ );
-	}
+        \BufferHandler::obSetUp( __CLASS__ );
+    }
 
-	protected function tearDown() {
+    protected function tearDown()
+    {
 
-		\BufferHandler::obTearDown();
-	}
+        \BufferHandler::obTearDown();
+    }
 }

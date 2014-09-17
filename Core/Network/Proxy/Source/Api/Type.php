@@ -12,27 +12,28 @@ use MOC\MarkIV\Core\Network\Proxy\Source\Type\Relay;
  *
  * @package MOC\MarkIV\Core\Network\Proxy\Source\Api
  */
-interface ITypeInterface {
+interface ITypeInterface
+{
 
-	/**
-	 * @return None
-	 */
-	public function buildNone();
+    /**
+     * @return None
+     */
+    public function buildNone();
 
-	/**
-	 * @param Server $Server
-	 *
-	 * @return Relay
-	 */
-	public function buildRelay( Server $Server );
+    /**
+     * @param Server $Server
+     *
+     * @return Relay
+     */
+    public function buildRelay( Server $Server );
 
-	/**
-	 * @param Server      $Server
-	 * @param Credentials $Credentials
-	 *
-	 * @return Basic
-	 */
-	public function buildBasic( Server $Server, Credentials $Credentials );
+    /**
+     * @param Server      $Server
+     * @param Credentials $Credentials
+     *
+     * @return Basic
+     */
+    public function buildBasic( Server $Server, Credentials $Credentials );
 }
 
 /**
@@ -40,34 +41,38 @@ interface ITypeInterface {
  *
  * @package MOC\MarkIV\Core\Network\Proxy\Source\Api
  */
-class Type implements ITypeInterface {
+class Type implements ITypeInterface
+{
 
-	/**
-	 * @return None
-	 */
-	public function buildNone() {
+    /**
+     * @return None
+     */
+    public function buildNone()
+    {
 
-		return new None();
-	}
+        return new None();
+    }
 
-	/**
-	 * @param Server $Server
-	 *
-	 * @return Relay
-	 */
-	public function buildRelay( Server $Server ) {
+    /**
+     * @param Server $Server
+     *
+     * @return Relay
+     */
+    public function buildRelay( Server $Server )
+    {
 
-		return new Relay( $Server );
-	}
+        return new Relay( $Server );
+    }
 
-	/**
-	 * @param Server      $Server
-	 * @param Credentials $Credentials
-	 *
-	 * @return Basic
-	 */
-	public function buildBasic( Server $Server, Credentials $Credentials ) {
+    /**
+     * @param Server      $Server
+     * @param Credentials $Credentials
+     *
+     * @return Basic
+     */
+    public function buildBasic( Server $Server, Credentials $Credentials )
+    {
 
-		return new Basic( $Server, $Credentials );
-	}
+        return new Basic( $Server, $Credentials );
+    }
 }

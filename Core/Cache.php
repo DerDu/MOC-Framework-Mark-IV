@@ -6,15 +6,17 @@ namespace MOC\MarkIV\Core;
  *
  * @package MOC\MarkIV\Core
  */
-interface ICacheInterface {
-	/**
-	 * @param int    $Timeout
-	 * @param string $Group
-	 * @param string $Extension
-	 *
-	 * @return Cache\File\Api
-	 */
-	public function apiFile( $Timeout = 60, $Group = '', $Extension = 'cache' );
+interface ICacheInterface
+{
+
+    /**
+     * @param int    $Timeout
+     * @param string $Group
+     * @param string $Extension
+     *
+     * @return Cache\File\Api
+     */
+    public function apiFile( $Timeout = 60, $Group = '', $Extension = 'cache' );
 }
 
 /**
@@ -22,18 +24,20 @@ interface ICacheInterface {
  *
  * @package MOC\MarkIV\Core
  */
-class Cache implements ICacheInterface {
+class Cache implements ICacheInterface
+{
 
-	/**
-	 * @param int    $Timeout
-	 * @param string $Group
-	 * @param string $Extension
-	 *
-	 * @return Cache\File\Api
-	 */
-	public function apiFile( $Timeout = 60, $Group = '', $Extension = 'cache' ) {
+    /**
+     * @param int    $Timeout
+     * @param string $Group
+     * @param string $Extension
+     *
+     * @return Cache\File\Api
+     */
+    public function apiFile( $Timeout = 60, $Group = '', $Extension = 'cache' )
+    {
 
-		return new Cache\File\Api( $Timeout, $Group, $Extension );
-	}
+        return new Cache\File\Api( $Timeout, $Group, $Extension );
+    }
 
 }

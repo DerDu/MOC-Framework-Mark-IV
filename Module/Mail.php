@@ -6,27 +6,28 @@ namespace MOC\MarkIV\Module;
  *
  * @package MOC\MarkIV\Module
  */
-interface IMailInterface {
+interface IMailInterface
+{
 
-	/**
-	 * @return Mail\Smtp\Api
-	 */
-	public function apiSmtp();
+    /**
+     * @return Mail\Smtp\Api
+     */
+    public function apiSmtp();
 
-	/**
-	 * @return Mail\Pop3\Api
-	 */
-	public function apiPop3();
+    /**
+     * @return Mail\Pop3\Api
+     */
+    public function apiPop3();
 
-	/**
-	 * @return Mail\QMail\Api
-	 */
-	public function apiQMail();
+    /**
+     * @return Mail\QMail\Api
+     */
+    public function apiQMail();
 
-	/**
-	 * @return Mail\SendMail\Api
-	 */
-	public function apiSendMail();
+    /**
+     * @return Mail\SendMail\Api
+     */
+    public function apiSendMail();
 }
 
 /**
@@ -34,37 +35,42 @@ interface IMailInterface {
  *
  * @package MOC\MarkIV\Module
  */
-class Mail {
+class Mail
+{
 
-	/**
-	 * @return Mail\Smtp\Api
-	 */
-	public function apiSmtp() {
+    /**
+     * @return Mail\Smtp\Api
+     */
+    public function apiSmtp()
+    {
 
-		return new Mail\Smtp\Api();
-	}
+        return new Mail\Smtp\Api();
+    }
 
-	/**
-	 * @return Mail\Pop3\Api
-	 */
-	public function apiPop3() {
+    /**
+     * @return Mail\Pop3\Api
+     */
+    public function apiPop3()
+    {
 
-		return new Mail\Pop3\Api();
-	}
+        return new Mail\Pop3\Api();
+    }
 
-	/**
-	 * @return Mail\QMail\Api
-	 */
-	public function apiQMail() {
+    /**
+     * @return Mail\QMail\Api
+     */
+    public function apiQMail()
+    {
 
-		return new Mail\QMail\Api();
-	}
+        return new Mail\QMail\Api();
+    }
 
-	/**
-	 * @return Mail\SendMail\Api
-	 */
-	public function apiSendMail() {
+    /**
+     * @return Mail\SendMail\Api
+     */
+    public function apiSendMail()
+    {
 
-		return new Mail\SendMail\Api();
-	}
+        return new Mail\SendMail\Api();
+    }
 }

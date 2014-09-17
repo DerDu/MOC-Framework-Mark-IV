@@ -1,16 +1,16 @@
 {
-	"name": "derdu/moc-framework-mark-iv",
-	"description": "Mind the task - forget the obstacles...",
-	"minimum-stability": "stable",
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "DerDu",
-			"email": "gerdchristian.kunze@googlemail.com"
-		}
-	],
+    "name": "derdu/moc-framework-mark-iv",
+    "description": "Mind the task - forget the obstacles...",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "DerDu",
+            "email": "gerdchristian.kunze@googlemail.com"
+        }
+    ],
 
-	"require-dev": {
-		"satooshi/php-coveralls": "dev-master"
-	}
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master"
+    }
 }

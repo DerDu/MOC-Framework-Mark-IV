@@ -8,15 +8,16 @@ use MOC\MarkIV\Core\Drive\Directory\IApiInterface;
  *
  * @package MOC\MarkIV\Extension
  */
-interface IDocumentationInterface {
+interface IDocumentationInterface
+{
 
-	/**
-	 * @param IApiInterface $Source
-	 * @param IApiInterface $Destination
-	 *
-	 * @return Documentation\ApiGen\Api
-	 */
-	public function useApiGen( IApiInterface $Source, IApiInterface $Destination );
+    /**
+     * @param IApiInterface $Source
+     * @param IApiInterface $Destination
+     *
+     * @return Documentation\ApiGen\Api
+     */
+    public function useApiGen( IApiInterface $Source, IApiInterface $Destination );
 }
 
 /**
@@ -24,16 +25,18 @@ interface IDocumentationInterface {
  *
  * @package MOC\MarkIV\Extension
  */
-class Documentation implements IDocumentationInterface {
+class Documentation implements IDocumentationInterface
+{
 
-	/**
-	 * @param IApiInterface $Source
-	 * @param IApiInterface $Destination
-	 *
-	 * @return Documentation\ApiGen\Api
-	 */
-	public function useApiGen( IApiInterface $Source, IApiInterface $Destination ) {
+    /**
+     * @param IApiInterface $Source
+     * @param IApiInterface $Destination
+     *
+     * @return Documentation\ApiGen\Api
+     */
+    public function useApiGen( IApiInterface $Source, IApiInterface $Destination )
+    {
 
-		return new Documentation\ApiGen\Api( $Source, $Destination );
-	}
+        return new Documentation\ApiGen\Api( $Source, $Destination );
+    }
 }

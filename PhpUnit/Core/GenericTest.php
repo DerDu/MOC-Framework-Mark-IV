@@ -3,29 +3,38 @@ namespace MOC\PhpUnit\Core;
 
 use MOC\MarkIV\Api;
 
-class GenericTest extends \PHPUnit_Framework_TestCase {
-	/** @runTestsInSeparateProcesses */
-	public function testGenericExtensionApi() {
+class GenericTest extends \PHPUnit_Framework_TestCase
+{
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Extension\IApiInterface', Api::groupCore()->genericExtension() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Extension\Source\IInstanceInterface', $Api = Api::groupCore()->genericExtension()->buildInstance( new \stdClass(), 'TestDummy' ) );
+    /** @runTestsInSeparateProcesses */
+    public function testGenericExtensionApi()
+    {
 
-		$this->assertEquals( 'TestDummy', $Api->getIdentifier() );
-		$this->assertInstanceOf( '\stdClass', $Api->getObject() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Extension\Source\IInstanceInterface', $Api->setObject( new \stdClass() ) );
-		$this->assertInstanceOf( '\stdClass', $Api->getObject() );
-	}
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Extension\IApiInterface',
+            Api::groupCore()->genericExtension() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Extension\Source\IInstanceInterface',
+            $Api = Api::groupCore()->genericExtension()->buildInstance( new \stdClass(), 'TestDummy' ) );
 
-	/** @runTestsInSeparateProcesses */
-	public function testGenericGlobalsServerApi() {
+        $this->assertEquals( 'TestDummy', $Api->getIdentifier() );
+        $this->assertInstanceOf( '\stdClass', $Api->getObject() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Extension\Source\IInstanceInterface',
+            $Api->setObject( new \stdClass() ) );
+        $this->assertInstanceOf( '\stdClass', $Api->getObject() );
+    }
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Globals\IApiInterface', Api::groupCore()->genericGlobals() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Globals\Source\IServerInterface', $Api = Api::groupCore()->genericGlobals()->useServer() );
+    /** @runTestsInSeparateProcesses */
+    public function testGenericGlobalsServerApi()
+    {
 
-		$Api::doRefresh();
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Globals\IApiInterface', Api::groupCore()->genericGlobals() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Generic\Globals\Source\IServerInterface',
+            $Api = Api::groupCore()->genericGlobals()->useServer() );
 
-		$this->assertEquals( isset( $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : null, $Api->getServerDocumentRoot() );
-		$this->assertEquals( isset( $_SERVER['SERVER_PORT'] ) ? $_SERVER['SERVER_PORT'] : null, $Api->getServerPort() );
-		$this->assertEquals( isset( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : null, $Api->getServerName() );
-	}
+        $Api::doRefresh();
+
+        $this->assertEquals( isset( $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : null,
+            $Api->getServerDocumentRoot() );
+        $this->assertEquals( isset( $_SERVER['SERVER_PORT'] ) ? $_SERVER['SERVER_PORT'] : null, $Api->getServerPort() );
+        $this->assertEquals( isset( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : null, $Api->getServerName() );
+    }
 }

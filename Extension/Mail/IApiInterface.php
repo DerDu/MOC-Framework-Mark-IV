@@ -6,6 +6,7 @@ namespace MOC\MarkIV\Extension\Mail;
  *
  * @package MOC\MarkIV\Extension\Mail
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
 }

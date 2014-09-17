@@ -6,53 +6,59 @@ namespace MOC\MarkIV\Core\Xml\Reader\Source;
  *
  * @package MOC\MarkIV\Core\Xml\Reader\Source
  */
-abstract class Mask {
+abstract class Mask
+{
 
-	const PATTERN_COMMENT = '!(?<=\!--).*?(?=//-->)!is';
-	const PATTERN_CDATA = '!(?<=\!\[CDATA\[).*?(?=\]\]>)!is';
+    const PATTERN_COMMENT = '!(?<=\!--).*?(?=//-->)!is';
+    const PATTERN_CDATA = '!(?<=\!\[CDATA\[).*?(?=\]\]>)!is';
 
-	/**
-	 * @param string $Payload
-	 * @param string $Pattern
-	 *
-	 * @return mixed
-	 */
-	protected function encodePayload( $Payload, $Pattern ) {
-		if( $Pattern == self::PATTERN_COMMENT ) {
-			return preg_replace( $Pattern, '', $Payload );
-		} else {
-			return preg_replace_callback( $Pattern, array( $this, 'encodeMethod' ), $Payload );
-		}
-	}
+    /**
+     * @param string $Payload
+     * @param string $Pattern
+     *
+     * @return mixed
+     */
+    protected function encodePayload( $Payload, $Pattern )
+    {
 
-	/**
-	 * @param Node   $Node
-	 * @param string $Pattern
-	 */
-	protected function decodePayload( Node &$Node, $Pattern ) {
+        if ($Pattern == self::PATTERN_COMMENT) {
+            return preg_replace( $Pattern, '', $Payload );
+        } else {
+            return preg_replace_callback( $Pattern, array( $this, 'encodeMethod' ), $Payload );
+        }
+    }
 
-		$Match = array();
-		preg_match( $Pattern, $Node->getContent(), $Match );
-		$Node->setContent( $this->decodeMethod( empty( $Match ) ? '' : $Match[0] ) );
-	}
+    /**
+     * @param Node   $Node
+     * @param string $Pattern
+     */
+    protected function decodePayload( Node &$Node, $Pattern )
+    {
 
-	/**
-	 * @param $Payload
-	 *
-	 * @return string
-	 */
-	private function decodeMethod( $Payload ) {
+        $Match = array();
+        preg_match( $Pattern, $Node->getContent(), $Match );
+        $Node->setContent( $this->decodeMethod( empty( $Match ) ? '' : $Match[0] ) );
+    }
 
-		return base64_decode( $Payload );
-	}
+    /**
+     * @param $Payload
+     *
+     * @return string
+     */
+    private function decodeMethod( $Payload )
+    {
 
-	/**
-	 * @param $Payload
-	 *
-	 * @return string
-	 */
-	private function encodeMethod( $Payload ) {
+        return base64_decode( $Payload );
+    }
 
-		return base64_encode( $Payload[0] );
-	}
+    /**
+     * @param $Payload
+     *
+     * @return string
+     */
+    private function encodeMethod( $Payload )
+    {
+
+        return base64_encode( $Payload[0] );
+    }
 }

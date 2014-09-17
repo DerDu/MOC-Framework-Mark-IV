@@ -8,65 +8,66 @@ use MOC\MarkIV\Core\Update;
  *
  * @package MOC\MarkIV
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
-	/**
-	 * @return Api\Core
-	 */
-	public static function groupCore();
+    /**
+     * @return Api\Core
+     */
+    public static function groupCore();
 
-	/**
-	 * @return Api\Module
-	 */
-	public static function groupModule();
+    /**
+     * @return Api\Module
+     */
+    public static function groupModule();
 
-	/**
-	 * @return Api\Extension
-	 */
-	public static function groupExtension();
+    /**
+     * @return Api\Extension
+     */
+    public static function groupExtension();
 
-	/**
-	 * @return Api\Plugin
-	 */
-	public static function groupPlugin();
+    /**
+     * @return Api\Plugin
+     */
+    public static function groupPlugin();
 
-	/**
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadClass( $Class );
+    /**
+     * @param string $Class
+     *
+     * @return bool
+     */
+    public static function loadClass( $Class );
 
-	/**
-	 * @param string $File
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadInterface( $File, $Class );
+    /**
+     * @param string $File
+     * @param string $Class
+     *
+     * @return bool
+     */
+    public static function loadInterface( $File, $Class );
 
-	/**
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadNamespace( $Class );
+    /**
+     * @param string $Class
+     *
+     * @return bool
+     */
+    public static function loadNamespace( $Class );
 
-	/**
-	 * @param string                             $Namespace
-	 * @param Core\Drive\Directory\IApiInterface $Location
-	 */
-	public static function registerNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location );
+    /**
+     * @param string                             $Namespace
+     * @param Core\Drive\Directory\IApiInterface $Location
+     */
+    public static function registerNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location );
 
-	/**
-	 * @return void
-	 */
-	public static function runBootstrap();
+    /**
+     * @return void
+     */
+    public static function runBootstrap();
 
-	/**
-	 * @return Update
-	 */
-	public static function runUpdate();
+    /**
+     * @return Update
+     */
+    public static function runUpdate();
 }
 
 /**
@@ -74,149 +75,161 @@ interface IApiInterface {
  *
  * @package MOC\MarkIV
  */
-class Api implements IApiInterface {
+class Api implements IApiInterface
+{
 
-	/** @var array $NamespaceLocationList */
-	private static $NamespaceLocationList = array();
+    /** @var array $NamespaceLocationList */
+    private static $NamespaceLocationList = array();
 
-	/**
-	 * Bootstrap
-	 */
-	public static function runBootstrap() {
+    /**
+     * Bootstrap
+     */
+    public static function runBootstrap()
+    {
 
-		spl_autoload_register( function ( $Class ) {
+        spl_autoload_register( function ( $Class ) {
 
-			Api::loadClass( $Class );
-		} );
+            Api::loadClass( $Class );
+        } );
 
-		if( function_exists( 'xdebug_disable' ) ) {
-			xdebug_disable();
-		}
-		error_reporting( 0 );
+        if (function_exists( 'xdebug_disable' )) {
+            xdebug_disable();
+        }
+        error_reporting( 0 );
 
-		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildError() );
-		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildException() );
-		self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildShutdown() );
-	}
+        self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildError() );
+        self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildException() );
+        self::groupCore()->unitError()->apiHandler()->registerType( self::groupCore()->unitError()->apiHandler()->apiType()->buildShutdown() );
+    }
 
-	/**
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadClass( $Class ) {
+    /**
+     * @param string $Class
+     *
+     * @return bool
+     */
+    public static function loadClass( $Class )
+    {
 
-		$Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
-		$Location = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
-		if( false === ( $File = realpath( $Location ) ) ) {
-			/** Detect possible Interface-Definition in Class-File **/
-			return self::loadInterface( $Location, $Class );
-		} else {
-			/** @noinspection PhpIncludeInspection */
-			require( $File );
+        $Class = trim( str_replace( __NAMESPACE__, '', $Class ), '\\' );
+        $Location = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, __DIR__.DIRECTORY_SEPARATOR.$Class.'.php' );
+        if (false === ( $File = realpath( $Location ) )) {
+            /** Detect possible Interface-Definition in Class-File **/
+            return self::loadInterface( $Location, $Class );
+        } else {
+            /** @noinspection PhpIncludeInspection */
+            require( $File );
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 
-	/**
-	 * @param string $File
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadInterface( $File, $Class ) {
+    /**
+     * @param string $File
+     * @param string $Class
+     *
+     * @return bool
+     */
+    public static function loadInterface( $File, $Class )
+    {
 
-		$Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)Interface(.*?)$$!s';
-		if( preg_match( $Pattern, $File, $Match ) ) {
-			if( false === ( $File = realpath( $Match[1].$Match[2].$Match[3] ) ) ) {
-				return false;
-			} else {
-				/** @noinspection PhpIncludeInspection */
-				require( $File );
+        $Pattern = '!(.*?'.preg_quote( DIRECTORY_SEPARATOR ).')I([A-Z][^'.preg_quote( DIRECTORY_SEPARATOR ).']*?)Interface(.*?)$$!s';
+        if (preg_match( $Pattern, $File, $Match )) {
+            if (false === ( $File = realpath( $Match[1].$Match[2].$Match[3] ) )) {
+                return false;
+            } else {
+                /** @noinspection PhpIncludeInspection */
+                require( $File );
 
-				return true;
-			}
-		} else {
-			return self::loadNamespace( $Class );
-		}
-	}
+                return true;
+            }
+        } else {
+            return self::loadNamespace( $Class );
+        }
+    }
 
-	/**
-	 * @param string $Class
-	 *
-	 * @return bool
-	 */
-	public static function loadNamespace( $Class ) {
+    /**
+     * @param string $Class
+     *
+     * @return bool
+     */
+    public static function loadNamespace( $Class )
+    {
 
-		/** @var Core\Drive\Directory\Api $Location */
-		foreach( (array)self::$NamespaceLocationList as $Namespace => $Location ) {
-			if( strpos( $Class, $Namespace ) !== 0 ) {
-				continue;
-			}
-			$Class = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, $Location->getLocation().DIRECTORY_SEPARATOR.$Class.'.php' );
-			if( false === ( $File = realpath( $Class ) ) ) {
-				/** Detect possible Additional Class-Files **/
-			} else {
-				/** @noinspection PhpIncludeInspection */
-				require( $File );
+        /** @var Core\Drive\Directory\Api $Location */
+        foreach ((array)self::$NamespaceLocationList as $Namespace => $Location) {
+            if (strpos( $Class, $Namespace ) !== 0) {
+                continue;
+            }
+            $Class = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR,
+                $Location->getLocation().DIRECTORY_SEPARATOR.$Class.'.php' );
+            if (false === ( $File = realpath( $Class ) )) {
+                /** Detect possible Additional Class-Files **/
+            } else {
+                /** @noinspection PhpIncludeInspection */
+                require( $File );
 
-				return true;
-			}
-		}
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return Api\Core
-	 */
-	public static function groupCore() {
+    /**
+     * @return Api\Core
+     */
+    public static function groupCore()
+    {
 
-		return new Api\Core();
-	}
+        return new Api\Core();
+    }
 
-	/**
-	 * @param string                             $Namespace
-	 * @param Core\Drive\Directory\IApiInterface $Location
-	 */
-	public static function registerNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location ) {
+    /**
+     * @param string                             $Namespace
+     * @param Core\Drive\Directory\IApiInterface $Location
+     */
+    public static function registerNamespace( $Namespace, Core\Drive\Directory\IApiInterface $Location )
+    {
 
-		if( $Location->checkExists() && !$Location->checkIsEmpty() ) {
-			self::$NamespaceLocationList[$Namespace] = $Location;
-		}
-	}
+        if ($Location->checkExists() && !$Location->checkIsEmpty()) {
+            self::$NamespaceLocationList[$Namespace] = $Location;
+        }
+    }
 
-	/**
-	 * @return Update
-	 */
-	public static function runUpdate() {
+    /**
+     * @return Update
+     */
+    public static function runUpdate()
+    {
 
-		return new Update();
+        return new Update();
 
-	}
+    }
 
-	/**
-	 * @return Api\Module
-	 */
-	public static function groupModule() {
+    /**
+     * @return Api\Module
+     */
+    public static function groupModule()
+    {
 
-		return new Api\Module();
-	}
+        return new Api\Module();
+    }
 
-	/**
-	 * @return Api\Extension
-	 */
-	public static function groupExtension() {
+    /**
+     * @return Api\Extension
+     */
+    public static function groupExtension()
+    {
 
-		return new Api\Extension();
-	}
+        return new Api\Extension();
+    }
 
-	/**
-	 * @return Api\Plugin
-	 */
-	public static function groupPlugin() {
+    /**
+     * @return Api\Plugin
+     */
+    public static function groupPlugin()
+    {
 
-		return new Api\Plugin();
-	}
+        return new Api\Plugin();
+    }
 }

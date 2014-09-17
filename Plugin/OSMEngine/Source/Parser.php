@@ -1,7 +1,7 @@
 <?php
 namespace MOC\MarkIV\Plugin\OSMEngine\Source;
 
-use \MOC\MarkIV\Core\Drive\File\IApiInterface as File;
+use MOC\MarkIV\Core\Drive\File\IApiInterface as File;
 use MOC\MarkIV\Plugin\OSMEngine\Api\Element;
 
 /**
@@ -9,21 +9,23 @@ use MOC\MarkIV\Plugin\OSMEngine\Api\Element;
  *
  * @package MOC\MarkIV\Plugin\OSMEngine\Source
  */
-class Parser {
+class Parser
+{
 
-	/** @var null|\SimpleXMLElement $OSMData */
-	private $OSMData = null;
+    /** @var null|\SimpleXMLElement $OSMData */
+    private $OSMData = null;
 
-	/**
-	 * @param File $OSMFile
-	 */
-	function __construct( File $OSMFile ) {
+    /**
+     * @param File $OSMFile
+     */
+    function __construct( File $OSMFile )
+    {
 
-		$this->OSMData = simplexml_load_string( $OSMFile->getContent() );
+        $this->OSMData = simplexml_load_string( $OSMFile->getContent() );
 
-		$Element = new Element( $this->OSMData );
+        $Element = new Element( $this->OSMData );
 
-		return $Element;
-	}
+        return $Element;
+    }
 
 }

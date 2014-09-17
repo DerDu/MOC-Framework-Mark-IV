@@ -6,6 +6,7 @@ namespace MOC\MarkIV\Plugin\OSMEngine\Source\Element;
  *
  * @package MOC\MarkIV\Plugin\OSMEngine\Source\Element
  */
-class Relation {
+class Relation
+{
 
 }

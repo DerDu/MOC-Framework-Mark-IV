@@ -8,14 +8,15 @@ use MOC\MarkIV\Core\Drive\File\IApiInterface;
  *
  * @package MOC\MarkIV\Module
  */
-interface IDocumentInterface {
+interface IDocumentInterface
+{
 
-	/**
-	 * @param IApiInterface $File
-	 *
-	 * @return Document\Excel\Api
-	 */
-	public function apiExcel( IApiInterface $File = null );
+    /**
+     * @param IApiInterface $File
+     *
+     * @return Document\Excel\Api
+     */
+    public function apiExcel( IApiInterface $File = null );
 }
 
 /**
@@ -23,15 +24,17 @@ interface IDocumentInterface {
  *
  * @package MOC\MarkIV\Module
  */
-class Document {
+class Document
+{
 
-	/**
-	 * @param IApiInterface $File
-	 *
-	 * @return Document\Excel\Api
-	 */
-	public function apiExcel( IApiInterface $File = null ) {
+    /**
+     * @param IApiInterface $File
+     *
+     * @return Document\Excel\Api
+     */
+    public function apiExcel( IApiInterface $File = null )
+    {
 
-		return new Document\Excel\Api( $File );
-	}
+        return new Document\Excel\Api( $File );
+    }
 }

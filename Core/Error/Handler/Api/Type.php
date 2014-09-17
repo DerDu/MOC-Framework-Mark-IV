@@ -10,22 +10,23 @@ use MOC\MarkIV\Core\Error\Handler\Source\Type\Shutdown;
  *
  * @package MOC\MarkIV\Core\Error\Handler\Api
  */
-interface ITypeInterface {
+interface ITypeInterface
+{
 
-	/**
-	 * @return Error
-	 */
-	public function buildError();
+    /**
+     * @return Error
+     */
+    public function buildError();
 
-	/**
-	 * @return Exception
-	 */
-	public function buildException();
+    /**
+     * @return Exception
+     */
+    public function buildException();
 
-	/**
-	 * @return Shutdown
-	 */
-	public function buildShutdown();
+    /**
+     * @return Shutdown
+     */
+    public function buildShutdown();
 }
 
 /**
@@ -33,30 +34,34 @@ interface ITypeInterface {
  *
  * @package MOC\MarkIV\Core\Error\Handler\Api
  */
-class Type implements ITypeInterface {
+class Type implements ITypeInterface
+{
 
-	/**
-	 * @return Error
-	 */
-	public function buildError() {
+    /**
+     * @return Error
+     */
+    public function buildError()
+    {
 
-		return new Error();
-	}
+        return new Error();
+    }
 
-	/**
-	 * @return Exception
-	 */
-	public function buildException() {
+    /**
+     * @return Exception
+     */
+    public function buildException()
+    {
 
-		return new Exception();
-	}
+        return new Exception();
+    }
 
-	/**
-	 * @return Shutdown
-	 */
-	public function buildShutdown() {
+    /**
+     * @return Shutdown
+     */
+    public function buildShutdown()
+    {
 
-		return new Shutdown();
-	}
+        return new Shutdown();
+    }
 
 }

@@ -6,33 +6,36 @@ namespace MOC\MarkIV\Core\Xml\Reader\Source;
  *
  * @package MOC\MarkIV\Core\Xml\Reader\Source
  */
-abstract class NodeType {
+abstract class NodeType
+{
 
-	const TYPE_STRUCTURE = 1;
-	const TYPE_CONTENT = 2;
-	const TYPE_CDATA = 3;
-	const TYPE_COMMENT = 4;
+    const TYPE_STRUCTURE = 1;
+    const TYPE_CONTENT = 2;
+    const TYPE_CDATA = 3;
+    const TYPE_COMMENT = 4;
 
-	/** @var int $Type */
-	private $Type = self::TYPE_CONTENT;
+    /** @var int $Type */
+    private $Type = self::TYPE_CONTENT;
 
-	/**
-	 * @return int
-	 */
-	public function getType() {
+    /**
+     * @return int
+     */
+    public function getType()
+    {
 
-		return $this->Type;
-	}
+        return $this->Type;
+    }
 
-	/**
-	 * @param int $Value
-	 *
-	 * @return Node
-	 */
-	public function setType( $Value ) {
+    /**
+     * @param int $Value
+     *
+     * @return Node
+     */
+    public function setType( $Value )
+    {
 
-		$this->Type = $Value;
+        $this->Type = $Value;
 
-		return $this;
-	}
+        return $this;
+    }
 }

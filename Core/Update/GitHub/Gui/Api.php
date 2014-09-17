@@ -6,7 +6,8 @@ namespace MOC\MarkIV\Core\Update\Github\Gui;
  *
  * @package MOC\MarkIV\Core\Update\Github\Gui
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
 }
 
@@ -15,6 +16,7 @@ interface IApiInterface {
  *
  * @package MOC\MarkIV\Core\Update\Github\Gui
  */
-class Api implements IApiInterface {
+class Api implements IApiInterface
+{
 
 }

@@ -3,21 +3,25 @@ namespace MOC\PhpUnit\Api;
 
 use MOC\MarkIV\Api;
 
-class PluginTest extends \PHPUnit_Framework_TestCase {
+class PluginTest extends \PHPUnit_Framework_TestCase
+{
 
-	/** @runTestsInSeparateProcesses */
-	public function testUnitFactory() {
+    /** @runTestsInSeparateProcesses */
+    public function testUnitFactory()
+    {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Plugin\OSMEngine', Api::groupPlugin()->unitOSMEngine() );
-	}
+        $this->assertInstanceOf( '\MOC\MarkIV\Plugin\OSMEngine', Api::groupPlugin()->unitOSMEngine() );
+    }
 
-	protected function setUp() {
+    protected function setUp()
+    {
 
-		\BufferHandler::obSetUp( __CLASS__ );
-	}
+        \BufferHandler::obSetUp( __CLASS__ );
+    }
 
-	protected function tearDown() {
+    protected function tearDown()
+    {
 
-		\BufferHandler::obTearDown();
-	}
+        \BufferHandler::obTearDown();
+    }
 }

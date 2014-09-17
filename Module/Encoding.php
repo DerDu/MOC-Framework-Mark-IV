@@ -6,14 +6,15 @@ namespace MOC\MarkIV\Module;
  *
  * @package MOC\MarkIV\Module
  */
-interface IEncodingInterface {
+interface IEncodingInterface
+{
 
-	/**
-	 * @param string $Text
-	 *
-	 * @return Encoding\Text\Api
-	 */
-	public function apiText( $Text );
+    /**
+     * @param string $Text
+     *
+     * @return Encoding\Text\Api
+     */
+    public function apiText( $Text );
 }
 
 /**
@@ -21,16 +22,18 @@ interface IEncodingInterface {
  *
  * @package MOC\MarkIV\Module
  */
-class Encoding implements IEncodingInterface {
+class Encoding implements IEncodingInterface
+{
 
-	/**
-	 * @param string $Text
-	 *
-	 * @return Encoding\Text\Api
-	 */
-	public function apiText( $Text ) {
+    /**
+     * @param string $Text
+     *
+     * @return Encoding\Text\Api
+     */
+    public function apiText( $Text )
+    {
 
-		return new Encoding\Text\Api( $Text );
-	}
+        return new Encoding\Text\Api( $Text );
+    }
 
 }

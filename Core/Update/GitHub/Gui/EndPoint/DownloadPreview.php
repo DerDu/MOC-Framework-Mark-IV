@@ -11,63 +11,63 @@ Api::runBootstrap();
 
 $Config = Api::runUpdate()->apiGitHub()->buildConfig( __DIR__.'/../../Config.ini' );
 
-if( $Config->getChannelActiveRelease() ) {
+if ($Config->getChannelActiveRelease()) {
 
-	$ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelPreview( true );
+    $ReleaseList = Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelPreview( true );
 
-	if( false === $ReleaseList ) {
+    if (false === $ReleaseList) {
 
-		$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelError.html' )->getContent();
-		$Template = str_replace( '${Retry}', Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRetryTimestamp(), $Template );
+        $Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelError.html' )->getContent();
+        $Template = str_replace( '${Retry}',
+            Api::runUpdate()->apiGitHub()->buildChannel( $Config )->getChannelRetryTimestamp(), $Template );
 
-		print $Template;
+        print $Template;
 
-	} else {
+    } else {
 
-		if( empty( $ReleaseList ) ) {
+        if (empty( $ReleaseList )) {
 
-			print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
+            print Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelEmpty.html' )->getContent();
 
-		} else {
+        } else {
 
-			/** @var Release $Release */
-			foreach( (array)$ReleaseList as $Release ) {
-				if( $Release->getTag()->getIdentifier() == $_REQUEST['data-rel'] ) {
+            /** @var Release $Release */
+            foreach ((array)$ReleaseList as $Release) {
+                if ($Release->getTag()->getIdentifier() == $_REQUEST['data-rel']) {
 
-					$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/Install.html' )->getContent();
+                    $Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/Install.html' )->getContent();
 
-					$Template = str_replace( '${Version}', $Release->getVersion()->getVersionString(), $Template );
-					$Template = str_replace( '${Name}', $Release->getName(), $Template );
-					$Template = str_replace( '${Description}', $Release->getDescription(), $Template );
+                    $Template = str_replace( '${Version}', $Release->getVersion()->getVersionString(), $Template );
+                    $Template = str_replace( '${Name}', $Release->getName(), $Template );
+                    $Template = str_replace( '${Description}', $Release->getDescription(), $Template );
 
-					$BlobList = $Release->getTree()->getBlobList();
+                    $BlobList = $Release->getTree()->getBlobList();
 
-					$Template = str_replace( '${Count}', count( $BlobList ), $Template );
+                    $Template = str_replace( '${Count}', count( $BlobList ), $Template );
 
-					$Size = 0;
-					/** @var Blob $Blob */
-					foreach( (array)$BlobList as $Blob ) {
-						$Size += $Blob->getSize();
-					}
+                    $Size = 0;
+                    /** @var Blob $Blob */
+                    foreach ((array)$BlobList as $Blob) {
+                        $Size += $Blob->getSize();
+                    }
 
-					$Template = str_replace( '${Size}', $Size, $Template );
+                    $Template = str_replace( '${Size}', $Size, $Template );
 
-					$Template = str_replace( '${Identifier}', $Release->getTag()->getIdentifier(), $Template );
-					$Template = str_replace( '${Type}', 'Preview', $Template );
+                    $Template = str_replace( '${Identifier}', $Release->getTag()->getIdentifier(), $Template );
+                    $Template = str_replace( '${Type}', 'Preview', $Template );
 
-					print $Template;
+                    print $Template;
 
+                    break;
+                }
+            }
 
-					break;
-				}
-			}
+        }
 
-		}
-
-	}
+    }
 } else {
 
-	$Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
+    $Template = Api::groupCore()->unitDrive()->apiFile( __DIR__.'/ChannelDisabled.html' )->getContent();
 
-	print $Template;
+    print $Template;
 }

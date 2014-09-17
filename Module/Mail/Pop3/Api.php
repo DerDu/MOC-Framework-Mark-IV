@@ -8,6 +8,7 @@ use MOC\MarkIV\Module\Mail\IApiInterface;
  *
  * @package MOC\MarkIV\Module\Mail\Pop3
  */
-class Api extends \MOC\MarkIV\Module\Mail\Smtp\Api implements IApiInterface {
+class Api extends \MOC\MarkIV\Module\Mail\Smtp\Api implements IApiInterface
+{
 
 }

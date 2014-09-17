@@ -6,60 +6,66 @@ namespace MOC\MarkIV\Core\Network\Proxy\Source\Config;
  *
  * @package MOC\MarkIV\Core\Network\Proxy\Source\Config
  */
-class Credentials {
+class Credentials
+{
 
-	/** @var null|string $Username */
-	private $Username = null;
-	/** @var null|string $Password */
-	private $Password = null;
+    /** @var null|string $Username */
+    private $Username = null;
+    /** @var null|string $Password */
+    private $Password = null;
 
-	/**
-	 * @param string $UserName
-	 * @param string $Password
-	 */
-	function __construct( $UserName, $Password ) {
+    /**
+     * @param string $UserName
+     * @param string $Password
+     */
+    function __construct( $UserName, $Password )
+    {
 
-		$this->setUsername( $UserName );
-		$this->setPassword( $Password );
-	}
+        $this->setUsername( $UserName );
+        $this->setPassword( $Password );
+    }
 
-	/**
-	 * @param null|string $Password
-	 *
-	 * @return Credentials
-	 */
-	public function setPassword( $Password ) {
+    /**
+     * @return null|string
+     */
+    public function getPassword()
+    {
 
-		$this->Password = $Password;
+        return $this->Password;
+    }
 
-		return $this;
-	}
+    /**
+     * @param null|string $Password
+     *
+     * @return Credentials
+     */
+    public function setPassword( $Password )
+    {
 
-	/**
-	 * @return null|string
-	 */
-	public function getPassword() {
+        $this->Password = $Password;
 
-		return $this->Password;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param null|string $Username
-	 *
-	 * @return Credentials
-	 */
-	public function setUsername( $Username ) {
+    /**
+     * @return null|string
+     */
+    public function getUsername()
+    {
 
-		$this->Username = $Username;
+        return $this->Username;
+    }
 
-		return $this;
-	}
+    /**
+     * @param null|string $Username
+     *
+     * @return Credentials
+     */
+    public function setUsername( $Username )
+    {
 
-	/**
-	 * @return null|string
-	 */
-	public function getUsername() {
+        $this->Username = $Username;
 
-		return $this->Username;
-	}
+        return $this;
+    }
 }

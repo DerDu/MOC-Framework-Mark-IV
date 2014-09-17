@@ -8,12 +8,13 @@ use MOC\MarkIV\Plugin\OSMEngine;
  *
  * @package MOC\MarkIV\Api
  */
-interface IPluginInterface {
+interface IPluginInterface
+{
 
-	/**
-	 * @return OSMEngine
-	 */
-	public function unitOSMEngine();
+    /**
+     * @return OSMEngine
+     */
+    public function unitOSMEngine();
 }
 
 /**
@@ -21,14 +22,16 @@ interface IPluginInterface {
  *
  * @package MOC\MarkIV\Api
  */
-class Plugin implements IPluginInterface {
+class Plugin implements IPluginInterface
+{
 
-	/**
-	 * @return OSMEngine
-	 */
-	public function unitOSMEngine() {
+    /**
+     * @return OSMEngine
+     */
+    public function unitOSMEngine()
+    {
 
-		return new OSMEngine();
-	}
+        return new OSMEngine();
+    }
 
 }

@@ -6,6 +6,7 @@ namespace MOC\MarkIV\Extension\Excel;
  *
  * @package MOC\MarkIV\Extension\Excel
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
 }

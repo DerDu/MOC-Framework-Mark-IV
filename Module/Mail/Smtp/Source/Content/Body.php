@@ -8,19 +8,21 @@ use MOC\MarkIV\Api;
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Source\Content
  */
-class Body {
+class Body
+{
 
-	/**
-	 * @param string $Value
-	 * @param bool   $asHtml
-	 */
-	function __construct( $Value = '', $asHtml = true ) {
+    /**
+     * @param string $Value
+     * @param bool   $asHtml
+     */
+    function __construct( $Value = '', $asHtml = true )
+    {
 
-		/** @var \PHPMailer $Extension */
-		$Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
-		$Extension->isHTML( $asHtml );
-		$Extension->AltBody = $Value;
-		$Extension->msgHTML( $Value );
-	}
+        /** @var \PHPMailer $Extension */
+        $Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
+        $Extension->isHTML( $asHtml );
+        $Extension->AltBody = $Value;
+        $Extension->msgHTML( $Value );
+    }
 
 }

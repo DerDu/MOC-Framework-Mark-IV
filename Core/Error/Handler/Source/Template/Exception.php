@@ -6,31 +6,33 @@ namespace MOC\MarkIV\Core\Error\Handler\Source\Template;
  *
  * @package MOC\MarkIV\Core\Error\Handler\Source\Template
  */
-class Exception extends Generic {
+class Exception extends Generic
+{
 
-	/**
-	 * @param $Title
-	 * @param $Message
-	 * @param $Code
-	 * @param $File
-	 * @param $Line
-	 * @param $Trace
-	 * @param $Information
-	 */
-	function __construct( $Title, $Message, $Code, $File, $Line, $Trace, $Information ) {
+    /**
+     * @param $Title
+     * @param $Message
+     * @param $Code
+     * @param $File
+     * @param $Line
+     * @param $Trace
+     * @param $Information
+     */
+    function __construct( $Title, $Message, $Code, $File, $Line, $Trace, $Information )
+    {
 
-		parent::__construct( $Title, $Message, $Code, $File, $Line, $Trace, $Information );
-		$this->setTemplate(
-			'<div class="MOC-Error-Reporting-Container MOC-Error-Reporting-Type-Exception">'.
-			'<div class="MOC-Error-Reporting-Element">{Title}</div>'.
-			'<div class="MOC-Error-Reporting-Element MOC-Error-Reporting-Message">{Message}</div>'.
-			'<div class="MOC-Error-Reporting-Element">Code {Code} in {File} at line {Line}</div>'.
-			'<div class="MOC-Error-Reporting-Element">
+        parent::__construct( $Title, $Message, $Code, $File, $Line, $Trace, $Information );
+        $this->setTemplate(
+            '<div class="MOC-Error-Reporting-Container MOC-Error-Reporting-Type-Exception">'.
+            '<div class="MOC-Error-Reporting-Element">{Title}</div>'.
+            '<div class="MOC-Error-Reporting-Element MOC-Error-Reporting-Message">{Message}</div>'.
+            '<div class="MOC-Error-Reporting-Element">Code {Code} in {File} at line {Line}</div>'.
+            '<div class="MOC-Error-Reporting-Element">
 				<div class="MOC-Error-Reporting-Trace">{Trace}</div>
 			</div>'.
-			'<div class="MOC-Error-Reporting-Element">{Information}</div>'.
-			'</div>'
-		);
-	}
+            '<div class="MOC-Error-Reporting-Element">{Information}</div>'.
+            '</div>'
+        );
+    }
 
 }

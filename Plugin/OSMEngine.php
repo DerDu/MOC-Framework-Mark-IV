@@ -11,21 +11,22 @@ use MOC\MarkIV\Plugin\OSMEngine\Source\Parser;
  *
  * @package MOC\MarkIV\Plugin
  */
-interface IOSMEngineInterface {
+interface IOSMEngineInterface
+{
 
-	/**
-	 * @param File $OSMFile
-	 *
-	 * @return Parser
-	 */
-	public function apiParser( File $OSMFile );
+    /**
+     * @param File $OSMFile
+     *
+     * @return Parser
+     */
+    public function apiParser( File $OSMFile );
 
-	/**
-	 * @param Node $OSMElement
-	 *
-	 * @return Element
-	 */
-	public function apiElement( Node $OSMElement );
+    /**
+     * @param Node $OSMElement
+     *
+     * @return Element
+     */
+    public function apiElement( Node $OSMElement );
 }
 
 /**
@@ -33,26 +34,29 @@ interface IOSMEngineInterface {
  *
  * @package MOC\MarkIV\Plugin
  */
-class OSMEngine implements IOSMEngineInterface {
+class OSMEngine implements IOSMEngineInterface
+{
 
-	/**
-	 * @param File $OSMFile
-	 *
-	 * @return Parser
-	 */
-	public function apiParser( File $OSMFile ) {
+    /**
+     * @param File $OSMFile
+     *
+     * @return Parser
+     */
+    public function apiParser( File $OSMFile )
+    {
 
-		return new Parser( $OSMFile );
-	}
+        return new Parser( $OSMFile );
+    }
 
-	/**
-	 * @param Node $OSMElement
-	 *
-	 * @return Element
-	 */
-	public function apiElement( Node $OSMElement ) {
+    /**
+     * @param Node $OSMElement
+     *
+     * @return Element
+     */
+    public function apiElement( Node $OSMElement )
+    {
 
-		return new Element( $OSMElement );
-	}
+        return new Element( $OSMElement );
+    }
 
 }

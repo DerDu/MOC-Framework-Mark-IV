@@ -6,36 +6,40 @@ namespace MOC\MarkIV\Plugin\OSMEngine\Source\Element;
  *
  * @package MOC\MarkIV\Plugin\OSMEngine\Source\Element
  */
-class Node {
+class Node
+{
 
-	/** @var float|null $Latitude */
-	private $Latitude = 0.0;
-	/** @var float|null $Longitude */
-	private $Longitude = 0.0;
+    /** @var float|null $Latitude */
+    private $Latitude = 0.0;
+    /** @var float|null $Longitude */
+    private $Longitude = 0.0;
 
-	/**
-	 * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
-	 */
-	function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node ) {
+    /**
+     * @param \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node
+     */
+    function __construct( \MOC\MarkIV\Core\Xml\Reader\Source\Node $Node )
+    {
 
-		$this->Latitude = $Node->getAttribute( 'lat' );
-		$this->Longitude = $Node->getAttribute( 'lon' );
-	}
+        $this->Latitude = $Node->getAttribute( 'lat' );
+        $this->Longitude = $Node->getAttribute( 'lon' );
+    }
 
-	/**
-	 * @return int|null
-	 */
-	public function getLatitude() {
+    /**
+     * @return int|null
+     */
+    public function getLatitude()
+    {
 
-		return $this->Latitude;
-	}
+        return $this->Latitude;
+    }
 
-	/**
-	 * @return int|null
-	 */
-	public function getLongitude() {
+    /**
+     * @return int|null
+     */
+    public function getLongitude()
+    {
 
-		return $this->Longitude;
-	}
+        return $this->Longitude;
+    }
 
 }

@@ -6,12 +6,13 @@ namespace MOC\MarkIV\Extension;
  *
  * @package MOC\MarkIV\Extension
  */
-interface IMailInterface {
+interface IMailInterface
+{
 
-	/**
-	 * @return Mail\PHPMailer\Api
-	 */
-	public function usePHPMailer();
+    /**
+     * @return Mail\PHPMailer\Api
+     */
+    public function usePHPMailer();
 }
 
 /**
@@ -19,13 +20,15 @@ interface IMailInterface {
  *
  * @package MOC\MarkIV\Extension
  */
-class Mail implements IMailInterface {
+class Mail implements IMailInterface
+{
 
-	/**
-	 * @return Mail\PHPMailer\Api
-	 */
-	public function usePHPMailer() {
+    /**
+     * @return Mail\PHPMailer\Api
+     */
+    public function usePHPMailer()
+    {
 
-		return new Mail\PHPMailer\Api();
-	}
+        return new Mail\PHPMailer\Api();
+    }
 }

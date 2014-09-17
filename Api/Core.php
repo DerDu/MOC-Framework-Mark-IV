@@ -16,42 +16,43 @@ use MOC\MarkIV\Core\Xml;
  *
  * @package MOC\MarkIV\Api
  */
-interface ICoreInterface {
+interface ICoreInterface
+{
 
-	/**
-	 * @return Error
-	 */
-	public function unitError();
+    /**
+     * @return Error
+     */
+    public function unitError();
 
-	/**
-	 * @return Session
-	 */
-	public function unitSession();
+    /**
+     * @return Session
+     */
+    public function unitSession();
 
-	/**
-	 * @return Drive
-	 */
-	public function unitDrive();
+    /**
+     * @return Drive
+     */
+    public function unitDrive();
 
-	/**
-	 * @return Network
-	 */
-	public function unitNetwork();
+    /**
+     * @return Network
+     */
+    public function unitNetwork();
 
-	/**
-	 * @return Cache
-	 */
-	public function unitCache();
+    /**
+     * @return Cache
+     */
+    public function unitCache();
 
-	/**
-	 * @return Update
-	 */
-	public function unitUpdate();
+    /**
+     * @return Update
+     */
+    public function unitUpdate();
 
-	/**
-	 * @return Xml
-	 */
-	public function unitXml();
+    /**
+     * @return Xml
+     */
+    public function unitXml();
 }
 
 /**
@@ -59,75 +60,87 @@ interface ICoreInterface {
  *
  * @package MOC\MarkIV\Api
  */
-class Core implements ICoreInterface {
+class Core implements ICoreInterface
+{
 
-	/**
-	 * @return Drive
-	 */
-	public function unitDrive() {
+    /**
+     * @return Drive
+     */
+    public function unitDrive()
+    {
 
-		return new Drive();
-	}
+        return new Drive();
+    }
 
-	/**
-	 * @return Error
-	 */
-	public function unitError() {
+    /**
+     * @return Error
+     */
+    public function unitError()
+    {
 
-		return new Error();
-	}
+        return new Error();
+    }
 
-	/**
-	 * @return Session
-	 */
-	public function unitSession() {
+    /**
+     * @return Session
+     */
+    public function unitSession()
+    {
 
-		return new Session();
-	}
+        return new Session();
+    }
 
-	/**
-	 * @return Network
-	 */
-	public function unitNetwork() {
+    /**
+     * @return Network
+     */
+    public function unitNetwork()
+    {
 
-		return new Network();
-	}
+        return new Network();
+    }
 
-	/**
-	 * @return Cache
-	 */
-	public function unitCache() {
+    /**
+     * @return Cache
+     */
+    public function unitCache()
+    {
 
-		return new Cache();
-	}
+        return new Cache();
+    }
 
-	/**
-	 * @return Update
-	 */
-	public function unitUpdate() {
+    /**
+     * @return Update
+     */
+    public function unitUpdate()
+    {
 
-		return new Update();
-	}
+        return new Update();
+    }
 
-	/**
-	 * @return Xml
-	 */
-	public function unitXml() {
+    /**
+     * @return Xml
+     */
+    public function unitXml()
+    {
 
-		return new Xml();
-	}
+        return new Xml();
+    }
 
-	/**
-	 * @return GenericExtension
-	 */
-	public function genericExtension() {
-		return new GenericExtension();
-	}
+    /**
+     * @return GenericExtension
+     */
+    public function genericExtension()
+    {
 
-	/**
-	 * @return GenericGlobals
-	 */
-	public function genericGlobals() {
-		return new GenericGlobals();
-	}
+        return new GenericExtension();
+    }
+
+    /**
+     * @return GenericGlobals
+     */
+    public function genericGlobals()
+    {
+
+        return new GenericGlobals();
+    }
 }

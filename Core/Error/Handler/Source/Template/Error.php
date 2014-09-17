@@ -6,6 +6,7 @@ namespace MOC\MarkIV\Core\Error\Handler\Source\Template;
  *
  * @package MOC\MarkIV\Core\Error\Handler\Source\Template
  */
-class Error extends Generic {
+class Error extends Generic
+{
 
 }

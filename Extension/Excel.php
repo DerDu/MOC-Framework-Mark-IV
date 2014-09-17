@@ -6,12 +6,13 @@ namespace MOC\MarkIV\Extension;
  *
  * @package MOC\MarkIV\Extension
  */
-interface IExcelInterface {
+interface IExcelInterface
+{
 
-	/**
-	 * @return Excel\PHPExcel\Api
-	 */
-	public function usePHPExcel();
+    /**
+     * @return Excel\PHPExcel\Api
+     */
+    public function usePHPExcel();
 }
 
 /**
@@ -19,13 +20,15 @@ interface IExcelInterface {
  *
  * @package MOC\MarkIV\Extension
  */
-class Excel implements IExcelInterface {
+class Excel implements IExcelInterface
+{
 
-	/**
-	 * @return Excel\PHPExcel\Api
-	 */
-	public function usePHPExcel() {
+    /**
+     * @return Excel\PHPExcel\Api
+     */
+    public function usePHPExcel()
+    {
 
-		return new Excel\PHPExcel\Api();
-	}
+        return new Excel\PHPExcel\Api();
+    }
 }

@@ -3,39 +3,44 @@ namespace MOC\PhpUnit;
 
 use MOC\MarkIV\Api;
 
-class ApiTest extends \PHPUnit_Framework_TestCase {
+class ApiTest extends \PHPUnit_Framework_TestCase
+{
 
-	/** @runTestsInSeparateProcesses */
-	public function testBootstrap() {
+    /** @runTestsInSeparateProcesses */
+    public function testBootstrap()
+    {
 
-		Api::runBootstrap();
-	}
+        Api::runBootstrap();
+    }
 
-	/** @runTestsInSeparateProcesses */
-	public function testGroupFactory() {
+    /** @runTestsInSeparateProcesses */
+    public function testGroupFactory()
+    {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Api\Core', Api::groupCore() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Api\Module', Api::groupModule() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Api\Extension', Api::groupExtension() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Api\Plugin', Api::groupPlugin() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Api\Core', Api::groupCore() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Api\Module', Api::groupModule() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Api\Extension', Api::groupExtension() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Api\Plugin', Api::groupPlugin() );
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Core\Update', Api::runUpdate() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Core\Update', Api::runUpdate() );
 
-		Api::registerNamespace( 'NotAvailableNamespace', Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
-		Api::registerNamespace( '\\', Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
+        Api::registerNamespace( 'NotAvailableNamespace', Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
+        Api::registerNamespace( '\\', Api::groupCore()->unitDrive()->apiDirectory( __DIR__ ) );
 
-		$this->assertFalse( Api::loadClass( '\NotAvailableClass' ) );
-		$this->assertFalse( Api::loadInterface( '\INotAvailableInterface', '\INotAvailableInterface' ) );
-		$this->assertFalse( Api::loadNamespace( '\NotAvailableClass' ) );
-	}
+        $this->assertFalse( Api::loadClass( '\NotAvailableClass' ) );
+        $this->assertFalse( Api::loadInterface( '\INotAvailableInterface', '\INotAvailableInterface' ) );
+        $this->assertFalse( Api::loadNamespace( '\NotAvailableClass' ) );
+    }
 
-	protected function setUp() {
+    protected function setUp()
+    {
 
-		\BufferHandler::obSetUp( __CLASS__ );
-	}
+        \BufferHandler::obSetUp( __CLASS__ );
+    }
 
-	protected function tearDown() {
+    protected function tearDown()
+    {
 
-		\BufferHandler::obTearDown();
-	}
+        \BufferHandler::obTearDown();
+    }
 }

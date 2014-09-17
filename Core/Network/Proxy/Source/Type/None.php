@@ -9,57 +9,58 @@ use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Curl;
  *
  * @package MOC\MarkIV\Core\Network\Proxy\Source\Type
  */
-class None extends Generic {
+class None extends Generic
+{
 
-	function __construct() {
+    function __construct()
+    {
 
-		$this->Server = new Server( '', '' );
-	}
+        $this->Server = new Server( '', '' );
+    }
 
-	public function getFile( $Url, $Status = false ) {
+    public function getFile( $Url, $Status = false )
+    {
 
-		$this->Server->setHost( parse_url( $Url, PHP_URL_HOST ) );
+        $this->Server->setHost( parse_url( $Url, PHP_URL_HOST ) );
 
-		if( parse_url( $Url, PHP_URL_PORT ) === null ) {
-			switch( strtoupper( parse_url( $Url, PHP_URL_SCHEME ) ) ) {
-				case 'HTTP':
-				{
-					$this->Server->setPort( '80' );
-					break;
-				}
-				case 'HTTPS':
-				{
-					$this->Server->setPort( '443' );
-					break;
-				}
-			}
-		} else {
-			$this->Server->setPort( parse_url( $Url, PHP_URL_PORT ) );
-		}
+        if (parse_url( $Url, PHP_URL_PORT ) === null) {
+            switch (strtoupper( parse_url( $Url, PHP_URL_SCHEME ) )) {
+                case 'HTTP': {
+                    $this->Server->setPort( '80' );
+                    break;
+                }
+                case 'HTTPS': {
+                    $this->Server->setPort( '443' );
+                    break;
+                }
+            }
+        } else {
+            $this->Server->setPort( parse_url( $Url, PHP_URL_PORT ) );
+        }
 
-		if( $this->Server->getPort() == '443' ) {
-			if( in_array( 'https', stream_get_wrappers() ) ) {
-				return file_get_contents( $Url );
-			} else {
-				return Curl::getFileHttps( $Url, null, null, $this->getCustomHeader( true ) );
-			}
-		}
+        if ($this->Server->getPort() == '443') {
+            if (in_array( 'https', stream_get_wrappers() )) {
+                return file_get_contents( $Url );
+            } else {
+                return Curl::getFileHttps( $Url, null, null, $this->getCustomHeader( true ) );
+            }
+        }
 
-		if( $this->openSocket() ) {
-			fputs( $this->Socket, "GET ".$Url." HTTP/1.0\r\nHost: ".parse_url( $Url, PHP_URL_HOST )."\r\n" );
-			fputs( $this->Socket, "Connection: close"."\r\n" );
-			fputs( $this->Socket, "\r\n" );
+        if ($this->openSocket()) {
+            fputs( $this->Socket, "GET ".$Url." HTTP/1.0\r\nHost: ".parse_url( $Url, PHP_URL_HOST )."\r\n" );
+            fputs( $this->Socket, "Connection: close"."\r\n" );
+            fputs( $this->Socket, "\r\n" );
 
-			if( null !== ( $Status = $this->readSocket( $Status ) ) ) {
-				return $Status;
-			}
+            if (null !== ( $Status = $this->readSocket( $Status ) )) {
+                return $Status;
+            }
 
-			// Check Status e.g 302 -> Redirect
-			$ContentToCheck = $this->getStatusCode( $this->Content, $Url );
+            // Check Status e.g 302 -> Redirect
+            $ContentToCheck = $this->getStatusCode( $this->Content, $Url );
 
-			$this->closeSocket( $ContentToCheck );
-		}
+            $this->closeSocket( $ContentToCheck );
+        }
 
-		return $this->Content;
-	}
+        return $this->Content;
+    }
 }

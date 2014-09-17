@@ -8,16 +8,18 @@ use MOC\MarkIV\Api;
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Source\Content
  */
-class Subject {
+class Subject
+{
 
-	/**
-	 * @param string $Value
-	 */
-	function __construct( $Value ) {
+    /**
+     * @param string $Value
+     */
+    function __construct( $Value )
+    {
 
-		/** @var \PHPMailer $Extension */
-		$Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
-		$Extension->Subject = $Value;
-	}
+        /** @var \PHPMailer $Extension */
+        $Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
+        $Extension->Subject = $Value;
+    }
 
 }

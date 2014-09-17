@@ -8,14 +8,15 @@ use MOC\MarkIV\Api;
  *
  * @package MOC\MarkIV\Core
  */
-interface IXmlInterface {
+interface IXmlInterface
+{
 
-	/**
-	 * @param Drive\File\IApiInterface $XmlFile
-	 *
-	 * @return Xml\Reader\Api
-	 */
-	public function apiReader( Drive\File\IApiInterface $XmlFile );
+    /**
+     * @param Drive\File\IApiInterface $XmlFile
+     *
+     * @return Xml\Reader\Api
+     */
+    public function apiReader( Drive\File\IApiInterface $XmlFile );
 }
 
 /**
@@ -23,21 +24,23 @@ interface IXmlInterface {
  *
  * @package MOC\MarkIV\Core
  */
-class Xml implements IXmlInterface {
+class Xml implements IXmlInterface
+{
 
-	/**
-	 * @param Drive\File\IApiInterface $XmlFile
-	 *
-	 * @return Xml\Reader\Api
-	 */
-	public function apiReader( Drive\File\IApiInterface $XmlFile ) {
+    /**
+     * @param Drive\File\IApiInterface $XmlFile
+     *
+     * @return Xml\Reader\Api
+     */
+    public function apiReader( Drive\File\IApiInterface $XmlFile )
+    {
 
-		$Cache = Api::groupCore()->unitCache()->apiFile( 3600, __CLASS__, 'object' );
-		if( false === ( $Reader = $Cache->getCacheData( $XmlFile->getHash() ) ) ) {
-			$Reader = new Xml\Reader\Api( $XmlFile->getContent() );
-			$Cache->setCacheData( $Reader, $XmlFile->getHash() );
-		}
+        $Cache = Api::groupCore()->unitCache()->apiFile( 3600, __CLASS__, 'object' );
+        if (false === ( $Reader = $Cache->getCacheData( $XmlFile->getHash() ) )) {
+            $Reader = new Xml\Reader\Api( $XmlFile->getContent() );
+            $Cache->setCacheData( $Reader, $XmlFile->getHash() );
+        }
 
-		return $Reader;
-	}
+        return $Reader;
+    }
 }

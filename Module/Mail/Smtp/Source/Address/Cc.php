@@ -9,20 +9,22 @@ use MOC\MarkIV\Module\Mail\Smtp\Source\Address;
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Source\Address
  */
-class Cc extends Address {
+class Cc extends Address
+{
 
-	/**
-	 * @return Address
-	 */
-	public function setAddress() {
+    /**
+     * @return Address
+     */
+    public function setAddress()
+    {
 
-		if( $this->isValid() ) {
-			/** @var \PHPMailer $Extension */
-			$Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
-			$Extension->addCC( $this->Mail, $this->Name );
-		}
+        if ($this->isValid()) {
+            /** @var \PHPMailer $Extension */
+            $Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
+            $Extension->addCC( $this->Mail, $this->Name );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
 }

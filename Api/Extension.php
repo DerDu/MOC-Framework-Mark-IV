@@ -10,22 +10,23 @@ use MOC\MarkIV\Extension\Mail;
  *
  * @package MOC\MarkIV\Api
  */
-interface IExtensionInterface {
+interface IExtensionInterface
+{
 
-	/**
-	 * @return Documentation
-	 */
-	public function unitDocumentation();
+    /**
+     * @return Documentation
+     */
+    public function unitDocumentation();
 
-	/**
-	 * @return Mail
-	 */
-	public function unitMail();
+    /**
+     * @return Mail
+     */
+    public function unitMail();
 
-	/**
-	 * @return Excel
-	 */
-	public function unitExcel();
+    /**
+     * @return Excel
+     */
+    public function unitExcel();
 }
 
 /**
@@ -33,29 +34,33 @@ interface IExtensionInterface {
  *
  * @package MOC\MarkIV\Api
  */
-class Extension implements IExtensionInterface {
+class Extension implements IExtensionInterface
+{
 
-	/**
-	 * @return Documentation
-	 */
-	public function unitDocumentation() {
+    /**
+     * @return Documentation
+     */
+    public function unitDocumentation()
+    {
 
-		return new Documentation();
-	}
+        return new Documentation();
+    }
 
-	/**
-	 * @return Mail
-	 */
-	public function unitMail() {
+    /**
+     * @return Mail
+     */
+    public function unitMail()
+    {
 
-		return new Mail();
-	}
+        return new Mail();
+    }
 
-	/**
-	 * @return Excel
-	 */
-	public function unitExcel() {
+    /**
+     * @return Excel
+     */
+    public function unitExcel()
+    {
 
-		return new Excel();
-	}
+        return new Excel();
+    }
 }

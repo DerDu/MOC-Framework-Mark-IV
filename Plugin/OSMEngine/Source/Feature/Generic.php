@@ -6,33 +6,37 @@ namespace MOC\MarkIV\Plugin\OSMEngine\Source\Feature;
  *
  * @package MOC\MarkIV\Plugin\OSMEngine\Source\Feature
  */
-abstract class Generic {
+abstract class Generic
+{
 
-	private $Type = null;
+    private $Type = null;
 
-	/**
-	 * @param string $TypeName
-	 *
-	 * @return bool
-	 */
-	public function hasType( $TypeName ) {
+    /**
+     * @param string $TypeName
+     *
+     * @return bool
+     */
+    public function hasType( $TypeName )
+    {
 
-		return $this->getType() == $TypeName;
-	}
+        return $this->getType() == $TypeName;
+    }
 
-	/**
-	 * @return null|string
-	 */
-	public function getType() {
+    /**
+     * @return null|string
+     */
+    public function getType()
+    {
 
-		return $this->Type;
-	}
+        return $this->Type;
+    }
 
-	/**
-	 * @param null|string $Type
-	 */
-	public function setType( $Type ) {
+    /**
+     * @param null|string $Type
+     */
+    public function setType( $Type )
+    {
 
-		$this->Type = $Type;
-	}
+        $this->Type = $Type;
+    }
 }

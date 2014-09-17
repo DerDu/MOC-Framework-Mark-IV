@@ -6,12 +6,13 @@ namespace MOC\MarkIV\Core;
  *
  * @package MOC\MarkIV\Core
  */
-interface ISessionInterface {
+interface ISessionInterface
+{
 
-	/**
-	 * @return Session\Handler\Api
-	 */
-	public function apiHandler();
+    /**
+     * @return Session\Handler\Api
+     */
+    public function apiHandler();
 }
 
 /**
@@ -19,13 +20,15 @@ interface ISessionInterface {
  *
  * @package MOC\MarkIV\Core
  */
-class Session implements ISessionInterface {
+class Session implements ISessionInterface
+{
 
-	/**
-	 * @return Session\Handler\Api
-	 */
-	public function apiHandler() {
+    /**
+     * @return Session\Handler\Api
+     */
+    public function apiHandler()
+    {
 
-		return new Session\Handler\Api();
-	}
+        return new Session\Handler\Api();
+    }
 }

@@ -6,51 +6,52 @@ namespace MOC\MarkIV\Core\Generic\Globals\Source;
  *
  * @package MOC\MarkIV\Core\Generic\Globals\Source
  */
-interface IServerInterface {
+interface IServerInterface
+{
 
-	public static function doRefresh();
+    public static function doRefresh();
 
-	/**
-	 * @param null|int $Default
-	 *
-	 * @return null|int
-	 */
-	public function getServerPort( $Default = null );
+    /**
+     * @param null|int $Default
+     *
+     * @return null|int
+     */
+    public function getServerPort( $Default = null );
 
-	/**
-	 * @param int $Value
-	 *
-	 * @return IServerInterface
-	 */
-	public function setServerPort( $Value );
+    /**
+     * @param int $Value
+     *
+     * @return IServerInterface
+     */
+    public function setServerPort( $Value );
 
-	/**
-	 * @param null|string $Default
-	 *
-	 * @return null|string
-	 */
-	public function getServerName( $Default = null );
+    /**
+     * @param null|string $Default
+     *
+     * @return null|string
+     */
+    public function getServerName( $Default = null );
 
-	/**
-	 * @param string $Value
-	 *
-	 * @return IServerInterface
-	 */
-	public function setServerName( $Value );
+    /**
+     * @param string $Value
+     *
+     * @return IServerInterface
+     */
+    public function setServerName( $Value );
 
-	/**
-	 * @param null|string $Default
-	 *
-	 * @return null|string
-	 */
-	public function getServerDocumentRoot( $Default = null );
+    /**
+     * @param null|string $Default
+     *
+     * @return null|string
+     */
+    public function getServerDocumentRoot( $Default = null );
 
-	/**
-	 * @param string $Value
-	 *
-	 * @return IServerInterface
-	 */
-	public function setServerDocumentRoot( $Value );
+    /**
+     * @param string $Value
+     *
+     * @return IServerInterface
+     */
+    public function setServerDocumentRoot( $Value );
 }
 
 /**
@@ -58,126 +59,138 @@ interface IServerInterface {
  *
  * @package MOC\MarkIV\Core\Generic\Globals\Source
  */
-class Server implements IServerInterface {
+class Server implements IServerInterface
+{
 
-	/** @var array $Content */
-	public static $Content = array();
+    /** @var array $Content */
+    public static $Content = array();
 
-	function __construct() {
+    function __construct()
+    {
 
-		if( empty( self::$Content ) ) {
-			self::$Content = $_SERVER;
-		}
-	}
+        if (empty( self::$Content )) {
+            self::$Content = $_SERVER;
+        }
+    }
 
-	public static function doRefresh() {
+    public static function doRefresh()
+    {
 
-		self::$Content = $_SERVER;
-	}
+        self::$Content = $_SERVER;
+    }
 
-	/**
-	 * @param null|int $Default
-	 *
-	 * @return null|int
-	 */
-	public function getServerPort( $Default = null ) {
+    /**
+     * @param null|int $Default
+     *
+     * @return null|int
+     */
+    public function getServerPort( $Default = null )
+    {
 
-		return $this->useDefault( $this->getValue( 'SERVER_PORT' ), $Default );
-	}
+        return $this->useDefault( $this->getValue( 'SERVER_PORT' ), $Default );
+    }
 
-	/**
-	 * @param mixed $Value
-	 * @param mixed $Default
-	 *
-	 * @return mixed
-	 */
-	private function useDefault( $Value, $Default ) {
+    /**
+     * @param mixed $Value
+     * @param mixed $Default
+     *
+     * @return mixed
+     */
+    private function useDefault( $Value, $Default )
+    {
 
-		if( null === $Value ) {
-			return $Default;
-		} else {
-			return $Value;
-		}
-	}
+        if (null === $Value) {
+            return $Default;
+        } else {
+            return $Value;
+        }
+    }
 
-	/**
-	 * @param string $Index
-	 *
-	 * @return null|mixed
-	 */
-	private function getValue( $Index ) {
+    /**
+     * @param string $Index
+     *
+     * @return null|mixed
+     */
+    private function getValue( $Index )
+    {
 
-		if( isset( self::$Content[$Index] ) ) {
-			return self::$Content[$Index];
-		} else {
-			return null;
-		}
-	}
+        if (isset( self::$Content[$Index] )) {
+            return self::$Content[$Index];
+        } else {
+            return null;
+        }
+    }
 
-	/**
-	 * @param int $Value
-	 *
-	 * @return IServerInterface
-	 */
-	public function setServerPort( $Value ) {
+    /**
+     * @param int $Value
+     *
+     * @return IServerInterface
+     */
+    public function setServerPort( $Value )
+    {
 
-		$this->setValue( 'SERVER_PORT', $Value );
+        $this->setValue( 'SERVER_PORT', $Value );
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $Index
-	 * @param mixed  $Value
-	 *
-	 * @return mixed
-	 */
-	private function setValue( $Index, $Value ) {
+    /**
+     * @param string $Index
+     * @param mixed  $Value
+     *
+     * @return mixed
+     */
+    private function setValue( $Index, $Value )
+    {
 
-		return self::$Content[$Index] = $Value;
-	}
+        return self::$Content[$Index] = $Value;
+    }
 
-	/**
-	 * @param null|string $Default
-	 *
-	 * @return null|string
-	 */
-	public function getServerName( $Default = null ) {
+    /**
+     * @param null|string $Default
+     *
+     * @return null|string
+     */
+    public function getServerName( $Default = null )
+    {
 
-		return $this->useDefault( $this->getValue( 'SERVER_NAME' ), $Default );
-	}
+        return $this->useDefault( $this->getValue( 'SERVER_NAME' ), $Default );
+    }
 
-	/**
-	 * @param string $Value
-	 *
-	 * @return IServerInterface
-	 */
-	public function setServerName( $Value ) {
+    /**
+     * @param string $Value
+     *
+     * @return IServerInterface
+     */
+    public function setServerName( $Value )
+    {
 
-		$this->setValue( 'SERVER_NAME', $Value );
+        $this->setValue( 'SERVER_NAME', $Value );
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param null|string $Default
-	 *
-	 * @return null|string
-	 */
-	public function getServerDocumentRoot( $Default = null ) {
+    /**
+     * @param null|string $Default
+     *
+     * @return null|string
+     */
+    public function getServerDocumentRoot( $Default = null )
+    {
 
-		return $this->useDefault( $this->getValue( 'DOCUMENT_ROOT' ), $Default );
-	}
+        return $this->useDefault( $this->getValue( 'DOCUMENT_ROOT' ), $Default );
+    }
 
-	/**
-	 * @param string $Value
-	 *
-	 * @return IServerInterface
-	 */
-	public function setServerDocumentRoot( $Value ) {
+    /**
+     * @param string $Value
+     *
+     * @return IServerInterface
+     */
+    public function setServerDocumentRoot( $Value )
+    {
 
-		$this->setValue( 'DOCUMENT_ROOT', $Value );
+        $this->setValue( 'DOCUMENT_ROOT', $Value );
 
-		return $this;
-	}
+        return $this;
+    }
 }

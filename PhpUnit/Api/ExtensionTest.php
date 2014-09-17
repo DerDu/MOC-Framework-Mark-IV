@@ -3,23 +3,27 @@ namespace MOC\PhpUnit\Api;
 
 use MOC\MarkIV\Api;
 
-class ExtensionTest extends \PHPUnit_Framework_TestCase {
+class ExtensionTest extends \PHPUnit_Framework_TestCase
+{
 
-	/** @runTestsInSeparateProcesses */
-	public function testUnitFactory() {
+    /** @runTestsInSeparateProcesses */
+    public function testUnitFactory()
+    {
 
-		$this->assertInstanceOf( '\MOC\MarkIV\Extension\Documentation', Api::groupExtension()->unitDocumentation() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Extension\Excel', Api::groupExtension()->unitExcel() );
-		$this->assertInstanceOf( '\MOC\MarkIV\Extension\Mail', Api::groupExtension()->unitMail() );
-	}
+        $this->assertInstanceOf( '\MOC\MarkIV\Extension\Documentation', Api::groupExtension()->unitDocumentation() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Extension\Excel', Api::groupExtension()->unitExcel() );
+        $this->assertInstanceOf( '\MOC\MarkIV\Extension\Mail', Api::groupExtension()->unitMail() );
+    }
 
-	protected function setUp() {
+    protected function setUp()
+    {
 
-		\BufferHandler::obSetUp( __CLASS__ );
-	}
+        \BufferHandler::obSetUp( __CLASS__ );
+    }
 
-	protected function tearDown() {
+    protected function tearDown()
+    {
 
-		\BufferHandler::obTearDown();
-	}
+        \BufferHandler::obTearDown();
+    }
 }

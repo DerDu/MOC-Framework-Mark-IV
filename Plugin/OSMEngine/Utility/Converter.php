@@ -8,72 +8,85 @@ use MOC\MarkIV\Plugin\OSMEngine\Utility;
  *
  * @package MOC\MarkIV\Plugin\OSMEngine\Utility
  */
-class Converter {
+class Converter
+{
 
-	private $South, $North, $West, $East;
-	private $Width, $Height;
-	private $MinY, $MaxY;
-	private $FactorX, $FactorY;
+    private $South, $North, $West, $East;
+    private $Width, $Height;
+    private $MinY, $MaxY;
+    private $FactorX, $FactorY;
 
-	// This map would show Germany:
-	function __construct( $South = 47.2, $North = 55.2, $West = 5.8, $East = 15.2, $Width = 1000, $Height = 1500 ) {
+    // This map would show Germany:
+    function __construct( $South = 47.2, $North = 55.2, $West = 5.8, $East = 15.2, $Width = 1000, $Height = 1500 )
+    {
 
-		$this->South = deg2rad( $South );
-		$this->North = deg2rad( $North );
-		$this->West = deg2rad( $West );
-		$this->East = deg2rad( $East );
+        $this->South = deg2rad( $South );
+        $this->North = deg2rad( $North );
+        $this->West = deg2rad( $West );
+        $this->East = deg2rad( $East );
 
-		$this->setSize( $Width, $Height );
-	}
+        $this->setSize( $Width, $Height );
+    }
 
-	public function setSize( $Width, $Height, $keepAspect = false ) {
+    public function setSize( $Width, $Height, $keepAspect = false )
+    {
 
-		// This also controls the aspect ratio of the projection
-		$this->Width = $Width;
-		$this->Height = $Height;
+        // This also controls the aspect ratio of the projection
+        $this->Width = $Width;
+        $this->Height = $Height;
 
-		// Corrent Ratio
-		if( $keepAspect ) {
-			$Y = abs( $this->South - $this->North );
-			$X = abs( $this->West - $this->East );
-			$this->Height = $this->Width / $X * $Y;
-		}
+        // Corrent Ratio
+        if ($keepAspect) {
+            $Y = abs( $this->South - $this->North );
+            $X = abs( $this->West - $this->East );
+            $this->Height = $this->Width / $X * $Y;
+        }
 
-		// Some constants to relate chosen area to screen coordinates
-		$this->MinY = $this->mercatorY( $this->South );
-		$this->MaxY = $this->mercatorY( $this->North );
-		$this->FactorX = $this->Width / ( $this->East - $this->West );
-		$this->FactorY = $this->Height / ( $this->MaxY - $this->MinY );
-	}
+        // Some constants to relate chosen area to screen coordinates
+        $this->MinY = $this->mercatorY( $this->South );
+        $this->MaxY = $this->mercatorY( $this->North );
+        $this->FactorX = $this->Width / ( $this->East - $this->West );
+        $this->FactorY = $this->Height / ( $this->MaxY - $this->MinY );
+    }
 
-	// Formula for mercator projection y coordinate:
+    // Formula for mercator projection y coordinate:
 
-	private function mercatorY( $Latitude ) {
+    private function mercatorY( $Latitude )
+    {
 
-		return log( tan( $Latitude / 2 + M_PI / 4 ) );
-	}
+        return log( tan( $Latitude / 2 + M_PI / 4 ) );
+    }
 
-	public static function setupMap( $South = 47.2, $North = 55.2, $West = 5.8, $East = 15.2, $Width = 1000, $Height = 1500 ) {
+    public static function setupMap(
+        $South = 47.2,
+        $North = 55.2,
+        $West = 5.8,
+        $East = 15.2,
+        $Width = 1000,
+        $Height = 1500
+    ) {
 
-		return new Converter( $South, $North, $West, $East, $Width, $Height );
-	}
+        return new Converter( $South, $North, $West, $East, $Width, $Height );
+    }
 
-	public function getSize() {
+    public function getSize()
+    {
 
-		return new Utility\Converter\Position( $this->Width, $this->Height );
-	}
+        return new Utility\Converter\Position( $this->Width, $this->Height );
+    }
 
-	// both in radians, use deg2rad if necessary
-	public function toPixel( $Latitude, $Longitude ) {
+    // both in radians, use deg2rad if necessary
+    public function toPixel( $Latitude, $Longitude )
+    {
 
-		$x = deg2rad( $Longitude );
-		$y = $this->mercatorY( deg2rad( $Latitude ) );
-		$x = ( $x - $this->West ) * $this->FactorX;
-		// y points south
-		$y = ( $this->MaxY - $y ) * $this->FactorY;
+        $x = deg2rad( $Longitude );
+        $y = $this->mercatorY( deg2rad( $Latitude ) );
+        $x = ( $x - $this->West ) * $this->FactorX;
+        // y points south
+        $y = ( $this->MaxY - $y ) * $this->FactorY;
 
-		return new Utility\Converter\Position( $x, $y );
-	}
+        return new Utility\Converter\Position( $x, $y );
+    }
 }
 
 /*

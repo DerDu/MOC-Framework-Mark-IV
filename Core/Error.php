@@ -6,12 +6,13 @@ namespace MOC\MarkIV\Core;
  *
  * @package MOC\MarkIV\Core
  */
-interface IErrorInterface {
+interface IErrorInterface
+{
 
-	/**
-	 * @return Error\Handler\Api
-	 */
-	public function apiHandler();
+    /**
+     * @return Error\Handler\Api
+     */
+    public function apiHandler();
 }
 
 /**
@@ -19,13 +20,15 @@ interface IErrorInterface {
  *
  * @package MOC\MarkIV\Core
  */
-class Error implements IErrorInterface {
+class Error implements IErrorInterface
+{
 
-	/**
-	 * @return Error\Handler\Api
-	 */
-	public function apiHandler() {
+    /**
+     * @return Error\Handler\Api
+     */
+    public function apiHandler()
+    {
 
-		return new Error\Handler\Api();
-	}
+        return new Error\Handler\Api();
+    }
 }

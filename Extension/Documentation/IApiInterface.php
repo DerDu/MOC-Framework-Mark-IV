@@ -6,10 +6,11 @@ namespace MOC\MarkIV\Extension\Documentation;
  *
  * @package MOC\MarkIV\Extension\Documentation
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
-	/**
-	 * @return bool|null|string
-	 */
-	public function createDocumentation();
+    /**
+     * @return bool|null|string
+     */
+    public function createDocumentation();
 }

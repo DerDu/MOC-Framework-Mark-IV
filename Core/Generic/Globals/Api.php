@@ -8,11 +8,13 @@ use MOC\MarkIV\Core\Generic\Globals\Source\Server;
  *
  * @package MOC\MarkIV\Core\Generic\Globals
  */
-interface IApiInterface {
-	/**
-	 * @return Server
-	 */
-	public function useServer();
+interface IApiInterface
+{
+
+    /**
+     * @return Server
+     */
+    public function useServer();
 }
 
 /**
@@ -20,11 +22,15 @@ interface IApiInterface {
  *
  * @package MOC\MarkIV\Core\Generic\Globals
  */
-class Api implements IApiInterface {
-	/**
-	 * @return Server
-	 */
-	public function useServer() {
-		return new Server();
-	}
+class Api implements IApiInterface
+{
+
+    /**
+     * @return Server
+     */
+    public function useServer()
+    {
+
+        return new Server();
+    }
 }

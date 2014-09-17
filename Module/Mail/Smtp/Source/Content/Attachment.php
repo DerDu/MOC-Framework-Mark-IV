@@ -9,19 +9,21 @@ use MOC\MarkIV\Core\Drive\File\IApiInterface;
  *
  * @package MOC\MarkIV\Module\Mail\Smtp\Source\Content
  */
-class Attachment {
+class Attachment
+{
 
-	/**
-	 * @param IApiInterface $File
-	 *
-	 * @throws \Exception
-	 * @throws \phpmailerException
-	 */
-	function __construct( IApiInterface $File ) {
+    /**
+     * @param IApiInterface $File
+     *
+     * @throws \Exception
+     * @throws \phpmailerException
+     */
+    function __construct( IApiInterface $File )
+    {
 
-		/** @var \PHPMailer $Extension */
-		$Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
-		$Extension->addAttachment( $File->getLocation() );
-	}
+        /** @var \PHPMailer $Extension */
+        $Extension = Api::groupExtension()->unitMail()->usePHPMailer()->currentInstance()->getObject();
+        $Extension->addAttachment( $File->getLocation() );
+    }
 
 }

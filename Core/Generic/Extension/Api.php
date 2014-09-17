@@ -8,15 +8,16 @@ use MOC\MarkIV\Core\Generic\Extension\Source\Instance;
  *
  * @package MOC\MarkIV\Core\Generic\Extension
  */
-interface IApiInterface {
+interface IApiInterface
+{
 
-	/**
-	 * @param \stdClass   $Instance
-	 * @param null|string $Identifier
-	 *
-	 * @return Instance
-	 */
-	public function buildInstance( $Instance, $Identifier = null );
+    /**
+     * @param \stdClass   $Instance
+     * @param null|string $Identifier
+     *
+     * @return Instance
+     */
+    public function buildInstance( $Instance, $Identifier = null );
 }
 
 /**
@@ -24,16 +25,18 @@ interface IApiInterface {
  *
  * @package MOC\MarkIV\Core\Generic\Extension
  */
-class Api implements IApiInterface {
+class Api implements IApiInterface
+{
 
-	/**
-	 * @param \stdClass   $Instance
-	 * @param null|string $Identifier
-	 *
-	 * @return Instance
-	 */
-	public function buildInstance( $Instance, $Identifier = null ) {
+    /**
+     * @param \stdClass   $Instance
+     * @param null|string $Identifier
+     *
+     * @return Instance
+     */
+    public function buildInstance( $Instance, $Identifier = null )
+    {
 
-		return new Instance( $Instance, $Identifier );
-	}
+        return new Instance( $Instance, $Identifier );
+    }
 }

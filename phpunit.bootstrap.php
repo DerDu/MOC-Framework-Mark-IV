@@ -17,40 +17,43 @@ MOC\MarkIV\Api::runBootstrap();
  *
  * @param $Class
  */
-class BufferHandler {
+class BufferHandler
+{
 
-	public static function obSetUp( $Class ) {
+    public static function obSetUp( $Class )
+    {
 
-		ob_start( function ( $Document ) {
+        ob_start( function ( $Document ) {
 
-			$Document = str_repeat( '=', 10 ).'> '.$Document;
+            $Document = str_repeat( '=', 10 ).'> '.$Document;
 
-			$Rules = array(
-				'!\<script[^\>]*?\>.*?\</script\>!si',
-				'!\<style[^\>]*?\>.*?\</style\>!si',
-				'!<[^>]*?>!si',
-				'!</[^>]*?>!si',
-				'!\t!si',
-				'!\s+$!si'
-			);
-			$Replace = array( '', '', "\n\r", "\n\r", "\t", '' );
-			$Document = preg_replace( $Rules, $Replace, $Document );
-			$Document = explode( "\n\r", $Document );
-			$Document = array_map( 'trim', $Document );
-			foreach( (array)$Document as $Index => $Value ) {
-				if( empty( $Value ) ) {
-					unset( $Document[$Index] );
-				}
-			}
-			$Document = trim( implode( "\n\r", $Document ) );
+            $Rules = array(
+                '!\<script[^\>]*?\>.*?\</script\>!si',
+                '!\<style[^\>]*?\>.*?\</style\>!si',
+                '!<[^>]*?>!si',
+                '!</[^>]*?>!si',
+                '!\t!si',
+                '!\s+$!si'
+            );
+            $Replace = array( '', '', "\n\r", "\n\r", "\t", '' );
+            $Document = preg_replace( $Rules, $Replace, $Document );
+            $Document = explode( "\n\r", $Document );
+            $Document = array_map( 'trim', $Document );
+            foreach ((array)$Document as $Index => $Value) {
+                if (empty( $Value )) {
+                    unset( $Document[$Index] );
+                }
+            }
+            $Document = trim( implode( "\n\r", $Document ) );
 
-			return trim( $Document );
-		} );
-		print $Class;
-	}
+            return trim( $Document );
+        } );
+        print $Class;
+    }
 
-	public static function obTearDown() {
+    public static function obTearDown()
+    {
 
-		ob_end_flush();
-	}
+        ob_end_flush();
+    }
 }
