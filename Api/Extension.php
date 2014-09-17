@@ -1,6 +1,7 @@
 <?php
 namespace MOC\MarkIV\Api;
 
+use MOC\MarkIV\Extension\Database;
 use MOC\MarkIV\Extension\Documentation;
 use MOC\MarkIV\Extension\Excel;
 use MOC\MarkIV\Extension\Mail;
@@ -17,6 +18,11 @@ interface IExtensionInterface
      * @return Documentation
      */
     public function unitDocumentation();
+
+    /**
+     * @return Documentation
+     */
+    public function unitDatabase();
 
     /**
      * @return Mail
@@ -44,6 +50,15 @@ class Extension implements IExtensionInterface
     {
 
         return new Documentation();
+    }
+
+    /**
+     * @return Database
+     */
+    public function unitDatabase()
+    {
+
+        return new Database();
     }
 
     /**
