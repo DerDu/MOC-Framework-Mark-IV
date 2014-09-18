@@ -11,12 +11,12 @@ class Server
 
     /** @var null|string $Host */
     private $Host = null;
-    /** @var null|string $Port */
+    /** @var null|int $Port */
     private $Port = null;
 
     /**
-     * @param string $Host
-     * @param string $Port
+     * @param string     $Host
+     * @param string|int $Port
      */
     function __construct( $Host, $Port )
     {
@@ -26,7 +26,7 @@ class Server
     }
 
     /**
-     * @return null|string
+     * @return null|int
      */
     public function getPort()
     {
@@ -35,7 +35,7 @@ class Server
     }
 
     /**
-     * @param null|string $Port
+     * @param null|string|int $Port
      *
      * @return Server
      */

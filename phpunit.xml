@@ -29,6 +29,9 @@
             <directory>./Extension/Documentation/ApiGen/Gui</directory>
             <directory>./Extension/Excel/PHPExcel/3rdParty</directory>
             <directory>./Extension/Mail/PHPMailer/3rdParty</directory>
+            <directory>./Extension/Database/Doctrine2/3rdParty</directory>
+            <directory>./Extension/Database/Propel/3rdParty</directory>
+            <directory>./Extension/Database/Propel2/3rdParty</directory>
             <directory>./Core/Update/GitHub/Gui</directory>
         </blacklist>
         <whitelist processUncoveredFilesFromWhitelist="false">
@@ -44,6 +47,9 @@
                 <directory>./Extension/Documentation/ApiGen/Gui</directory>
                 <directory>./Extension/Excel/PHPExcel/3rdParty</directory>
                 <directory>./Extension/Mail/PHPMailer/3rdParty</directory>
+                <directory>./Extension/Database/Doctrine2/3rdParty</directory>
+                <directory>./Extension/Database/Propel/3rdParty</directory>
+                <directory>./Extension/Database/Propel2/3rdParty</directory>
                 <directory>./Core/Update/GitHub/Gui</directory>
             </exclude>
         </whitelist>

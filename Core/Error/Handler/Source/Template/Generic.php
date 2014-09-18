@@ -93,7 +93,8 @@ abstract class Generic
      */
     function __toString()
     {
-        if( self::$ApplyTemplate ) {
+
+        if (self::$ApplyTemplate) {
             return $this->getOutput();
         } else {
             return $this->getConsole();
@@ -123,19 +124,6 @@ abstract class Generic
         return $Output;
     }
 
-    /**
-     * @param string $Html
-     *
-     * @return $this
-     */
-    protected function setTemplate( $Html )
-    {
-
-        $this->HtmlTemplate = $Html;
-
-        return $this;
-    }
-
     private function getConsole()
     {
 
@@ -161,5 +149,18 @@ abstract class Generic
         $Document = trim( implode( "\n\r", $Document ) );
 
         return trim( $Document )."\n\r";
+    }
+
+    /**
+     * @param string $Html
+     *
+     * @return $this
+     */
+    protected function setTemplate( $Html )
+    {
+
+        $this->HtmlTemplate = $Html;
+
+        return $this;
     }
 }

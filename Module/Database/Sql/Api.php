@@ -44,6 +44,7 @@ class Api implements IApiInterface
      */
     public function closeConnection()
     {
+
         /** @var \Propel $Extension */
         $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->usePropel2()->currentInstance()->getObject();
         var_dump( $Extension->close() );

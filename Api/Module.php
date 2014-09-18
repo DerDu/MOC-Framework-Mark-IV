@@ -23,6 +23,7 @@ interface IModuleInterface
      * @return Document
      */
     public function unitDocument();
+
     /**
      * @return Database
      */
@@ -47,6 +48,7 @@ class Module implements IModuleInterface
      */
     public function unitDatabase()
     {
+
         return new Database();
     }
 
