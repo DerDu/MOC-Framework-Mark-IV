@@ -44,14 +44,28 @@ interface IServerInterface
      *
      * @return null|string
      */
-    public function getServerDocumentRoot( $Default = null );
+    public function getDocumentRoot( $Default = null );
 
     /**
      * @param string $Value
      *
      * @return IServerInterface
      */
-    public function setServerDocumentRoot( $Value );
+    public function setDocumentRoot( $Value );
+
+    /**
+     * @param null|string $Default
+     *
+     * @return null|string
+     */
+    public function getRemoteAddress( $Default = null );
+
+    /**
+     * @param string $Value
+     *
+     * @return IServerInterface
+     */
+    public function setRemoteAddress( $Value );
 }
 
 /**
@@ -175,7 +189,7 @@ class Server implements IServerInterface
      *
      * @return null|string
      */
-    public function getServerDocumentRoot( $Default = null )
+    public function getDocumentRoot( $Default = null )
     {
 
         return $this->useDefault( $this->getValue( 'DOCUMENT_ROOT' ), $Default );
@@ -186,10 +200,34 @@ class Server implements IServerInterface
      *
      * @return IServerInterface
      */
-    public function setServerDocumentRoot( $Value )
+    public function setDocumentRoot( $Value )
     {
 
         $this->setValue( 'DOCUMENT_ROOT', $Value );
+
+        return $this;
+    }
+
+    /**
+     * @param null|string $Default
+     *
+     * @return null|string
+     */
+    public function getRemoteAddress( $Default = null )
+    {
+
+        return $this->useDefault( $this->getValue( 'REMOTE_ADDR' ), $Default );
+    }
+
+    /**
+     * @param string $Value
+     *
+     * @return IServerInterface
+     */
+    public function setRemoteAddress( $Value )
+    {
+
+        $this->setValue( 'REMOTE_ADDR', $Value );
 
         return $this;
     }

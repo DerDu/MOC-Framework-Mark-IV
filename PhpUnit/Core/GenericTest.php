@@ -33,8 +33,10 @@ class GenericTest extends \PHPUnit_Framework_TestCase
         $Api::doRefresh();
 
         $this->assertEquals( isset( $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : null,
-            $Api->getServerDocumentRoot() );
+            $Api->getDocumentRoot() );
         $this->assertEquals( isset( $_SERVER['SERVER_PORT'] ) ? $_SERVER['SERVER_PORT'] : null, $Api->getServerPort() );
         $this->assertEquals( isset( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : null, $Api->getServerName() );
+        $this->assertEquals( isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : null,
+            $Api->getRemoteAddress() );
     }
 }
