@@ -51,16 +51,18 @@ class Detect
 
         if (!$Proxy) {
 
-            $Server = Api::groupCore()->genericGlobals()->useServer();
+            $Ip = Api::groupCore()->genericGlobals()->useServer()->getRemoteAddress();
 
-            $ProxyPorts = array( 80, 3128, 8080, 6588, 8000, 553, 554 );
+            if (!empty( $Ip )) {
+                $ProxyPorts = array( 80, 3128, 8080, 6588, 8000, 553, 554 );
 
-            foreach ($ProxyPorts as $Port) {
-                $sock = @fsockopen( $Server->getRemoteAddress(), $Port, $errno, $errstr, 1 );
+                foreach ($ProxyPorts as $Port) {
+                    $sock = @fsockopen( $Ip->getRemoteAddress(), $Port, $errno, $errstr, 1 );
 
-                if ($sock) {
-                    $Proxy = true;
-                    break;
+                    if ($sock) {
+                        $Proxy = true;
+                        break;
+                    }
                 }
             }
         }
