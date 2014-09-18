@@ -185,7 +185,7 @@ class Channel
 
         $Result = $this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() );
 
-        if (is_string( $Result )) {
+        if (!empty( $Result )) {
 
             $Limit = json_decode( $Result );
 
@@ -221,7 +221,7 @@ class Channel
 
         $Result = $this->Config->getNetwork()->getFile( $this->Config->getGitHubChannelLimit() );
 
-        if (is_string( $Result )) {
+        if (!empty( $Result )) {
             $Limit = json_decode( $Result );
             return $Limit->resources->core->remaining.'/'.$Limit->resources->core->limit;
         } else {

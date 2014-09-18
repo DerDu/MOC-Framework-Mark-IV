@@ -12,7 +12,8 @@ require_once( __DIR__.'/Api.php' );
  */
 MOC\MarkIV\Api::runBootstrap();
 
-set_time_limit( ( 60 * 5 ) );
+set_time_limit( ( 60 * 30 ) );
+ini_set( 'memory_limit', '1024M' );
 
 /**
  * Buffer Handler
