@@ -4,6 +4,7 @@ namespace MOC\MarkIV\Core\Network\Proxy\Source\Type;
 use MOC\MarkIV\Core\Network\Proxy\Source\Config\Credentials;
 use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
 use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Curl;
+use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Detect;
 
 /**
  * Class Basic
@@ -22,6 +23,22 @@ class Basic extends Generic
 
     public function getFile( $Url, $Status = false )
     {
+
+        /**
+         * Redirect: No Proxy required
+         */
+        if (!Detect::needProxy()) {
+            $this->Credentials->setUsername( '' );
+        }
+
+        /**
+         * Fallback: Missing Proxy-Server Credentials
+         */
+        $Username = $this->Credentials->getUsername();
+        if (empty( $Username )) {
+            $Relay = new Relay( $this->Server );
+            return $Relay->getFile( $Url, $Status );
+        }
 
         if (strtoupper( parse_url( $Url, PHP_URL_SCHEME ) ) == 'HTTPS') {
             return Curl::getFileHttps( $Url, $this->Server, $this->Credentials, $this->getCustomHeader( true ) );

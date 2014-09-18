@@ -2,6 +2,7 @@
 namespace MOC\MarkIV\Core\Network\Proxy\Source\Type;
 
 use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
+use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Detect;
 
 /**
  * Class Relay
@@ -25,6 +26,22 @@ class Relay extends Generic
      */
     public function getFile( $Url, $Status = false )
     {
+
+        /**
+         * Redirect: No Proxy required
+         */
+        if (!Detect::needProxy()) {
+            $this->Server->setHost( '' );
+        }
+
+        /**
+         * Fallback: Missing Proxy-Server Host
+         */
+        $Host = $this->Server->getHost();
+        if (empty( $Host )) {
+            $None = new None();
+            return $None->getFile( $Url, $Status );
+        }
 
         if ($this->openSocket()) {
             fputs( $this->Socket, "GET ".$Url." HTTP/1.0\r\nHost: ".$this->Server->getHost()."\r\n" );

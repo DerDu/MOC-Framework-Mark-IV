@@ -1,8 +1,10 @@
 <?php
 namespace MOC\MarkIV\Core\Network\Proxy\Source\Type;
 
+use MOC\MarkIV\Api;
 use MOC\MarkIV\Core\Network\Proxy\Source\Config\Server;
 use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Curl;
+use MOC\MarkIV\Core\Network\Proxy\Source\Utility\Detect;
 
 /**
  * Class None
@@ -20,6 +22,13 @@ class None extends Generic
 
     public function getFile( $Url, $Status = false )
     {
+
+        if (Detect::needProxy()) {
+            Api::groupCore()->unitError()->apiHandler()->apiType()->buildError()->setData( 'Network Error',
+                '305 Use Proxy', 2,
+                __FILE__, __LINE__ );
+            return '';
+        }
 
         $this->Server->setHost( parse_url( $Url, PHP_URL_HOST ) );
 

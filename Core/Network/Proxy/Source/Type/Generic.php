@@ -88,7 +88,11 @@ abstract class Generic
             if ($Status) {
                 $Match = array();
                 preg_match( '![0-9]{3}!', $this->Content, $Match );
-                return $Match[0];
+                if (!empty( $Match )) {
+                    return $Match[0];
+                } else {
+                    return '444';
+                }
             }
         }
         return null;
