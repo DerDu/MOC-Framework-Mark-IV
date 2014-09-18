@@ -128,7 +128,7 @@ abstract class AbstractObjectBuilder extends AbstractOMBuilder
     {
         $table = $this->getTable();
 
-        return (!$table->isAlias() && $this->getBuildProperty('generator.objectModel.addGenericMutators') && !$table->isReadOnly());
+        return (!$table->isAlias() && $this->getBuildProperty('addGenericMutators') && !$table->isReadOnly());
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class AbstractObjectBuilder extends AbstractOMBuilder
     {
         $table = $this->getTable();
 
-        return (!$table->isAlias() && $this->getBuildProperty('generator.objectModel.addGenericAccessors'));
+        return (!$table->isAlias() && $this->getBuildProperty('addGenericAccessors'));
     }
 
     protected function hasDefaultValues()

@@ -20,12 +20,6 @@ use Propel\Tests\TestCase;
  */
 class ActiveRecordTest extends TestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        include_once(__DIR__.'/ActiveRecordTestClasses.php');
-    }
-
     public function testGetVirtualColumns()
     {
         $b = new TestableActiveRecord();
@@ -69,4 +63,9 @@ class ActiveRecordTest extends TestCase
         $this->assertEquals('baz', $b->getVirtualColumn('foo'), 'setVirtualColumn() can modify the value of an existing virtual column');
         $this->assertEquals($b, $b->setVirtualColumn('foo', 'bar'), 'setVirtualColumn() returns the current object');
     }
+}
+
+class TestableActiveRecord extends Book
+{
+    public $virtualColumns = array();
 }

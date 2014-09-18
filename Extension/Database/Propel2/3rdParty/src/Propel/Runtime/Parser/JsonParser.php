@@ -21,57 +21,43 @@ class JsonParser extends AbstractParser
      * Converts data from an associative array to JSON.
      *
      * @param  array  $array Source data to convert
-     * @param string $rootKey
      * @return string Converted data, as a JSON string
      */
-    public function fromArray($array, $rootKey = null)
+    public function fromArray($array)
     {
-        return json_encode($rootKey === null ? $array : [$rootKey => $array]);
+        return json_encode($array);
     }
 
     /**
      * Alias for JsonParser::fromArray()
      *
-     * @param  array $array Source data to convert
-     * @param string $rootKey
+     * @param  array  $array Source data to convert
      * @return string Converted data, as a JSON string
      */
-    public function toJSON($array, $rootKey = null)
+    public function toJSON($array)
     {
-        return $this->fromArray($array, $rootKey);
+        return $this->fromArray($array);
     }
 
     /**
      * Converts data from JSON to an associative array.
      *
      * @param  string $data Source data to convert, as a JSON string
-     * @param string $rootKey
      * @return array  Converted data
      */
-    public function toArray($data, $rootKey = null)
+    public function toArray($data)
     {
-        $data = json_decode($data, true);
-
-        if ($rootKey === null) {
-            return $data;
-        }
-
-        if (!isset($data[$rootKey])) {
-            return [];
-        }
-
-        return $data[$rootKey];
+        return json_decode($data, true);
     }
 
     /**
      * Alias for JsonParser::toArray()
      *
      * @param  string $data Source data to convert, as a JSON string
-     * @param string $rootKey
      * @return array  Converted data
      */
-    public function fromJSON($data, $rootKey = null)
+    public function fromJSON($data)
     {
-        return $this->toArray($data, $rootKey);
+        return $this->toArray($data);
     }
 }

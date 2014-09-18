@@ -154,4 +154,5 @@ class PdoConnection extends \PDO implements ConnectionInterface
     {
         return parent::quote($string, $parameter_type);
     }
+
 }

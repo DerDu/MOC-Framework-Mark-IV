@@ -21,8 +21,7 @@ use Propel\Runtime\ActiveQuery\PropelQuery;
  * Test class for OnDemandIterator.
  *
  * @author Francois Zaninotto
- *
- * @group database
+ * @version    $Id: ObjectCollectionTest.php 1348 2009-12-03 21:49:00Z francois $
  */
 class OnDemandIteratorTest extends BookstoreEmptyTestBase
 {

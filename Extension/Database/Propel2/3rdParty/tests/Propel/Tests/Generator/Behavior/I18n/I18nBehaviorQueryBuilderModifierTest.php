@@ -24,6 +24,8 @@ use Propel\Tests\TestCase;
 class I18nBehaviorQueryBuilderModifierTest extends TestCase
 {
 
+    protected $adapterType = 'sqlite';
+
     public function setUp()
     {
         if (!class_exists('\I18nBehaviorTest11')) {

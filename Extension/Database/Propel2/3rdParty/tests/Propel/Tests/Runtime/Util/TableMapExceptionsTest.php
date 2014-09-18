@@ -22,8 +22,6 @@ use Propel\Tests\Bookstore\Map\BookTableMap;
  *
  * @see BookstoreDataPopulator
  * @author Francois Zaninotto
- *
- * @group database
  */
 class TableMapExceptionsTest extends BookstoreTestBase
 {

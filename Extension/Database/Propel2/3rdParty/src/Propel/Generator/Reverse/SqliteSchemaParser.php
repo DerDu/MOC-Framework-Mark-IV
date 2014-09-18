@@ -83,7 +83,7 @@ class SqliteSchemaParser extends AbstractSchemaParser
     public function parse(Database $database, array $additionalTables = array())
     {
         if ($this->getGeneratorConfig()) {
-            $this->addVendorInfo = $this->getGeneratorConfig()->get()['migrations']['addVendorInfo'];
+            $this->addVendorInfo = $this->getGeneratorConfig()->getBuildProperty('addVendorInfo');
         }
 
         $this->parseTables($database);
@@ -176,10 +176,7 @@ class SqliteSchemaParser extends AbstractSchemaParser
      */
     protected function addColumns(Table $table)
     {
-        $tableName = $table->getName();
-
-//        var_dump("PRAGMA table_info('$tableName') //");
-        $stmt = $this->dbh->query("PRAGMA table_info('$tableName')");
+        $stmt = $this->dbh->query("PRAGMA table_info('" . $table->getName() . "')");
 
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $name = $row['name'];

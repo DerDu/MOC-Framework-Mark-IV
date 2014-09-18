@@ -677,7 +677,6 @@ class Table extends ScopedMappingModel implements IdMethod
 
             // table referrers
             $foreignTable = $this->database->getTable($foreignKey->getForeignTableName());
-
             if (null !== $foreignTable) {
                 $referrers = $foreignTable->getReferrers();
                 if (null === $referrers || !in_array($foreignKey, $referrers, true) ) {
@@ -1103,13 +1102,13 @@ class Table extends ScopedMappingModel implements IdMethod
     }
 
     /**
-     * Returns the camelCase version of PHP name.
+     * Returns the studly version of PHP name.
      *
      * The studly name is the PHP name with the first character lowercase.
      *
      * @return string
      */
-    public function getCamelCaseName()
+    public function getStudlyPhpName()
     {
         return lcfirst($this->getPhpName());
     }

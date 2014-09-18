@@ -15,18 +15,15 @@ use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 
 /**
  * Class QueryCacheTest
- *
  * @author Manuel Raynaud <mraynaud@openstudio.fr>
- *
- * @group database
  */
 class QueryCacheTest extends BookstoreTestBase
 {
-    protected function setUp()
+    public static function setUpBeforeClass()
     {
         //prevent issue DSN not Found
         self::$isInitialized = false;
-        parent::setUp();
+        parent::setUpBeforeClass();
     }
 
     public function testExistingKey()

@@ -10,13 +10,30 @@
 
 namespace Propel\Tests;
 
-
+/**
+ * @author William Durand <william.durand1@gmail.com>
+ */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-    protected function getDriver()
-    {
-        return 'sqlite';
-    }
+    /**
+     * Depending on this type we return the correct runninOn* results,
+     * also getSql() is based on that.
+     *
+     * If $adapterClass is not available, the adapter type is extracted of this
+     * connection.
+     *
+     * @var ConnectionInterface
+     */
+    protected $con;
+
+    /**
+     *
+     * Depending on this type we return the correct runninOn* results,
+     * also getSql() is based on that.
+     *
+     * @var string
+     */
+    protected $adapterClass = '';
 
     /**
      * Makes the sql compatible with the current database.
@@ -114,5 +131,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $obj =  new $className($con);
 
         return $obj;
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getDriver()
+    {
+        return $this->adapterClass
+            ? $this->adapterClass
+            :($this->con ? $this->con->getAttribute(\PDO::ATTR_DRIVER_NAME) : 'sqlite');
     }
 }

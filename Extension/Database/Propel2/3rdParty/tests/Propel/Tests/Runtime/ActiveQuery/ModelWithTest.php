@@ -10,6 +10,7 @@
 
 namespace Propel\Tests\Runtime\ActiveQuery;
 
+use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 use Propel\Tests\Bookstore\Author;
 use Propel\Tests\Bookstore\AuthorQuery;
 use Propel\Tests\Bookstore\Book;
@@ -21,14 +22,14 @@ use Propel\Tests\Bookstore\BookSummaryQuery;
 use Propel\Tests\Bookstore\ReviewQuery;
 
 use Propel\Runtime\ActiveQuery\ModelWith;
-use Propel\Tests\TestCaseFixtures;
 
 /**
  * Test class for ModelWith.
  *
  * @author François Zaninotto
+ * @version    $Id: ModelJoinTest.php 1347 2009-12-03 21:06:36Z francois $
  */
-class ModelWithTest extends TestCaseFixtures
+class ModelWithTest extends BookstoreTestBase
 {
 
     public function testModelNameManyToOne()

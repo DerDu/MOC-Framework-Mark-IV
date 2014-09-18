@@ -65,8 +65,7 @@ class TableTest extends ModelTestCase
 
     public function testGetGeneratorConfig()
     {
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()->getMock();
+        $config = $this->getMock('Propel\Generator\Config\GeneratorConfig');
         $database = $this->getDatabaseMock('foo');
 
         $database
@@ -214,7 +213,7 @@ class TableTest extends ModelTestCase
         $table = new Table('created_at');
 
         $this->assertSame('CreatedAt', $table->getPhpName());
-        $this->assertSame('createdAt', $table->getCamelCaseName());
+        $this->assertSame('createdAt', $table->getStudlyPhpName());
     }
 
     public function testSetCustomPhpName()
@@ -223,7 +222,7 @@ class TableTest extends ModelTestCase
         $table->setPhpName('CreatedAt');
 
         $this->assertSame('CreatedAt', $table->getPhpName());
-        $this->assertSame('createdAt', $table->getCamelCaseName());
+        $this->assertSame('createdAt', $table->getStudlyPhpName());
     }
 
     public function testSetDescription()
@@ -530,24 +529,6 @@ class TableTest extends ModelTestCase
         $table->addIndex(array('name' => 'author_idx', 'columns' => [['name' => 'bla']]));
 
         $this->assertCount(1, $table->getIndices());
-    }
-
-    public function testIsIndex()
-    {
-        $table = new Table();
-        $column1 = new Column('category_id');
-        $column2 = new Column('type');
-        $table->addColumn($column1);
-        $table->addColumn($column2);
-
-        $index = new Index('test_index');
-        $index->setColumns([$column1, $column2]);
-        $table->addIndex($index);
-
-        $this->assertTrue($table->isIndex(['category_id', 'type']));
-        $this->assertTrue($table->isIndex(['type', 'category_id']));
-        $this->assertFalse($table->isIndex(['category_id', 'type2']));
-        $this->assertFalse($table->isIndex(['asd']));
     }
 
     public function testAddUniqueIndex()

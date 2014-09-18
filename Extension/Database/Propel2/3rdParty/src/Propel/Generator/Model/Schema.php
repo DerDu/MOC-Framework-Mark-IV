@@ -274,7 +274,7 @@ class Schema
                     }
                     // join database behaviors
                     foreach ($addDb->getBehaviors() as $addBehavior) {
-                        if (!$db->hasBehavior($addBehavior->getId())) {
+                        if (!$db->hasBehavior($addBehavior->getName())) {
                             $db->addBehavior($addBehavior);
                         }
                     }

@@ -10,7 +10,6 @@
 
 namespace Propel\Tests\Runtime\Formatter;
 
-use Propel\Tests\Bookstore\AuthorCollection;
 use Propel\Tests\Helpers\Bookstore\BookstoreEmptyTestBase;
 use Propel\Tests\Helpers\Bookstore\BookstoreDataPopulator;
 
@@ -28,8 +27,7 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
  * Test class for ObjectFormatter.
  *
  * @author Francois Zaninotto
- *
- * @group database
+ * @version    $Id$
  */
 class ObjectFormatterTest extends BookstoreEmptyTestBase
 {
@@ -63,15 +61,6 @@ class ObjectFormatterTest extends BookstoreEmptyTestBase
         $this->assertEquals(4, $books->count());
     }
 
-    public function testFormatValidClassCustomCollection()
-    {
-        $stmt = $this->con->query('SELECT * FROM author');
-        $formatter = new ObjectFormatter();
-        $formatter->setClass('\Propel\Tests\Bookstore\Author');
-        $authors = $formatter->format($stmt);
-        $this->assertTrue($authors instanceof AuthorCollection);
-    }
-
     public function testFormatManyResults()
     {
         $con = Propel::getServiceContainer()->getConnection(BookTableMap::DATABASE_NAME);
@@ -92,7 +81,7 @@ class ObjectFormatterTest extends BookstoreEmptyTestBase
     {
         $con = Propel::getServiceContainer()->getConnection(BookTableMap::DATABASE_NAME);
 
-        $stmt = $con->query("SELECT id, title, isbn, price, publisher_id, author_id FROM book WHERE book.TITLE = 'Quicksilver'");
+        $stmt = $con->query("SELECT * FROM book WHERE book.TITLE = 'Quicksilver'");
         $formatter = new ObjectFormatter();
         $formatter->init(new ModelCriteria('bookstore', '\Propel\Tests\Bookstore\Book'));
         $books = $formatter->format($stmt);

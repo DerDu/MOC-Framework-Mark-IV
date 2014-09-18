@@ -13,9 +13,9 @@ namespace Propel\Tests\Runtime\Collection;
 use Propel\Runtime\Collection\Collection;
 use Propel\Runtime\Collection\ObjectCollection;
 
+use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 use Propel\Tests\Bookstore\Book;
 use Propel\Tests\Bookstore\Publisher;
-use Propel\Tests\TestCaseFixtures;
 
 /**
  * Test class for Collection.
@@ -23,10 +23,8 @@ use Propel\Tests\TestCaseFixtures;
  * @author Francois Zaninotto
  * @version    $Id: CollectionTest.php 1348 2009-12-03 21:49:00Z francois $
  */
-class CollectionConvertTest extends TestCaseFixtures
+class CollectionConvertTest extends BookstoreTestBase
 {
-    private $coll;
-
     protected function setUp()
     {
         parent::setUp();
@@ -55,7 +53,7 @@ class CollectionConvertTest extends TestCaseFixtures
     {
         $expected = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<Books>
+<data>
   <Book>
     <Id>9012</Id>
     <Title><![CDATA[Don Juan]]></Title>
@@ -72,7 +70,7 @@ class CollectionConvertTest extends TestCaseFixtures
     <PublisherId></PublisherId>
     <AuthorId></AuthorId>
   </Book>
-</Books>
+</data>
 
 EOF;
 
@@ -106,21 +104,20 @@ EOF;
     public function toYamlDataProvider()
     {
         $expected = <<<EOF
-Books:
-    -
-        Id: 9012
-        Title: 'Don Juan'
-        ISBN: '0140422161'
-        Price: 12.99
-        PublisherId: 1234
-        AuthorId: 5678
-    -
-        Id: 58
-        Title: 'Harry Potter and the Order of the Phoenix'
-        ISBN: 043935806X
-        Price: 10.99
-        PublisherId: null
-        AuthorId: null
+Book_0:
+    Id: 9012
+    Title: 'Don Juan'
+    ISBN: '0140422161'
+    Price: 12.99
+    PublisherId: 1234
+    AuthorId: 5678
+Book_1:
+    Id: 58
+    Title: 'Harry Potter and the Order of the Phoenix'
+    ISBN: 043935806X
+    Price: 10.99
+    PublisherId: null
+    AuthorId: null
 
 EOF;
 
@@ -154,7 +151,7 @@ EOF;
     public function toJsonDataProvider()
     {
         $expected = <<<EOF
-{"Books":[{"Id":9012,"Title":"Don Juan","ISBN":"0140422161","Price":12.99,"PublisherId":1234,"AuthorId":5678},{"Id":58,"Title":"Harry Potter and the Order of the Phoenix","ISBN":"043935806X","Price":10.99,"PublisherId":null,"AuthorId":null}]}
+{"Book_0":{"Id":9012,"Title":"Don Juan","ISBN":"0140422161","Price":12.99,"PublisherId":1234,"AuthorId":5678},"Book_1":{"Id":58,"Title":"Harry Potter and the Order of the Phoenix","ISBN":"043935806X","Price":10.99,"PublisherId":null,"AuthorId":null}}
 EOF;
 
         return array(array($expected));
@@ -233,12 +230,12 @@ EOF;
         $coll[]= $publisher;
         $expected = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<Publishers>
+<data>
   <Publisher>
     <Id>12345</Id>
     <Name><![CDATA[Penguinoo]]></Name>
   </Publisher>
-</Publishers>
+</data>
 
 EOF;
         $this->assertEquals($expected, (string) $coll);

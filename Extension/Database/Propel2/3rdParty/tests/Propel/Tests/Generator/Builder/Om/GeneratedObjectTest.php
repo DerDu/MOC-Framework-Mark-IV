@@ -10,7 +10,6 @@
 
 namespace Propel\Tests\Generator\Builder\Om;
 
-use Propel\Generator\Config\QuickGeneratorConfig;
 use Propel\Tests\Bookstore\BookstoreQuery;
 use Propel\Generator\Util\QuickBuilder;
 use Propel\Runtime\Propel;
@@ -72,8 +71,6 @@ use MyNameSpace\TestKeyTypeTable;
  * method for the exact contents of the database.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- *
- * @group database
  */
 class GeneratedObjectTest extends BookstoreTestBase
 {
@@ -769,11 +766,10 @@ class GeneratedObjectTest extends BookstoreTestBase
     </table>
 </database>
 EOF;
-        $extraConf['propel']['generator']['objectModel']['defaultKeyType'] = 'camelName';
-        $generatorConfig = new QuickGeneratorConfig($extraConf);
+
         $builder = new QuickBuilder();
         $builder->setSchema($schema);
-        $builder->setConfig($generatorConfig);
+        $builder->getConfig()->setBuildProperty('defaultKeyType', 'studlyPhpName');
         $builder->buildClasses();
 
         $expectedKeys = array(

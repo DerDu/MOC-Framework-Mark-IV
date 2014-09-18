@@ -29,16 +29,6 @@ class AggregateColumnBehavior extends Behavior
     );
 
     /**
-     * Multiple aggregates on the same table is OK.
-     *
-     * @return bool
-     */
-    public function allowMultiple()
-    {
-        return true;
-    }
-
-    /**
      * Add the aggregate key to the current table
      */
     public function modifyTable()
@@ -61,9 +51,7 @@ class AggregateColumnBehavior extends Behavior
         if (!$foreignTable->hasBehavior('concrete_inheritance_parent')) {
             $relationBehavior = new AggregateColumnRelationBehavior();
             $relationBehavior->setName('aggregate_column_relation');
-            $relationBehavior->setId('aggregate_column_relation_'.$this->getId());
             $relationBehavior->addParameter(array('name' => 'foreign_table', 'value' => $table->getName()));
-            $relationBehavior->addParameter(array('name' => 'aggregate_name', 'value' => $this->getColumn()->getPhpName()));
             $relationBehavior->addParameter(array('name' => 'update_method', 'value' => 'update' . $this->getColumn()->getPhpName()));
             $foreignTable->addBehavior($relationBehavior);
         }

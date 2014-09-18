@@ -46,17 +46,10 @@ use \ReflectionMethod;
  * Test class for QueryBuilder.
  *
  * @author François Zaninotto
- *
- * @group database
+ * @version    $Id: QueryBuilderTest.php 1347 2009-12-03 21:06:36Z francois $
  */
 class QueryBuilderTest extends BookstoreTestBase
 {
-
-    protected function setUp()
-    {
-        parent::setUp();
-        include_once(__DIR__.'/QueryBuilderTestClasses.php');
-    }
 
     public function testExtends()
     {
@@ -1097,5 +1090,41 @@ class QueryBuilderTest extends BookstoreTestBase
         $testBookListRel = BookListRelQuery::create()->findOne();
         $nbBookListRel = BookListRelQuery::create()->prune($testBookListRel)->count();
         $this->assertEquals(1, $nbBookListRel, 'prune() removes an object from the result');
+    }
+}
+
+class myCustomBookQuery extends BookQuery
+{
+    public static function create($modelAlias = null, Criteria $criteria = null)
+    {
+        if ($criteria instanceof myCustomBookQuery) {
+            return $criteria;
+        }
+        $query = new myCustomBookQuery();
+        if (null !== $modelAlias) {
+            $query->setModelAlias($modelAlias);
+        }
+        if ($criteria instanceof Criteria) {
+            $query->mergeWith($criteria);
+        }
+
+        return $query;
+    }
+
+}
+
+class mySecondBookQuery extends BookQuery
+{
+    public static $preSelectWasCalled = false;
+
+    public function __construct($dbName = 'bookstore', $modelName = '\Propel\Tests\Bookstore\Book', $modelAlias = null)
+    {
+        self::$preSelectWasCalled = false;
+        parent::__construct($dbName, $modelName, $modelAlias);
+    }
+
+    public function preSelect(ConnectionInterface $con)
+    {
+        self::$preSelectWasCalled = true;
     }
 }

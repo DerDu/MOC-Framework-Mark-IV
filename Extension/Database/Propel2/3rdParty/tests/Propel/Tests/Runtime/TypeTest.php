@@ -15,9 +15,6 @@ use Propel\Tests\Bookstore\TypeObject;
 use Propel\Tests\Bookstore\TypeObjectQuery;
 use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 
-/**
- * @group database
- */
 class TypeTest extends BookstoreTestBase
 {
 

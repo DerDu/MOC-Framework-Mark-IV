@@ -13,14 +13,10 @@ class Api implements IApiInterface
 
     function __construct()
     {
-
-        $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->usePropel2()->currentInstance();
-        if (null === $Extension) {
-            \MOC\MarkIV\Api::groupExtension()->unitDatabase()->usePropel2()->buildInstance();
-        }
     }
 
     /**
+     * @param int         $Driver
      * @param string      $Host
      * @param string      $User
      * @param string      $Password
@@ -28,13 +24,26 @@ class Api implements IApiInterface
      *
      * @return IApiInterface
      */
-    public function openConnection( $Host, $User, $Password, $Database = null )
+    public function openConnection( $Driver = self::DRIVER_MYSQL, $Host, $User, $Password, $Database = null )
     {
 
-        /** @var \Propel $Extension */
-        $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->usePropel2()->currentInstance()->getObject();
-        $Extension->initialize();
-        var_dump( $Extension->getConnection() );
+        $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->useDoctrine2();
+        $Extension->openConnection( $Driver, $Host, $User, $Password, $Database );
+
+        return $this;
+    }
+
+    /**
+     * @param callable $Callback
+     *
+     * @return IApiInterface
+     * @throws \Exception
+     */
+    public function executeTransaction( \Closure $Callback )
+    {
+
+        $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->useDoctrine2();
+        $Extension->executeTransaction( $Callback );
 
         return $this;
     }
@@ -45,9 +54,9 @@ class Api implements IApiInterface
     public function closeConnection()
     {
 
-        /** @var \Propel $Extension */
-        $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->usePropel2()->currentInstance()->getObject();
-        var_dump( $Extension->close() );
+        $Extension = \MOC\MarkIV\Api::groupExtension()->unitDatabase()->useDoctrine2();
+        $Extension->closeConnection();
+
         return $this;
     }
 

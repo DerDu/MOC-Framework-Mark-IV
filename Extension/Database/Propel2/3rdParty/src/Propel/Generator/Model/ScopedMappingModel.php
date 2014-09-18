@@ -83,7 +83,7 @@ abstract class ScopedMappingModel extends MappingModel
         }
 
         $this->namespace = $namespace;
-        if ($namespace && (!$this->package || $this->packageOverridden) && $this->getBuildProperty('generator.namespaceAutoPackage')) {
+        if ($namespace && (!$this->package || $this->packageOverridden) && $this->getBuildProperty('namespaceAutoPackage')) {
             $this->package = str_replace('\\', '.', $namespace);
             $this->packageOverridden = true;
         }

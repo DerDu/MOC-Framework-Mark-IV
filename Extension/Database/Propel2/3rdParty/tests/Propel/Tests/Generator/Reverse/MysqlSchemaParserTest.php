@@ -16,17 +16,27 @@ use Propel\Generator\Platform\DefaultPlatform;
 use Propel\Generator\Reverse\MysqlSchemaParser;
 
 use Propel\Runtime\Propel;
-use Propel\Tests\TestCaseFixturesDatabase;
+use Propel\Tests\TestCase;
 
 /**
  * Tests for Mysql database schema parser.
  *
  * @author William Durand
- *
- * @group database
+ * @version     $Revision$
  */
-class MysqlSchemaParserTest extends TestCaseFixturesDatabase
+class MysqlSchemaParserTest extends TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        Propel::init(__DIR__ . '/../../../../Fixtures/reverse/mysql/build/conf/reverse-bookstore-conf.php');
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        Propel::init(__DIR__ . '/../../../../Fixtures/bookstore/build/conf/bookstore-conf.php');
+    }
 
     public function testParse()
     {

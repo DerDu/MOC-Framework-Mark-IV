@@ -10,10 +10,11 @@
 
 namespace Propel\Tests\Generator\Behavior\AggregateColumn;
 
-use Propel\Runtime\Propel;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Tests\Bookstore\Behavior\AggregateColumn;
 use Propel\Tests\Bookstore\Behavior\AggregateComment;
 use Propel\Tests\Bookstore\Behavior\AggregateCommentQuery;
+use Propel\Tests\Bookstore\Behavior\Map\AggregateCommentTableMap;
 use Propel\Tests\Bookstore\Behavior\AggregatePost;
 use Propel\Tests\Bookstore\Behavior\AggregatePostQuery;
 use Propel\Tests\Bookstore\Behavior\Map\AggregatePostTableMap;
@@ -23,21 +24,15 @@ use Propel\Tests\Bookstore\Behavior\AggregatePoll;
 use Propel\Tests\Bookstore\Behavior\AggregatePollQuery;
 use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 
+use Propel\Runtime\Connection\ConnectionInterface;
 
 /**
  * Tests for AggregateColumnBehavior class
  *
  * @author François Zaninotto
- *
- * @group database
  */
 class AggregateColumnBehaviorTest extends BookstoreTestBase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        include_once(__DIR__.'/AggregateColumnsBehaviorTestClasses.php');
-    }
 
     public function testParameters()
     {
@@ -106,76 +101,60 @@ class AggregateColumnBehaviorTest extends BookstoreTestBase
     {
         list($poll, $item1, $item2) = $this->populatePoll();
         $this->assertEquals(19, $poll->getTotalScore());
-        $this->assertEquals(2, $poll->getNbVotes());
         $item1->setScore(10);
         $item1->save($this->con);
         $this->assertEquals(17, $poll->getTotalScore(), 'Updating a related object updates the aggregate column');
-        $this->assertEquals(2, $poll->getNbVotes());
     }
 
     public function testDeleteRelated()
     {
         list($poll, $item1, $item2) = $this->populatePoll();
         $this->assertEquals(19, $poll->getTotalScore());
-        $this->assertEquals(2, $poll->getNbVotes());
         $item1->delete($this->con);
         $this->assertEquals(7, $poll->getTotalScore(), 'Deleting a related object updates the aggregate column');
-        $this->assertEquals(1, $poll->getNbVotes());
         $item2->delete($this->con);
         $this->assertNull($poll->getTotalScore(), 'Deleting a related object updates the aggregate column');
-        $this->assertEquals(0, $poll->getNbVotes());
     }
 
     public function testUpdateRelatedWithQuery()
     {
         list($poll, $item1, $item2) = $this->populatePoll();
         $this->assertEquals(19, $poll->getTotalScore());
-        $this->assertEquals(2, $poll->getNbVotes());
         AggregateItemQuery::create()
             ->update(array('Score' => 4), $this->con);
         $this->assertEquals(8, $poll->getTotalScore(), 'Updating related objects with a query updates the aggregate column');
-        $this->assertEquals(2, $poll->getNbVotes());
     }
 
     public function testUpdateRelatedWithQueryUsingAlias()
     {
         list($poll, $item1, $item2) = $this->populatePoll();
         $this->assertEquals(19, $poll->getTotalScore());
-        $this->assertEquals(2, $poll->getNbVotes());
         AggregateItemQuery::create()
             ->setModelAlias('foo', true)
             ->update(array('Score' => 4), $this->con);
         $this->assertEquals(8, $poll->getTotalScore(), 'Updating related objects with a query using alias updates the aggregate column');
-        $this->assertEquals(2, $poll->getNbVotes());
     }
 
     public function testDeleteRelatedWithQuery()
     {
         list($poll, $item1, $item2) = $this->populatePoll();
         $this->assertEquals(19, $poll->getTotalScore());
-        $this->assertEquals(2, $poll->getNbVotes());
         AggregateItemQuery::create()
             ->deleteAll($this->con);
         $this->assertNull($poll->getTotalScore(), 'Deleting related objects with a query updates the aggregate column');
-        $this->assertEquals(0, $poll->getNbVotes());
     }
 
     public function testDeleteRelatedWithQueryUsingAlias()
     {
         list($poll, $item1, $item2) = $this->populatePoll();
         $this->assertEquals(19, $poll->getTotalScore());
-        $this->assertEquals(2, $poll->getNbVotes());
-
-        if ($this->runningOnSQLite()) {
-            $this->markTestSkipped('Not executed on sqlite');
+        if (!$this->runningOnSQLite()) {
+            AggregateItemQuery::create()
+                ->setModelAlias('foo', true)
+                ->filterById($item1->getId())
+                ->delete($this->con);
+            $this->assertEquals(7, $poll->getTotalScore(), 'Deleting related objects with a query using alias updates the aggregate column');
         }
-
-        AggregateItemQuery::create()
-            ->setModelAlias('foo', true)
-            ->filterById($item1->getId())
-            ->delete($this->con);
-        $this->assertEquals(7, $poll->getTotalScore(), 'Deleting related objects with a query using alias updates the aggregate column');
-        $this->assertEquals(1, $poll->getNbVotes());
     }
 
     public function testRemoveRelation()
@@ -231,6 +210,63 @@ class AggregateColumnBehaviorTest extends BookstoreTestBase
         $item2->save($this->con);
 
         return array($poll, $item1, $item2);
+    }
+
+}
+
+class TestableComment extends AggregateComment
+{
+    // overrides the parent save() to bypass behavior hooks
+    public function save(ConnectionInterface $con = null)
+    {
+        $con->beginTransaction();
+        try {
+            $affectedRows = $this->doSave($con);
+            AggregateCommentTableMap::addInstanceToPool($this);
+            $con->commit();
+
+            return $affectedRows;
+        } catch (PropelException $e) {
+            $con->rollBack();
+            throw $e;
+        }
+    }
+
+    // overrides the parent delete() to bypass behavior hooks
+    public function delete(ConnectionInterface $con = null)
+    {
+        $con->beginTransaction();
+        try {
+            TestableAggregateCommentQuery::create()
+                ->filterByPrimaryKey($this->getPrimaryKey())
+                ->delete($con);
+            $con->commit();
+            $this->setDeleted(true);
+        } catch (PropelException $e) {
+            $con->rollBack();
+            throw $e;
+        }
+    }
+
+}
+
+class TestableAggregateCommentQuery extends AggregateCommentQuery
+{
+    public static function create($modelAlias = null, Criteria $criteria = null)
+    {
+        return new TestableAggregateCommentQuery();
+    }
+
+    // overrides the parent basePreDelete() to bypass behavior hooks
+    protected function basePreDelete(ConnectionInterface $con)
+    {
+        return $this->preDelete($con);
+    }
+
+    // overrides the parent basePostDelete() to bypass behavior hooks
+    protected function basePostDelete($affectedRows, ConnectionInterface $con)
+    {
+        return $this->postDelete($affectedRows, $con);
     }
 
 }

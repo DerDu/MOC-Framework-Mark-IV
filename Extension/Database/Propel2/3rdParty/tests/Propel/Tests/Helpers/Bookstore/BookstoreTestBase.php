@@ -12,12 +12,12 @@ namespace Propel\Tests\Helpers\Bookstore;
 
 use Propel\Runtime\Propel;
 use Propel\Tests\Bookstore\Map\BookTableMap;
-use Propel\Tests\TestCaseFixturesDatabase;
+use Propel\Tests\TestCase;
 
 /**
  * Base class contains some methods shared by subclass test cases.
  */
-abstract class BookstoreTestBase extends TestCaseFixturesDatabase
+abstract class BookstoreTestBase extends TestCase
 {
     /**
      * @var Boolean
@@ -28,20 +28,19 @@ abstract class BookstoreTestBase extends TestCaseFixturesDatabase
      */
     protected $con;
 
+    public static function setUpBeforeClass()
+    {
+        if (true !== self::$isInitialized) {
+            Propel::init(__DIR__ . '/../../../../Fixtures/bookstore/build/conf/bookstore-conf.php');
+            self::$isInitialized = true;
+        }
+    }
+
     /**
      * This is run before each unit test; it populates the database.
      */
     protected function setUp()
     {
-	    parent::setUp();
-        if (true !== self::$isInitialized) {
-            $file = __DIR__ . '/../../../../Fixtures/bookstore/build/conf/bookstore-conf.php';
-            if (!file_exists($file)) {
-                return;
-            }
-            Propel::init(__DIR__ . '/../../../../Fixtures/bookstore/build/conf/bookstore-conf.php');
-            self::$isInitialized = true;
-        }
         $this->con = Propel::getServiceContainer()->getConnection(BookTableMap::DATABASE_NAME);
         $this->con->beginTransaction();
     }

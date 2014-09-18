@@ -21,6 +21,8 @@ use Propel\Generator\Util\SqlParser;
  */
 class MigrationDownCommand extends AbstractCommand
 {
+    const DEFAULT_OUTPUT_DIRECTORY  = 'generated-migrations';
+
     const DEFAULT_MIGRATION_TABLE   = 'propel_migration';
 
     /**
@@ -31,7 +33,7 @@ class MigrationDownCommand extends AbstractCommand
         parent::configure();
 
         $this
-            ->addOption('output-dir',       null, InputOption::VALUE_REQUIRED,  'The output directory')
+            ->addOption('output-dir',       null, InputOption::VALUE_REQUIRED,  'The output directory', self::DEFAULT_OUTPUT_DIRECTORY)
             ->addOption('migration-table',  null, InputOption::VALUE_REQUIRED,  'Migration table name', self::DEFAULT_MIGRATION_TABLE)
             ->addOption('connection',       null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Connection to use', array())
             ->setName('migration:down')
@@ -45,15 +47,11 @@ class MigrationDownCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configOptions = array();
+        $generatorConfig = $this->getGeneratorConfig(array(
+            'propel.platform.class' => $input->getOption('platform'),
+        ), $input);
 
-        if ($this->hasInputOption('output-dir', $input)) {
-            $configOptions['propel']['paths']['migrationDir'] = $input->getOption('output-dir');
-        }
-
-        $generatorConfig = $this->getGeneratorConfig($configOptions, $input);
-
-        $this->createDirectory($generatorConfig->getSection('paths')['migrationDir']);
+        $this->createDirectory($input->getOption('output-dir'));
 
         $manager = new MigrationManager();
         $manager->setGeneratorConfig($generatorConfig);
@@ -61,7 +59,7 @@ class MigrationDownCommand extends AbstractCommand
         $connections = array();
         $optionConnections = $input->getOption('connection');
         if (!$optionConnections) {
-            $connections = $generatorConfig->getBuildConnections();
+            $connections = $generatorConfig->getBuildConnections($input->getOption('input-dir'));
         } else {
             foreach ($optionConnections as $connection) {
                 list($name, $dsn, $infos) = $this->parseConnection($connection);
@@ -71,7 +69,7 @@ class MigrationDownCommand extends AbstractCommand
 
         $manager->setConnections($connections);
         $manager->setMigrationTable($input->getOption('migration-table'));
-        $manager->setWorkingDirectory($generatorConfig->getSection('paths')['migrationDir']);
+        $manager->setWorkingDirectory($input->getOption('output-dir'));
 
         $previousTimestamps = $manager->getAlreadyExecutedMigrationTimestamps();
         if (!$nextMigrationTimestamp = array_pop($previousTimestamps)) {

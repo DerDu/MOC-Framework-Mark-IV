@@ -16,6 +16,7 @@ use Propel\Generator\Builder\Om\ObjectBuilder;
 use Propel\Generator\Builder\Om\QueryBuilder;
 use Propel\Generator\Builder\Om\QueryInheritanceBuilder;
 use Propel\Generator\Builder\Om\TableMapBuilder;
+use Propel\Generator\Builder\Sql\DataSQLBuilder;
 use Propel\Generator\Config\GeneratorConfigInterface;
 use Propel\Generator\Model\Database;
 use Propel\Generator\Model\Inheritance;
@@ -98,6 +99,12 @@ abstract class DataModelBuilder
      * @var DataModelBuilder
      */
     private $multiExtendObjectBuilder;
+
+    /**
+     * The Data-SQL builder for current table.
+     * @var DataSQLBuilder
+     */
+    private $dataSqlBuilder;
 
     /**
      * The Pluralizer class to use.
@@ -225,6 +232,19 @@ abstract class DataModelBuilder
     }
 
     /**
+     * Returns new or existing data sql builder class for this table.
+     * @return DataSQLBuilder
+     */
+    public function getDataSQLBuilder()
+    {
+        if (!isset($this->dataSqlBuilder)) {
+            $this->dataSqlBuilder = $this->getGeneratorConfig()->getConfiguredBuilder($this->getTable(), 'datasql');
+        }
+
+        return $this->dataSqlBuilder;
+    }
+
+    /**
      * Gets a new data model builder class for specified table and classname.
      *
      * @param  Table            $table
@@ -346,13 +366,7 @@ abstract class DataModelBuilder
     }
 
     /**
-     * Get a specific configuration property.
-     *
-     * The name of the requested property must be given as a string, representing its hierarchy in the configuration
-     * array, with each level separated by a dot. I.e.:
-     * <code> $config['database']['adapter']['mysql']['tableType']</code>
-     * is expressed by:
-     * <code>'database.adapter.mysql.tableType</code>
+     * Get a specific [name transformed] build property.
      *
      * @param  string $name
      * @return string
@@ -360,7 +374,7 @@ abstract class DataModelBuilder
     public function getBuildProperty($name)
     {
         if ($this->getGeneratorConfig()) {
-            return $this->getGeneratorConfig()->getConfigProperty($name);
+            return $this->getGeneratorConfig()->getBuildProperty($name);
         }
 
         return null; // just to be explicit
@@ -454,7 +468,7 @@ abstract class DataModelBuilder
      * Wraps call to Platform->quoteIdentifier() with a check to see whether quoting is enabled.
      *
      * All subclasses should call this quoteIdentifier() method rather than calling the Platform
-     * method directly.  This method is used by DDLBuilder, and potentially
+     * method directly.  This method is used by both DataSQLBuilder and DDLBuilder, and potentially
      * in the OM builders also, which is why it is defined in this class.
      *
      * @param  string $text The text to quote.
@@ -462,7 +476,7 @@ abstract class DataModelBuilder
      */
     public function quoteIdentifier($text)
     {
-        if (!$this->getBuildProperty('generator.objectModel.disableIdentifierQuoting')) {
+        if (!$this->getBuildProperty('disableIdentifierQuoting')) {
             return $this->getPlatform()->quoteIdentifier($text);
         }
 
@@ -476,6 +490,6 @@ abstract class DataModelBuilder
      */
     public function prefixClassName($identifier)
     {
-        return $this->getBuildProperty('generator.objectModel.classPrefix') . $identifier;
+        return $this->getBuildProperty('classPrefix') . $identifier;
     }
 }

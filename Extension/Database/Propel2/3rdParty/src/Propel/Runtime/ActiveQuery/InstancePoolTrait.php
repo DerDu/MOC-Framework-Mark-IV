@@ -30,7 +30,7 @@ trait InstancePoolTrait
     public static function getInstanceKey($value)
     {
         if (!($value instanceof Criteria) && is_object($value)) {
-            if (count($pk = $value->getPrimaryKey()) > 1 || is_object($value->getPrimaryKey())) {
+            if (count($pk = $value->getPrimaryKey()) > 1) {
                 $pk = serialize($pk);
             }
 

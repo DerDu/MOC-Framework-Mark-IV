@@ -2,9 +2,6 @@
 
 namespace Propel\Tests\Generator\Migration;
 
-/**
- * @group database
- */
 class ForeignKeyTest extends MigrationTestCase
 {
 

@@ -241,21 +241,23 @@ class QuickBuilder
         }
         $sql = $this->database->getPlatform()->getModifyDatabaseDDL($diff);
 
-        $statements = SqlParser::parseString($sql);
-        foreach ($statements as $statement) {
-            try {
-                $stmt = $con->prepare($statement);
-                $stmt->execute();
-            } catch (\Exception $e) {
-                //echo $sql; //uncomment for better debugging
-                throw new BuildException(sprintf("Can not execute SQL: \n%s\nFrom database: \n%s\n\nTo database: \n%s\n\nDiff:\n%s",
-                    $statement,
-                    $this->database,
-                    $database,
-                    $diff
-                ), null, $e);
+        $con->transaction(function () use ($con, $sql, $database, $diff) {
+            $statements = SqlParser::parseString($sql);
+            foreach ($statements as $statement) {
+                try {
+                    $stmt = $con->prepare($statement);
+                    $stmt->execute();
+                } catch (\Exception $e) {
+                    //echo $sql; //uncomment for better debugging
+                    throw new BuildException(sprintf("Can not execute SQL: \n%s\nFrom database: \n%s\n\nTo database: \n%s\n\nDiff:\n%s",
+                        $statement,
+                        $this->database,
+                        $database,
+                        $diff
+                    ), null, $e);
+                }
             }
-        }
+        });
 
         return $database;
     }
@@ -303,7 +305,7 @@ class QuickBuilder
      */
     public function buildClasses(array $classTargets = null, $separate = false)
     {
-        $classes = $classTargets === null ? array('tablemap', 'object', 'query', 'objectstub', 'querystub') : $classTargets;
+        $classes = $classTargets ? : array('tablemap', 'object', 'query', 'objectstub', 'querystub');
 
         $dirHash = substr(sha1(getcwd()), 0, 10);
         $dir = sys_get_temp_dir() . "/propelQuickBuild-$dirHash/";

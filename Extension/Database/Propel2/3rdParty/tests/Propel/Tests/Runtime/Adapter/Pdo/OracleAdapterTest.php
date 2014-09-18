@@ -14,9 +14,9 @@ use Propel\Runtime\Propel;
 use Propel\Runtime\Adapter\Pdo\OracleAdapter;
 use Propel\Runtime\ActiveQuery\Criteria;
 
+use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 use Propel\Tests\Bookstore\Map\AuthorTableMap;
 use Propel\Tests\Bookstore\Map\BookTableMap;
-use Propel\Tests\TestCaseFixtures;
 
 /**
  * Tests the DbOracle adapter
@@ -24,7 +24,7 @@ use Propel\Tests\TestCaseFixtures;
  * @see        BookstoreDataPopulator
  * @author Francois EZaninotto
  */
-class OracleAdapterTest extends TestCaseFixtures
+class OracleAdapterTest extends BookstoreTestBase
 {
     public function testApplyLimitSimple()
     {

@@ -35,9 +35,9 @@ class DatabaseReverseCommand extends AbstractCommand
 
         $this
             ->addOption('output-dir',    null, InputOption::VALUE_REQUIRED, 'The output directory', self::DEFAULT_OUTPUT_DIRECTORY)
-            ->addOption('database-name', null, InputOption::VALUE_REQUIRED, 'The database name used in the created schema.xml', self::DEFAULT_DATABASE_NAME)
+            ->addOption('database-name', null, InputOption::VALUE_REQUIRED, 'The database name to reverse', self::DEFAULT_DATABASE_NAME)
             ->addOption('schema-name',   null, InputOption::VALUE_REQUIRED, 'The schema name to generate', self::DEFAULT_SCHEMA_NAME)
-            ->addArgument('connection',  InputArgument::OPTIONAL,     'Connection to use. Example: \'mysql:host=127.0.0.1;dbname=test;user=root;password=foobar\' (don\'t forget the quote)')
+            ->addArgument('connection',  InputArgument::REQUIRED,     'Connection to use. Example: "mysql:host=127.0.0.1;dbname=test;user=root;password=foobar"')
             ->setName('database:reverse')
             ->setAliases(array('reverse'))
             ->setDescription('Reverse-engineer a XML schema file based on given database')
@@ -49,15 +49,14 @@ class DatabaseReverseCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configOptions = array();
+        $vendor = $input->getArgument('connection');
+        $vendor = preg_split('{:}', $vendor);
+        $vendor = ucfirst($vendor[0]);
 
-        if ($this->hasInputArgument('connection', $input)) {
-            $configOptions += $this->connectionToProperties('reverseconnection='.$input->getArgument('connection'), 'reverse');
-            $configOptions['propel']['reverse']['parserClass'] = 
-                sprintf('\\Propel\\Generator\\Reverse\\%sSchemaParser', ucfirst($configOptions['propel']['database']['connections']['reverseconnection']['adapter']));
-        }
-
-        $generatorConfig = $this->getGeneratorConfig($configOptions, $input);
+        $generatorConfig = $this->getGeneratorConfig(array(
+            'propel.platform.class'         => $input->getOption('platform'),
+            'propel.reverse.parser.class'   => sprintf('\\Propel\\Generator\\Reverse\\%sSchemaParser', $vendor),
+        ), $input);
 
         $this->createDirectory($input->getOption('output-dir'));
 
@@ -69,6 +68,11 @@ class DatabaseReverseCommand extends AbstractCommand
             }
         });
         $manager->setWorkingDirectory($input->getOption('output-dir'));
+
+        list(, $dsn, $infos) = $this->parseConnection('connection=' . $input->getArgument('connection'));
+
+        $manager->setConnection(array_merge(array('dsn' => $dsn), $infos));
+
         $manager->setDatabaseName($input->getOption('database-name'));
         $manager->setSchemaName($input->getOption('schema-name'));
 
@@ -78,8 +82,6 @@ class DatabaseReverseCommand extends AbstractCommand
             $more = $input->getOption('verbose') ? '' : ' You can use the --verbose option to get more information.';
 
             $output->writeln(sprintf('<error>Schema reverse engineering failed.%s</error>', $more));
-
-            return 1;
         }
     }
 }

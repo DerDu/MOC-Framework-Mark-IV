@@ -20,8 +20,7 @@ use Propel\Runtime\Connection\ConnectionInterface;
  * Test class for ModelCriteria.
  *
  * @author Francois Zaninotto
- *
- * @group database
+ * @version    $Id: ModelCriteriaTest.php 1662 2010-04-10 22:02:49Z francois $
  */
 class ModelCriteriaHooksTest extends BookstoreTestBase
 {

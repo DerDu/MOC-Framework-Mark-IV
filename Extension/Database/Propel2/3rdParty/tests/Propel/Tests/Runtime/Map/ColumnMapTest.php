@@ -10,6 +10,7 @@
 
 namespace Propel\Tests\Runtime\Map;
 
+use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 use Propel\Tests\Bookstore\Map\BookTableMap;
 use Propel\Tests\Bookstore\Map\BookstoreEmployeeTableMap;
 
@@ -17,14 +18,14 @@ use Propel\Runtime\Map\ColumnMap;
 use Propel\Runtime\Map\DatabaseMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\Exception\ForeignKeyNotFoundException;
-use Propel\Tests\TestCaseFixtures;
 
 /**
  * Test class for TableMap.
  *
  * @author François Zaninotto
+ * @version    $Id$
  */
-class ColumnMapTest extends TestCaseFixtures
+class ColumnMapTest extends BookstoreTestBase
 {
     protected $databaseMap;
 

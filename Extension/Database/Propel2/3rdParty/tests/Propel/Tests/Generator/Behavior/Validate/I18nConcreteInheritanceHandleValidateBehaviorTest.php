@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader;
  * and Validate behavior.
  *
  * @author Cristiano Cinotti
- *
- * @group database
  */
 class I18nConcreteInheritanceHandleValidateBehaviorTest extends BookstoreTestBase
 {

@@ -19,8 +19,6 @@ use Propel\Generator\Platform\MysqlPlatform;
  */
 class MysqlPlatformMigrationMyISAMTest extends PlatformMigrationTestProvider
 {
-    protected $platform;
-
     /**
      * Get the Platform object for this class
      *
@@ -28,41 +26,18 @@ class MysqlPlatformMigrationMyISAMTest extends PlatformMigrationTestProvider
      */
     protected function getPlatform()
     {
-        if (!$this->platform) {
-            $this->platform = new MysqlPlatform();
-            $configFileContent = <<<EOF
-propel:
-  database:
-    connections:
-      bookstore:
-        adapter: mysql
-        classname: \Propel\Runtime\Connection\DebugPDO
-        dsn: mysql:host=127.0.0.1;dbname=test
-        user: root
-        password:
-    adapters:
-      mysql:
-        tableType: MyISAM
+        static $platform;
 
-  generator:
-    defaultConnection: bookstore
-    connections:
-      - bookstore
-
-  runtime:
-    defaultConnection: bookstore
-    connections:
-      - bookstore
-EOF;
-
-            $configFile = sys_get_temp_dir().'/propel.yaml';
-            file_put_contents($configFile, $configFileContent);
-            $config = new GeneratorConfig($configFile);
-
-            $this->platform->setGeneratorConfig($config);
+        if (!$platform) {
+            $platform = new MysqlPlatform();
+            $config = new GeneratorConfig();
+            $config->setBuildProperties(array(
+                 'propel.mysql.tableType' => 'MyISAM'
+            ));
+            $platform->setGeneratorConfig($config);
         }
 
-        return $this->platform;
+        return $platform;
     }
 
     /**

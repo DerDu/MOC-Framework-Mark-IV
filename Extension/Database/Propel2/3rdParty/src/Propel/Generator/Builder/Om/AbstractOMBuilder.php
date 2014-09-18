@@ -197,7 +197,7 @@ abstract class AbstractOMBuilder extends DataModelBuilder
     {
         $pkg = ($this->getTable()->getPackage() ? $this->getTable()->getPackage() : $this->getDatabase()->getPackage());
         if (!$pkg) {
-            $pkg = $this->getBuildProperty('generator.targetPackage');
+            $pkg = $this->getBuildProperty('targetPackage');
         }
 
         return $pkg;
@@ -529,7 +529,7 @@ abstract class AbstractOMBuilder extends DataModelBuilder
         }
 
         if (null === $classname) {
-            return $this->getBuildProperty('generator.objectModel.classPrefix') . $col->getFQConstantName();
+            return $this->getBuildProperty('classPrefix') . $col->getFQConstantName();
         }
 
         // was it overridden in schema.xml ?
@@ -620,7 +620,7 @@ abstract class AbstractOMBuilder extends DataModelBuilder
         $phpDoc = [];
 
         foreach ($crossFKs->getCrossForeignKeys() as $fk) {
-            $crossObjectName  = '$' . lcfirst($this->getFKPhpNameAffix($fk)); //$fk->getForeignTable()->getCamelCaseName();
+            $crossObjectName  = '$' . lcfirst($this->getFKPhpNameAffix($fk)); //$fk->getForeignTable()->getStudlyPhpName();
             $crossObjectClassName  = $this->getNewObjectBuilder($fk->getForeignTable())->getObjectClassName();
 
             $names[] = $crossObjectClassName;
@@ -789,7 +789,7 @@ abstract class AbstractOMBuilder extends DataModelBuilder
                         continue;
                     }
                     $script .= "
-" . $tab . '// ' . $behavior->getId() . " behavior
+" . $tab . '// ' . $behavior->getName() . " behavior
 ";
                     $script .= preg_replace('/^/m', $tab, $addedScript);
                 }

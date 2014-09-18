@@ -39,8 +39,6 @@ use \DateTime;
  *
  * @author Francois Zaninotto
  * @author Hans Lellelid <hans@xmpl.org>
- *
- * @group database
  */
 class BookstoreTest extends BookstoreEmptyTestBase
 {

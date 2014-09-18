@@ -11,8 +11,6 @@
 namespace Propel\Tests\Generator\Behavior\Sluggable;
 
 use Propel\Runtime\Adapter\Pdo\PgsqlAdapter;
-use Propel\Runtime\Propel;
-use Propel\Tests\Bookstore\Map\BookTableMap;
 use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 
 use Propel\Tests\Bookstore\Behavior\Table13;
@@ -23,24 +21,21 @@ use Propel\Tests\Bookstore\Behavior\Table14Query;
 use Propel\Tests\Bookstore\Behavior\Map\Table14TableMap;
 use Propel\Tests\Bookstore\Behavior\TableWithScope;
 use Propel\Tests\Bookstore\Behavior\TableWithScopeQuery;
+use Propel\Runtime\Propel;
 
 /**
  * Tests for SluggableBehavior class
  *
  * @author François Zaninotto
- *
- * @group database
  */
 class SluggableBehaviorTest extends BookstoreTestBase
 {
-    protected function setUp()
+    public static function setUpBeforeClass()
     {
         //prevent issue DSN not Found
         self::$isInitialized = false;
-        parent::setUp();
-        include_once(__DIR__.'/SluggableBehaviorTestClasses.php');
+        parent::setUpBeforeClass();
     }
-
 
     public function testParameters()
     {
@@ -391,5 +386,46 @@ class SluggableBehaviorTest extends BookstoreTestBase
         $t->save($con);
 
         $this->assertEquals('world-102', $t->getSlug());
+    }
+}
+
+class TestableTable13 extends Table13
+{
+    public function createSlug()
+    {
+        return parent::createSlug();
+    }
+
+    public function createRawSlug()
+    {
+        return parent::createRawSlug();
+    }
+
+    public static function cleanupSlugPart($slug, $separator = '-')
+    {
+        return parent::cleanupSlugPart($slug, $separator);
+    }
+
+    public function makeSlugUnique($slug, $separator = '-', $increment = 0)
+    {
+        return parent::makeSlugUnique($slug, $separator, $increment);
+    }
+}
+
+class TestableTable14 extends Table14
+{
+    public function createSlug()
+    {
+        return parent::createSlug();
+    }
+
+    public function createRawSlug()
+    {
+        return parent::createRawSlug();
+    }
+
+    public static function limitSlugSize($slug, $incrementReservedSpace = 3)
+    {
+        return parent::limitSlugSize($slug, $incrementReservedSpace);
     }
 }

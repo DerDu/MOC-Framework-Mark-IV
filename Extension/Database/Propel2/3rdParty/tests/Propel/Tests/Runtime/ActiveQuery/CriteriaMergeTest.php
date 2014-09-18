@@ -10,11 +10,11 @@
 
 namespace Propel\Tests\Runtime\ActiveQuery;
 
+use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 use Propel\Tests\Bookstore\Map\AuthorTableMap;
 use Propel\Tests\Bookstore\Map\BookTableMap;
 use Propel\Tests\Bookstore\Map\PublisherTableMap;
 use Propel\Runtime\ActiveQuery\Criteria;
-use Propel\Tests\TestCaseFixtures;
 
 /**
  * Test class for Criteria.
@@ -22,8 +22,9 @@ use Propel\Tests\TestCaseFixtures;
  * @author Christopher Elkins <celkins@scardini.com>
  * @author Sam Joseph <sam@neurogrid.com>
  */
-class CriteriaMergeTest extends TestCaseFixtures
+class CriteriaMergeTest extends BookstoreTestBase
 {
+
     protected function assertCriteriaTranslation($criteria, $expectedSql, $message = '')
     {
         $params = array();

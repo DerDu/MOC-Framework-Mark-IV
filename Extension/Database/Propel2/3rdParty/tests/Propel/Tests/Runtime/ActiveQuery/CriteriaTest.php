@@ -10,7 +10,6 @@
 
 namespace Propel\Tests\Runtime\ActiveQuery;
 
-use Propel\Runtime\Exception\PropelException;
 use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
 use Propel\Tests\Bookstore\Map\BookTableMap;
 use Propel\Tests\Bookstore\BookQuery;
@@ -27,8 +26,6 @@ use Propel\Runtime\ActiveQuery\Join;
  *
  * @author Christopher Elkins <celkins@scardini.com>
  * @author Sam Joseph <sam@neurogrid.com>
- *
- * @group database
  */
 class CriteriaTest extends BookstoreTestBase
 {
@@ -39,28 +36,29 @@ class CriteriaTest extends BookstoreTestBase
      */
     private $c;
 
-//    /**
-//     * DB adapter saved for later.
-//     *
-//     * @var AbstractAdapter
-//     */
-//    private $savedAdapter;
+    /**
+     * DB adapter saved for later.
+     *
+     * @var AbstractAdapter
+     */
+    private $savedAdapter;
 
     protected function setUp()
     {
         parent::setUp();
         $this->c = new ModelCriteria();
-//        $defaultDatasource = Propel::getServiceContainer()->getDefaultDatasource();
-//        $this->savedAdapter = Propel::getServiceContainer()->getAdapter($defaultDatasource);
-//        $newAdapter = Propel::getServiceContainer()->getAdapter(BookTableMap::DATABASE_NAME);
-//        Propel::getServiceContainer()->setAdapter($defaultDatasource, $newAdapter);
+        $defaultDatasource = Propel::getServiceContainer()->getDefaultDatasource();
+        $this->savedAdapter = Propel::getServiceContainer()->getAdapter($defaultDatasource);
+        $newAdapter = Propel::getServiceContainer()->getAdapter(BookTableMap::DATABASE_NAME);
+        $this->adapterClass = $newAdapter->getAdapterId();
+        Propel::getServiceContainer()->setAdapter($defaultDatasource, $newAdapter);
     }
 
-//    protected function tearDown()
-//    {
-//        Propel::getServiceContainer()->setAdapter(Propel::getServiceContainer()->getDefaultDatasource(), $this->savedAdapter);
-//        parent::tearDown();
-//    }
+    protected function tearDown()
+    {
+        Propel::getServiceContainer()->setAdapter(Propel::getServiceContainer()->getDefaultDatasource(), $this->savedAdapter);
+        parent::tearDown();
+    }
 
     /**
      * Test basic adding of strings.
@@ -316,13 +314,12 @@ class CriteriaTest extends BookstoreTestBase
     {
         $originalDB = Propel::getServiceContainer()->getAdapter();
         Propel::getServiceContainer()->setAdapter(Propel::getServiceContainer()->getDefaultDatasource(), new MysqlAdapter());
-        Propel::getServiceContainer()->setDefaultDatasource('bookstore');
 
         $criteria = new Criteria();
         $criteria->setIgnoreCase(true);
         $criteria->addAscendingOrderByColumn(BookTableMap::COL_TITLE);
         BookTableMap::addSelectColumns($criteria);
-        $params = array();
+        $params=array();
         $sql = $criteria->createSelectSql($params);
         $expectedSQL = 'SELECT book.ID, book.TITLE, book.ISBN, book.PRICE, book.PUBLISHER_ID, book.AUTHOR_ID, UPPER(book.TITLE) FROM `book` ORDER BY UPPER(book.TITLE) ASC';
         $this->assertEquals($expectedSQL, $sql);
@@ -1077,7 +1074,7 @@ class CriteriaTest extends BookstoreTestBase
     public function testLimit()
     {
         $c = new Criteria();
-        $this->assertEquals(-1, $c->getLimit(), 'Limit is -1 by default');
+        $this->assertEquals(0, $c->getLimit(), 'Limit is 0 by default');
 
         $c2 = $c->setLimit(1);
         $this->assertEquals(1, $c->getLimit(), 'Limit is set by setLimit');

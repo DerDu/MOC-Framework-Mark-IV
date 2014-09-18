@@ -21,8 +21,7 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
  * Test class for ModelCriteria select() method.
  *
  * @author Francois Zaninotto
- *
- * @group database
+ * @version    $Id: ModelCriteriaTest.php 1842 2010-07-22 22:39:40Z KRavEN $
  */
 class ModelCriteriaSelectTest extends BookstoreTestBase
 {

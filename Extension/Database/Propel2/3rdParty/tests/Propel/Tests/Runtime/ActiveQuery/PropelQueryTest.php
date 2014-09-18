@@ -24,18 +24,9 @@ use Propel\Tests\Bookstore\Behavior\Map\Table6TableMap;
  * Test class for PropelQuery
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class PropelQueryTest extends BookstoreTestBase
 {
-
-    protected function setUp()
-    {
-        parent::setUp();
-        include_once(__DIR__.'/PropelQueryTestClasses.php');
-    }
-
     public function testFrom()
     {
         $q = PropelQuery::from('\Propel\Tests\Bookstore\Book');
@@ -164,4 +155,8 @@ class PropelQueryTest extends BookstoreTestBase
         $object = Table6Query::create()->findPk($key);
         $this->assertSame($object, Table6TableMap::getInstanceFromPool($key));
     }
+}
+
+class myBookQuery extends BookQuery
+{
 }

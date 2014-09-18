@@ -49,7 +49,7 @@ class TestPrepareCommand extends AbstractCommand
      * @var array
      */
     protected $fixtures = array(
-        //directory - array of connections
+        // directory - array of connections
         'bookstore'             => array('bookstore', 'bookstore-cms', 'bookstore-behavior'),
         'bookstore-packaged'    => array('bookstore-packaged', 'bookstore-log'),
         'namespaced'            => array('bookstore_namespaced'),
@@ -79,10 +79,9 @@ class TestPrepareCommand extends AbstractCommand
         $this
             ->setDefinition(array(
                 new InputOption('vendor',       null, InputOption::VALUE_REQUIRED, 'The database vendor', self::DEFAULT_VENDOR),
-                new InputOption('dsn',          null, InputOption::VALUE_REQUIRED, 'The data source name', self::DEFAULT_DSN),
+                new InputOption('dsn',          null, InputOption::VALUE_OPTIONAL, 'The data source name', self::DEFAULT_DSN),
                 new InputOption('user',          'u', InputOption::VALUE_REQUIRED, 'The database user', self::DEFAULT_DB_USER),
                 new InputOption('password',      'p', InputOption::VALUE_REQUIRED, 'The database password', self::DEFAULT_DB_PASSWD),
-                new InputOption('exclude-database',  null, InputOption::VALUE_NONE, 'Whether this should not touch database\'s schema'),
             ))
             ->setName('test:prepare')
             ->setDescription('Prepare the Propel test suite by building fixtures')
@@ -107,56 +106,34 @@ class TestPrepareCommand extends AbstractCommand
      */
     protected function buildFixtures($fixturesDir, $connections, InputInterface $input, OutputInterface $output)
     {
-        if (!file_exists($this->root . '/' . $fixturesDir)) {
+        if (!file_exists($fixturesDir)) {
             $output->writeln(sprintf('<error>Directory "%s" not found.</error>', $fixturesDir));
 
-            return 1;
+            return;
         }
 
-        $output->writeln(sprintf('Building fixtures in <info>%-40s</info> ' . ($input->getOption('exclude-database') ? '(exclude-database)' : ''), $fixturesDir));
+        $output->writeln(sprintf('Building fixtures in <info>%-40s</info> ', $fixturesDir));
 
-        chdir($this->root . '/' . $fixturesDir);
+        chdir($fixturesDir);
 
-        if (is_file('propel.yaml.dist')) {
-            $content = file_get_contents('propel.yaml.dist');
+        $distributionFiles = array(
+            'runtime-conf.xml.dist' => 'runtime-conf.xml',
+            'build.properties.dist' => 'build.properties',
+        );
 
-            $content = str_replace('##DATABASE_VENDOR##',   $input->getOption('vendor'), $content);
-            $content = str_replace('##DATABASE_URL##',      $input->getOption('dsn'), $content);
-            $content = str_replace('##DATABASE_USER##',     $input->getOption('user'), $content);
-            $content = str_replace('##DATABASE_PASSWORD##', $input->getOption('password'), $content);
+        foreach ($distributionFiles as $sourceFile => $targetFile) {
+            if (is_file($sourceFile)) {
+                $content = file_get_contents($sourceFile);
 
-            file_put_contents('propel.yaml', $content);
-        } else {
-            $output->writeln(sprintf('<comment>No "propel.yaml.dist" file found, skipped.</comment>'));
-        }
+                $content = str_replace('##DATABASE_VENDOR##',   $input->getOption('vendor'), $content);
+                $content = str_replace('##DATABASE_URL##',      $input->getOption('dsn'), $content);
+                $content = str_replace('##DATABASE_USER##',     $input->getOption('user'), $content);
+                $content = str_replace('##DATABASE_PASSWORD##', $input->getOption('password'), $content);
 
-        if (is_file('propel.yaml')) {
-            $in = new ArrayInput(array(
-                'command'       => 'config:convert',
-                '--input-dir'   => '.',
-                '--output-dir'  => './build/conf',
-                '--output-file' => sprintf('%s-conf.php', $connections[0]), // the first connection is the main one
-            ));
-
-            $command = $this->getApplication()->find('config:convert');
-            $command->run($in, $output);
-        }
-
-        if (0 < count((array) $this->getSchemas('.'))) {
-            $in = new ArrayInput(array(
-                'command'      => 'model:build',
-                '--input-dir'  => '.',
-                '--output-dir' => 'build/classes/',
-                '--platform'   => ucfirst($input->getOption('vendor')) . 'Platform',
-                '--verbose'    => $input->getOption('verbose'),
-            ));
-
-            $command = $this->getApplication()->find('model:build');
-            $command->run($in, $output);
-        }
-
-        if ($input->getOption('exclude-database')) {
-            return 0;
+                file_put_contents($targetFile, $content);
+            } else {
+                $output->writeln(sprintf('<comment>No "%s" file found, skipped.</comment>', $sourceFile));
+            }
         }
 
         if (0 < count($this->getSchemas('.'))) {
@@ -196,6 +173,31 @@ class TestPrepareCommand extends AbstractCommand
             ));
 
             $command = $this->getApplication()->find('sql:insert');
+            $command->run($in, $output);
+        }
+
+        if (is_file('runtime-conf.xml')) {
+            $in = new ArrayInput(array(
+                'command'       => 'config:convert-xml',
+                '--input-dir'   => '.',
+                '--output-dir'  => './build/conf',
+                '--output-file' => sprintf('%s-conf.php', $connections[0]), // the first connection is the main one
+            ));
+
+            $command = $this->getApplication()->find('config:convert-xml');
+            $command->run($in, $output);
+        }
+
+        if (0 < count((array) $this->getSchemas('.'))) {
+            $in = new ArrayInput(array(
+                'command'      => 'model:build',
+                '--input-dir'  => '.',
+                '--output-dir' => 'build/classes/',
+                '--platform'   => ucfirst($input->getOption('vendor')) . 'Platform',
+                '--verbose'    => $input->getOption('verbose'),
+            ));
+
+            $command = $this->getApplication()->find('model:build');
             $command->run($in, $output);
         }
 

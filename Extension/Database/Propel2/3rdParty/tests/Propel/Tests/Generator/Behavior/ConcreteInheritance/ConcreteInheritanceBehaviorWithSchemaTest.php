@@ -14,16 +14,15 @@ namespace Propel\Tests\Generator\Behavior;
 use Propel\Tests\BookstoreSchemas\Book;
 use Propel\Tests\BookstoreSchemas\SecondHandBook;
 use Propel\Tests\BookstoreSchemas\Map\BookTableMap;
-use Propel\Tests\TestCaseFixturesDatabase;
+use Propel\Tests\Helpers\Schemas\SchemasTestBase;
 
 /**
  * Tests for ConcreteInheritanceBehavior class
  *
  * @author François Zaniontto
- *
- * @group database
+ * @version   $Revision$
  */
-class ConcreteInheritanceBehaviorWithSchemaTest extends TestCaseFixturesDatabase
+class ConcreteInheritanceBehaviorWithSchemaTest extends SchemasTestBase
 {
     public function testParentBehaviorWithSchemas()
     {

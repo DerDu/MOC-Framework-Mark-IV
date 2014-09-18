@@ -23,8 +23,6 @@ use Propel\Tests\Bookstore\ContestView;
  * Test class for ObjectCollection.
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class ObjectCollectionTest extends BookstoreTestBase
 {
@@ -131,7 +129,7 @@ class ObjectCollectionTest extends BookstoreTestBase
                 'Email' => null,
                 'Age' => null,
                 'Books' => array(
-                    0 => '*RECURSION*',
+                    'Book_0' => '*RECURSION*',
                 )
             ),
         ));

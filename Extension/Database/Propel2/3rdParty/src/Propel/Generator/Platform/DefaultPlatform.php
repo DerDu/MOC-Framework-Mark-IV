@@ -99,6 +99,24 @@ class DefaultPlatform implements PlatformInterface
     }
 
     /**
+     * Returns a platform specific builder class if exists.
+     *
+     * @param $type
+     *
+     * @return string|null Returns null if no platform specified builder class exists.
+     */
+    public function getBuilderClass($type)
+    {
+        $class = get_called_class();
+        $class = substr($class, strrpos($class, '\\') + 1, -(strlen('Platform')));
+        $class = 'Propel\Generator\Builder\Om\Platform\\' . $class . ucfirst($type) . 'Builder';
+
+        if (class_exists($class)) {
+            return $class;
+        }
+    }
+
+    /**
      * Sets the GeneratorConfigInterface to use in the parsing.
      *
      * @param GeneratorConfigInterface $config
@@ -106,6 +124,19 @@ class DefaultPlatform implements PlatformInterface
     public function setGeneratorConfig(GeneratorConfigInterface $config)
     {
         // do nothing by default
+    }
+
+    /**
+     * Gets a specific propel (renamed) property from the build.
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    protected function getBuildProperty($name)
+    {
+        if (null !== $this->generatorConfig) {
+            return $this->generatorConfig->getBuildProperty($name);
+        }
     }
 
     /**
@@ -1333,29 +1364,6 @@ if (is_resource($columnValueAccessor)) {
     }
 
     /**
-     * Returns a integer indexed array of default type sizes.
-     *
-     * @return integer[] type indexed array of integers
-     */
-    public function getDefaultTypeSizes()
-    {
-        return [];
-    }
-
-    /**
-     * Returns the default size of a specific type.
-     *
-     * @param string $type
-     * @return integer
-     */
-    public function getDefaultTypeSize($type)
-    {
-        $sizes = $this->getDefaultTypeSizes();
-
-        return isset($sizes[strtolower($type)]) ? $sizes[strtolower($type)] : null;
-    }
-
-    /**
      * Normalizes a table for the current platform. Very important for the TableComparator to not
      * generate useless diffs.
      * Useful for checking needed definitions/structures. E.g. Unique Indexes for ForeignKey columns,
@@ -1379,14 +1387,6 @@ if (is_resource($columnValueAccessor)) {
             // when the plafform does not support index sizes we reset it
             foreach ($table->getIndices() as $index) {
                 $index->resetColumnsSize();
-            }
-        }
-
-        foreach ($table->getColumns() as $column) {
-            if ($column->getSize() && $defaultSize = $this->getDefaultTypeSize($column->getType())) {
-                if (intval($column->getSize()) === $defaultSize) {
-                    $column->setSize(null);
-                }
             }
         }
     }

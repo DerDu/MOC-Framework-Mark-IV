@@ -22,58 +22,44 @@ class YamlParser extends AbstractParser
     /**
      * Converts data from an associative array to YAML.
      *
-     * @param  array $array Source data to convert
-     * @param string $rootKey
+     * @param  array  $array Source data to convert
      * @return string Converted data, as a YAML string
      */
-    public function fromArray($array, $rootKey = null)
+    public function fromArray($array)
     {
-        return Yaml::dump($rootKey === null ? $array : [$rootKey => $array], 3);
+        return Yaml::dump($array, 3);
     }
 
     /**
      * Alias for YamlParser::fromArray()
      *
-     * @param  array $array Source data to convert
-     * @param string $rootKey
+     * @param  array  $array Source data to convert
      * @return string Converted data, as a YAML string
      */
-    public function toYAML($array, $rootKey = null)
+    public function toYAML($array)
     {
-        return $this->fromArray($array, $rootKey);
+        return $this->fromArray($array);
     }
 
     /**
      * Converts data from YAML to an associative array.
      *
      * @param  string $data Source data to convert, as a YAML string
-     * @param string $rootKey
      * @return array  Converted data
      */
-    public function toArray($data, $rootKey = null)
+    public function toArray($data)
     {
-        $data = Yaml::parse($data);
-
-        if ($rootKey === null) {
-            return $data;
-        }
-
-        if (!isset($data[$rootKey])) {
-            return [];
-        }
-
-        return $data[$rootKey];
+        return Yaml::parse($data);
     }
 
     /**
      * Alias for YamlParser::toArray()
      *
      * @param  string $data Source data to convert, as a YAML string
-     * @param string $rootKey
      * @return array  Converted data
      */
-    public function fromYAML($data, $rootKey = null)
+    public function fromYAML($data)
     {
-        return $this->toArray($data, $rootKey);
+        return $this->toArray($data);
     }
 }

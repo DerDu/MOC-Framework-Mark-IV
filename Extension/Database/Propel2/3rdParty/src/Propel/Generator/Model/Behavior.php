@@ -11,7 +11,6 @@
 namespace Propel\Generator\Model;
 
 use Propel\Generator\Builder\Util\PropelTemplate;
-use Propel\Generator\Exception\LogicException;
 
 /**
  * Information about behaviors of a table.
@@ -34,13 +33,6 @@ class Behavior extends MappingModel
      * @var Database
      */
     protected $database;
-
-    /**
-     * The behavior id.
-     *
-     * @var string
-     */
-    protected $id;
 
     /**
      * The behavior name.
@@ -96,41 +88,6 @@ class Behavior extends MappingModel
     public function setName($name)
     {
         $this->name = $name;
-
-        if ($this->id === null) {
-            $this->id = $name;
-        }
-    }
-
-    /**
-     * Sets the id of the Behavior
-     *
-     * @param string $id The id of the behavior
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Indicates whether the behavior can be applied several times on the same
-     * table or not.
-     *
-     * @return bool
-     */
-    public function allowMultiple()
-    {
-        return false;
-    }
-
-    /**
-     * Returns the id of the Behavior
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -269,7 +226,7 @@ class Behavior extends MappingModel
     public function modifyDatabase()
     {
         foreach ($this->getTables() as $table) {
-            if ($table->hasBehavior($this->getId())) {
+            if ($table->hasBehavior($this->getName())) {
                 // don't add the same behavior twice
                 continue;
             }
@@ -378,13 +335,7 @@ class Behavior extends MappingModel
 
     protected function setupObject()
     {
-        $this->setName($this->getAttribute('name'));
-
-        if (!$this->allowMultiple() && $id = $this->getAttribute('id')) {
-            throw new LogicException(sprintf('Defining an ID (%s) on a behavior which does not allow multiple instances makes no sense', $id));
-        }
-
-        $this->id = $this->getAttribute('id', $this->name);
+        $this->name = $this->getAttribute("name");
     }
 
     /**

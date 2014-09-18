@@ -10,8 +10,6 @@
 
 namespace Propel\Runtime\Parser;
 
-use Propel\Common\Pluralizer\PluralizerInterface;
-use Propel\Common\Pluralizer\StandardEnglishPluralizer;
 use Propel\Runtime\Exception\FileNotFoundException;
 
 /**
@@ -28,10 +26,9 @@ abstract class AbstractParser
      * Override in the parser driver.
      *
      * @param  array $array Source data to convert
-     * @param string $rootKey The parser might use this for naming the root key of the parser format
      * @return mixed Converted data, depending on the parser format
      */
-    abstract public function fromArray($array, $rootKey = 'data');
+    abstract public function fromArray($array);
 
     /**
      * Converts data from the parser format to an associative array.
@@ -39,19 +36,18 @@ abstract class AbstractParser
      * Override in the parser driver.
      *
      * @param  mixed $data Source data to convert, depending on the parser format
-     * @param string $rootKey The parser might use this name for converting from parser format
      * @return array Converted data
      */
-    abstract public function toArray($data, $rootKey = 'data');
+    abstract public function toArray($data);
 
-    public function listFromArray($data, $rootKey = 'data')
+    public function listFromArray($data)
     {
-        return $this->fromArray($data, $rootKey);
+        return $this->fromArray($data);
     }
 
-    public function listToArray($data, $rootKey = 'data')
+    public function listToArray($data)
     {
-        return $this->toArray($data, $rootKey);
+        return $this->toArray($data);
     }
 
     /**

@@ -35,14 +35,13 @@ class CsvParser extends AbstractParser
     /**
      * Converts data from an associative array to CSV.
      *
-     * @param array $array Source data to convert
-     * @param string $rootKey Will not be used for converting because csv is flat
-     * @param boolean $isList Whether the input data contains more than one row
+     * @param array   $array          Source data to convert
+     * @param boolean $isList         Whether the input data contains more than one row
      * @param boolean $includeHeading Whether the output should contain a heading line
      *
      * @return string Converted data, as a CSV string
      */
-    public function fromArray($array, $rootKey = null, $isList = false, $includeHeading = true)
+    public function fromArray($array, $isList = false, $includeHeading = true)
     {
         $rows = array();
         if ($isList) {
@@ -62,9 +61,9 @@ class CsvParser extends AbstractParser
         return implode($rows, $this->lineTerminator) . $this->lineTerminator;
     }
 
-    public function listFromArray($array, $rootKey = null)
+    public function listFromArray($array)
     {
-        return $this->fromArray($array, $rootKey, true);
+        return $this->fromArray($array, true);
     }
 
     /**
@@ -169,20 +168,19 @@ class CsvParser extends AbstractParser
      */
     public function toCSV($array, $isList = false, $includeHeading = true)
     {
-        return $this->fromArray($array, null, $isList, $includeHeading);
+        return $this->fromArray($array, $isList, $includeHeading);
     }
 
     /**
      * Converts data from CSV to an associative array.
      *
-     * @param string $data Source data to convert, as a CSV string
-     * @param string|null $rootKey Will not be used for converting because csv is flat
-     * @param boolean $isList Whether the input data contains more than one row
+     * @param string  $data           Source data to convert, as a CSV string
+     * @param boolean $isList         Whether the input data contains more than one row
      * @param boolean $includeHeading Whether the input contains a heading line
      *
      * @return array Converted data
      */
-    public function toArray($data, $rootKey = null, $isList = false, $includeHeading = true)
+    public function toArray($data, $isList = false, $includeHeading = true)
     {
         $rows = explode($this->lineTerminator, $data);
         if ($includeHeading) {
@@ -215,9 +213,9 @@ class CsvParser extends AbstractParser
         return $array;
     }
 
-    public function listToArray($array, $rootKey = null)
+    public function listToArray($array)
     {
-        return $this->toArray($array, $rootKey, true);
+        return $this->toArray($array, true);
     }
 
     protected function getColumns($row)
@@ -303,6 +301,6 @@ class CsvParser extends AbstractParser
      */
     public function fromCSV($data, $isList = false, $includeHeading = true)
     {
-        return $this->toArray($data, null, $isList, $includeHeading);
+        return $this->toArray($data, $isList, $includeHeading);
     }
 }

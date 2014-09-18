@@ -26,8 +26,6 @@ use Propel\Tests\Bookstore\Map\BookTableMap;
  * Test class for ObjectCollection.
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class ObjectCollectionWithFixturesTest extends BookstoreEmptyTestBase
 {

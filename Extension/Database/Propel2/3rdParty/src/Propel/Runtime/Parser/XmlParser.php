@@ -20,23 +20,23 @@ class XmlParser extends AbstractParser
     /**
      * Converts data from an associative array to XML.
      *
-     * @param array $array Source data to convert
-     * @param string $rootKey Will be used for naming the root node
-     * @param string $charset Character set of the input data. Defaults to UTF-8.
+     * @param array  $array           Source data to convert
+     * @param string $rootElementName Name of the root element of the XML document
+     * @param string $charset         Character set of the input data. Defaults to UTF-8.
      *
      * @return string Converted data, as an XML string
      */
-    public function fromArray($array, $rootKey = 'data', $charset = null)
+    public function fromArray($array, $rootElementName = 'data', $charset = null)
     {
-        $rootNode = $this->getRootNode($rootKey);
+        $rootNode = $this->getRootNode($rootElementName);
         $this->arrayToDOM($array, $rootNode, $charset, false);
 
         return $rootNode->ownerDocument->saveXML();
     }
 
-    public function listFromArray($array, $rootKey = 'data', $charset = null)
+    public function listFromArray($array, $rootElementName = 'data', $charset = null)
     {
-        $rootNode = $this->getRootNode($rootKey);
+        $rootNode = $this->getRootNode($rootElementName);
         $this->arrayToDOM($array, $rootNode, $charset, true);
 
         return $rootNode->ownerDocument->saveXML();
@@ -49,7 +49,7 @@ class XmlParser extends AbstractParser
      *
      * @return \DOMElement The root DOMNode
      */
-    protected function getRootNode($rootElementName)
+    protected function getRootNode($rootElementName = 'data')
     {
         $xml = new \DOMDocument('1.0', 'UTF-8');
         $xml->preserveWhiteSpace = false;
@@ -92,21 +92,16 @@ class XmlParser extends AbstractParser
      * @param array       $array
      * @param \DOMElement $rootElement
      * @param string      $charset
+     * @param boolean     $removeNumbersFromKeys
      *
      * @return \DOMElement
      */
-    protected function arrayToDOM($array, $rootElement, $charset = null)
+    protected function arrayToDOM($array, $rootElement, $charset = null, $removeNumbersFromKeys = false)
     {
         foreach ($array as $key => $value) {
-            if (is_numeric($key)) {
-                $key = $rootElement->nodeName;
-
-                // Books => Book
-                if (substr($key, -1, 1) === 's') {
-                    $key = substr($key, 0, strlen($key) - 1);
-                }
+            if ($removeNumbersFromKeys) {
+                $key = preg_replace('/[^a-z]/i', '', $key);
             }
-
             $element = $rootElement->ownerDocument->createElement($key);
             if (is_array($value)) {
                 if (!empty($value)) {
@@ -119,10 +114,6 @@ class XmlParser extends AbstractParser
                 }
                 $value = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
                 $child = $element->ownerDocument->createCDATASection($value);
-                $element->appendChild($child);
-            } elseif ($value instanceof \DateTime) {
-                $element->setAttribute('type', 'xsd:dateTime');
-                $child = $element->ownerDocument->createTextNode($value->format(\DateTime::ISO8601));
                 $element->appendChild($child);
             } else {
                 $child = $element->ownerDocument->createTextNode($value);
@@ -138,10 +129,9 @@ class XmlParser extends AbstractParser
      * Converts data from XML to an associative array.
      *
      * @param  string $data Source data to convert, as an XML string
-     * @param string $rootKey
      * @return array  Converted data
      */
-    public function toArray($data, $rootKey = 'data')
+    public function toArray($data)
     {
         $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->loadXML($data);
@@ -154,12 +144,11 @@ class XmlParser extends AbstractParser
      * Alias for XmlParser::toArray()
      *
      * @param  string $data Source data to convert, as an XML string
-     * @param string $rootKey
      * @return array  Converted data
      */
-    public function fromXML($data, $rootKey = 'data')
+    public function fromXML($data)
     {
-        return $this->toArray($data, $rootKey);
+        return $this->toArray($data);
     }
 
     /**
@@ -177,25 +166,22 @@ class XmlParser extends AbstractParser
             $name = $element->nodeName;
             if (isset($elementNames[$name])) {
                 if (isset($array[$name])) {
-                    // change the first 'book' to 0
-                    $array[$elementNames[$name]] = $array[$name];
+                    // change the first 'book' to 'book0'
+                    $array[$name . $elementNames[$name]] = $array[$name];
                     unset($array[$name]);
                 }
                 $elementNames[$name] += 1;
-                $index = $elementNames[$name];
+                $index = $name . $elementNames[$name];
             } else {
-                $elementNames[$name] = 0;
                 $index = $name;
+                $elementNames[$name] = 0;
             }
-
             if ($element->hasChildNodes() && !$this->hasOnlyTextNodes($element)) {
                 $array[$index] = $this->convertDOMElementToArray($element);
             } elseif ($element->hasChildNodes() && $element->firstChild->nodeType == XML_CDATA_SECTION_NODE) {
                 $array[$index] = htmlspecialchars_decode($element->firstChild->textContent);
             } elseif (!$element->hasChildNodes()) {
                 $array[$index] = null;
-            } elseif ($element->hasAttribute('type') && $element->getAttribute('type') === 'xsd:dateTime') {
-                $array[$index] = new \DateTime($element->textContent);
             } else {
                 $array[$index] = $element->textContent;
             }

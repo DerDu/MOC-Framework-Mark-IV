@@ -30,8 +30,6 @@ use \Exception;
 
 /**
  * Test for PropelPDO subclass.
- *
- * @group database
  */
 class PropelPDOTest extends BookstoreTestBase
 {
@@ -87,14 +85,6 @@ class PropelPDOTest extends BookstoreTestBase
 		$stmt = $con->prepare('SELECT author.FIRST_NAME, author.LAST_NAME FROM author');
 		$stmt->execute();
 		$stmt->fetchAll(\PDO::FETCH_COLUMN, 0); // should not throw exception: Third parameter not allowed for PDO::FETCH_COLUMN
-
-		$stmt = $con->prepare('SELECT author.FIRST_NAME, author.LAST_NAME FROM author');
-		$stmt->execute();
-		$stmt->fetchAll(\PDO::FETCH_ASSOC); // should not throw exception
-
-		$stmt = $con->prepare('SELECT author.FIRST_NAME, author.LAST_NAME FROM author');
-		$stmt->execute();
-		$stmt->fetchAll(); // should not throw exception
 	}
 
     public function testCommitAfterFetch()

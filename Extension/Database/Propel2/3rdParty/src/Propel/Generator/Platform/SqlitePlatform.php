@@ -75,27 +75,15 @@ class SqlitePlatform extends DefaultPlatform
         return '§';
     }
 
-    public function getDefaultTypeSizes()
-    {
-        return array(
-            'char'      => 1,
-            'character' => 1,
-            'integer'   => 32,
-            'bigint'    => 64,
-            'smallint'  => 16,
-            'double precision' => 54
-        );
-    }
-
     /**
      * {@inheritdoc}
      */
     public function setGeneratorConfig(GeneratorConfigInterface $generatorConfig)
     {
-        if (null !== ($foreignKeySupport = $generatorConfig->getConfigProperty('database.adapter.sqlite.foreignKey'))) {
+        if (null !== ($foreignKeySupport = $generatorConfig->getBuildProperty('sqliteForeignkey'))) {
             $this->foreignKeySupport = filter_var($foreignKeySupport, FILTER_VALIDATE_BOOLEAN);;
         }
-        if (null !== ($tableAlteringWorkaround = $generatorConfig->getConfigProperty('database.adapter.sqlite.tableAlteringWorkaround'))) {
+        if (null !== ($tableAlteringWorkaround = $generatorConfig->getBuildProperty('sqliteTableAlteringWorkaround'))) {
             $this->tableAlteringWorkaround = filter_var($tableAlteringWorkaround, FILTER_VALIDATE_BOOLEAN);;;
         }
     }
@@ -245,6 +233,7 @@ DROP TABLE %s;
     public function getBeginDDL()
     {
         return '
+END;
 PRAGMA foreign_keys = OFF;
 ';
     }
@@ -253,6 +242,7 @@ PRAGMA foreign_keys = OFF;
     {
         return '
 PRAGMA foreign_keys = ON;
+BEGIN;
 ';
     }
 

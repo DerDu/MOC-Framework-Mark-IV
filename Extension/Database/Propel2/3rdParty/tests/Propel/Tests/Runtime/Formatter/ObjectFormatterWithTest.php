@@ -37,8 +37,6 @@ use Propel\Tests\Helpers\Bookstore\BookstoreDataPopulator;
  * Test class for ObjectFormatter when Criteria uses with().
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class ObjectFormatterWithTest extends BookstoreEmptyTestBase
 {

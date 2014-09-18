@@ -1033,7 +1033,7 @@ class TableDiff
         if ($modifiedColumns = $this->getModifiedColumns()) {
             $ret .= "    modifiedColumns:\n";
             foreach ($modifiedColumns as $colDiff) {
-                $ret .= (string) $colDiff;
+                $ret .= $colDiff->__toString();
             }
         }
         if ($renamedColumns = $this->getRenamedColumns()) {

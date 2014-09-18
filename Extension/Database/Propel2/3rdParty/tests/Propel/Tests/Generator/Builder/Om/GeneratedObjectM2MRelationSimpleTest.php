@@ -8,9 +8,6 @@ use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Collection\ObjectCombinationCollection;
 use Propel\Tests\Helpers\PlatformDatabaseBuildTimeBase;
 
-/**
- * @group database
- */
 class GeneratedObjectM2MRelationSimpleTest extends PlatformDatabaseBuildTimeBase
 {
     protected $databaseName = 'migration';

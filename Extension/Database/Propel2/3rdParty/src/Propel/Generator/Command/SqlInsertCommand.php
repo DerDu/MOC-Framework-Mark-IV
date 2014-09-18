@@ -20,16 +20,17 @@ use Propel\Generator\Manager\SqlManager;
  */
 class SqlInsertCommand extends AbstractCommand
 {
+    const DEFAULT_OUTPUT_DIRECTORY  = 'generated-sql';
+
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
-        parent::configure();
-        
         $this
-            ->addOption('sql-dir', null, InputOption::VALUE_REQUIRED, 'The SQL files directory')
-            ->addOption('connection', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Connection to use. Example: \'bookstore=mysql:host=127.0.0.1;dbname=test;user=root;password=foobar\' where "bookstore" is your propel database name (used in your schema.xml)')
+            ->addOption('input-dir', null, InputOption::VALUE_REQUIRED, 'The input directory', self::DEFAULT_OUTPUT_DIRECTORY)
+            ->addOption('sql-dir', null, InputOption::VALUE_REQUIRED, 'The SQL files directory', self::DEFAULT_OUTPUT_DIRECTORY)
+            ->addOption('connection', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Connection to use. Example: bookstore=mysql:host=127.0.0.1;dbname=test;user=root;password=foobar')
             ->setName('sql:insert')
             ->setAliases(array('insert-sql'))
             ->setDescription('Insert SQL statements')
@@ -43,17 +44,12 @@ class SqlInsertCommand extends AbstractCommand
     {
         $manager = new SqlManager();
 
-        $configOptions = array();
-        if ($sqlDir = $input->getOption('sql-dir')) {
-            $configOptions['propel']['paths']['sqlDir'] = $sqlDir;
-        }
-
-        $generatorConfig = $this->getGeneratorConfig($configOptions, $input);
+        $generatorConfig = $this->getGeneratorConfig(array(), $input);
 
         $connections = array();
         $optionConnections = $input->getOption('connection');
         if (!$optionConnections) {
-            $connections = $generatorConfig->getBuildConnections();
+            $connections = $generatorConfig->getBuildConnections($input->getOption('input-dir'));
         } else {
             foreach ($optionConnections as $connection) {
                 list($name, $dsn, $infos) = $this->parseConnection($connection);
@@ -67,7 +63,7 @@ class SqlInsertCommand extends AbstractCommand
                 $output->writeln($message);
             }
         });
-        $manager->setWorkingDirectory($generatorConfig->getSection('paths')['sqlDir']);
+        $manager->setWorkingDirectory($input->getOption('sql-dir'));
 
         $manager->insertSql();
     }

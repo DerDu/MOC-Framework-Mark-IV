@@ -25,7 +25,10 @@ class Api extends \MOC\MarkIV\Core\Generic\Extension\Source\Api implements IApiI
     {
 
         \MOC\MarkIV\Api::registerNamespace(
-            'Propel\Runtime\Propel', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/src' )
+            'Propel\Runtime', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/src' )
+        );
+        \MOC\MarkIV\Api::registerNamespace(
+            'Psr', \MOC\MarkIV\Api::groupCore()->unitDrive()->apiDirectory( __DIR__.'/3rdParty/vendor/psr/log' )
         );
 
     }

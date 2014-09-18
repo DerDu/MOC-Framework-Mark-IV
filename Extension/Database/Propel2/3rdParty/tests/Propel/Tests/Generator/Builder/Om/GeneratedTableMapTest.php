@@ -33,8 +33,6 @@ use Propel\Runtime\ActiveQuery\Criteria;
  *
  * @see        BookstoreDataPopulator
  * @author Hans Lellelid <hans@xmpl.org>
- *
- * @group database
  */
 class GeneratedTableMapTest extends BookstoreTestBase
 {

@@ -27,8 +27,6 @@ use Propel\Runtime\Map\TableMap;
  * Test class for ObjectCollection.
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class ArrayCollectionTest extends BookstoreEmptyTestBase
 {
@@ -205,7 +203,7 @@ class ArrayCollectionTest extends BookstoreEmptyTestBase
                 'Email' => null,
                 'Age' => null,
                 'Books' => array(
-                    0 => '*RECURSION*',
+                    'Book_0' => '*RECURSION*',
                 )
             ),
         ));

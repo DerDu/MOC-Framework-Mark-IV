@@ -679,7 +679,7 @@ public function initNestedSetChildren()
     protected function addNestedSetChildAdd(&$script)
     {
         $objectClassName = $this->builder->getObjectClassName();
-        $objectName      = '$' . $this->table->getCamelCaseName();
+        $objectName      = '$' . $this->table->getStudlyPhpName();
 
         $script .= "
 /**

@@ -737,7 +737,7 @@ class ColumnTest extends ModelTestCase
         $column = new Column('created_at');
 
         $this->assertSame('CreatedAt', $column->getPhpName());
-        $this->assertSame('createdAt', $column->getCamelCaseName());
+        $this->assertSame('createdAt', $column->getStudlyPhpName());
     }
 
     public function testSetCustomPhpName()
@@ -746,7 +746,7 @@ class ColumnTest extends ModelTestCase
         $column->setPhpName('CreatedAt');
 
         $this->assertSame('CreatedAt', $column->getPhpName());
-        $this->assertSame('createdAt', $column->getCamelCaseName());
+        $this->assertSame('createdAt', $column->getStudlyPhpName());
     }
 
     public function testSetDefaultMutatorAndAccessorMethodsVisibility()
@@ -986,21 +986,5 @@ class ColumnTest extends ModelTestCase
         $column->setNotNull(true);
 
         $this->assertTrue($column->isNotNull());
-    }
-
-    public function testPhpSingularName()
-    {
-        $column = new Column();
-        $column->setPhpName('Aliases');
-
-        $this->assertEquals($column->getPhpName(), 'Aliases');
-        $this->assertEquals($column->getPhpSingularName(), 'Aliase');
-
-        $column = new Column();
-        $column->setPhpName('Aliases');
-        $column->setPhpSingularName('Alias');
-
-        $this->assertEquals($column->getPhpName(), 'Aliases');
-        $this->assertEquals($column->getPhpSingularName(), 'Alias');
     }
 }

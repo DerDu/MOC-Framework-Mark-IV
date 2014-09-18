@@ -31,7 +31,6 @@ class I18nBehavior extends Behavior
         'i18n_table'        => '%TABLE%_i18n',
         'i18n_phpname'      => '%PHPNAME%I18n',
         'i18n_columns'      => '',
-        'i18n_pk_column'    => null,
         'locale_column'     => 'locale',
         'locale_length'     => 5,
         'default_locale'    => null,
@@ -187,20 +186,16 @@ class I18nBehavior extends Behavior
             throw new EngineException('The i18n behavior does not support tables with composite primary keys');
         }
 
-        $column = $pks[0];
-        $i18nColumn = clone $column;
-
-        if ($this->getParameter('i18n_pk_column')) {
-            // custom i18n table pk name
-            $i18nColumn->setName($this->getParameter('i18n_pk_column'));
-        } else if (in_array($table->getName(), $i18nTable->getForeignTableNames())) {
-            // custom i18n table pk name not set, but some fk already exists
-            return;
+        foreach ($pks as $column) {
+            if (!$i18nTable->hasColumn($column->getName())) {
+                $column = clone $column;
+                $column->setAutoIncrement(false);
+                $i18nTable->addColumn($column);
+            }
         }
 
-        if (!$i18nTable->hasColumn($i18nColumn->getName())) {
-            $i18nColumn->setAutoIncrement(false);
-            $i18nTable->addColumn($i18nColumn);
+        if (in_array($table->getName(), $i18nTable->getForeignTableNames())) {
+            return;
         }
 
         $fk = new ForeignKey();
@@ -209,7 +204,10 @@ class I18nBehavior extends Behavior
         $fk->setDefaultJoin('LEFT JOIN');
         $fk->setOnDelete(ForeignKey::CASCADE);
         $fk->setOnUpdate(ForeignKey::NONE);
-        $fk->addReference($i18nColumn->getName(), $column->getName());
+
+        foreach ($pks as $column) {
+            $fk->addReference($column->getName(), $column->getName());
+        }
 
         $i18nTable->addForeignKey($fk);
     }

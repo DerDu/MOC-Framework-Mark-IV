@@ -70,16 +70,11 @@ class PdoStatement extends BasePdoStatement implements StatementInterface
      */
     public function fetchAll($fetch_style = null, $fetch_argument = null, $ctor_args = array())
     {
-        switch (func_num_args()) {
-        case 0:
-            return parent::fetchAll();
-        case 1:
-            return parent::fetchAll($fetch_style);
-        case 2:
+        if (\PDO::FETCH_COLUMN === $fetch_style) {
             return parent::fetchAll($fetch_style, $fetch_argument);
-        case 3:
-            return parent::fetchAll($fetch_style, $fetch_argument, $ctor_args);
         }
+
+        return parent::fetchAll($fetch_style, $fetch_argument, $ctor_args);
     }
 
     /**

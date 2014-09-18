@@ -42,7 +42,7 @@ class ArchivableBehavior extends Behavior
     public function modifyDatabase()
     {
         foreach ($this->getDatabase()->getTables() as $table) {
-            if ($table->hasBehavior($this->getId())) {
+            if ($table->hasBehavior($this->getName())) {
                 // don't add the same behavior twice
                 continue;
             }

@@ -36,7 +36,6 @@ class Column extends MappingModel
     private $name;
     private $description;
     private $phpName;
-    private $phpSingularName;
     private $phpNamingMethod;
     private $isNotNull;
     private $namePrefix;
@@ -166,7 +165,6 @@ class Column extends MappingModel
 
             $this->name = $this->getAttribute('name');
             $this->phpName = $this->getAttribute('phpName');
-            $this->phpSingularName = $this->getAttribute('phpSingularName');
             $this->phpType = $this->getAttribute('phpType');
             $this->tableMapName = $this->getAttribute('tableMapName');
             $this->description = $this->getAttribute('description');
@@ -376,7 +374,6 @@ class Column extends MappingModel
      */
     public function getSingularName()
     {
-        if ($this->getAttribute('phpSingularName')) return $this->getAttribute('phpSingularName');
         return rtrim($this->name, 's');
     }
 
@@ -402,7 +399,7 @@ class Column extends MappingModel
 
     /**
      * Returns the name to use in PHP sources. It will set & return
-     * a self-generated phpName from its name if its not already set.
+     * a self-generated phpName from it's name if it's not already set.
      *
      * @return string
      */
@@ -416,25 +413,9 @@ class Column extends MappingModel
     }
 
     /**
-     * Returns the singular form of the name to use in PHP sources. 
-     * It will set & return a self-generated phpName from its name 
-     * if its not already set.
-     *
-     * @return string
-     */
-    public function getPhpSingularName()
-    {
-        if (null === $this->phpSingularName) {
-            $this->setPhpSingularName();
-        }
-
-        return $this->phpSingularName;
-    }
-
-    /**
      * Sets the name to use in PHP sources.
      *
-     * It will generate a phpName from its name if no
+     * It will generate a phpName from it's name if no
      * $phpName is passed.
      *
      * @param string $phpName
@@ -449,31 +430,13 @@ class Column extends MappingModel
     }
 
     /**
-     * Sets the singular forn of the name to use in PHP 
-     * sources.
-     *
-     * It will generate a phpName from its name if no
-     * $phpSingularName is passed.
-     *
-     * @param string $phpSingularName
-     */
-    public function setPhpSingularName($phpSingularName = null)
-    {
-        if (null === $phpSingularName) {
-            $this->phpSingularName = self::generatePhpSingularName($this->getPhpName());
-        } else {
-            $this->phpSingularName = $phpSingularName;
-        }
-    }
-
-    /**
-     * Returns the camelCase version of the PHP name.
+     * Returns the studly version of the PHP name.
      *
      * The studly name is the PHP name with the first character lowercase.
      *
      * @return string
      */
-    public function getCamelCaseName()
+    public function getStudlyPhpName()
     {
         return lcfirst($this->getPhpName());
     }
@@ -1455,16 +1418,5 @@ class Column extends MappingModel
     public static function generatePhpName($name, $phpNamingMethod = PhpNameGenerator::CONV_METHOD_CLEAN, $namePrefix = null)
     {
         return NameFactory::generateName(NameFactory::PHP_GENERATOR, [ $name, $phpNamingMethod, $namePrefix ]);
-    }
-
-    /**
-     * Generates the singular form of a PHP name.
-     *
-     * @param  string $phpname
-     * @return string
-     */
-    public static function generatePhpSingularName($phpname)
-    {
-        return rtrim($phpname, 's');
     }
 }

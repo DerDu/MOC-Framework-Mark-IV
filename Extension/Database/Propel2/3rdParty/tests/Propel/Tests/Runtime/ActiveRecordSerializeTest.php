@@ -20,8 +20,6 @@ use Propel\Tests\Bookstore\Map\BookTableMap;
  * Test class for ActiveRecord serialization.
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class ActiveRecordSerializeTest extends BookstoreTestBase
 {

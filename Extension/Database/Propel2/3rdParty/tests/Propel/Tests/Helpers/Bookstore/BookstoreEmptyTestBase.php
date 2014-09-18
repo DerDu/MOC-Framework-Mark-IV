@@ -21,9 +21,7 @@ abstract class BookstoreEmptyTestBase extends BookstoreTestBase
     protected function setUp()
     {
         parent::setUp();
-        if (static::$isInitialized) {
-            BookstoreDataPopulator::depopulate($this->con);
-        }
+        BookstoreDataPopulator::depopulate($this->con);
     }
 
 }

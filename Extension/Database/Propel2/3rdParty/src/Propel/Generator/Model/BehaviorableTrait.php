@@ -59,19 +59,8 @@ trait BehaviorableTrait
     {
         if ($bdata instanceof Behavior) {
             $behavior = $bdata;
-
-            // the new behavior is already registered
-            if ($this->hasBehavior($behavior->getId()) && $behavior->allowMultiple()) {
-                // the user probably just forgot to specify the "id" attribute
-                if ($behavior->getId() === $behavior->getName()) {
-                    throw new BuildException(sprintf('Behavior "%s" is already registered. Specify a different ID attribute to register the same behavior several times.', $behavior->getName()));
-                } else { // or he copy-pasted it and forgot to update it.
-                    throw new BuildException(sprintf('A behavior with ID "%s" is already registered.', $behavior->getId()));
-                }
-            }
-
             $this->registerBehavior($behavior);
-            $this->behaviors[$behavior->getId()] = $behavior;
+            $this->behaviors[$behavior->getName()] = $behavior;
 
             return $behavior;
         }
@@ -103,24 +92,24 @@ trait BehaviorableTrait
     /**
      * check if the given behavior exists
      *
-     * @param  string  $id the behavior id
+     * @param  string  $name the behavior name
      * @return boolean True if the behavior exists
      */
-    public function hasBehavior($id)
+    public function hasBehavior($name)
     {
-        return array_key_exists($id, $this->behaviors);
+        return array_key_exists($name, $this->behaviors);
     }
 
     /**
-     * Get behavior by id
+     * Get behavior by name
      *
-     * @param  string   $id the behavior id
+     * @param  string   $name the behavior name
      * @return Behavior a behavior object or null if the behavior doesn't exist
      */
-    public function getBehavior($id)
+    public function getBehavior($name)
     {
-        if ($this->hasBehavior($id)) {
-            return $this->behaviors[$id];
+        if ($this->hasBehavior($name)) {
+            return $this->behaviors[$name];
         }
 
         return null;

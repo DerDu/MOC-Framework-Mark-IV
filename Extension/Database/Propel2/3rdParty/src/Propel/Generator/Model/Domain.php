@@ -175,7 +175,7 @@ class Domain extends MappingModel
      */
     public function setScale($scale)
     {
-        $this->scale = null === $scale ? null : (int) $scale;
+        $this->scale = (int) $scale;
     }
 
     /**
@@ -207,7 +207,7 @@ class Domain extends MappingModel
      */
     public function setSize($size)
     {
-        $this->size = null === $size ? null : (int) $size;
+        $this->size = (int) $size;
     }
 
     /**

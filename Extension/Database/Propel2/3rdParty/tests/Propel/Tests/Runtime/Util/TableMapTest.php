@@ -27,8 +27,6 @@ use Propel\Runtime\Map\TableMap;
  *
  * @see BookstoreDataPopulator
  * @author Hans Lellelid <hans@xmpl.org>
- *
- * @group database
  */
 class TableMapTest extends BookstoreTestBase
 {

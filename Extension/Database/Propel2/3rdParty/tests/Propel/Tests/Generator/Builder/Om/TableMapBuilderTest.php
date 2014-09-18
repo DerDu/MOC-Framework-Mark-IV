@@ -19,8 +19,6 @@ use Propel\Tests\Bookstore\Behavior\Map\Table1TableMap;
  * Test class for TableMapBuilder.
  *
  * @author François Zaninotto
- *
- * @group database
  */
 class TableMapBuilderTest extends BookstoreTestBase
 {

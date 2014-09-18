@@ -71,10 +71,6 @@ class MigrationManager extends AbstractManager
         return $this->connections[$datasource];
     }
 
-    /**
-     * @param $datasource
-     * @return ConnectionInterface
-     */
     public function getAdapterConnection($datasource)
     {
         if (!isset($this->adapterConnections[$datasource])) {
@@ -287,14 +283,13 @@ class MigrationManager extends AbstractManager
         return new $className();
     }
 
-    public function getMigrationClassBody($migrationsUp, $migrationsDown, $timestamp, $comment = "")
+    public function getMigrationClassBody($migrationsUp, $migrationsDown, $timestamp)
     {
         $timeInWords = date('Y-m-d H:i:s', $timestamp);
         $migrationAuthor = ($author = $this->getUser()) ? 'by ' . $author : '';
         $migrationClassName = $this->getMigrationClassName($timestamp);
         $migrationUpString = var_export($migrationsUp, true);
         $migrationDownString = var_export($migrationsDown, true);
-        $commentString = var_export($comment, true);
         $migrationClassBody = <<<EOP
 <?php
 
@@ -305,7 +300,6 @@ class MigrationManager extends AbstractManager
  */
 class $migrationClassName
 {
-    public \$comment = $commentString;
 
     public function preUp(\$manager)
     {

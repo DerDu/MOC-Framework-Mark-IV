@@ -31,8 +31,7 @@ use Propel\Runtime\Propel;
  * Test class for MultiExtensionQueryBuilder.
  *
  * @author François Zaninotto
- *
- * @group database
+ * @version    $Id: QueryBuilderTest.php 1347 2009-12-03 21:06:36Z francois $
  */
 class QueryBuilderInheritanceTest extends BookstoreTestBase
 {

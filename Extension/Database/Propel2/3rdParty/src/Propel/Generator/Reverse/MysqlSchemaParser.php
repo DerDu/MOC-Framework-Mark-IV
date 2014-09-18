@@ -93,8 +93,8 @@ class MysqlSchemaParser extends AbstractSchemaParser
      */
     public function parse(Database $database, array $additionalTables = array())
     {
-        if (null !== $this->getGeneratorConfig()) {
-            $this->addVendorInfo = $this->getGeneratorConfig()->get()['migrations']['addVendorInfo'];
+        if ($this->getGeneratorConfig()) {
+            $this->addVendorInfo = $this->getGeneratorConfig()->getBuildProperty('addVendorInfo');
         }
 
         $this->parseTables($database);
@@ -207,8 +207,11 @@ class MysqlSchemaParser extends AbstractSchemaParser
             if ($matches[3]) {
                 $sqlType = $row['Type'];
             }
-            if (isset(static::$defaultTypeSizes[$nativeType]) && $size === static::$defaultTypeSizes[$nativeType]) {
-                $size = null;
+            foreach (self::$defaultTypeSizes as $type => $defaultSize) {
+                if ($nativeType === $type && $size === $defaultSize) {
+                    $size = null;
+                    continue;
+                }
             }
         } elseif (preg_match('/^(\w+)\(/', $row['Type'], $matches)) {
             $nativeType = $matches[1];

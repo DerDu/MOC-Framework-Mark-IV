@@ -62,10 +62,10 @@ class MysqlPlatform extends DefaultPlatform
 
     public function setGeneratorConfig(GeneratorConfigInterface $generatorConfig)
     {
-        if ($defaultTableEngine = $generatorConfig->get()['database']['adapters']['mysql']['tableType']) {
+        if ($defaultTableEngine = $generatorConfig->getBuildProperty('mysqlTableType')) {
             $this->defaultTableEngine = $defaultTableEngine;
         }
-        if ($tableEngineKeyword = $generatorConfig->get()['database']['adapters']['mysql']['tableEngineKeyword']) {
+        if ($tableEngineKeyword = $generatorConfig->getBuildProperty('mysqlTableEngineKeyword')) {
             $this->tableEngineKeyword = $tableEngineKeyword;
         }
     }
@@ -696,18 +696,6 @@ ALTER TABLE %s CHANGE %s %s;
             'MEDIUMBLOB',
             'LONGBLOB',
         ));
-    }
-
-    public function getDefaultTypeSizes()
-    {
-        return array(
-            'char'     => 1,
-            'tinyint'  => 4,
-            'smallint' => 6,
-            'int'      => 11,
-            'bigint'   => 20,
-            'decimal'  => 10,
-        );
     }
 
     /**

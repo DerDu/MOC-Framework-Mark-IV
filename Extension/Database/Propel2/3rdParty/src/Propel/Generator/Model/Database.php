@@ -139,7 +139,7 @@ class Database extends ScopedMappingModel
         $this->defaultIdMethod = $this->getAttribute('defaultIdMethod', IdMethod::NATIVE);
         $this->defaultPhpNamingMethod = $this->getAttribute('defaultPhpNamingMethod', NameGeneratorInterface::CONV_METHOD_UNDERSCORE);
         $this->heavyIndexing = $this->booleanValue($this->getAttribute('heavyIndexing'));
-        $this->tablePrefix = $this->getAttribute('tablePrefix', $this->getBuildProperty('generator.tablePrefix'));
+        $this->tablePrefix = $this->getAttribute('tablePrefix', $this->getBuildProperty('tablePrefix'));
         $this->defaultStringFormat = $this->getAttribute('defaultStringFormat', static::DEFAULT_STRING_FORMAT);
     }
 
@@ -686,9 +686,7 @@ class Database extends ScopedMappingModel
     }
 
     /**
-     * Returns the configuration property identified by its name.
-     *
-     * @see \Propel\Common\Config\ConfigurationManager::getConfigProperty() method
+     * Returns the build property identified by its name.
      *
      * @param  string $name
      * @return string
@@ -696,7 +694,7 @@ class Database extends ScopedMappingModel
     public function getBuildProperty($name)
     {
         if ($config = $this->getGeneratorConfig()) {
-            return $config->getConfigProperty($name);
+            return $config->getBuildProperty($name);
         }
     }
 
@@ -754,6 +752,15 @@ class Database extends ScopedMappingModel
     {
         // add the referrers for the foreign keys
         $this->setupTableReferrers();
+
+        // add default behaviors to database
+        if ($defaultBehaviors = $this->getBuildProperty('behaviorDefault')) {
+            // add generic behaviors from build.properties
+            $defaultBehaviors = explode(',', $defaultBehaviors);
+            foreach ($defaultBehaviors as $behavior) {
+                $this->addBehavior([ 'name' => trim($behavior) ]);
+            }
+        }
 
         // execute database behaviors
         foreach ($this->getBehaviors() as $behavior) {

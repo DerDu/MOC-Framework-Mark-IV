@@ -53,8 +53,6 @@ use Propel\Tests\Helpers\Bookstore\BookstoreEmptyTestBase;
  *
  * @see        BookstoreDataPopulator
  * @author Hans Lellelid <hans@xmpl.org>
- *
- * @group database
  */
 class GeneratedQueryDoDeleteTest extends BookstoreEmptyTestBase
 {

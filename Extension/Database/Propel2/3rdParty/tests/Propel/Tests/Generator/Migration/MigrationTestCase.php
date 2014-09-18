@@ -9,9 +9,9 @@ use Propel\Generator\Model\Diff\DatabaseComparator;
 use Propel\Generator\Util\QuickBuilder;
 use Propel\Generator\Util\SqlParser;
 use Propel\Runtime\Propel;
-use Propel\Tests\TestCaseFixturesDatabase;
+use Propel\Tests\TestCase;
 
-class MigrationTestCase extends TestCaseFixturesDatabase
+class MigrationTestCase extends TestCase
 {
 
     /**
@@ -36,7 +36,6 @@ class MigrationTestCase extends TestCaseFixturesDatabase
 
     public function setUp()
     {
-        parent::setUp();
         if (!$this->con) {
             require_once __DIR__ . '/../../../../Fixtures/migration/build/conf/migration-conf.php';
             $this->con = Propel::getConnection('migration');
@@ -51,6 +50,7 @@ class MigrationTestCase extends TestCaseFixturesDatabase
             $this->platform = new $platformClass();
             $this->platform->setIdentifierQuoting(true);
             $generatorConfig = new QuickGeneratorConfig();
+            $generatorConfig->setBuildProperty('mysqlTableType', 'InnoDB');
             $this->platform->setGeneratorConfig($generatorConfig);
 
             $this->parser->setGeneratorConfig(new QuickGeneratorConfig());

@@ -10,16 +10,18 @@
 
 namespace Propel\Tests\Runtime\Map;
 
+use Propel\Tests\Helpers\Bookstore\BookstoreTestBase;
+
 use Propel\Runtime\Propel;
 use Propel\Runtime\Map\RelationMap;
-use Propel\Tests\TestCaseFixtures;
 
 /**
  * Test class for PHP5TableMapBuilder.
  *
  * @author François Zaninotto
+ * @version    $Id$
  */
-class GeneratedRelationMapTest extends TestCaseFixtures
+class GeneratedRelationMapTest extends BookstoreTestBase
 {
     protected $databaseMap;
 

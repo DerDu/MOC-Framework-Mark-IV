@@ -6,21 +6,7 @@ namespace MOC\MarkIV\Module\Database;
  *
  * @package MOC\MarkIV\Module\Database
  */
-interface IApiInterface
+interface IApiInterface extends \MOC\MarkIV\Extension\Database\IApiInterface
 {
 
-    /**
-     * @param string      $Host
-     * @param string      $User
-     * @param string      $Password
-     * @param null|string $Database
-     *
-     * @return IApiInterface
-     */
-    public function openConnection( $Host, $User, $Password, $Database = null );
-
-    /**
-     * @return IApiInterface
-     */
-    public function closeConnection();
 }

@@ -23,8 +23,6 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
  * Test the utility class PropelModelPager
  *
  * @author Francois Zaninotto
- *
- * @group database
  */
 class PropelModelPagerTest extends BookstoreEmptyTestBase
 {

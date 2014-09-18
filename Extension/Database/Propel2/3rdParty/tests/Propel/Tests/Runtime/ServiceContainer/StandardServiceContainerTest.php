@@ -27,7 +27,7 @@ use Propel\Runtime\Propel;
 class StandardServiceContainerTest extends BaseTestCase
 {
     /**
-     * @var \Propel\Runtime\ServiceContainer\StandardServiceContainer
+     * @var Propel\Runtime\ServiceContainer\StandardServiceContainer
      */
     protected $sc;
 
@@ -240,21 +240,6 @@ class StandardServiceContainerTest extends BaseTestCase
             'foo2' => $manager2
         );
         $this->assertEquals($expected, $this->sc->getConnectionManagers());
-    }
-
-    /**
-     * @expectedException \Propel\Runtime\Exception\RuntimeException
-     */
-    public function testGetConnectionManagerWithUnknownDatasource()
-    {
-        $this->sc->getConnectionManager('unknown');
-    }
-
-    public function testHasConnectionManager()
-    {
-        $this->sc->setConnectionManager('single', new TestableConnectionManagerSingle());
-        $this->assertTrue($this->sc->hasConnectionManager('single'));
-        $this->assertFalse($this->sc->hasConnectionManager('single_not_existing'));
     }
 
     public function testCloseConnectionsClosesConnectionsOnAllConnectionManagers()

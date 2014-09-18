@@ -11,9 +11,8 @@ use Propel\Generator\Util\QuickBuilder;
 use Propel\Generator\Util\SqlParser;
 use Propel\Runtime\Propel;
 use Propel\Tests\TestCase;
-use Propel\Tests\TestCaseFixtures;
 
-class PlatformDatabaseBuildTimeBase extends TestCaseFixtures
+class PlatformDatabaseBuildTimeBase extends TestCase
 {
 
     /**
@@ -37,7 +36,7 @@ class PlatformDatabaseBuildTimeBase extends TestCaseFixtures
     protected $databaseName = 'reverse-bookstore';
 
     /**
-     * @var \Propel\Runtime\Connection\ConnectionInterface
+     * @var PDO
      */
     public $con;
 
